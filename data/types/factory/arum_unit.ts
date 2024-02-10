@@ -41,6 +41,17 @@ export type MultiHit = Readonly<{
   /** 連続攻撃回数 */
   consecutive_hits: number
 }>
+
+export type AsShooting = Readonly<{
+  /** 射撃反動 */
+  recoil: number
+
+}>
+
+export type WithBlast = Readonly<{
+  /** 爆発範囲 */
+  blast_radius: number
+}>
 export type WithCharge = Readonly<{
   /** チャージ攻撃力 */
   charge_attack_power: number
@@ -49,6 +60,24 @@ export type WithCharge = Readonly<{
   /** チャージ衝撃残留 */
   charge_accumulative_impact: number
 }>
+export type WithChargeBlast = Readonly<{
+  /** チャージ爆発範囲 */
+  charge_blast_radius: number
+}>
+
+export type WithEffectiveRange = Readonly<{
+  /** 有効射程 */
+  effective_range: number
+}>
+export type WithTotalRounds = Readonly<{
+  /** 装弾数 */
+  total_rounds: number
+  /** リロード時間 */
+  reload_time: number
+  /** 弾単価 */
+  ammunition_cost: number
+}>
+
 export type WithPAInterference = Readonly<{
   /** PA干渉 */
   pa_interference: number

@@ -45,7 +45,24 @@ export type MultiHit = Readonly<{
 export type AsShooting = Readonly<{
   /** 射撃反動 */
   recoil: number
-
+  /** 性能保証射程 */
+  ideal_range: number
+}>
+& WithEffectiveRange
+& WithTotalRounds
+export type AsRapidFireWeapon = Readonly<{
+  /** 連射性能 */
+  rapid_fire: number
+}>
+export type WithMagazine = Readonly<{
+  /** マガジン弾数 */
+  magazine_rounds: number
+  /** リロード時間 */
+  reload_time: number
+}>
+export type WithHeatBuildup = Readonly<{
+  /** 攻撃時発熱 */
+  heat_buildup: number
 }>
 
 export type WithBlast = Readonly<{
@@ -64,6 +81,14 @@ export type WithChargeBlast = Readonly<{
   /** チャージ爆発範囲 */
   charge_blast_radius: number
 }>
+export type WithChargeTime = Readonly<{
+  /** チャージ時間 */
+  charge_time: number
+}>
+export type WithChargeHeatBuildup = Readonly<{
+  /** チャージ攻撃時発熱 */
+  charge_heat_buildup: number
+}>
 
 export type WithEffectiveRange = Readonly<{
   /** 有効射程 */
@@ -72,8 +97,6 @@ export type WithEffectiveRange = Readonly<{
 export type WithTotalRounds = Readonly<{
   /** 装弾数 */
   total_rounds: number
-  /** リロード時間 */
-  reload_time: number
   /** 弾単価 */
   ammunition_cost: number
 }>

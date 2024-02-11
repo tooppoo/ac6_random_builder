@@ -1,5 +1,5 @@
-import {Classification} from "../classification";
-import {Manufacture} from "../manufacture";
+import {Classification} from "./classification.ts";
+import {Manufacture} from "./manufacture.ts";
 
 export type ACParts<
   C extends Classification,

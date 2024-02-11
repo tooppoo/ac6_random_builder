@@ -1,6 +1,6 @@
 
 // ARM UNIT
-import {armUnit, leftArmUnit} from "./types/classification";
+import {armUnit, leftArmUnit} from "./types/base/classification.ts";
 import {
   WithRapidFire,
   defineArmUnit,
@@ -21,7 +21,7 @@ import {
   WithReload,
   AsEnergyShooting,
   WithChargeAmmoConsumption, WithIdealRange, AsCoralShooting
-} from "./types/factory/arum_unit";
+} from "./types/unit/types/arm_unit.ts";
 import {
   assault_rifle, bazooka, burst_assault_rifle, burst_handgun, burst_machine_gun,
   burst_rifle,
@@ -32,7 +32,7 @@ import {
   laser_slicer, light_wave_blade, linear_rifle, machine_gun, multi_energy_rifle, napalm_bomb_launcher, needle_gun,
   pile_bunker, plasma_rifle, plasma_thrower, pulse_blade, shotgun,
   stun_baton, stun_bomb_launcher, stun_gun
-} from "./types/category";
+} from "./types/unit/category.ts";
 import {
   allmind,
   arquebus,
@@ -43,9 +43,9 @@ import {
   rubicon_research_institute, schneider,
   takigawa,
   vcpl
-} from "./types/manufacture";
-import {coral, energy, explosive, kinetic} from "./types/attack_type";
-import {burst, charge, full_auto, melee, semi_auto} from "./types/weapon_type.ts";
+} from "./types/base/manufacture.ts";
+import {coral, energy, explosive, kinetic} from "./types/unit/attack_type.ts";
+import {burst, charge, full_auto, melee, semi_auto} from "./types/unit/weapon_type.ts";
 
 export const leftArmUnits = [
   defineArmUnit<AsMelee>()({

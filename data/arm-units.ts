@@ -8,18 +8,18 @@ import {
   WithBlast,
   WithCharge, WithChargeBlast, WithChargeHeatBuildup, WithChargeTime,
   WithCooling, WithEffectiveRange, WithHeatBuildup, WithMagazine,
-  WithTotalRounds, WithReload, AsKineticShooting, AsBlastShooting
+  WithTotalRounds, AsKineticShooting, AsBlastShooting, AsShooting, WithReload
 } from "./types/factory/arum_unit";
 import {
   assault_rifle, bazooka, burst_assault_rifle, burst_handgun, burst_machine_gun,
   burst_rifle,
   chainsaw, coral_oscillator, detonating_bazooka,
-  explosive_thrower, gatling_gun, grenade, handgun, heavy_machine_gun,
+  explosive_thrower, gatling_gun, grenade, handgun, heavy_machine_gun, jamming_bomb_launcher,
   laser_blade,
   laser_dagger, laser_lance,
-  laser_slicer, light_wave_blade, linear_rifle, machine_gun, needle_gun,
+  laser_slicer, light_wave_blade, linear_rifle, machine_gun, napalm_bomb_launcher, needle_gun,
   pile_bunker, plasma_thrower, pulse_blade, shotgun,
-  stun_baton, stun_gun
+  stun_baton, stun_bomb_launcher, stun_gun
 } from "./types/category";
 import {
   allmind,
@@ -1051,4 +1051,77 @@ export const armUnits = [
     weight: 2020,
     en_load: 290,
   }),
+
+  defineArmUnit<AsShooting & WithBlast & WithChargeTime & WithReload>()({
+    name: 'MA-T-222 KYORAI',
+    classification: armUnit,
+    category: napalm_bomb_launcher,
+    attack_type: explosive,
+    weapon_type: charge,
+    manufacture: baws,
+    price: 91000,
+
+    attack_power: 383 * 3,
+    impact: 143 * 3,
+    accumulative_impact: 80 * 3,
+    blast_radius: 20,
+
+    direct_hit_adjustment: 170,
+    recoil: 50,
+    charge_time: 0.4,
+    total_rounds: 90,
+    reload_time: 2.3,
+    ammunition_cost: 200,
+
+    weight: 2890,
+    en_load: 60,
+  }),
+  defineArmUnit<AsShooting & WithBlast & WithChargeTime & WithReload>()({
+    name: 'MA-T-223 KYORIKU',
+    classification: armUnit,
+    category: jamming_bomb_launcher,
+    attack_type: kinetic,
+    weapon_type: charge,
+    manufacture: baws,
+    price: 103000,
+
+    attack_power: 0,
+    impact: 45,
+    accumulative_impact: 4,
+    blast_radius: 60,
+
+    direct_hit_adjustment: 100,
+    recoil: 40,
+    charge_time: 0.4,
+    total_rounds: 40,
+    reload_time: 5.5,
+    ammunition_cost: 100,
+
+    weight: 2600,
+    en_load: 52,
+  }),
+  defineArmUnit<AsShooting & WithBlast & WithChargeTime & WithReload>()({
+    name: 'WS-1200 THERAPIST',
+    classification: armUnit,
+    category: stun_bomb_launcher,
+    attack_type: energy,
+    weapon_type: charge,
+    manufacture: rad,
+    price: 136000,
+
+    attack_power: 141 * 3,
+    impact: 107 * 3,
+    accumulative_impact: 46 * 3,
+    blast_radius: 20,
+
+    direct_hit_adjustment: 130,
+    recoil: 40,
+    charge_time: 0.4,
+    total_rounds: 108,
+    reload_time: 2.0,
+    ammunition_cost: 150,
+
+    weight: 3180,
+    en_load: 82,
+  })
 ] as const

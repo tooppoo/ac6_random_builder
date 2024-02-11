@@ -49,11 +49,13 @@ export type AsKineticShooting = Readonly<{
     attack_type: typeof kinetic
   }>
 & AsShooting
+& WithEffectiveRange
 & WithIdealRange
 export type AsBlastShooting = Readonly<{
     attack_type: typeof explosive,
   }>
 & AsShooting
+& WithEffectiveRange
 & WithBlast
 & WithReload
 
@@ -61,8 +63,8 @@ export type AsShooting = Readonly<{
   /** 射撃反動 */
   recoil: number
 }>
-& WithEffectiveRange
 & WithTotalRounds
+
 export type WithIdealRange = Readonly<{
   /** 性能保証射程 */
   ideal_range: number

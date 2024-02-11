@@ -2,7 +2,7 @@ import type * as Classification from "../classification";
 import {Manufacture} from "../manufacture";
 import {AttackType} from "../attack_type";
 import {ACParts, WithEnLoad} from "./base";
-import {WeaponType} from "../weapon_type.ts";
+import {melee, WeaponType} from "../weapon_type.ts";
 
 type Unit<
   C extends Classification.Classification,
@@ -37,7 +37,8 @@ export type ArmUnit<
   A extends AttackType,
 > = AttackUnit<C, M, W, A>
 
-export type MultiHit = Readonly<{
+export type AsMelee = Readonly<{
+  weapon_type: typeof melee,
   /** 連続攻撃回数 */
   consecutive_hits: number
 }>

@@ -5,7 +5,7 @@ import {
   AsRapidFireWeapon,
   AsShooting,
   defineArmUnit,
-  MultiHit,
+  AsMelee,
   WithBlast,
   WithCharge, WithChargeBlast, WithChargeHeatBuildup, WithChargeTime,
   WithCooling, WithEffectiveRange, WithHeatBuildup, WithMagazine,
@@ -37,7 +37,7 @@ import {coral, energy, explosive, kinetic} from "./types/attack_type";
 import {burst, charge, full_auto, melee, semi_auto} from "./types/weapon_type.ts";
 
 export const leftArmUnits = [
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'PB-033M ASHMEAD',
     classification: leftArmUnit,
     category: pile_bunker,
@@ -90,7 +90,7 @@ export const leftArmUnits = [
     weight: 3790,
     en_load: 160,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'WB-0010 DOUBLE TROUBLE',
     classification: leftArmUnit,
     category: chainsaw,
@@ -115,7 +115,7 @@ export const leftArmUnits = [
     weight: 5090,
     en_load: 108,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'VP-67EB',
     classification: leftArmUnit,
     category: stun_baton,
@@ -140,7 +140,7 @@ export const leftArmUnits = [
     weight: 1720,
     en_load: 198,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'VP-67LD',
     classification: leftArmUnit,
     category: laser_dagger,
@@ -165,7 +165,7 @@ export const leftArmUnits = [
     weight: 1350,
     en_load: 150,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'Vvc-770LB',
     classification: leftArmUnit,
     category: laser_blade,
@@ -190,7 +190,7 @@ export const leftArmUnits = [
     weight: 2060,
     en_load: 245,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'Vvc-774LS',
     classification: leftArmUnit,
     category: laser_slicer,
@@ -215,7 +215,7 @@ export const leftArmUnits = [
     weight: 3260,
     en_load: 328,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name:  'VE-67LLA',
     classification:  leftArmUnit,
     category: laser_lance,
@@ -240,7 +240,7 @@ export const leftArmUnits = [
     weight: 4520,
     en_load: 460,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithChargeBlast & WithPAInterference & WithEffectiveRange & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithChargeBlast & WithPAInterference & WithEffectiveRange & WithCooling>()({
     name: '44-143 HMMR',
     classification: leftArmUnit,
     category: plasma_thrower,
@@ -267,7 +267,7 @@ export const leftArmUnits = [
     weight: 2410,
     en_load: 311,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'HI-32: BU-TT/A',
     classification: leftArmUnit,
     category: pulse_blade,
@@ -292,7 +292,7 @@ export const leftArmUnits = [
     weight: 1800,
     en_load: 213,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithEffectiveRange & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithEffectiveRange & WithCooling>()({
     name: 'IA-C01W2: MOONLIGHT',
     classification: leftArmUnit,
     category: light_wave_blade,
@@ -318,7 +318,7 @@ export const leftArmUnits = [
     weight: 2200,
     en_load: 544,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithEffectiveRange & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithEffectiveRange & WithCooling>()({
     name: 'IA-C01W7: ML-REDSHIFT',
     classification: leftArmUnit,
     category: coral_oscillator,
@@ -344,7 +344,7 @@ export const leftArmUnits = [
     weight: 2200,
     en_load: 544,
   }),
-  defineArmUnit<MultiHit & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
     name: 'IB-C03W2: WLT 101',
     classification: leftArmUnit,
     category: coral_oscillator,

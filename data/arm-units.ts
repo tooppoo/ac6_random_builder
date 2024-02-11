@@ -14,7 +14,7 @@ import {
   assault_rifle, bazooka, burst_assault_rifle, burst_handgun, burst_machine_gun,
   burst_rifle,
   chainsaw, coral_oscillator, detonating_bazooka,
-  explosive_thrower, gatling_gun, grenade, handgun, heavy_machine_gun, jamming_bomb_launcher,
+  explosive_thrower, flamethrower, gatling_gun, grenade, handgun, heavy_machine_gun, jamming_bomb_launcher,
   laser_blade,
   laser_dagger, laser_lance,
   laser_slicer, light_wave_blade, linear_rifle, machine_gun, napalm_bomb_launcher, needle_gun,
@@ -1123,5 +1123,30 @@ export const armUnits = [
 
     weight: 3180,
     en_load: 82,
-  })
+  }),
+  defineArmUnit<AsShooting & WithHeatBuildup & WithEffectiveRange & WithRapidFire & WithCooling>()({
+    name: 'WB-0000 BAD COOK',
+    classification: armUnit,
+    category: flamethrower,
+    attack_type: explosive,
+    weapon_type: full_auto,
+    manufacture: rad,
+    price: 48000,
+
+    attack_power: 85,
+    impact: 3,
+    accumulative_impact: 1,
+    heat_buildup: 15,
+
+    direct_hit_adjustment: 115,
+    recoil: 10,
+    effective_range: 200,
+    rapid_fire: 8.4,
+    total_rounds: 1200,
+    cooling: 250,
+    ammunition_cost: 40,
+
+    weight: 6210,
+    en_load: 403,
+  }),
 ] as const

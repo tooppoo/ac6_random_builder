@@ -43,14 +43,23 @@ export type AsMelee = Readonly<{
   consecutive_hits: number
 }>
 
+export type AsKineticShooting =
+& AsShooting
+& WithIdealRange
+export type AsBlastShooting =
+& AsShooting
+& WithBlast
+
 export type AsShooting = Readonly<{
   /** 射撃反動 */
   recoil: number
-  /** 性能保証射程 */
-  ideal_range: number
 }>
 & WithEffectiveRange
 & WithTotalRounds
+export type WithIdealRange = Readonly<{
+  /** 性能保証射程 */
+  ideal_range: number
+}>
 export type AsRapidFireWeapon = Readonly<{
   /** 連射性能 */
   rapid_fire: number
@@ -58,9 +67,13 @@ export type AsRapidFireWeapon = Readonly<{
 export type WithMagazine = Readonly<{
   /** マガジン弾数 */
   magazine_rounds: number
+}>
+& WithReload
+export type WithReload = Readonly<{
   /** リロード時間 */
   reload_time: number
 }>
+
 export type WithHeatBuildup = Readonly<{
   /** 攻撃時発熱 */
   heat_buildup: number

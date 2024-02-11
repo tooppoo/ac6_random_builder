@@ -3,31 +3,30 @@
 import {armUnit, leftArmUnit} from "./types/classification";
 import {
   AsRapidFireWeapon,
-  AsShooting,
   defineArmUnit,
   AsMelee,
   WithBlast,
   WithCharge, WithChargeBlast, WithChargeHeatBuildup, WithChargeTime,
   WithCooling, WithEffectiveRange, WithHeatBuildup, WithMagazine,
-  WithPAInterference, WithTotalRounds
+  WithPAInterference, WithTotalRounds, WithReload, AsKineticShooting, AsBlastShooting
 } from "./types/factory/arum_unit";
 import {
-  assault_rifle, burst_assault_rifle, burst_handgun, burst_machine_gun,
+  assault_rifle, bazooka, burst_assault_rifle, burst_handgun, burst_machine_gun,
   burst_rifle,
-  chainsaw, coral_oscillator,
-  explosive_thrower, gatling_gun, handgun, heavy_machine_gun,
+  chainsaw, coral_oscillator, detonating_bazooka,
+  explosive_thrower, gatling_gun, grenade, handgun, heavy_machine_gun,
   laser_blade,
   laser_dagger, laser_lance,
   laser_slicer, light_wave_blade, linear_rifle, machine_gun, needle_gun,
   pile_bunker, plasma_thrower, pulse_blade, shotgun,
-  stun_baton
+  stun_baton, stun_gun
 } from "./types/category";
 import {
   allmind,
   arquebus,
   arquebus_add,
   balam, baws,
-  dafeng, elcano,
+  dafeng, elcano, melinite,
   rad,
   rubicon_research_institute,
   takigawa,
@@ -372,8 +371,7 @@ export const leftArmUnits = [
 ] as const
 
 export const armUnits = [
-  // 実弾
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithCharge & WithChargeTime & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithCharge & WithChargeTime & WithMagazine>()({
     name: 'MA-J-200 RANSETSU-RF',
     classification: armUnit,
     category: burst_rifle,
@@ -404,7 +402,7 @@ export const armUnits = [
     weight: 4210,
     en_load: 158,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithCharge & WithChargeTime & WithChargeHeatBuildup & WithMagazine & WithCooling>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithCharge & WithChargeTime & WithChargeHeatBuildup & WithMagazine & WithCooling>()({
     name: 'LR-038 CURTIS',
     classification: armUnit,
     category: linear_rifle,
@@ -437,7 +435,7 @@ export const armUnits = [
     weight: 4150,
     en_load: 289,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithCharge & WithChargeTime & WithChargeHeatBuildup & WithMagazine & WithCooling>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithCharge & WithChargeTime & WithChargeHeatBuildup & WithMagazine & WithCooling>()({
     name: 'LR-037 HARRIS',
     classification: armUnit,
     category: linear_rifle,
@@ -470,7 +468,7 @@ export const armUnits = [
     weight: 4840,
     en_load: 441,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'RF-024 TURNER',
     classification: armUnit,
     category: assault_rifle,
@@ -496,7 +494,7 @@ export const armUnits = [
     weight: 3560,
     en_load: 102,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'RF-025 SCUDDER',
     classification: armUnit,
     category: assault_rifle,
@@ -522,7 +520,7 @@ export const armUnits = [
     weight: 3830,
     en_load: 153,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'MA-J-201 RANSETSU-AR',
     classification: armUnit,
     category: burst_assault_rifle,
@@ -548,7 +546,7 @@ export const armUnits = [
     weight: 3520,
     en_load: 132,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'MG-014 LUDLOW',
     classification: armUnit,
     category: machine_gun,
@@ -574,7 +572,7 @@ export const armUnits = [
     weight: 2450,
     en_load: 82,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'DF-MG-02 CHANG-CHEN',
     classification: armUnit,
     category: machine_gun,
@@ -600,7 +598,7 @@ export const armUnits = [
     weight: 3280,
     en_load: 143,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'WR-0555 ATTACHE',
     classification: armUnit,
     category: heavy_machine_gun,
@@ -626,7 +624,7 @@ export const armUnits = [
     weight: 5110,
     en_load: 303,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'MA-E-210 ETSUJIN',
     classification: armUnit,
     category: burst_machine_gun,
@@ -652,7 +650,7 @@ export const armUnits = [
     weight: 2810,
     en_load: 98,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithHeatBuildup & WithCooling>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithHeatBuildup & WithCooling>()({
     name: 'DF-GA-08 HU-BEN',
     classification: armUnit,
     category: gatling_gun,
@@ -678,7 +676,7 @@ export const armUnits = [
     weight: 5800,
     en_load: 425,
   }),
-  defineArmUnit<AsShooting & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & WithMagazine>()({
     name: 'SG-026 HALDEMAN',
     classification: armUnit,
     category: shotgun,
@@ -703,7 +701,7 @@ export const armUnits = [
     weight: 3660,
     en_load: 185,
   }),
-  defineArmUnit<AsShooting & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & WithMagazine>()({
     name: 'SG-027 ZIMMERMAN',
     classification: armUnit,
     category: shotgun,
@@ -728,7 +726,7 @@ export const armUnits = [
     weight: 4400,
     en_load: 242,
   }),
-  defineArmUnit<AsShooting & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & WithMagazine>()({
     name: 'WR-0777 SWEET SIXTEEN',
     classification: armUnit,
     category: shotgun,
@@ -753,7 +751,7 @@ export const armUnits = [
     weight: 1640,
     en_load: 268,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'HG-003 COQUILLETT',
     classification: armUnit,
     category: handgun,
@@ -779,7 +777,7 @@ export const armUnits = [
     weight: 1200,
     en_load: 122,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'HG-004 DUCKET',
     classification: armUnit,
     category: handgun,
@@ -805,7 +803,7 @@ export const armUnits = [
     weight: 1650,
     en_load: 158,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'MA-E-211 SAMPU',
     classification: armUnit,
     category: burst_handgun,
@@ -831,7 +829,7 @@ export const armUnits = [
     weight: 960,
     en_load: 62,
   }),
-  defineArmUnit<AsShooting & AsRapidFireWeapon & WithMagazine>()({
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
     name: 'EL-PW-00 VIENTO',
     classification: armUnit,
     category: needle_gun,
@@ -858,5 +856,199 @@ export const armUnits = [
     en_load: 215,
   }),
 
-  // EN武器
+  defineArmUnit<AsKineticShooting & AsRapidFireWeapon & WithMagazine>()({
+    name: 'VP-66EG',
+    classification: armUnit,
+    category: stun_gun,
+    attack_type: kinetic,
+    weapon_type: semi_auto,
+    manufacture: elcano,
+    price: 129000,
+
+    attack_power: 104,
+    impact: 54,
+    accumulative_impact: 32,
+
+    direct_hit_adjustment: 195,
+    recoil: 14,
+    ideal_range: 100,
+    effective_range: 159,
+    rapid_fire: 6.7,
+    magazine_rounds: 7,
+    total_rounds: 133,
+    reload_time: 1.8,
+    ammunition_cost: 150,
+
+    weight: 980,
+    en_load: 247,
+  }),
+
+  defineArmUnit<AsBlastShooting & WithReload>()({
+    name: 'DF-BA-06 XUAN-GE',
+    classification: armUnit,
+    category: bazooka,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: dafeng,
+    price: 70000,
+
+    attack_power: 895,
+    impact: 980,
+    accumulative_impact: 765,
+    blast_radius: 15,
+
+    direct_hit_adjustment: 185,
+    recoil: 90,
+    effective_range: 740,
+    total_rounds: 78,
+    reload_time: 3.4,
+    ammunition_cost: 450,
+
+    weight: 5480,
+    en_load: 240,
+  }),
+  defineArmUnit<AsBlastShooting & WithReload>()({
+    name: 'MAJESTIC',
+    classification: armUnit,
+    category: bazooka,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: melinite,
+    price: 121000,
+
+    attack_power: 1109,
+    impact: 1090,
+    accumulative_impact: 850,
+    blast_radius: 15,
+
+    direct_hit_adjustment: 190,
+    recoil: 85,
+    effective_range: 800,
+    total_rounds: 52,
+    reload_time: 4.2,
+    ammunition_cost: 600,
+
+    weight: 4660,
+    en_load: 178,
+  }),
+  defineArmUnit<AsBlastShooting & WithReload>()({
+    name: 'LITTLE GEM',
+    classification: armUnit,
+    category: bazooka,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: melinite,
+    price: 163000,
+
+    attack_power: 819,
+    impact: 910,
+    accumulative_impact: 670,
+    blast_radius: 15,
+
+    direct_hit_adjustment: 180,
+    recoil: 80,
+    effective_range: 690,
+    total_rounds: 36,
+    reload_time: 4.4,
+    ammunition_cost: 450,
+
+    weight: 3100,
+    en_load: 192,
+  }),
+  defineArmUnit<AsBlastShooting & WithReload>()({
+    name: '44-141 JVLN ALPHA',
+    classification: armUnit,
+    category: detonating_bazooka,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: allmind,
+    price: 210000,
+
+    attack_power: 1375,
+    impact: 1390,
+    accumulative_impact: 905,
+    blast_radius: 15,
+
+    direct_hit_adjustment: 220,
+    recoil: 80,
+    effective_range: 760,
+    total_rounds: 44,
+    reload_time: 4.3,
+    ammunition_cost: 750,
+
+    weight: 6300,
+    en_load: 299,
+  }),
+  defineArmUnit<AsBlastShooting & WithReload>()({
+    name: 'DF-GR-07 GOU-CHEN',
+    classification: armUnit,
+    category: grenade,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: dafeng,
+    price: 140000,
+
+    attack_power: 1450,
+    impact: 1197,
+    accumulative_impact: 906,
+    blast_radius: 70,
+
+    direct_hit_adjustment: 140,
+    recoil:  100,
+    effective_range: 625,
+    total_rounds: 40,
+    reload_time: 5.9,
+    ammunition_cost: 1200,
+
+    weight: 4841,
+    en_load: 308,
+  }),
+  defineArmUnit<AsBlastShooting & WithReload>()({
+    name: 'DIZZY',
+    classification: armUnit,
+    category: grenade,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: melinite,
+    price: 260000,
+
+    attack_power: 1650,
+    impact: 1278,
+    accumulative_impact: 1003,
+    blast_radius: 90,
+
+    direct_hit_adjustment: 145,
+    recoil: 100,
+    effective_range: 265,
+    total_rounds: 38,
+    reload_time: 7.1,
+    ammunition_cost: 1500,
+
+    weight: 5750,
+    en_load: 364,
+  }),
+  defineArmUnit<AsBlastShooting & WithReload>()({
+    name: 'IRIDIUM',
+    classification: armUnit,
+    category: grenade,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: melinite,
+    price: 214000,
+
+    attack_power: 1090,
+    impact: 991,
+    accumulative_impact: 845,
+    blast_radius: 60,
+
+    direct_hit_adjustment: 140,
+    recoil: 88,
+    effective_range: 245,
+    total_rounds: 32,
+    reload_time: 4.5,
+    ammunition_cost: 800,
+
+    weight: 2020,
+    en_load: 290,
+  }),
 ] as const

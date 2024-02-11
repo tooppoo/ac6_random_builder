@@ -1,6 +1,6 @@
 import type * as Classification from "../classification";
 import type {Manufacture} from "../manufacture";
-import type {AttackType, explosive, kinetic} from "../attack_type";
+import {AttackType, coral, energy, explosive, kinetic} from "../attack_type";
 import type {ACParts, WithEnLoad} from "./base";
 import type {melee, WeaponType} from "../weapon_type.ts";
 
@@ -49,8 +49,8 @@ export type AsKineticShooting = Readonly<{
     attack_type: typeof kinetic
   }>
 & AsShooting
-& WithEffectiveRange
 & WithIdealRange
+
 export type AsBlastShooting = Readonly<{
     attack_type: typeof explosive,
   }>
@@ -58,6 +58,38 @@ export type AsBlastShooting = Readonly<{
 & WithEffectiveRange
 & WithBlast
 & WithReload
+
+export type AsEnergyShooting = Readonly<{
+    attack_type: typeof energy
+
+    /** チャージEN負荷 */
+    charge_en_load: number
+  }>
+& AsShooting
+& WithHeatBuildup
+& WithCharge
+& WithChargeTime
+& WithChargeHeatBuildup
+& WithEffectiveRange
+& WithRapidFire
+& WithCooling
+
+export type AsCoralShooting = Readonly<{
+    attack_type: typeof coral
+    /** チャージEN負荷 */
+    charge_en_load: number
+  }>
+& AsShooting
+& WithHeatBuildup
+& WithBlast
+& WithCharge
+& WithChargeTime
+& WithChargeHeatBuildup
+& WithChargeAmmoConsumption
+& WithEffectiveRange
+& WithRapidFire
+& WithCooling
+& WithPAInterference
 
 export type AsShooting = Readonly<{
   /** 射撃反動 */
@@ -69,6 +101,7 @@ export type WithIdealRange = Readonly<{
   /** 性能保証射程 */
   ideal_range: number
 }>
+& WithEffectiveRange
 export type WithRapidFire = Readonly<{
   /** 連射性能 */
   rapid_fire: number
@@ -111,6 +144,10 @@ export type WithChargeTime = Readonly<{
 export type WithChargeHeatBuildup = Readonly<{
   /** チャージ攻撃時発熱 */
   charge_heat_buildup: number
+}>
+export type WithChargeAmmoConsumption = Readonly<{
+  /** チャージ消費弾数 */
+  charge_ammo_consumption: number
 }>
 
 export type WithEffectiveRange = Readonly<{

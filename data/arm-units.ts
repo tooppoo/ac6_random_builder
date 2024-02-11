@@ -24,7 +24,7 @@ import {
   AsPulseGun,
   AsLaserGun,
   AsPlasmaGun,
-} from "./types/unit/types/arm_unit.ts";
+} from "./types/unit/types.ts";
 import {
   assault_rifle, bazooka, burst_assault_rifle, burst_handgun, burst_machine_gun,
   burst_rifle,

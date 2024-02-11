@@ -19,8 +19,11 @@ import {
   AsBlastShooting,
   AsShooting,
   WithReload,
-  AsEnergyShooting,
-  WithChargeAmmoConsumption, WithIdealRange, AsCoralShooting
+  WithChargeAmmoConsumption,
+  AsCoralShooting,
+  AsPulseGun,
+  AsLaserGun,
+  AsPlasmaGun,
 } from "./types/unit/types/arm_unit.ts";
 import {
   assault_rifle, bazooka, burst_assault_rifle, burst_handgun, burst_machine_gun,
@@ -30,7 +33,7 @@ import {
   laser_blade,
   laser_dagger, laser_handgun, laser_lance, laser_rifle, laser_shotgun,
   laser_slicer, light_wave_blade, linear_rifle, machine_gun, multi_energy_rifle, napalm_bomb_launcher, needle_gun,
-  pile_bunker, plasma_rifle, plasma_thrower, pulse_blade, shotgun,
+  pile_bunker, plasma_rifle, plasma_thrower, pulse_blade, pulse_gun, shotgun,
   stun_baton, stun_bomb_launcher, stun_gun
 } from "./types/unit/category.ts";
 import {
@@ -1162,7 +1165,7 @@ export const armUnits = [
     en_load: 403,
   }),
 
-  defineArmUnit<AsEnergyShooting & WithIdealRange & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
     name: 'VP-66LR',
     classification: armUnit,
     category: laser_rifle,
@@ -1196,7 +1199,7 @@ export const armUnits = [
     weight: 3560,
     en_load: 480,
   }),
-  defineArmUnit<AsEnergyShooting & WithIdealRange & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
     name: 'VE-66LRA',
     classification: armUnit,
     category: laser_rifle,
@@ -1230,7 +1233,7 @@ export const armUnits = [
     weight: 4940,
     en_load: 532,
   }),
-  defineArmUnit<AsEnergyShooting & WithIdealRange & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
     name: 'VE-66LRB',
     classification: armUnit,
     category: laser_rifle,
@@ -1264,7 +1267,7 @@ export const armUnits = [
     weight: 7760,
     en_load: 604,
   }),
-  defineArmUnit<AsEnergyShooting & WithIdealRange & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
     name: 'WUERGER/66E',
     classification: armUnit,
     category: laser_shotgun,
@@ -1298,7 +1301,7 @@ export const armUnits = [
     weight: 2880,
     en_load:  440,
   }),
-  defineArmUnit<AsEnergyShooting & WithIdealRange & WithChargeAmmoConsumption & WithChargeBlast>()({
+  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption & WithChargeBlast>()({
     name: 'VP-66LS',
     classification: armUnit,
     category: laser_shotgun,
@@ -1333,7 +1336,7 @@ export const armUnits = [
     weight: 3540,
     en_load: 510,
   }),
-  defineArmUnit<AsEnergyShooting & WithIdealRange>()({
+  defineArmUnit<AsLaserGun>()({
     name: 'VP-66LH',
     classification: armUnit,
     category: laser_handgun,
@@ -1366,7 +1369,7 @@ export const armUnits = [
     weight: 2800,
     en_load: 395,
   }),
-  defineArmUnit<AsEnergyShooting & WithBlast & WithChargeBlast & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsPlasmaGun>()({
     name: 'Vvc-760PR',
     classification: armUnit,
     category: plasma_rifle,
@@ -1401,7 +1404,7 @@ export const armUnits = [
     weight: 3330,
     en_load: 490,
   }),
-  defineArmUnit<AsEnergyShooting & WithBlast & WithChargeBlast & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsPlasmaGun>()({
     name: 'IA-C01W1: NEBULA',
     classification: armUnit,
     category: plasma_rifle,
@@ -1509,7 +1512,7 @@ export const armUnits = [
     en_load: 850,
   }),
 
-  defineArmUnit<AsEnergyShooting & WithChargeBlast & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsPlasmaGun>()({
     name: '44-142 KRSV',
     classification: armUnit,
     category: multi_energy_rifle,
@@ -1521,6 +1524,7 @@ export const armUnits = [
     attack_power: 312,
     impact: 112,
     accumulative_impact: 76,
+    blast_radius: 20,
     heat_buildup: 120,
 
     charge_attack_power: 2522,
@@ -1542,5 +1546,58 @@ export const armUnits = [
 
     weight: 10120,
     en_load: 707,
+  }),
+
+  defineArmUnit<AsPulseGun>()({
+    name: 'HI-16: GU-Q1',
+    classification: armUnit,
+    category: pulse_gun,
+    attack_type: energy,
+    weapon_type: full_auto,
+    manufacture: takigawa,
+    price: 90000,
+
+    attack_power: 36,
+    impact: 11,
+    accumulative_impact: 6,
+    heat_buildup: 35,
+
+    direct_hit_adjustment: 140,
+    pa_interference: 527,
+    recoil: 5,
+    effective_range: 250,
+    rapid_fire: 20.0,
+    total_rounds: 560,
+    cooling: 623,
+    ammunition_cost: 30,
+
+    weight: 2110,
+    en_load: 368,
+  }),
+  defineArmUnit<AsPulseGun>()({
+    name: 'HI-18: GU-A2',
+    classification: armUnit,
+    category: pulse_gun,
+    attack_type: energy,
+    weapon_type: full_auto,
+    manufacture: takigawa,
+    price: 159000,
+
+    attack_power: 68,
+    impact: 24,
+    accumulative_impact: 12,
+    heat_buildup: 55,
+
+    direct_hit_adjustment: 150,
+    pa_interference: 537,
+    recoil: 5,
+    effective_range: 310,
+    rapid_fire: 10.0,
+    total_rounds: 380,
+    cooling: 295,
+    ammunition_cost: 60,
+
+    weight: 2650,
+    en_load: 446,
   }),
 ] as const

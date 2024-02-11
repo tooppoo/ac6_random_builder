@@ -1,22 +1,17 @@
+import type {pulse_gun} from "~/data/types/unit/category.ts";
 import type * as Classification from "~/data/types/base/classification.ts";
 import type {Manufacture} from "~/data/types/base/manufacture.ts";
-import {AttackType, coral, energy, explosive, kinetic} from "../attack_type.ts";
+import type {AttackType, coral, energy, explosive, kinetic} from "../attack_type.ts";
 import type {melee, WeaponType} from "../weapon_type.ts";
-import {AttackUnit} from "../types.ts";
+import type {AttackUnit} from "../types.ts";
 
 
 export const defineArmUnit = <Ex extends object>() => <
-  D extends ArmUnit<M, W, A>,
+  D extends AttackUnit<Classification.ArmUnit, M, W, A>,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,
 >(d: D & Ex) => d
-
-type ArmUnit<
-  M extends Manufacture,
-  W extends WeaponType,
-  A extends AttackType,
-> = AttackUnit<Classification.ArmUnit, M, W, A>
 
 export type AsMelee = Readonly<{
   weapon_type: typeof melee,
@@ -41,17 +36,20 @@ export type AsBlastShooting = Readonly<{
 & WithBlast
 & WithReload
 
-export type AsEnergyShooting = Readonly<{
-    attack_type: typeof energy
+export type AsLaserGun = AsEnergyShooting & WithIdealRange
+export type AsPlasmaGun =
+& AsEnergyShooting
+& WithBlast
+& WithChargeBlast
+& WithChargeAmmoConsumption
 
-    /** チャージEN負荷 */
-    charge_en_load: number
-  }>
+export type AsPulseGun = Readonly<{
+  attack_type: typeof energy
+  category: typeof  pulse_gun
+}>
 & AsShooting
 & WithHeatBuildup
-& WithCharge
-& WithChargeTime
-& WithChargeHeatBuildup
+& WithPAInterference
 & WithEffectiveRange
 & WithRapidFire
 & WithCooling
@@ -151,3 +149,19 @@ export type WithCooling = Readonly<{
   /** 冷却性能 */
   cooling: number
 }>
+
+
+type AsEnergyShooting = Readonly<{
+    attack_type: typeof energy
+
+    /** チャージEN負荷 */
+    charge_en_load: number
+  }>
+  & AsShooting
+  & WithHeatBuildup
+  & WithCharge
+  & WithChargeTime
+  & WithChargeHeatBuildup
+  & WithEffectiveRange
+  & WithRapidFire
+  & WithCooling

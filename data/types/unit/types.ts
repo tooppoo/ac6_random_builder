@@ -1,11 +1,11 @@
-import type * as Classification from "~/data/types/base/classification.ts";
+import type {Classification} from "~/data/types/base/classification.ts";
 import type {Manufacture} from "~/data/types/base/manufacture.ts";
 import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
 import {AttackType} from "./attack_type.ts";
 import type {WeaponType} from "./weapon_type.ts";
 
 export type Unit<
-  C extends Classification.Classification,
+  C extends Classification,
   M extends Manufacture,
   W extends WeaponType,
 > = ACParts<C, M> & WithEnLoad & Readonly<{
@@ -21,7 +21,7 @@ export type Unit<
   direct_hit_adjustment: number
 }>
 export type AttackUnit<
-  C extends Classification.Classification,
+  C extends Classification,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,

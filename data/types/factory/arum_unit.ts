@@ -69,7 +69,7 @@ export type WithIdealRange = Readonly<{
   /** 性能保証射程 */
   ideal_range: number
 }>
-export type AsRapidFireWeapon = Readonly<{
+export type WithRapidFire = Readonly<{
   /** 連射性能 */
   rapid_fire: number
 }>

@@ -1,8 +1,8 @@
-import type * as Classification from "../base/classification.ts";
-import type {Manufacture} from "../base/manufacture.ts";
-import type {WeaponType} from "./weapon_type.ts";
-import type {ACParts, WithEnLoad} from "../base/types.ts";
+import type * as Classification from "~/data/types/base/classification.ts";
+import type {Manufacture} from "~/data/types/base/manufacture.ts";
+import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
 import {AttackType} from "./attack_type.ts";
+import type {WeaponType} from "./weapon_type.ts";
 
 export type Unit<
   C extends Classification.Classification,

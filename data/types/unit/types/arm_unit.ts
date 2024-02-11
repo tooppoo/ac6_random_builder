@@ -1,5 +1,5 @@
-import type * as Classification from "../../base/classification.ts";
-import type {Manufacture} from "../../base/manufacture.ts";
+import type * as Classification from "~/data/types/base/classification.ts";
+import type {Manufacture} from "~/data/types/base/manufacture.ts";
 import {AttackType, coral, energy, explosive, kinetic} from "../attack_type.ts";
 import type {melee, WeaponType} from "../weapon_type.ts";
 import {AttackUnit} from "../types.ts";

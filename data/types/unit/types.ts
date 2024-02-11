@@ -77,6 +77,18 @@ export type AsShooting = Readonly<{
   }>
   & WithTotalRounds
 
+export type AsMissile = Readonly<{
+  /** 誘導性能 */
+  guidance: number
+  /** 誘導ロック時間 */
+  homing_lock_time: number
+  /** 最大ロック数 */
+  lock_count: number
+}>
+& WithEffectiveRange
+& WithTotalRounds
+& WithReload
+
 export type WithIdealRange = Readonly<{
     /** 性能保証射程 */
     ideal_range: number

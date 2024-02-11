@@ -1,8 +1,8 @@
 import type * as Classification from "../classification";
-import {Manufacture} from "../manufacture";
-import {AttackType} from "../attack_type";
-import {ACParts, WithEnLoad} from "./base";
-import {melee, WeaponType} from "../weapon_type.ts";
+import type {Manufacture} from "../manufacture";
+import type {AttackType, explosive, kinetic} from "../attack_type";
+import type {ACParts, WithEnLoad} from "./base";
+import type {melee, WeaponType} from "../weapon_type.ts";
 
 type Unit<
   C extends Classification.Classification,
@@ -31,24 +31,31 @@ type AttackUnit<
 }>
 
 export type ArmUnit<
-  C extends Classification.ArmUnit,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,
-> = AttackUnit<C, M, W, A>
+> = AttackUnit<Classification.ArmUnit, M, W, A>
 
 export type AsMelee = Readonly<{
   weapon_type: typeof melee,
   /** 連続攻撃回数 */
   consecutive_hits: number
 }>
+& WithCharge
+& WithPAInterference
+& WithCooling
 
-export type AsKineticShooting =
+export type AsKineticShooting = Readonly<{
+    attack_type: typeof kinetic
+  }>
 & AsShooting
 & WithIdealRange
-export type AsBlastShooting =
+export type AsBlastShooting = Readonly<{
+    attack_type: typeof explosive,
+  }>
 & AsShooting
 & WithBlast
+& WithReload
 
 export type AsShooting = Readonly<{
   /** 射撃反動 */
@@ -125,8 +132,7 @@ export type WithCooling = Readonly<{
 }>
 
 export const defineArmUnit = <Ex extends object>() => <
-  D extends ArmUnit<C, M, W, A>,
-  C extends Classification.ArmUnit,
+  D extends ArmUnit<M, W, A>,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,

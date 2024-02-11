@@ -8,7 +8,7 @@ import {
   WithBlast,
   WithCharge, WithChargeBlast, WithChargeHeatBuildup, WithChargeTime,
   WithCooling, WithEffectiveRange, WithHeatBuildup, WithMagazine,
-  WithPAInterference, WithTotalRounds, WithReload, AsKineticShooting, AsBlastShooting
+  WithTotalRounds, WithReload, AsKineticShooting, AsBlastShooting
 } from "./types/factory/arum_unit";
 import {
   assault_rifle, bazooka, burst_assault_rifle, burst_handgun, burst_machine_gun,
@@ -36,7 +36,7 @@ import {coral, energy, explosive, kinetic} from "./types/attack_type";
 import {burst, charge, full_auto, melee, semi_auto} from "./types/weapon_type.ts";
 
 export const leftArmUnits = [
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'PB-033M ASHMEAD',
     classification: leftArmUnit,
     category: pile_bunker,
@@ -89,7 +89,7 @@ export const leftArmUnits = [
     weight: 3790,
     en_load: 160,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'WB-0010 DOUBLE TROUBLE',
     classification: leftArmUnit,
     category: chainsaw,
@@ -114,7 +114,7 @@ export const leftArmUnits = [
     weight: 5090,
     en_load: 108,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'VP-67EB',
     classification: leftArmUnit,
     category: stun_baton,
@@ -139,7 +139,7 @@ export const leftArmUnits = [
     weight: 1720,
     en_load: 198,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'VP-67LD',
     classification: leftArmUnit,
     category: laser_dagger,
@@ -164,7 +164,7 @@ export const leftArmUnits = [
     weight: 1350,
     en_load: 150,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'Vvc-770LB',
     classification: leftArmUnit,
     category: laser_blade,
@@ -189,7 +189,7 @@ export const leftArmUnits = [
     weight: 2060,
     en_load: 245,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'Vvc-774LS',
     classification: leftArmUnit,
     category: laser_slicer,
@@ -214,7 +214,7 @@ export const leftArmUnits = [
     weight: 3260,
     en_load: 328,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name:  'VE-67LLA',
     classification:  leftArmUnit,
     category: laser_lance,
@@ -239,7 +239,7 @@ export const leftArmUnits = [
     weight: 4520,
     en_load: 460,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithChargeBlast & WithPAInterference & WithEffectiveRange & WithCooling>()({
+  defineArmUnit<AsMelee & WithChargeBlast & WithEffectiveRange>()({
     name: '44-143 HMMR',
     classification: leftArmUnit,
     category: plasma_thrower,
@@ -266,7 +266,7 @@ export const leftArmUnits = [
     weight: 2410,
     en_load: 311,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'HI-32: BU-TT/A',
     classification: leftArmUnit,
     category: pulse_blade,
@@ -291,7 +291,7 @@ export const leftArmUnits = [
     weight: 1800,
     en_load: 213,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithEffectiveRange & WithCooling>()({
+  defineArmUnit<AsMelee & WithEffectiveRange>()({
     name: 'IA-C01W2: MOONLIGHT',
     classification: leftArmUnit,
     category: light_wave_blade,
@@ -317,7 +317,7 @@ export const leftArmUnits = [
     weight: 2200,
     en_load: 544,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithEffectiveRange & WithCooling>()({
+  defineArmUnit<AsMelee & WithEffectiveRange>()({
     name: 'IA-C01W7: ML-REDSHIFT',
     classification: leftArmUnit,
     category: coral_oscillator,
@@ -343,7 +343,7 @@ export const leftArmUnits = [
     weight: 2200,
     en_load: 544,
   }),
-  defineArmUnit<AsMelee & WithCharge & WithPAInterference & WithCooling>()({
+  defineArmUnit<AsMelee>()({
     name: 'IB-C03W2: WLT 101',
     classification: leftArmUnit,
     category: coral_oscillator,
@@ -883,7 +883,7 @@ export const armUnits = [
     en_load: 247,
   }),
 
-  defineArmUnit<AsBlastShooting & WithReload>()({
+  defineArmUnit<AsBlastShooting>()({
     name: 'DF-BA-06 XUAN-GE',
     classification: armUnit,
     category: bazooka,
@@ -907,7 +907,7 @@ export const armUnits = [
     weight: 5480,
     en_load: 240,
   }),
-  defineArmUnit<AsBlastShooting & WithReload>()({
+  defineArmUnit<AsBlastShooting>()({
     name: 'MAJESTIC',
     classification: armUnit,
     category: bazooka,
@@ -931,7 +931,7 @@ export const armUnits = [
     weight: 4660,
     en_load: 178,
   }),
-  defineArmUnit<AsBlastShooting & WithReload>()({
+  defineArmUnit<AsBlastShooting>()({
     name: 'LITTLE GEM',
     classification: armUnit,
     category: bazooka,
@@ -955,7 +955,7 @@ export const armUnits = [
     weight: 3100,
     en_load: 192,
   }),
-  defineArmUnit<AsBlastShooting & WithReload>()({
+  defineArmUnit<AsBlastShooting>()({
     name: '44-141 JVLN ALPHA',
     classification: armUnit,
     category: detonating_bazooka,
@@ -979,7 +979,7 @@ export const armUnits = [
     weight: 6300,
     en_load: 299,
   }),
-  defineArmUnit<AsBlastShooting & WithReload>()({
+  defineArmUnit<AsBlastShooting>()({
     name: 'DF-GR-07 GOU-CHEN',
     classification: armUnit,
     category: grenade,
@@ -1003,7 +1003,7 @@ export const armUnits = [
     weight: 4841,
     en_load: 308,
   }),
-  defineArmUnit<AsBlastShooting & WithReload>()({
+  defineArmUnit<AsBlastShooting>()({
     name: 'DIZZY',
     classification: armUnit,
     category: grenade,
@@ -1027,7 +1027,7 @@ export const armUnits = [
     weight: 5750,
     en_load: 364,
   }),
-  defineArmUnit<AsBlastShooting & WithReload>()({
+  defineArmUnit<AsBlastShooting>()({
     name: 'IRIDIUM',
     classification: armUnit,
     category: grenade,

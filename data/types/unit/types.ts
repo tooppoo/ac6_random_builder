@@ -1,5 +1,5 @@
 
-import type {Category} from "~/data/types/unit/category.ts";
+import type {Category} from "~/data/types/base/category.ts";
 import type {Classification, ArmUnit, leftBackUnit, BackUnit} from "~/data/types/base/classification.ts";
 import type {Manufacture} from "~/data/types/base/manufacture.ts";
 import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";

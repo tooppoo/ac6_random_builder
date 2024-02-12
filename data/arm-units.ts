@@ -73,7 +73,7 @@ import {
   stun_baton,
   stun_bomb_launcher,
   stun_gun
-} from "./types/unit/category.ts";
+} from "./types/base/category.ts";
 import {
   allmind,
   arquebus,

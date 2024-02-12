@@ -1,10 +1,11 @@
+import {Category} from "./category.ts";
 import {Classification} from "./classification.ts";
 import {Manufacture} from "./manufacture.ts";
 
 export type ACParts<
   Cl extends Classification,
   M extends Manufacture,
-  Ca extends string,
+  Ca extends Category,
 > = Readonly<{
   classification: Cl
   manufacture: M

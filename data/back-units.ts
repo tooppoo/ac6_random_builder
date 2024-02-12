@@ -59,7 +59,7 @@ import {
   spread_bazooka,
   stun_needle_launcher,
   vertical_missile
-} from "./types/unit/category.ts";
+} from "./types/base/category.ts";
 
 export const lefTBackUnit = [
   defineShieldUnit<AsShield>()({

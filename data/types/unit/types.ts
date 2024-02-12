@@ -1,22 +1,23 @@
 
-import type {pulse_gun} from "~/data/types/unit/category.ts";
+import type {Category, pulse_gun} from "~/data/types/unit/category.ts";
 import type {Classification, ArmUnit, leftBackUnit, BackUnit} from "~/data/types/base/classification.ts";
 import type {Manufacture} from "~/data/types/base/manufacture.ts";
 import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
 import type {AttackType, coral, energy, explosive, kinetic, none} from "./attack_type.ts";
 import type {melee, shield, WeaponType} from "./weapon_type.ts";
 
-const defineAttackUnit = <C extends Classification>() => <Ex extends object>() => <
-  D extends AttackUnit<C, M, W, A>,
+const defineAttackUnit = <Cl extends Classification>() => <Ex extends object>() => <
+  D extends AttackUnit<Cl, M, W, A, Ca>,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,
+  Ca extends Category,
 >(d: D & Ex) => d
 
 export const defineArmUnit = defineAttackUnit<ArmUnit>()
 export const defineBackUnit = defineAttackUnit<BackUnit>()
 export const defineShieldUnit = <Ex>() => <
-  D extends Unit<typeof leftBackUnit, M, typeof shield, typeof none>,
+  D extends Unit<typeof leftBackUnit, M, typeof shield, typeof none, Category>,
   M extends Manufacture,
 >(d: D & Ex) => d
 
@@ -51,7 +52,10 @@ export type AsBlastShooting = Readonly<{
   & WithBlast
   & WithReload
 
-export type AsLaserGun = AsEnergyShooting & WithIdealRange
+export type AsLaserRifle = AsLaser & WithChargeAmmoConsumption
+export type AsLaserCannon = AsLaserRifle
+
+export type AsLaser = AsEnergyShooting & WithIdealRange
 export type AsPlasmaGun =
   & AsEnergyShooting
   & WithBlast
@@ -224,22 +228,24 @@ type AsGuardUnit = Readonly<{
 }>
 
 type Unit<
-  C extends Classification,
+  Cl extends Classification,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,
-> = ACParts<C, M> & WithEnLoad & Readonly<{
+  Ca extends Category,
+> = ACParts<Cl, M, Ca> & WithEnLoad & Readonly<{
   /** 武器タイプ */
   weapon_type: W
   /** 属性 */
   attack_type: A
 }>
 type AttackUnit<
-  C extends Classification,
+  Cl extends Classification,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,
-> = Unit<C, M, W, A> & Readonly<{
+  Ca extends Category,
+> = Unit<Cl, M, W, A, Ca> & Readonly<{
   /** 攻撃力 */
   attack_power: number
   /** 衝撃力　*/

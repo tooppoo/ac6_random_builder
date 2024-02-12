@@ -21,7 +21,7 @@ import {
   WithChargeAmmoConsumption,
   AsCoralShooting,
   AsPulseGun,
-  AsLaserGun,
+  AsLaser,
   AsPlasmaGun,
   AsMissile,
   WithPAInterference,
@@ -30,7 +30,7 @@ import {
   AsAssaultRifle,
   AsMachineGun,
   AsShotgun,
-  AsHandgun, AsLauncher,
+  AsHandgun, AsLauncher, AsLaserRifle,
 } from "./types/unit/types.ts";
 import {
   assault_rifle,
@@ -1203,7 +1203,7 @@ export const armUnits = [
     en_load: 403,
   }),
 
-  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaserRifle>()({
     name: 'VP-66LR',
     classification: armUnit,
     category: laser_rifle,
@@ -1237,7 +1237,7 @@ export const armUnits = [
     weight: 3560,
     en_load: 480,
   }),
-  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaserRifle>()({
     name: 'VE-66LRA',
     classification: armUnit,
     category: laser_rifle,
@@ -1271,7 +1271,7 @@ export const armUnits = [
     weight: 4940,
     en_load: 532,
   }),
-  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaserRifle>()({
     name: 'VE-66LRB',
     classification: armUnit,
     category: laser_rifle,
@@ -1305,7 +1305,7 @@ export const armUnits = [
     weight: 7760,
     en_load: 604,
   }),
-  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption>()({
+  defineArmUnit<AsLaser & WithChargeAmmoConsumption>()({
     name: 'WUERGER/66E',
     classification: armUnit,
     category: laser_shotgun,
@@ -1339,7 +1339,7 @@ export const armUnits = [
     weight: 2880,
     en_load:  440,
   }),
-  defineArmUnit<AsLaserGun & WithChargeAmmoConsumption & WithChargeBlast>()({
+  defineArmUnit<AsLaser & WithChargeAmmoConsumption & WithChargeBlast>()({
     name: 'VP-66LS',
     classification: armUnit,
     category: laser_shotgun,
@@ -1374,7 +1374,7 @@ export const armUnits = [
     weight: 3540,
     en_load: 510,
   }),
-  defineArmUnit<AsLaserGun>()({
+  defineArmUnit<AsLaser>()({
     name: 'VP-66LH',
     classification: armUnit,
     category: laser_handgun,

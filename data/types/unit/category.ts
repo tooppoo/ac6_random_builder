@@ -1,4 +1,5 @@
 // パーツカテゴリ
+export type Category = string
 
 // ARM UNIT
 //// 近接
@@ -54,3 +55,8 @@ export const pulse_scutum = 'pulse_scutum' as const
 export const coral_shield = 'coral_shield' as const
 
 export const gatling_cannon = 'gatling_cannon' as const
+export const spread_bazooka = 'spread_bazooka' as const
+export const grenade_cannon = 'grenade_cannon' as const
+export const stun_needle_launcher = 'stun_needle_launcher' as const
+export const laser_canon = 'laser_canon' as const
+export const diffuse_laser_canon = 'diffuse_laser_canon' as const

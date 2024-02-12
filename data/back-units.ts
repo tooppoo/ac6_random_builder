@@ -1,15 +1,30 @@
 import {
-  AsBuckler, AsGatling,
+  AsBlastShooting,
+  AsBuckler, AsGatling, AsKineticShooting, AsLaserCannon,
   AsScutum,
   AsShield,
   defineBackUnit,
-  defineShieldUnit
+  defineShieldUnit, WithBlast, WithChargeBlast, WithReload
 } from "./types/unit/types.ts";
-import {leftBackUnit} from "./types/base/classification.ts";
-import {arquebus, arquebus_add, dafeng, rubicon_research_institute, takigawa} from "~/data/types/base/manufacture.ts";
-import {kinetic, none} from "~/data/types/unit/attack_type.ts";
-import {full_auto, shield} from "~/data/types/unit/weapon_type.ts";
-import {coral_shield, gatling_cannon, pulse_buckler, pulse_scutum, pulse_shield} from "~/data/types/unit/category.ts";
+import {backUnit, leftBackUnit} from "./types/base/classification.ts";
+import {
+  arquebus,
+  arquebus_add,
+  balam,
+  dafeng, melinite,
+  rubicon_research_institute,
+  takigawa
+} from "~/data/types/base/manufacture.ts";
+import {energy, explosive, kinetic, none} from "~/data/types/unit/attack_type.ts";
+import {burst, charge, full_auto, semi_auto, shield} from "~/data/types/unit/weapon_type.ts";
+import {
+  coral_shield, diffuse_laser_canon,
+  gatling_cannon, grenade_cannon, laser_canon,
+  pulse_buckler,
+  pulse_scutum,
+  pulse_shield,
+  spread_bazooka, stun_needle_launcher
+} from "~/data/types/unit/category.ts";
 
 export const lefTBackUnit = [
   defineShieldUnit<AsShield>()({
@@ -164,7 +179,7 @@ export const lefTBackUnit = [
 export const backUnits = [
   defineBackUnit<AsGatling>()({
     name: 'DF-GA-09 SHAO-WEI',
-    classification: leftBackUnit,
+    classification: backUnit,
     category: gatling_cannon,
     attack_type: kinetic,
     weapon_type: full_auto,
@@ -187,5 +202,239 @@ export const backUnits = [
 
     weight: 3960,
     en_load: 404,
+  }),
+  defineBackUnit<AsBlastShooting>()({
+    name: 'SB-033M MORLEY',
+    classification: backUnit,
+    category: spread_bazooka,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: balam,
+    price: 255000,
+
+    attack_power: 1360,
+    impact: 1450,
+    accumulative_impact: 860,
+    blast_radius: 15,
+
+    direct_hit_adjustment: 190,
+    recoil: 70,
+    effective_range: 510,
+    total_rounds: 25,
+    reload_time: 5.0,
+    ammunition_cost: 800,
+
+    weight: 6580,
+    en_load: 465,
+  }),
+  defineBackUnit<AsBlastShooting>()({
+    name: 'EARSHOT',
+    classification: backUnit,
+    category: grenade_cannon,
+    attack_type: explosive,
+    weapon_type: semi_auto,
+    manufacture: melinite,
+    price: 255000,
+
+    attack_power: 2098,
+    impact: 1455,
+    accumulative_impact: 1101,
+    blast_radius: 90,
+
+    direct_hit_adjustment: 145,
+    recoil: 70,
+    effective_range: 720,
+    total_rounds: 16,
+    reload_time: 9.3,
+    ammunition_cost: 1600,
+
+    weight: 7230,
+    en_load: 386,
+  }),
+  defineBackUnit<AsBlastShooting>()({
+    name: 'SONGBIRDS',
+    classification: backUnit,
+    category: grenade_cannon,
+    attack_type: explosive,
+    weapon_type: burst,
+    manufacture: melinite,
+    price: 182000,
+
+    attack_power:  655 * 2,
+    impact: 635 * 2,
+    accumulative_impact: 494 * 2,
+    blast_radius: 60,
+
+    direct_hit_adjustment: 140,
+    recoil: 60,
+    effective_range: 625,
+    total_rounds: 42,
+    reload_time: 6.4,
+    ammunition_cost: 600,
+
+    weight: 5500,
+    en_load: 285,
+  }),
+  defineBackUnit<AsKineticShooting & WithBlast & WithReload>()({
+    name: 'VE-60SNA',
+    classification: backUnit,
+    category: stun_needle_launcher,
+    attack_type: kinetic,
+    weapon_type: semi_auto,
+    manufacture: arquebus_add,
+    price: 283000,
+
+    attack_power: 1258,
+    impact: 641,
+    accumulative_impact: 339,
+    blast_radius: 30,
+
+    direct_hit_adjustment:  195,
+    recoil: 70,
+    ideal_range: 280,
+    effective_range: 490,
+    total_rounds: 30,
+    reload_time: 5.0,
+    ammunition_cost: 800,
+
+    weight: 6150,
+    en_load: 825,
+  }),
+  defineBackUnit<AsLaserCannon>()({
+    name: 'VP-60LCS',
+    classification: backUnit,
+    category: laser_canon,
+    attack_type: energy,
+    weapon_type: charge,
+    manufacture: arquebus,
+    price: 147000,
+
+    attack_power: 925,
+    impact: 500,
+    accumulative_impact: 180,
+    heat_buildup: 320,
+
+    charge_attack_power: 1621,
+    charge_impact: 750,
+    charge_accumulative_impact: 280,
+    charge_heat_buildup: 1000,
+
+    direct_hit_adjustment: 145,
+    recoil: 70,
+    ideal_range: 230,
+    effective_range: 359,
+    rapid_fire: 0.7,
+    charge_en_load: 759,
+    charge_time: 1.6,
+    charge_ammo_consumption: 3,
+    total_rounds: 57,
+    cooling: 210,
+    ammunition_cost: 450,
+
+    weight: 5190,
+    en_load: 683,
+  }),
+  defineBackUnit<AsLaserCannon>()({
+    name: 'VP-60LCA',
+    classification: backUnit,
+    category: laser_canon,
+    attack_type: energy,
+    weapon_type: charge,
+    manufacture: arquebus_add,
+    price: 333000,
+
+    attack_power: 633 * 3,
+    impact: 199 * 3,
+    accumulative_impact: 76 * 3,
+    heat_buildup: 700,
+
+    charge_attack_power: 1015 * 3,
+    charge_impact: 3303 * 3,
+    charge_accumulative_impact: 185 * 3,
+    charge_heat_buildup: 1000,
+
+    direct_hit_adjustment: 145,
+    recoil: 70,
+    ideal_range: 240,
+    effective_range: 402,
+    rapid_fire: 0.4,
+    charge_en_load: 1440,
+    charge_time: 5.0,
+    charge_ammo_consumption: 6,
+    total_rounds: 24,
+    cooling: 155,
+    ammunition_cost: 450,
+
+    weight: 14820,
+    en_load: 1200,
+  }),
+  defineBackUnit<AsLaserCannon>()({
+    name: 'VE-60LCB',
+    classification: backUnit,
+    category: laser_canon,
+    attack_type: energy,
+    weapon_type: charge,
+    manufacture: arquebus_add,
+    price: 318000,
+
+    attack_power: 1201,
+    impact: 650,
+    accumulative_impact: 180,
+    heat_buildup: 320,
+
+    charge_attack_power: 2203,
+    charge_impact: 1110,
+    charge_accumulative_impact: 440,
+    charge_heat_buildup: 1000,
+
+    direct_hit_adjustment: 145,
+    recoil: 70,
+    ideal_range: 300,
+    effective_range: 447,
+    rapid_fire: 0.3,
+    charge_en_load: 988,
+    charge_time: 4.3,
+    charge_ammo_consumption: 3,
+    total_rounds: 32,
+    cooling: 172,
+    ammunition_cost: 1000,
+
+    weight: 9270,
+    en_load: 803,
+  }),
+  defineBackUnit<AsLaserCannon & WithChargeBlast>()({
+    name: 'VP-60LCD',
+    classification: backUnit,
+    category: diffuse_laser_canon,
+    attack_type: energy,
+    weapon_type: charge,
+    manufacture: arquebus,
+    price: 215000,
+
+    attack_power: 1308,
+    impact: 648,
+    accumulative_impact: 204,
+    heat_buildup: 440,
+
+    charge_attack_power: 1988,
+    charge_impact: 980,
+    charge_accumulative_impact: 439,
+    charge_blast_radius: 45,
+    charge_heat_buildup: 1000,
+
+    direct_hit_adjustment: 145,
+    recoil: 45,
+    ideal_range: 180,
+    effective_range: 252,
+    rapid_fire: 0.6,
+    charge_en_load: 902,
+    charge_time: 2.0,
+    charge_ammo_consumption: 3,
+    total_rounds: 54,
+    cooling: 232,
+    ammunition_cost: 650,
+
+    weight: 7620,
+    en_load: 784,
   }),
 ] as const

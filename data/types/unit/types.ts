@@ -6,12 +6,14 @@ import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
 import type {AttackType, coral, energy, explosive, kinetic} from "./attack_type.ts";
 import type {melee, WeaponType} from "./weapon_type.ts";
 
-export const defineArmUnit = <Ex extends object>() => <
-  D extends AttackUnit<ArmUnit, M, W, A>,
+const defineUnit = <C extends Classification>() => <Ex extends object>() => <
+  D extends Unit<C, M, W, A>,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,
 >(d: D & Ex) => d
+
+export const defineArmUnit = defineUnit<ArmUnit>()
 
 export type AsMelee = Readonly<{
     weapon_type: typeof melee,
@@ -181,9 +183,13 @@ type Unit<
   C extends Classification,
   M extends Manufacture,
   W extends WeaponType,
+  A extends AttackType,
 > = ACParts<C, M> & WithEnLoad & Readonly<{
   /** 武器タイプ */
   weapon_type: W
+  /** 属性 */
+  attack_type: A
+
   /** 攻撃力 */
   attack_power: number
   /** 衝撃力　*/
@@ -192,13 +198,4 @@ type Unit<
   accumulative_impact: number
   /** 直撃補正 */
   direct_hit_adjustment: number
-}>
-type AttackUnit<
-  C extends Classification,
-  M extends Manufacture,
-  W extends WeaponType,
-  A extends AttackType,
-> = Unit<C, M, W> & Readonly<{
-  /** 属性 */
-  attack_type: A
 }>

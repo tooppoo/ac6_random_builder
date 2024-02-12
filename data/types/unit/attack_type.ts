@@ -5,6 +5,7 @@ export type AttackType =
 | typeof explosive
 | typeof energy
 | typeof coral
+| typeof none
 
 /** 実弾 */
 export const kinetic = 'kinetic' as const
@@ -14,5 +15,5 @@ export const explosive = 'explosive' as const
 export const energy = 'energy' as const
 /** コーラル */
 export const coral = 'coral' as const
-/** 縦など、攻撃手段無し */
+/** 盾など、攻撃手段無し */
 export const none = 'none' as const

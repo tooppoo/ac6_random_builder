@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 import '~/data/arm-units.ts'
 import '~/data/back-units.ts'
+import '~/data/types/frame/types.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>

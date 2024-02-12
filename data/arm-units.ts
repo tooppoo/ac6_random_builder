@@ -23,7 +23,7 @@ import {
   AsCoralShooting,
   AsPulseGun,
   AsLaserGun,
-  AsPlasmaGun, AsMissile, WithPAInterference,
+  AsPlasmaGun, AsMissile, WithPAInterference, AsGatling,
 } from "./types/unit/types.ts";
 import {
   assault_rifle,
@@ -696,7 +696,7 @@ export const armUnits = [
     weight: 2810,
     en_load: 98,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithHeatBuildup & WithCooling>()({
+  defineArmUnit<AsGatling>()({
     name: 'DF-GA-08 HU-BEN',
     classification: armUnit,
     category: gatling_gun,

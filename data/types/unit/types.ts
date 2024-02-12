@@ -1,6 +1,6 @@
 
 import type {pulse_gun} from "~/data/types/unit/category.ts";
-import type {Classification, ArmUnit, leftBackUnit} from "~/data/types/base/classification.ts";
+import type {Classification, ArmUnit, leftBackUnit, BackUnit} from "~/data/types/base/classification.ts";
 import type {Manufacture} from "~/data/types/base/manufacture.ts";
 import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
 import type {AttackType, coral, energy, explosive, kinetic, none} from "./attack_type.ts";
@@ -14,7 +14,7 @@ const defineAttackUnit = <C extends Classification>() => <Ex extends object>() =
 >(d: D & Ex) => d
 
 export const defineArmUnit = defineAttackUnit<ArmUnit>()
-
+export const defineBackUnit = defineAttackUnit<BackUnit>()
 export const defineShieldUnit = <Ex>() => <
   D extends Unit<typeof leftBackUnit, M, typeof shield, typeof none>,
   M extends Manufacture,
@@ -28,6 +28,8 @@ export type AsMelee = Readonly<{
   & WithCharge
   & WithPAInterference
   & WithCooling
+
+export type AsGatling = AsKineticShooting & WithRapidFire & WithHeatBuildup & WithCooling
 
 export type AsKineticShooting = Readonly<{
     attack_type: typeof kinetic

@@ -1,9 +1,15 @@
-import {AsBuckler, AsScutum, AsShield, defineShieldUnit} from "./types/unit/types.ts";
+import {
+  AsBuckler, AsGatling,
+  AsScutum,
+  AsShield,
+  defineBackUnit,
+  defineShieldUnit
+} from "./types/unit/types.ts";
 import {leftBackUnit} from "./types/base/classification.ts";
-import {arquebus, arquebus_add, rubicon_research_institute, takigawa} from "~/data/types/base/manufacture.ts";
-import {none} from "~/data/types/unit/attack_type.ts";
-import {shield} from "~/data/types/unit/weapon_type.ts";
-import {coral_shield, pulse_buckler, pulse_scutum, pulse_shield} from "~/data/types/unit/category.ts";
+import {arquebus, arquebus_add, dafeng, rubicon_research_institute, takigawa} from "~/data/types/base/manufacture.ts";
+import {kinetic, none} from "~/data/types/unit/attack_type.ts";
+import {full_auto, shield} from "~/data/types/unit/weapon_type.ts";
+import {coral_shield, gatling_cannon, pulse_buckler, pulse_scutum, pulse_shield} from "~/data/types/unit/category.ts";
 
 export const lefTBackUnit = [
   defineShieldUnit<AsShield>()({
@@ -152,5 +158,34 @@ export const lefTBackUnit = [
 
     weight: 2170,
     en_load: 800,
+  }),
+] as const
+
+export const backUnits = [
+  defineBackUnit<AsGatling>()({
+    name: 'DF-GA-09 SHAO-WEI',
+    classification: leftBackUnit,
+    category: gatling_cannon,
+    attack_type: kinetic,
+    weapon_type: full_auto,
+    manufacture: dafeng,
+    price: 220000,
+
+    attack_power: 24,
+    impact: 20,
+    accumulative_impact: 11,
+    heat_buildup: 39,
+
+    direct_hit_adjustment: 190,
+    recoil: 5,
+    ideal_range: 156,
+    effective_range: 289,
+    rapid_fire: 14.3,
+    total_rounds: 800,
+    cooling: 650,
+    ammunition_cost: 20,
+
+    weight: 3960,
+    en_load: 404,
   }),
 ] as const

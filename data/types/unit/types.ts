@@ -1,5 +1,5 @@
 
-import type {Category, pulse_gun} from "~/data/types/unit/category.ts";
+import type {Category} from "~/data/types/unit/category.ts";
 import type {Classification, ArmUnit, leftBackUnit, BackUnit} from "~/data/types/base/classification.ts";
 import type {Manufacture} from "~/data/types/base/manufacture.ts";
 import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
@@ -54,17 +54,17 @@ export type AsBlastShooting = Readonly<{
 
 export type AsLaserRifle = AsLaser & WithChargeAmmoConsumption
 export type AsLaserCannon = AsLaserRifle
-
 export type AsLaser = AsEnergyShooting & WithIdealRange
-export type AsPlasmaGun =
+
+export type AsPlasmaRifle =
   & AsEnergyShooting
   & WithBlast
   & WithChargeBlast
   & WithChargeAmmoConsumption
+export type AsPlasmaCanon = AsPlasmaRifle
 
 export type AsPulseGun = Readonly<{
     attack_type: typeof energy
-    category: typeof  pulse_gun
   }>
   & AsShooting
   & WithHeatBuildup
@@ -72,6 +72,7 @@ export type AsPulseGun = Readonly<{
   & WithEffectiveRange
   & WithRapidFire
   & WithCooling
+export type AsPulseCanon = AsPulseGun
 
 export type AsCoralShooting = Readonly<{
     attack_type: typeof coral

@@ -1,10 +1,21 @@
 import {
   AsBlastShooting,
-  AsBuckler, AsGatling, AsKineticShooting, AsLaserCannon,
+  AsBuckler,
+  AsGatling,
+  AsKineticShooting,
+  AsLaserCannon, AsMissile,
+  AsPlasmaCanon, AsPulseCanon,
   AsScutum,
   AsShield,
+  AsShooting,
   defineBackUnit,
-  defineShieldUnit, WithBlast, WithChargeBlast, WithReload
+  defineShieldUnit,
+  WithBlast,
+  WithChargeBlast, WithEffectiveRange,
+  WithMagazine,
+  WithPAInterference,
+  WithRapidFire,
+  WithReload
 } from "./types/unit/types.ts";
 import {backUnit, leftBackUnit} from "./types/base/classification.ts";
 import {
@@ -12,17 +23,17 @@ import {
   arquebus_add,
   balam,
   dafeng, melinite,
-  rubicon_research_institute,
+  rubicon_research_institute, schneider,
   takigawa
 } from "~/data/types/base/manufacture.ts";
 import {energy, explosive, kinetic, none} from "~/data/types/unit/attack_type.ts";
-import {burst, charge, full_auto, semi_auto, shield} from "~/data/types/unit/weapon_type.ts";
+import {burst, charge, full_auto, homing, semi_auto, shield} from "~/data/types/unit/weapon_type.ts";
 import {
   coral_shield, diffuse_laser_canon,
-  gatling_cannon, grenade_cannon, laser_canon,
-  pulse_buckler,
+  gatling_cannon, grenade_cannon, laser_canon, light_wave_cannon, plasma_canon,
+  pulse_buckler, pulse_canon,
   pulse_scutum,
-  pulse_shield,
+  pulse_shield, pulse_shield_launcher,
   spread_bazooka, stun_needle_launcher
 } from "~/data/types/unit/category.ts";
 
@@ -436,5 +447,120 @@ export const backUnits = [
 
     weight: 7620,
     en_load: 784,
+  }),
+
+  defineBackUnit<AsPlasmaCanon>()({
+    name: 'FASAN/60E',
+    classification: backUnit,
+    category: plasma_canon,
+    attack_type: energy,
+    weapon_type: charge,
+    manufacture: schneider,
+    price: 217000,
+
+    attack_power: 1560,
+    impact: 840,
+    accumulative_impact: 570,
+    blast_radius: 30,
+    heat_buildup: 465,
+
+    charge_attack_power: 2412,
+    charge_impact: 1272,
+    charge_accumulative_impact: 792,
+    charge_blast_radius: 60,
+    charge_heat_buildup: 1000,
+
+    direct_hit_adjustment: 125,
+    recoil: 70,
+    effective_range:  440,
+    rapid_fire: 0.5,
+    charge_en_load:  944,
+    charge_time: 2.0,
+    charge_ammo_consumption: 3,
+    total_rounds: 39,
+    cooling: 196,
+    ammunition_cost: 540,
+
+    weight: 6270,
+    en_load: 882,
+  }),
+  defineBackUnit<AsPulseCanon>()({
+    name: 'KRANICH/60Z',
+    classification: backUnit,
+    category: pulse_canon,
+    attack_type: energy,
+    weapon_type: full_auto,
+    manufacture: schneider,
+    price: 177000,
+
+    attack_power: 85,
+    impact: 20,
+    accumulative_impact: 10,
+    heat_buildup: 65,
+
+    direct_hit_adjustment: 145,
+    pa_interference: 550,
+    recoil: 10,
+    effective_range: 490,
+    rapid_fire: 10.0,
+    total_rounds: 560,
+    cooling: 225,
+    ammunition_cost: 40,
+
+    weight: 2100,
+    en_load: 652,
+  }),
+  defineBackUnit<AsShooting & WithBlast & WithPAInterference & WithEffectiveRange & WithRapidFire & WithMagazine>()({
+    name: 'EULE/60D',
+    classification: backUnit,
+    category: pulse_shield_launcher,
+    attack_type: energy,
+    weapon_type: semi_auto,
+    manufacture: schneider,
+    price: 234000,
+
+    attack_power: 455,
+    impact: 640,
+    accumulative_impact: 461,
+    blast_radius: 15,
+
+    direct_hit_adjustment: 155,
+    pa_interference: 175,
+    recoil: 4,
+    effective_range: 62,
+    rapid_fire: 3.4,
+    magazine_rounds: 3,
+    total_rounds: 45,
+    reload_time:  6.0,
+    ammunition_cost: 400,
+
+    weight: 2760,
+    en_load: 382,
+  }),
+  defineBackUnit<AsMissile & WithPAInterference>()({
+    name: 'IA-C01W3: AURORA',
+    classification: backUnit,
+    category: light_wave_cannon,
+    attack_type: energy,
+    weapon_type: homing,
+    manufacture: rubicon_research_institute,
+    price: 340000,
+
+    attack_power: 134 * 4,
+    impact: 102 * 4,
+    accumulative_impact: 102 * 4,
+
+    direct_hit_adjustment: 175,
+    pa_interference: 117,
+    guidance: 240,
+    effective_range: 930,
+    homing_lock_time: 3.3,
+    lock_count: 4,
+    total_rounds: 100,
+    reload_time: 5.5,
+    ammunition_cost: 80,
+
+    weight: 3330,
+    en_load: 390,
   }),
 ] as const

@@ -60,3 +60,7 @@ export const grenade_cannon = 'grenade_cannon' as const
 export const stun_needle_launcher = 'stun_needle_launcher' as const
 export const laser_canon = 'laser_canon' as const
 export const diffuse_laser_canon = 'diffuse_laser_canon' as const
+export const plasma_canon = 'plasma_canon' as const
+export const pulse_canon = 'pulse_canon' as const
+export const pulse_shield_launcher = 'pulse_shield_launcher' as const
+export const light_wave_cannon = 'light_wave_cannon' as const

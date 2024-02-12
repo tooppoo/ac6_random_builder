@@ -22,7 +22,7 @@ import {
   AsCoralShooting,
   AsPulseGun,
   AsLaser,
-  AsPlasmaGun,
+  AsPlasmaRifle,
   AsMissile,
   WithPAInterference,
   AsGatling,
@@ -1407,7 +1407,7 @@ export const armUnits = [
     weight: 2800,
     en_load: 395,
   }),
-  defineArmUnit<AsPlasmaGun>()({
+  defineArmUnit<AsPlasmaRifle>()({
     name: 'Vvc-760PR',
     classification: armUnit,
     category: plasma_rifle,
@@ -1442,7 +1442,7 @@ export const armUnits = [
     weight: 3330,
     en_load: 490,
   }),
-  defineArmUnit<AsPlasmaGun>()({
+  defineArmUnit<AsPlasmaRifle>()({
     name: 'IA-C01W1: NEBULA',
     classification: armUnit,
     category: plasma_rifle,
@@ -1550,7 +1550,7 @@ export const armUnits = [
     en_load: 850,
   }),
 
-  defineArmUnit<AsPlasmaGun>()({
+  defineArmUnit<AsPlasmaRifle>()({
     name: '44-142 KRSV',
     classification: armUnit,
     category: multi_energy_rifle,

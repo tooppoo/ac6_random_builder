@@ -27,9 +27,9 @@ import {
   dafeng, elcano, furlong, melinite, rad,
   rubicon_research_institute, schneider,
   takigawa, vcpl
-} from "~/data/types/base/manufacture.ts";
-import {coral, energy, explosive, kinetic, none} from "~/data/types/unit/attack_type.ts";
-import {burst, charge, full_auto, homing, semi_auto, shield} from "~/data/types/unit/weapon_type.ts";
+} from "./types/base/manufacture.ts";
+import {coral, energy, explosive, kinetic, none} from "./types/unit/attack_type.ts";
+import {burst, charge, full_auto, homing, semi_auto, shield} from "./types/unit/weapon_type.ts";
 import {
   active_homing_missile,
   bullet_orbit,
@@ -59,7 +59,7 @@ import {
   spread_bazooka,
   stun_needle_launcher,
   vertical_missile
-} from "~/data/types/unit/category.ts";
+} from "./types/unit/category.ts";
 
 export const lefTBackUnit = [
   defineShieldUnit<AsShield>()({

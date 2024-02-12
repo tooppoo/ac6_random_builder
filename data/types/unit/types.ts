@@ -29,7 +29,13 @@ export type AsMelee = Readonly<{
   & WithPAInterference
   & WithCooling
 
+export type AsLinearRifle = AsKineticShooting & WithRapidFire & WithCharge & WithChargeTime & WithChargeHeatBuildup & WithMagazine & WithCooling
+export type AsAssaultRifle = AsKineticShooting & WithRapidFire & WithMagazine
+export type AsMachineGun = AsAssaultRifle
+export type AsShotgun = AsKineticShooting & WithMagazine
+export type AsHandgun = AsKineticShooting & WithRapidFire & WithMagazine
 export type AsGatling = AsKineticShooting & WithRapidFire & WithHeatBuildup & WithCooling
+export type AsLauncher = AsShooting & WithBlast & WithChargeTime & WithReload
 
 export type AsKineticShooting = Readonly<{
     attack_type: typeof kinetic

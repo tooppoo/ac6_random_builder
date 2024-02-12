@@ -8,7 +8,6 @@ import {
   WithBlast,
   WithCharge,
   WithChargeBlast,
-  WithChargeHeatBuildup,
   WithChargeTime,
   WithCooling,
   WithEffectiveRange,
@@ -23,7 +22,15 @@ import {
   AsCoralShooting,
   AsPulseGun,
   AsLaserGun,
-  AsPlasmaGun, AsMissile, WithPAInterference, AsGatling,
+  AsPlasmaGun,
+  AsMissile,
+  WithPAInterference,
+  AsGatling,
+  AsLinearRifle,
+  AsAssaultRifle,
+  AsMachineGun,
+  AsShotgun,
+  AsHandgun, AsLauncher,
 } from "./types/unit/types.ts";
 import {
   assault_rifle,
@@ -448,7 +455,7 @@ export const armUnits = [
     weight: 4210,
     en_load: 158,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithCharge & WithChargeTime & WithChargeHeatBuildup & WithMagazine & WithCooling>()({
+  defineArmUnit<AsLinearRifle>()({
     name: 'LR-038 CURTIS',
     classification: armUnit,
     category: linear_rifle,
@@ -481,7 +488,7 @@ export const armUnits = [
     weight: 4150,
     en_load: 289,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithCharge & WithChargeTime & WithChargeHeatBuildup & WithMagazine & WithCooling>()({
+  defineArmUnit<AsLinearRifle>()({
     name: 'LR-037 HARRIS',
     classification: armUnit,
     category: linear_rifle,
@@ -514,7 +521,7 @@ export const armUnits = [
     weight: 4840,
     en_load: 441,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsAssaultRifle>()({
     name: 'RF-024 TURNER',
     classification: armUnit,
     category: assault_rifle,
@@ -540,7 +547,7 @@ export const armUnits = [
     weight: 3560,
     en_load: 102,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsAssaultRifle>()({
     name: 'RF-025 SCUDDER',
     classification: armUnit,
     category: assault_rifle,
@@ -566,7 +573,7 @@ export const armUnits = [
     weight: 3830,
     en_load: 153,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsAssaultRifle>()({
     name: 'MA-J-201 RANSETSU-AR',
     classification: armUnit,
     category: burst_assault_rifle,
@@ -592,7 +599,7 @@ export const armUnits = [
     weight: 3520,
     en_load: 132,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsMachineGun>()({
     name: 'MG-014 LUDLOW',
     classification: armUnit,
     category: machine_gun,
@@ -618,7 +625,7 @@ export const armUnits = [
     weight: 2450,
     en_load: 82,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsMachineGun>()({
     name: 'DF-MG-02 CHANG-CHEN',
     classification: armUnit,
     category: machine_gun,
@@ -644,7 +651,7 @@ export const armUnits = [
     weight: 3280,
     en_load: 143,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsMachineGun>()({
     name: 'WR-0555 ATTACHE',
     classification: armUnit,
     category: heavy_machine_gun,
@@ -670,7 +677,7 @@ export const armUnits = [
     weight: 5110,
     en_load: 303,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsMachineGun>()({
     name: 'MA-E-210 ETSUJIN',
     classification: armUnit,
     category: burst_machine_gun,
@@ -722,7 +729,7 @@ export const armUnits = [
     weight: 5800,
     en_load: 425,
   }),
-  defineArmUnit<AsKineticShooting & WithMagazine>()({
+  defineArmUnit<AsShotgun>()({
     name: 'SG-026 HALDEMAN',
     classification: armUnit,
     category: shotgun,
@@ -747,7 +754,7 @@ export const armUnits = [
     weight: 3660,
     en_load: 185,
   }),
-  defineArmUnit<AsKineticShooting & WithMagazine>()({
+  defineArmUnit<AsShotgun>()({
     name: 'SG-027 ZIMMERMAN',
     classification: armUnit,
     category: shotgun,
@@ -772,7 +779,7 @@ export const armUnits = [
     weight: 4400,
     en_load: 242,
   }),
-  defineArmUnit<AsKineticShooting & WithMagazine>()({
+  defineArmUnit<AsShotgun>()({
     name: 'WR-0777 SWEET SIXTEEN',
     classification: armUnit,
     category: shotgun,
@@ -797,7 +804,7 @@ export const armUnits = [
     weight: 1640,
     en_load: 268,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsHandgun>()({
     name: 'HG-003 COQUILLETT',
     classification: armUnit,
     category: handgun,
@@ -823,7 +830,7 @@ export const armUnits = [
     weight: 1200,
     en_load: 122,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsHandgun>()({
     name: 'HG-004 DUCKET',
     classification: armUnit,
     category: handgun,
@@ -849,7 +856,7 @@ export const armUnits = [
     weight: 1650,
     en_load: 158,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsHandgun>()({
     name: 'MA-E-211 SAMPU',
     classification: armUnit,
     category: burst_handgun,
@@ -875,7 +882,7 @@ export const armUnits = [
     weight: 960,
     en_load: 62,
   }),
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithMagazine>()({
+  defineArmUnit<AsHandgun>()({
     name: 'EL-PW-00 VIENTO',
     classification: armUnit,
     category: needle_gun,
@@ -1098,7 +1105,7 @@ export const armUnits = [
     en_load: 290,
   }),
 
-  defineArmUnit<AsShooting & WithBlast & WithChargeTime & WithReload>()({
+  defineArmUnit<AsLauncher>()({
     name: 'MA-T-222 KYORAI',
     classification: armUnit,
     category: napalm_bomb_launcher,
@@ -1122,7 +1129,7 @@ export const armUnits = [
     weight: 2890,
     en_load: 60,
   }),
-  defineArmUnit<AsShooting & WithBlast & WithChargeTime & WithReload>()({
+  defineArmUnit<AsLauncher>()({
     name: 'MA-T-223 KYORIKU',
     classification: armUnit,
     category: jamming_bomb_launcher,
@@ -1146,7 +1153,7 @@ export const armUnits = [
     weight: 2600,
     en_load: 52,
   }),
-  defineArmUnit<AsShooting & WithBlast & WithChargeTime & WithReload>()({
+  defineArmUnit<AsLauncher>()({
     name: 'WS-1200 THERAPIST',
     classification: armUnit,
     category: stun_bomb_launcher,

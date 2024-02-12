@@ -126,6 +126,23 @@ export type AsCoralMissile = Readonly<{
 & WithChargeAmmoConsumption
 & WithChargeEnLoad
 
+export type AsOrbit =
+& WithIdealRange
+& WithRapidFire
+& WithTotalRounds
+& WithCooling
+
+export type AsTurret =
+& WithIdealRange
+& WithRapidFire
+& WithTotalRounds
+& WithMagazine
+
+export type AsLaserDrone =
+& AsMissile
+& WithCharge
+& WithChargeTime
+
 export type AsShield = AsGuardUnit & Readonly<{
   /** IG攻撃軽減 */
   ig_damage_mitigation: number

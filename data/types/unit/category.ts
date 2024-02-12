@@ -77,3 +77,8 @@ export const detonating_missile = 'detonating_missile' as const
 export const needle_missile = 'needle_missile' as const
 export const plasma_missile = 'plasma_missile' as const
 export const coral_missile = 'coral_missile' as const
+
+export const bullet_orbit = 'bullet_orbit' as const
+export const laser_orbit = 'laser_orbit' as const
+export const laser_turret = 'laser_turret' as const
+export const laser_drone = 'laser_drone' as const

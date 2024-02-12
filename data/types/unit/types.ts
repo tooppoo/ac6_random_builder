@@ -1,19 +1,24 @@
 
 import type {pulse_gun} from "~/data/types/unit/category.ts";
-import type {Classification, ArmUnit} from "~/data/types/base/classification.ts";
+import type {Classification, ArmUnit, leftBackUnit} from "~/data/types/base/classification.ts";
 import type {Manufacture} from "~/data/types/base/manufacture.ts";
 import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
-import type {AttackType, coral, energy, explosive, kinetic} from "./attack_type.ts";
-import type {melee, WeaponType} from "./weapon_type.ts";
+import type {AttackType, coral, energy, explosive, kinetic, none} from "./attack_type.ts";
+import type {melee, shield, WeaponType} from "./weapon_type.ts";
 
-const defineUnit = <C extends Classification>() => <Ex extends object>() => <
-  D extends Unit<C, M, W, A>,
+const defineAttackUnit = <C extends Classification>() => <Ex extends object>() => <
+  D extends AttackUnit<C, M, W, A>,
   M extends Manufacture,
   W extends WeaponType,
   A extends AttackType,
 >(d: D & Ex) => d
 
-export const defineArmUnit = defineUnit<ArmUnit>()
+export const defineArmUnit = defineAttackUnit<ArmUnit>()
+
+export const defineShieldUnit = <Ex>() => <
+  D extends Unit<typeof leftBackUnit, M, typeof shield, typeof none>,
+  M extends Manufacture,
+>(d: D & Ex) => d
 
 export type AsMelee = Readonly<{
     weapon_type: typeof melee,
@@ -90,6 +95,26 @@ export type AsMissile = Readonly<{
 & WithEffectiveRange
 & WithTotalRounds
 & WithReload
+
+export type AsShield = AsGuardUnit & Readonly<{
+  /** IG攻撃軽減 */
+  ig_damage_mitigation: number
+  /** IG衝撃軽減 */
+  ig_impact_dampening: number
+  /** IG持続時間 */
+  ig_duration: number
+}>
+& WithCooling
+export type AsBuckler = AsShield
+export type AsScutum = AsGuardUnit & Readonly<{
+  /** アイドリング攻撃軽減 */
+  idle_damage_mitigation: number
+  /** アイドリング衝撃軽減 */
+  idle_impact_dampening: number
+  /** アイドリング持続時間 */
+  idle_duration: number
+}>
+& WithCooling
 
 export type WithIdealRange = Readonly<{
     /** 性能保証射程 */
@@ -179,6 +204,17 @@ type AsEnergyShooting = Readonly<{
   & WithRapidFire
   & WithCooling
 
+type AsGuardUnit = Readonly<{
+  /** 攻撃軽減 */
+  damage_mitigation: number
+  /** 衝撃軽減 */
+  impact_dampening: number
+  /** 展開時発熱 */
+  deploy_heat_buildup: number
+  /** 展開範囲 */
+  deployment: number
+}>
+
 type Unit<
   C extends Classification,
   M extends Manufacture,
@@ -189,7 +225,13 @@ type Unit<
   weapon_type: W
   /** 属性 */
   attack_type: A
-
+}>
+type AttackUnit<
+  C extends Classification,
+  M extends Manufacture,
+  W extends WeaponType,
+  A extends AttackType,
+> = Unit<C, M, W, A> & Readonly<{
   /** 攻撃力 */
   attack_power: number
   /** 衝撃力　*/

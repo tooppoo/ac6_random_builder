@@ -46,3 +46,9 @@ export const hand_missile = 'hand_missile' as const
 export const split_hand_missile = 'split_hand_missile' as const
 export const siege_hand_missile = 'siege_hand_missile' as const
 export const pulse_hand_missile = 'pulse_hand_missile' as const
+
+// BACK UNIT
+export const pulse_shield = 'pulse_shield' as const
+export const pulse_buckler = 'pulse_buckler' as const
+export const pulse_scutum = 'pulse_scutum' as const
+export const coral_shield = 'coral_shield' as const

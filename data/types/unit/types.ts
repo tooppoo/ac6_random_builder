@@ -108,6 +108,23 @@ export type AsMissile = Readonly<{
 & WithEffectiveRange
 & WithTotalRounds
 & WithReload
+export type AsActiveHomingMissile = AsMissile & WithBlast
+export type AsContainerMissile = Omit<AsMissile, 'lock_count' | 'homing_lock_time'>
+export type AsPlasmaMissile = Readonly<{
+  attack_type: typeof energy
+}>
+& AsMissile
+& WithBlast
+export type AsCoralMissile = Readonly<{
+  attack_type: typeof coral
+}>
+& AsMissile
+& WithBlast
+& WithCharge
+& WithChargeBlast
+& WithChargeTime
+& WithChargeAmmoConsumption
+& WithChargeEnLoad
 
 export type AsShield = AsGuardUnit & Readonly<{
   /** IG攻撃軽減 */
@@ -202,20 +219,23 @@ export type WithCooling = Readonly<{
   cooling: number
 }>
 
-type AsEnergyShooting = Readonly<{
-    attack_type: typeof energy
+type WithChargeEnLoad = Readonly<{
+  /** チャージEN負荷 */
+  charge_en_load: number
+}>
 
-    /** チャージEN負荷 */
-    charge_en_load: number
-  }>
-  & AsShooting
-  & WithHeatBuildup
-  & WithCharge
-  & WithChargeTime
-  & WithChargeHeatBuildup
-  & WithEffectiveRange
-  & WithRapidFire
-  & WithCooling
+type AsEnergyShooting = Readonly<{
+  attack_type: typeof energy
+}>
+& AsShooting
+& WithHeatBuildup
+& WithCharge
+& WithChargeEnLoad
+& WithChargeTime
+& WithChargeHeatBuildup
+& WithEffectiveRange
+& WithRapidFire
+& WithCooling
 
 type AsGuardUnit = Readonly<{
   /** 攻撃軽減 */

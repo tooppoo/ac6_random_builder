@@ -64,3 +64,16 @@ export const plasma_canon = 'plasma_canon' as const
 export const pulse_canon = 'pulse_canon' as const
 export const pulse_shield_launcher = 'pulse_shield_launcher' as const
 export const light_wave_cannon = 'light_wave_cannon' as const
+
+export const missile = 'missile' as const
+export const split_missile = 'split_missile' as const
+export const dual_missile = 'dual_missile' as const
+export const vertical_missile = 'vertical_missile' as const
+export const active_homing_missile = 'active_homing_missile' as const
+export const container_missile = 'container_missile' as const
+export const cluster_missile = 'cluster_missile' as const
+export const scatter_missile = 'scatter_missile' as const
+export const detonating_missile = 'detonating_missile' as const
+export const needle_missile = 'needle_missile' as const
+export const plasma_missile = 'plasma_missile' as const
+export const coral_missile = 'coral_missile' as const

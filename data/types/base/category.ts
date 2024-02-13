@@ -2,6 +2,7 @@
 export type Category = string
 
 // ARM UNIT
+export type ArmUnitCategory = string
 //// 近接
 export const pile_bunker = 'pile_bunker' as const
 export const explosive_thrower = 'explosive_thrower' as const
@@ -16,6 +17,7 @@ export const pulse_blade = 'pulse_blade' as const
 export const light_wave_blade = 'light_wave_blade' as const
 export const coral_oscillator = 'coral_oscillator' as const
 
+//// 射撃武器
 export const burst_rifle = 'burst_rifle' as const
 export const linear_rifle = 'linear_rifle' as const
 export const assault_rifle = 'assault_rifle' as const
@@ -49,11 +51,14 @@ export const siege_hand_missile = 'siege_hand_missile' as const
 export const pulse_hand_missile = 'pulse_hand_missile' as const
 
 // BACK UNIT
+export type BackUnitCategory = string
+//// シールド
 export const pulse_shield = 'pulse_shield' as const
 export const pulse_buckler = 'pulse_buckler' as const
 export const pulse_scutum = 'pulse_scutum' as const
 export const coral_shield = 'coral_shield' as const
 
+//// キャノン・ランチャー
 export const gatling_cannon = 'gatling_cannon' as const
 export const spread_bazooka = 'spread_bazooka' as const
 export const grenade_cannon = 'grenade_cannon' as const
@@ -65,6 +70,7 @@ export const pulse_canon = 'pulse_canon' as const
 export const pulse_shield_launcher = 'pulse_shield_launcher' as const
 export const light_wave_cannon = 'light_wave_cannon' as const
 
+//// ミサイル
 export const missile = 'missile' as const
 export const split_missile = 'split_missile' as const
 export const dual_missile = 'dual_missile' as const
@@ -78,7 +84,29 @@ export const needle_missile = 'needle_missile' as const
 export const plasma_missile = 'plasma_missile' as const
 export const coral_missile = 'coral_missile' as const
 
+//// オービット・タレット・ドローン
 export const bullet_orbit = 'bullet_orbit' as const
 export const laser_orbit = 'laser_orbit' as const
 export const laser_turret = 'laser_turret' as const
 export const laser_drone = 'laser_drone' as const
+
+// FRAME
+export type Frame =
+  | typeof head
+  | typeof arms
+  | typeof core
+  | Legs
+
+export const head = 'head' as const
+export const arms = 'arms' as const
+export const core = 'core' as const
+
+export type Legs =
+  | typeof two_legs
+  | typeof reverse_joint
+  | typeof four_legs
+  | typeof tank
+export const two_legs = 'two_legs' as const
+export const reverse_joint = 'reverse_joint' as const
+export const four_legs = 'four_legs' as const
+export const tank = 'tank' as const

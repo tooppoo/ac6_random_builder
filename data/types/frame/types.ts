@@ -1,16 +1,18 @@
-import type {Arms, Classification, Core, Head, Legs} from "../base/classification";
+import type * as Classification from "../base/classification";
 import type {Manufacture} from "../base/manufacture";
 import type {ACParts} from "../base/types";
-import type {Category} from "~/data/types/base/category.ts";
+import type * as Category from "~/data/types/base/category.ts";
 
-const defineFrame = <Cl extends Classification>() => <Ex extends object>() => <
-  D extends Frame<Cl, M, Ca>,
+const defineFrame = <
+  Cl extends Classification.Classification,
+  Ca extends Category.Frame,
+  Ex extends object
+>() => <
   M extends Manufacture,
-  Ca extends Category
->(d: D & Ex) => d
+>(d: Frame<Cl, M, Ca> & Ex) => d
 
-export const defineHead = defineFrame<Head>()
-export type AsHead = Readonly<{
+export const defineHead = defineFrame<Classification.Head, typeof Category.head, AsHead>()
+type AsHead = Readonly<{
   /** 姿勢安定性能 */
   attitude_stability: number
   /** システム復元性能 */
@@ -24,8 +26,8 @@ export type AsHead = Readonly<{
 }>
 & WithAttitudeStability
 
-export const defineCore = defineFrame<Core>()
-export type AsCore = Readonly<{
+export const defineCore = defineFrame<Classification.Core, typeof Category.core, AsCore>()
+type AsCore = Readonly<{
   /** ブースター効率補正 */
   booster_efficiency_adjective: number
   /** ジェネレーター出力補正 */
@@ -35,8 +37,8 @@ export type AsCore = Readonly<{
 }>
 & WithAttitudeStability
 
-export const defineArms = defineFrame<Arms>()
-export type AsArms =  Readonly<{
+export const defineArms = defineFrame<Classification.Arms, typeof Category.arms, AsArms>()
+type AsArms =  Readonly<{
   /** 腕部積載上限 */
   arms_load_limit: number
   /** 反動制御 */
@@ -47,8 +49,8 @@ export type AsArms =  Readonly<{
   melee_specialization: number
 }>
 
-export const defineLegs = defineFrame<Legs>()
-export type AsLegs = Readonly<{
+export const defineLegs = defineFrame<Classification.Legs, Category.Legs, AsLegs>()
+type AsLegs = Readonly<{
   /** 積載上限　*/
   load_limit: number
   /** 水平跳躍性能　*/
@@ -59,9 +61,9 @@ export type AsLegs = Readonly<{
 & WithAttitudeStability
 
 type Frame<
-  Cl extends Classification,
+  Cl extends Classification.Classification,
   M extends Manufacture,
-  Ca extends string,
+  Ca extends Category.Frame,
 > = ACParts<Cl, M, Ca> & Readonly<{
   ap: number
 

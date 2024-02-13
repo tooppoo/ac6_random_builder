@@ -1,6 +1,6 @@
 import type * as Classification from "../base/classification";
 import type {Manufacture} from "../base/manufacture";
-import type {ACParts} from "../base/types";
+import type {ACParts, WithEnLoad} from "../base/types";
 import type * as Category from "~/data/types/base/category.ts";
 
 const defineFrame = <
@@ -64,7 +64,7 @@ type Frame<
   Cl extends Classification.Classification,
   M extends Manufacture,
   Ca extends Category.Frame,
-> = ACParts<Cl, M, Ca> & Readonly<{
+> = ACParts<Cl, M, Ca> & WithEnLoad & Readonly<{
   ap: number
 
   /** 耐弾防御 */

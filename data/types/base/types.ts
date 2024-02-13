@@ -7,6 +7,7 @@ export type ACParts<
   M extends Manufacture,
   Ca extends Category,
 > = Readonly<{
+  name: string
   classification: Cl
   manufacture: M
   category: Ca

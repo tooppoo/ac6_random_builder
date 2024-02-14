@@ -118,3 +118,6 @@ export type Tank = typeof tank
 // INNER
 export const booster = 'booster' as const
 export type Booster = typeof booster
+
+export const fcs = 'fcs' as const
+export type FCS = typeof fcs

@@ -2,6 +2,7 @@ import type * as Classification from "../base/classification";
 import type {Manufacture} from "../base/manufacture";
 import type {ACParts, WithEnLoad} from "../base/types";
 import type * as Category from "~/data/types/base/category.ts";
+import {WithBooster} from "~/data/types/inner/booster.ts";
 
 const defineFrame = <
   Cl extends Classification.Classification,
@@ -49,14 +50,30 @@ type AsArms =  Readonly<{
   melee_specialization: number
 }>
 
-export const defineLegs = defineFrame<Classification.Legs, Category.Legs, AsLegs>()
-type AsLegs = Readonly<{
-  /** 積載上限　*/
-  load_limit: number
+export const defineLegs =
+  <C extends Category.Legs, Ex extends object>() =>
+  defineFrame<Classification.Legs, C, AsLegs & Ex>()
+export type AsTank = Readonly<{
+  /** 走行性能 */
+  travel_speed: number
+  /** 高速走行性能 */
+  high_speed_performance: number
+}>
+& Omit<
+  WithBooster,
+  | "melee_attack_thrust"
+  | "melee_attack_en_consumption"
+>
+export type AsJumper = Readonly<{
   /** 水平跳躍性能　*/
   jump_distance: number
   /** 垂直跳躍性能　*/
   jump_height: number
+}>
+
+type AsLegs = Readonly<{
+  /** 積載上限　*/
+  load_limit: number
 }>
 & WithAttitudeStability
 

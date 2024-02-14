@@ -102,11 +102,15 @@ export const arms = 'arms' as const
 export const core = 'core' as const
 
 export type Legs =
-  | typeof two_legs
-  | typeof reverse_joint
-  | typeof four_legs
-  | typeof tank
+  | TwoLegs
+  | ReverseJoint
+  | FourLegs
+  | Tank
 export const two_legs = 'two_legs' as const
+export type TwoLegs = typeof two_legs
 export const reverse_joint = 'reverse_joint' as const
+export type ReverseJoint = typeof reverse_joint
 export const four_legs = 'four_legs' as const
+export type FourLegs = typeof four_legs
 export const tank = 'tank' as const
+export type Tank = typeof tank

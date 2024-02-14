@@ -114,3 +114,7 @@ export const four_legs = 'four_legs' as const
 export type FourLegs = typeof four_legs
 export const tank = 'tank' as const
 export type Tank = typeof tank
+
+// INNER
+export const booster = 'booster' as const
+export type Booster = typeof booster

@@ -1,3 +1,13 @@
+import {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
+import type * as Category from "~/data/types/base/category.ts";
+import type * as Classification from "~/data/types/base/classification.ts";
+import {Manufacture} from "~/data/types/base/manufacture.ts";
+
+export const defineBooster = <M extends Manufacture>(d: Booster<M>) => d
+type Booster<M extends Manufacture> =
+  & WithBooster
+  & ACParts<Classification.Booster, M, Category.Booster>
+  & WithEnLoad
 
 export type WithBooster = Readonly<{
   /** 推力 */

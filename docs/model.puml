@@ -49,9 +49,24 @@ package filter {
     PartsFilter ..> Candidates
 }
 package random {
-    interface RandomBuilder
+    class RandomAssemble
 
+    interface RandomBuilder <<Function>>
     RandomBuilder ..> Assembly : build
     RandomBuilder ..> Candidates : use
+
+    package validator {
+        interface Validator {
+            validate(Assembly): Validationresult
+        }
+        interface ValidationResult
+
+        Validator ..> Assembly
+        Validator .r.> ValidationResult
+    }
+
+    RandomAssemble ...> RandomBuilder : call to build
+    RandomAssemble ..> Validator : validate built assembly
+    RandomAssemble ..> ValidationResult
 }
 @enduml

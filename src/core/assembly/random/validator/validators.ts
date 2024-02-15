@@ -1,5 +1,5 @@
-import {Validator} from "./base.ts";
-import {failure, success, ValidationResult} from "./result.ts";
+import {Validator} from "src/core/assembly/random/validator/base.ts";
+import {failure, success, ValidationResult} from "src/core/assembly/random/validator/result.ts";
 import {Assembly} from "~core/assembly/assembly.ts";
 import {sum} from "~core/utils/array.ts";
 

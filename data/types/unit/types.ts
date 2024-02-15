@@ -283,7 +283,9 @@ type AttackUnit<
   W extends WeaponType,
   A extends AttackType,
   Ca extends Category,
-> = Unit<Cl, M, W, A, Ca> & Readonly<{
+> = Unit<Cl, M, W, A, Ca> & AsAttackUnit
+
+export type AsAttackUnit = Readonly<{
   /** 攻撃力 */
   attack_power: number
   /** 衝撃力　*/

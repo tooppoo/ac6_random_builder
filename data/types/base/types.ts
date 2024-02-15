@@ -14,12 +14,13 @@ export type WithEnLoad = Readonly<{
   en_load: number
 }>
 
-export const defineNotEquipped = <Cl extends Classification>(classification: Cl): BaseACParts<Cl, NotEquipped> => ({
+export const defineNotEquipped = <Cl extends Classification>(classification: Cl): BaseACParts<Cl, NotEquipped> & WithEnLoad => ({
   name: '(Not Equipped)',
   classification,
   category: notEquipped,
   price: 0,
   weight: 0,
+  en_load: 0,
 })
 
 type BaseACParts<Cl extends Classification, Ca extends string> = Readonly<{

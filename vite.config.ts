@@ -4,7 +4,8 @@ import {defineConfig} from "vite";
 export default defineConfig({
   resolve: {
     alias: {
-      '~/': join(__dirname, '/'),
+      '~data/': join(__dirname, 'data/'),
+      '~core/': join(__dirname, 'src/core/'),
     }
   }
 })

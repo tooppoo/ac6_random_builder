@@ -1,8 +1,8 @@
 
-import type {Category} from "~/data/types/base/category.ts";
-import type {Classification, ArmUnit, leftBackUnit, BackUnit} from "~/data/types/base/classification.ts";
-import type {Manufacture} from "~/data/types/base/manufacture.ts";
-import type {ACParts, WithEnLoad} from "~/data/types/base/types.ts";
+import type {Category} from "~data/types/base/category.ts";
+import type {Classification, ArmUnit, leftBackUnit, BackUnit} from "~data/types/base/classification.ts";
+import type {Manufacture} from "~data/types/base/manufacture.ts";
+import type {ACParts, WithEnLoad} from "~data/types/base/types.ts";
 import type {AttackType, coral, energy, explosive, kinetic, none} from "./attack_type.ts";
 import type {melee, shield, WeaponType} from "./weapon_type.ts";
 

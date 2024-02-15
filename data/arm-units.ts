@@ -87,7 +87,7 @@ import {
 } from "./types/base/manufacture.ts";
 import {coral, energy, explosive, kinetic} from "./types/unit/attack_type.ts";
 import {burst, charge, full_auto, homing, melee, semi_auto} from "./types/unit/weapon_type.ts";
-import {defineNotEquipped} from "~/data/types/base/types.ts";
+import {defineNotEquipped} from "~data/types/base/types.ts";
 
 export const leftArmUnits = [
   defineArmUnit<AsMelee>()({

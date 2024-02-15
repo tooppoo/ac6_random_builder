@@ -60,7 +60,7 @@ import {
   stun_needle_launcher,
   vertical_missile
 } from "./types/base/category.ts";
-import {defineNotEquipped} from "~/data/types/base/types.ts";
+import {defineNotEquipped} from "~data/types/base/types.ts";
 
 export const lefTBackUnits = [
   defineShieldUnit<AsShield>()({

@@ -1,4 +1,4 @@
-import {Assembly} from "../assembly.ts";
+import {Assembly} from "~core/assemble/assembly.ts";
 import {ValidationResult} from "./result.ts";
 
 export interface Validator {

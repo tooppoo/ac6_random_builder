@@ -1,13 +1,13 @@
-import * as ArmUnits from "~/data/arm-units.ts";
-import * as BackUnits from "~/data/back-units.ts";
-import {heads} from "~/data/heads.ts";
-import {cores} from "~/data/cores.ts";
-import {arms} from "~/data/arms.ts";
-import {legs} from "~/data/legs.ts";
-import {boosters} from "~/data/booster.ts";
-import {fcses} from "~/data/fces.ts";
-import {generators} from "~/data/generators.ts";
-import * as Expansion from "../../../data/expansions.ts";
+import * as ArmUnits from "~data/arm-units.ts";
+import * as BackUnits from "~data/back-units.ts";
+import {heads} from "~data/heads.ts";
+import {cores} from "~data/cores.ts";
+import {arms} from "~data/arms.ts";
+import {legs} from "~data/legs.ts";
+import {boosters} from "~data/booster.ts";
+import {fcses} from "~data/fces.ts";
+import {generators} from "~data/generators.ts";
+import * as Expansion from "~data/expansions.ts";
 
 export const candidates = {
   rightArmUnits: [...ArmUnits.armUnits, ArmUnits.notEquipped],

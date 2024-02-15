@@ -124,3 +124,6 @@ export type FCS = typeof fcs
 
 export const generator = 'generator' as const
 export type Generator = typeof generator
+
+export const notEquipped = 'not-equipped' as const
+export type NotEquipped = typeof notEquipped

@@ -3,11 +3,11 @@ import type * as BackUnits from "~/data/back-units";
 import type {Head} from "~/data/heads";
 import type {Core} from "~/data/cores";
 import type {Arms} from "~/data/arms";
+import type {LegsNotTank, LegsTank} from "~/data/legs";
 import type * as Boosters from "../data/booster";
 import type {FCS} from "~/data/fces";
 import type {Generator} from "~/data/generators";
-import type {Expansion} from "~/data/expansions";
-import type {LegsNotTank, LegsTank} from "~/data/legs";
+import type * as Expansion from "~/data/expansions";
 
 export type Assembly = AssemblyNotTank | AssemblyWithTank
 
@@ -31,5 +31,5 @@ type BaseAssembly = Readonly<{
 
   fcs: FCS
   generator: Generator
-  expansion: Expansion | null
+  expansion: Expansion.Expansion | Expansion.NotEquipped
 }>

@@ -1,6 +1,15 @@
 import {AsJumper, AsTank, defineLegs} from "./types/frame/types";
 import {legs as legsClass} from "./types/base/classification";
-import {four_legs, FourLegs, reverse_joint, ReverseJoint, tank, Tank, two_legs, TwoLegs} from "./types/base/category";
+import {
+  four_legs,
+  FourLegs as FourLegsCategory,
+  reverse_joint,
+  ReverseJoint as ReverseJointCategory,
+  tank,
+  Tank as TankCategory,
+  two_legs,
+  TwoLegs as TwoLegsCategory,
+} from "./types/base/category";
 import {
   allmind,
   arquebus,
@@ -14,8 +23,9 @@ import {
   schneider
 } from "./types/base/manufacture";
 
-const legsNotTank = [
-  defineLegs<TwoLegs, AsJumper>()({
+
+export const twoLegs = [
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'AL-J-121 BASHO',
     classification: legsClass,
     category: two_legs,
@@ -36,7 +46,7 @@ const legsNotTank = [
     weight: 19720,
     en_load: 300,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'AL-J-121/RC JAILBREAK',
     classification: legsClass,
     category: two_legs,
@@ -57,7 +67,7 @@ const legsNotTank = [
     weight: 18560,
     en_load: 300,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'LG-011 MELANDER',
     classification: legsClass,
     category: two_legs,
@@ -78,7 +88,7 @@ const legsNotTank = [
     weight: 17960,
     en_load: 365,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'LG-012 MELANDER C3',
     classification: legsClass,
     category: two_legs,
@@ -99,7 +109,7 @@ const legsNotTank = [
     weight: 16520,
     en_load: 355,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'DF-LG-08 TIAN-QIANG',
     classification: legsClass,
     category: two_legs,
@@ -120,7 +130,7 @@ const legsNotTank = [
     weight: 26950,
     en_load: 400,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'VP-422',
     classification: legsClass,
     category: two_legs,
@@ -141,7 +151,7 @@ const legsNotTank = [
     weight: 17170,
     en_load: 387,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'NACHTREIHER/42E',
     classification: legsClass,
     category: two_legs,
@@ -162,7 +172,7 @@ const legsNotTank = [
     weight: 14030,
     en_load: 462,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'VE-42A',
     classification: legsClass,
     category: two_legs,
@@ -183,7 +193,7 @@ const legsNotTank = [
     weight: 31580,
     en_load: 465,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: '2C-2000 CRAWLER',
     classification: legsClass,
     category: two_legs,
@@ -204,7 +214,7 @@ const legsNotTank = [
     weight: 16300,
     en_load: 280,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: '2C-3000 WRECKER',
     classification: legsClass,
     category: two_legs,
@@ -225,7 +235,7 @@ const legsNotTank = [
     weight: 23230,
     en_load: 680,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: '2S-5000 DESSERT',
     classification: legsClass,
     category: two_legs,
@@ -246,7 +256,7 @@ const legsNotTank = [
     weight: 27180,
     en_load: 420,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'EL-TL-10 FIRMEZA',
     classification: legsClass,
     category: two_legs,
@@ -267,7 +277,7 @@ const legsNotTank = [
     weight: 11200,
     en_load: 378,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'EL-PL-00 ALBA',
     classification: legsClass,
     category: two_legs,
@@ -288,7 +298,7 @@ const legsNotTank = [
     weight: 13150,
     en_load: 360,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: '06-041 MIND ALPHA',
     classification: legsClass,
     category: two_legs,
@@ -309,7 +319,7 @@ const legsNotTank = [
     weight: 20810,
     en_load: 412,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'IA-C01L: EPHEMERA',
     classification: legsClass,
     category: two_legs,
@@ -330,7 +340,7 @@ const legsNotTank = [
     weight: 15200,
     en_load: 398,
   }),
-  defineLegs<TwoLegs, AsJumper>()({
+  defineLegs<TwoLegsCategory, AsJumper>()({
     name: 'IB-C03L: HAL 826',
     classification: legsClass,
     category: two_legs,
@@ -351,8 +361,11 @@ const legsNotTank = [
     weight: 20590,
     en_load: 385,
   }),
+] as const
+export type TwoLegs = typeof twoLegs[number]
 
-  defineLegs<ReverseJoint, AsJumper>()({
+export const reverseJoints = [
+  defineLegs<ReverseJointCategory, AsJumper>()({
     name: 'KASUAR/42Z',
     classification: legsClass,
     category: reverse_joint,
@@ -373,7 +386,7 @@ const legsNotTank = [
     weight: 16510,
     en_load: 388,
   }),
-  defineLegs<ReverseJoint, AsJumper>()({
+  defineLegs<ReverseJointCategory, AsJumper>()({
     name: 'RC-2000 SPRING CHICKEN',
     classification: legsClass,
     category: reverse_joint,
@@ -394,7 +407,7 @@ const legsNotTank = [
     weight: 25340,
     en_load: 402,
   }),
-  defineLegs<ReverseJoint, AsJumper>()({
+  defineLegs<ReverseJointCategory, AsJumper>()({
     name: '06-042 MIND BETA',
     classification: legsClass,
     category: reverse_joint,
@@ -415,8 +428,11 @@ const legsNotTank = [
     weight: 19750,
     en_load: 402,
   }),
+] as const
+export type ReverseJoint = typeof reverseJoints[number]
 
-  defineLegs<FourLegs, AsJumper>()({
+export const fourLegs = [
+  defineLegs<FourLegsCategory, AsJumper>()({
     name: 'LG-033M VERRILL',
     classification: legsClass,
     category: four_legs,
@@ -437,7 +453,7 @@ const legsNotTank = [
     weight: 36200,
     en_load: 675,
   }),
-  defineLegs<FourLegs, AsJumper>()({
+  defineLegs<FourLegsCategory, AsJumper>()({
     name: 'VP-424',
     classification: legsClass,
     category: four_legs,
@@ -458,7 +474,7 @@ const legsNotTank = [
     weight: 31600,
     en_load: 760,
   }),
-  defineLegs<FourLegs, AsJumper>()({
+  defineLegs<FourLegsCategory, AsJumper>()({
     name: 'LAMMERGEIER/42F',
     classification: legsClass,
     category: four_legs,
@@ -480,9 +496,10 @@ const legsNotTank = [
     en_load: 790,
   }),
 ] as const
+export type FourLegs = typeof fourLegs[number]
 
-const tanks = [
-  defineLegs<Tank, AsTank>()({
+export const tanks = [
+  defineLegs<TankCategory, AsTank>()({
     name: 'LG-022T BORNEMISSZA',
     classification: legsClass,
     category: tank,
@@ -517,7 +534,7 @@ const tanks = [
     weight: 49800,
     en_load: 455,
   }),
-  defineLegs<Tank, AsTank>()({
+  defineLegs<TankCategory, AsTank>()({
     name: 'VE-42B',
     classification: legsClass,
     category: tank,
@@ -552,7 +569,7 @@ const tanks = [
     weight: 46600,
     en_load: 824,
   }),
-  defineLegs<Tank, AsTank>()({
+  defineLegs<TankCategory, AsTank>()({
     name: 'EL-TL-11 FORTALEZA',
     classification: legsClass,
     category: tank,
@@ -588,8 +605,17 @@ const tanks = [
     en_load: 620,
   }),
 ] as const
+export type Tank = typeof tanks[number]
 
-export const legs = [...legsNotTank, ...tanks] as const
+export const legs = [
+  ...twoLegs,
+  ...reverseJoints,
+  ...fourLegs,
+  ...tanks
+] as const
 
-export type LegsNotTank = typeof legs[number]
-export type LegsTank = typeof tanks[number]
+export type LegsNotTank =
+  | TwoLegs
+  | ReverseJoint
+  | FourLegs
+export type LegsTank = Tank

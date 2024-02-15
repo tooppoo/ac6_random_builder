@@ -121,3 +121,6 @@ export type Booster = typeof booster
 
 export const fcs = 'fcs' as const
 export type FCS = typeof fcs
+
+export const generator = 'generator' as const
+export type Generator = typeof generator

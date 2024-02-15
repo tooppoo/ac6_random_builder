@@ -1,7 +1,7 @@
-import {Validator} from "./base";
-import {Assembly} from "../assembly";
-import {failure, success, ValidationResult} from "./result";
-import {sum} from "~/utils/array";
+import {Validator} from "./base.ts";
+import {Assembly} from "../assembly.ts";
+import {failure, success, ValidationResult} from "./result.ts";
+import {sum} from "../../utils/array.ts";
 
 export const notOverEnergyOutput: Validator = {
   validate(assembly: Assembly): ValidationResult {

@@ -1,13 +1,13 @@
-import type * as ArmUnits from "~/data/arm-units";
-import type * as BackUnits from "~/data/back-units";
-import type {Head} from "~/data/heads";
-import type {Core} from "~/data/cores";
-import type {Arms} from "~/data/arms";
-import type {LegsNotTank, LegsTank} from "~/data/legs";
-import type * as Boosters from "../data/booster";
-import type {FCS} from "~/data/fces";
-import type {Generator} from "~/data/generators";
-import type * as Expansion from "~/data/expansions";
+import type * as ArmUnits from "~/data/arm-units.ts";
+import type * as BackUnits from "~/data/back-units.ts";
+import type {Head} from "~/data/heads.ts";
+import type {Core} from "~/data/cores.ts";
+import type {Arms} from "~/data/arms.ts";
+import type {LegsNotTank, LegsTank} from "~/data/legs.ts";
+import type * as Boosters from "../../../data/booster.ts";
+import type {FCS} from "~/data/fces.ts";
+import type {Generator} from "~/data/generators.ts";
+import type * as Expansion from "~/data/expansions.ts";
 
 export type Assembly = AssemblyNotTank | AssemblyWithTank
 

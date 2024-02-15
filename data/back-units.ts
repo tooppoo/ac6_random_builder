@@ -18,7 +18,7 @@ import {
   WithRapidFire,
   WithReload
 } from "./types/unit/types.ts";
-import {backUnit, leftBackUnit} from "./types/base/classification.ts";
+import {backUnit, backUnitNotEquipped, leftBackUnit} from "./types/base/classification.ts";
 import {
   allmind,
   arquebus,
@@ -60,8 +60,9 @@ import {
   stun_needle_launcher,
   vertical_missile
 } from "./types/base/category.ts";
+import {defineNotEquipped} from "~/data/types/base/types.ts";
 
-export const lefTBackUnit = [
+export const lefTBackUnits = [
   defineShieldUnit<AsShield>()({
     name: 'VP-61PS',
     classification: leftBackUnit,
@@ -210,7 +211,7 @@ export const lefTBackUnit = [
     en_load: 800,
   }),
 ] as const
-
+export type LeftBackUnit = typeof lefTBackUnits[number]
 export const backUnits = [
   defineBackUnit<AsGatling>()({
     name: 'DF-GA-09 SHAO-WEI',
@@ -1295,3 +1296,7 @@ export const backUnits = [
     en_load: 570,
   }),
 ] as const
+export type BackUnit = typeof backUnits[number]
+
+export const notEquipped = defineNotEquipped(backUnitNotEquipped)
+export type NotEquipped = typeof notEquipped

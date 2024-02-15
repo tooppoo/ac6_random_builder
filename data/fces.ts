@@ -165,3 +165,4 @@ export const fcses = [
     en_load: 486,
   }),
 ] as const
+export type FCS = typeof fcses[number]

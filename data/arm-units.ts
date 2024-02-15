@@ -1,6 +1,6 @@
 
 // ARM UNIT
-import {armUnit, leftArmUnit} from "./types/base/classification.ts";
+import {armUnit, armUnitNotEquipped, leftArmUnit} from "./types/base/classification.ts";
 import {
   WithRapidFire,
   defineArmUnit,
@@ -87,6 +87,7 @@ import {
 } from "./types/base/manufacture.ts";
 import {coral, energy, explosive, kinetic} from "./types/unit/attack_type.ts";
 import {burst, charge, full_auto, homing, melee, semi_auto} from "./types/unit/weapon_type.ts";
+import {defineNotEquipped} from "~/data/types/base/types.ts";
 
 export const leftArmUnits = [
   defineArmUnit<AsMelee>()({
@@ -422,6 +423,7 @@ export const leftArmUnits = [
     en_load: 642,
   })
 ] as const
+export type LeftArmUnit = typeof leftArmUnits[number]
 
 export const armUnits = [
   defineArmUnit<AsKineticShooting & WithRapidFire & WithCharge & WithChargeTime & WithMagazine>()({
@@ -1748,3 +1750,7 @@ export const armUnits = [
     en_load: 392,
   }),
 ] as const
+export type ArmUnit = typeof armUnits[number]
+
+export const notEquipped = defineNotEquipped(armUnitNotEquipped)
+export type NotEquipped = typeof notEquipped

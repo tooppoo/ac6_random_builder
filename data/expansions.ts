@@ -32,3 +32,5 @@ export const expansions = [
     time_limit: 2,
   }),
 ] as const
+
+export type Expansion = typeof expansions[number]

@@ -1,7 +1,8 @@
 import {defineBooster} from "./types/inner/booster";
-import {booster as boosterClass} from "./types/base/classification";
+import {booster as boosterClass, boosterNotEquipped} from "./types/base/classification";
 import {booster as boosterCategory} from "./types/base/category";
 import {baws, furlong, rad, rubicon_research_institute, schneider} from "./types/base/manufacture";
+import {defineNotEquipped} from "./types/base/types";
 
 export const boosters = [
   defineBooster({
@@ -317,3 +318,7 @@ export const boosters = [
     en_load: 342,
   }),
 ] as const
+export type Booster =  typeof boosters[number]
+
+export const notEquipped = defineNotEquipped(boosterNotEquipped)
+export type NotEquipped = typeof notEquipped

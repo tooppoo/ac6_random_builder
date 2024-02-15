@@ -6,17 +6,28 @@ export type ACParts<
   Cl extends Classification,
   M extends Manufacture,
   Ca extends Category,
-> = Readonly<{
-  name: string
-  classification: Cl
+> = BaseACParts<Cl> & Readonly<{
   manufacture: M
   category: Ca
-  /** 価格　*/
-  price: number
-  /** 重量　*/
-  weight: number
 }>
 
 export type WithEnLoad = Readonly<{
   en_load: number
+}>
+
+export const defineNotEquipped = <C extends Classification>(classification: C): BaseACParts<C> => ({
+  name: '(Not Equipped)',
+  classification,
+  price: 0,
+  weight: 0,
+})
+
+type BaseACParts<C extends Classification> = Readonly<{
+  /** 名前 */
+  name: string
+  classification: C
+  /** 価格　*/
+  price: number
+  /** 重量　*/
+  weight: number
 }>

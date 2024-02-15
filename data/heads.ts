@@ -544,3 +544,4 @@ export const heads = [
     en_load: 215,
   }),
 ] as const
+export type Head = typeof heads[number]

@@ -229,3 +229,4 @@ export const generators = [
     en_output: 4340,
   }),
 ] as const
+export type Generator = typeof generators[number]

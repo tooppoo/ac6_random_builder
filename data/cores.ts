@@ -373,3 +373,4 @@ export const cores = [
     en_load: 366,
   }),
 ] as const
+export type Core = typeof cores[number]

@@ -14,8 +14,8 @@ export type Classification =
 // UNIT
 export const armUnit = 'arm-unit' as const
 export const leftArmUnit = 'left-arm-unit' as const
-export const armNotEquipped = 'arm-not-equipped' as const
-export type ArmUnit = typeof armUnit | typeof leftArmUnit | typeof armNotEquipped
+export const armUnitNotEquipped = 'arm-unit-not-equipped' as const
+export type ArmUnit = typeof armUnit | typeof leftArmUnit | typeof armUnitNotEquipped
 
 export const backUnit = 'back-unit' as const
 export const leftBackUnit = 'left-back-unit' as const

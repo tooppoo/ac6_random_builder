@@ -415,3 +415,4 @@ export const arms = [
     en_load: 300,
   }),
 ] as const
+export type Arms = typeof arms[number]

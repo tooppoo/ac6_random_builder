@@ -14,7 +14,7 @@ import {
   schneider
 } from "./types/base/manufacture";
 
-export const legs = [
+const legsNotTank = [
   defineLegs<TwoLegs, AsJumper>()({
     name: 'AL-J-121 BASHO',
     classification: legsClass,
@@ -479,7 +479,9 @@ export const legs = [
     weight: 22430,
     en_load: 790,
   }),
+] as const
 
+const tanks = [
   defineLegs<Tank, AsTank>()({
     name: 'LG-022T BORNEMISSZA',
     classification: legsClass,
@@ -586,3 +588,8 @@ export const legs = [
     en_load: 620,
   }),
 ] as const
+
+export const legs = [...legsNotTank, ...tanks] as const
+
+export type LegsNotTank = typeof legs[number]
+export type LegsTank = typeof tanks[number]

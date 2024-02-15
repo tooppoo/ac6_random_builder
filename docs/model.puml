@@ -1,0 +1,57 @@
+@startuml
+package data {
+    class ArmUnit
+    class Head
+    class Arms
+    class Core
+    class Legs
+    class Booster
+    class FCS
+    class Generator
+    class Expansion
+
+    Legs <|-- LegsNotTank
+    Legs <|-- Tank
+    LegsNotTank <|-- TwoLegs
+    LegsNotTank <|-- FourLegs
+    LegsNotTank <|-- ReverseJoint
+}
+Assembly <|-- AssemblyNotTank
+Assembly <|-- AssemblyWithTank
+
+Assembly o---> ArmUnit
+Assembly o---> Head
+Assembly o---> Arms
+Assembly o---> Core
+Assembly o---> FCS
+Assembly o---> Generator
+Assembly o---> Expansion
+
+AssemblyNotTank o--> "1" LegsNotTank
+LegsNotTank o-u-> Booster
+
+AssemblyWithTank o--> "1" Tank
+
+Candidates o---> "n" ArmUnit
+Candidates o---> "n" Head
+Candidates o---> "n" Arms
+Candidates o---> "n" Core
+Candidates o---> "n" Legs
+Candidates o---> "n" Booster
+Candidates o---> "n" FCS
+Candidates o---> "n" Generator
+Candidates o---> "n" Expansion
+
+package filter {
+    interface PartsFilter {
+        apply(Candidates): Candidates
+    }
+    PartsFilter ..> Candidates
+}
+package random {
+    interface RandomBuilder
+
+    RandomBuilder ..> Assembly : build
+    RandomBuilder ..> Candidates : use
+}
+@enduml

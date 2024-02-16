@@ -18,6 +18,10 @@ class ValidationSuccess {
   }
 
   public readonly isSuccess = true as const
+
+  toString() {
+    return 'ValidationSuccess'
+  }
 }
 class ValidationFailure {
   constructor(private readonly errors: Error[]) {}
@@ -32,4 +36,8 @@ class ValidationFailure {
     )
   }
   public readonly isSuccess = false as const
+
+  toString(): string {
+    return `ValidationFailure`
+  }
 }

@@ -5,9 +5,11 @@ import {failure, success, ValidationResult} from "./result.ts";
 
 export const notOverEnergyOutput: Validator = {
   validate(assembly: Assembly): ValidationResult {
-    const totalEn = sum([
+    const totalEnLoad = sum([
       assembly.rightArmUnit,
       assembly.leftArmUnit,
+      assembly.rightArmUnit,
+      assembly.leftBackUnit,
       assembly.head,
       assembly.core,
       assembly.arms,
@@ -15,8 +17,11 @@ export const notOverEnergyOutput: Validator = {
       assembly.booster,
       assembly.fcs,
     ].map(p => p.en_load))
+    const totalEnOutput = Math.floor(
+      assembly.generator.en_output * (assembly.core.generator_output_adjective * 0.01)
+    )
 
-    return assembly.generator.en_output >= totalEn
+    return totalEnOutput >= totalEnLoad
       ? success(assembly)
       : failure([new Error('EN output error')])
   },

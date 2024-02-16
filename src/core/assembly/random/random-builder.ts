@@ -2,7 +2,7 @@ import {Assembly} from "~core/assembly/assembly.ts";
 import {Candidates} from "~core/assembly/candidates.ts";
 import {notEquipped} from "~data/booster.ts";
 
-type Randomizer = () => number
+export type Randomizer = () => number
 export function randomBuild(
   candidates: Candidates,
   randomizer: Randomizer = () => Math.random(),

@@ -17,6 +17,9 @@ jobs:
       run: npm run coverage
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4.0.1
-      env:
-        token: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        files: ./coverage/coverage-final.json
+        fail_ci_if_error: true
         slug: tooppoo/ac6_assemble_tool
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

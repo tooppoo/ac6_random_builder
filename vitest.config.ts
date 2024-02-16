@@ -5,7 +5,7 @@ export default defineConfig({
   ...viteConfig,
   test: {
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'lcov'],
       all: true,
     }
   }

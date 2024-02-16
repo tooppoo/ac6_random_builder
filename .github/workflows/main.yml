@@ -1,4 +1,4 @@
-name: Codecov
+name: Test
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
     branches:
     - main
 jobs:
-  codecov:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -23,3 +23,7 @@ jobs:
         slug: tooppoo/ac6_assemble_tool
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    - name: publish codeclimate
+      uses: paambaati/codeclimate-action@v5.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}

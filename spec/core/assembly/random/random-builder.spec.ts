@@ -6,7 +6,7 @@ import {describe, expect, it} from 'vitest'
 
 describe(randomBuild.name, () => {
   fc.assert(
-    fc.property(fc.float({ min: 0, max: 1 }), (i) => {
+    fc.property(fc.float({ min: 0, max: 1, noNaN: true, noDefaultInfinity: true }), (i) => {
       const actual = randomBuild(candidates, () => i)
 
       if (actual.legs.category === 'tank') {

@@ -1,5 +1,5 @@
-import {core as coreCategory} from './types/base/category'
-import {core as coreClass} from './types/base/classification'
+import { core as coreCategory } from './types/base/category'
+import { core as coreClass } from './types/base/classification'
 import {
   allmind,
   arquebus,
@@ -12,7 +12,7 @@ import {
   rubicon_research_institute,
   schneider,
 } from './types/base/manufacture'
-import {defineCore} from './types/frame/types'
+import { defineCore } from './types/frame/types'
 
 export const cores = [
   defineCore({

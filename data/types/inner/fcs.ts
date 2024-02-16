@@ -1,7 +1,7 @@
 import type * as Category from '~data/types/base/category.ts'
 import type * as Classification from '~data/types/base/classification.ts'
-import type {Manufacture} from '~data/types/base/manufacture.ts'
-import type {ACParts, WithEnLoad} from '~data/types/base/types.ts'
+import type { Manufacture } from '~data/types/base/manufacture.ts'
+import type { ACParts, WithEnLoad } from '~data/types/base/types.ts'
 
 export const defineFCS = <M extends Manufacture>(d: FCS<M>) => d
 export type FCS<M extends Manufacture> = Readonly<{

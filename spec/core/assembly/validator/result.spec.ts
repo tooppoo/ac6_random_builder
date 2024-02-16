@@ -1,18 +1,18 @@
-import {describe, expect, it} from 'vitest'
-import {candidates} from '~core/assembly/candidates'
-import {randomBuild} from '~core/assembly/random/random-builder'
-import {failure, success} from '~core/assembly/random/validator/result'
+import { describe, expect, it } from 'vitest'
+import { candidates } from '~core/assembly/candidates'
+import { randomBuild } from '~core/assembly/random/random-builder'
+import { failure, success } from '~core/assembly/random/validator/result'
 
 describe('validator/result', () => {
   const assemble = randomBuild(candidates)
   const e = (n: number) => new Error(`error-${n}`)
 
   describe.each([
-    {a: success(assemble), b: success(assemble), expected: success(assemble)},
-    {a: success(assemble), b: failure([e(2)]), expected: failure([e(2)])},
-    {a: failure([e(1)]), b: success(assemble), expected: failure([e(1)])},
-    {a: failure([e(1)]), b: failure([e(2)]), expected: failure([e(1), e(2)])},
-  ])('$a concat $b', ({a, b, expected}) => {
+    { a: success(assemble), b: success(assemble), expected: success(assemble) },
+    { a: success(assemble), b: failure([e(2)]), expected: failure([e(2)]) },
+    { a: failure([e(1)]), b: success(assemble), expected: failure([e(1)]) },
+    { a: failure([e(1)]), b: failure([e(2)]), expected: failure([e(1), e(2)]) },
+  ])('$a concat $b', ({ a, b, expected }) => {
     it(`should return ${expected}`, () => {
       expect(a.concat(b)).toEqual(expected)
     })

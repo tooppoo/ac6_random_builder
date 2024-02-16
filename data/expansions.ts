@@ -1,6 +1,10 @@
-import {expansion} from './types/base/classification'
-import {defineNotEquipped} from './types/base/types'
-import {AsAssaultArmor, AsProtect, defineExpansion,} from './types/expansion/types'
+import { expansion } from './types/base/classification'
+import { defineNotEquipped } from './types/base/types'
+import {
+  AsAssaultArmor,
+  AsProtect,
+  defineExpansion,
+} from './types/expansion/types'
 
 export const expansions = [
   defineExpansion<AsAssaultArmor>({

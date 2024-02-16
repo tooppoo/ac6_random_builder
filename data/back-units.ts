@@ -1,4 +1,4 @@
-import {defineNotEquipped} from '~data/types/base/types.ts'
+import { defineNotEquipped } from '~data/types/base/types.ts'
 import {
   active_homing_missile,
   bullet_orbit,
@@ -30,7 +30,11 @@ import {
   stun_needle_launcher,
   vertical_missile,
 } from './types/base/category.ts'
-import {backUnit, backUnitNotEquipped, leftBackUnit,} from './types/base/classification.ts'
+import {
+  backUnit,
+  backUnitNotEquipped,
+  leftBackUnit,
+} from './types/base/classification.ts'
 import {
   allmind,
   arquebus,
@@ -46,7 +50,13 @@ import {
   takigawa,
   vcpl,
 } from './types/base/manufacture.ts'
-import {coral, energy, explosive, kinetic, none,} from './types/unit/attack_type.ts'
+import {
+  coral,
+  energy,
+  explosive,
+  kinetic,
+  none,
+} from './types/unit/attack_type.ts'
 import {
   AsActiveHomingMissile,
   AsBlastShooting,
@@ -77,7 +87,14 @@ import {
   WithRapidFire,
   WithReload,
 } from './types/unit/types.ts'
-import {burst, charge, full_auto, homing, semi_auto, shield,} from './types/unit/weapon_type.ts'
+import {
+  burst,
+  charge,
+  full_auto,
+  homing,
+  semi_auto,
+  shield,
+} from './types/unit/weapon_type.ts'
 
 export const lefTBackUnits = [
   defineShieldUnit<AsShield>()({
@@ -554,11 +571,11 @@ export const backUnits = [
   }),
   defineBackUnit<
     AsShooting &
-    WithBlast &
-    WithPAInterference &
-    WithEffectiveRange &
-    WithRapidFire &
-    WithMagazine
+      WithBlast &
+      WithPAInterference &
+      WithEffectiveRange &
+      WithRapidFire &
+      WithMagazine
   >()({
     name: 'EULE/60D',
     classification: backUnit,

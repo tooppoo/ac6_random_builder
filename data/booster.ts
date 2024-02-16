@@ -1,8 +1,17 @@
-import {booster as boosterCategory} from './types/base/category'
-import {booster as boosterClass, boosterNotEquipped,} from './types/base/classification'
-import {baws, furlong, rad, rubicon_research_institute, schneider,} from './types/base/manufacture'
-import {defineNotEquipped} from './types/base/types'
-import {defineBooster} from './types/inner/booster'
+import { booster as boosterCategory } from './types/base/category'
+import {
+  booster as boosterClass,
+  boosterNotEquipped,
+} from './types/base/classification'
+import {
+  baws,
+  furlong,
+  rad,
+  rubicon_research_institute,
+  schneider,
+} from './types/base/manufacture'
+import { defineNotEquipped } from './types/base/types'
+import { defineBooster } from './types/inner/booster'
 
 export const boosters = [
   defineBooster({

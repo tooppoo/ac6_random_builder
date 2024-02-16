@@ -1,12 +1,12 @@
-import {fc, it} from '@fast-check/vitest'
-import {tank} from 'data/types/base/category'
-import {booster, boosterNotEquipped} from 'data/types/base/classification'
-import {describe} from 'vitest'
-import {candidates} from '~core/assembly/candidates'
-import {randomBuild} from '~core/assembly/random/random-builder'
+import { fc, it } from '@fast-check/vitest'
+import { tank } from 'data/types/base/category'
+import { booster, boosterNotEquipped } from 'data/types/base/classification'
+import { describe } from 'vitest'
+import { candidates } from '~core/assembly/candidates'
+import { randomBuild } from '~core/assembly/random/random-builder'
 
 describe(randomBuild.name, () => {
-  it.prop([fc.float({min: 0, max: 1, noNaN: true, noDefaultInfinity: true})])(
+  it.prop([fc.float({ min: 0, max: 1, noNaN: true, noDefaultInfinity: true })])(
     'should build correct coupling booster and legs',
     (i) => {
       const actual = randomBuild(candidates, () => i)

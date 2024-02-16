@@ -1,9 +1,15 @@
-import type {Assembly} from '~core/assembly/assembly.ts'
-import type {Candidates} from '~core/assembly/candidates.ts'
-import {randomBuild, Randomizer,} from '~core/assembly/random/random-builder.ts'
-import type {Validator} from '~core/assembly/random/validator/base.ts'
-import {success, ValidationResult,} from '~core/assembly/random/validator/result.ts'
-import {notOverEnergyOutput} from '~core/assembly/random/validator/validators.ts'
+import type { Assembly } from '~core/assembly/assembly.ts'
+import type { Candidates } from '~core/assembly/candidates.ts'
+import {
+  randomBuild,
+  Randomizer,
+} from '~core/assembly/random/random-builder.ts'
+import type { Validator } from '~core/assembly/random/validator/base.ts'
+import {
+  success,
+  ValidationResult,
+} from '~core/assembly/random/validator/result.ts'
+import { notOverEnergyOutput } from '~core/assembly/random/validator/validators.ts'
 
 type AssembleOption = Readonly<{
   /** 乱数生成器 */

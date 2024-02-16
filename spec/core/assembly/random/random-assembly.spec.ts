@@ -1,9 +1,9 @@
-import {fc, it} from '@fast-check/vitest'
-import {candidates} from 'src/core/assembly/candidates'
-import {Validator} from 'src/core/assembly/random/validator/base'
-import {failure, success} from 'src/core/assembly/random/validator/result'
-import {describe} from 'vitest'
-import {RandomAssembly} from '~core/assembly/random/random-assembly'
+import { fc, it } from '@fast-check/vitest'
+import { candidates } from 'src/core/assembly/candidates'
+import { Validator } from 'src/core/assembly/random/validator/base'
+import { failure, success } from 'src/core/assembly/random/validator/result'
+import { describe } from 'vitest'
+import { RandomAssembly } from '~core/assembly/random/random-assembly'
 
 describe(RandomAssembly.name, () => {
   it.prop([fc.array(generateValidator())])(
@@ -22,7 +22,7 @@ describe(RandomAssembly.name, () => {
 
 const generateValidator = (): fc.Arbitrary<Validator> =>
   fc.oneof(
-    fc.integer({min: 8480, max: 26740}).map<Validator>((border) => ({
+    fc.integer({ min: 8480, max: 26740 }).map<Validator>((border) => ({
       validate: (a) =>
         a.arms.weight <= border
           ? success(a)

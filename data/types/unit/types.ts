@@ -1,12 +1,12 @@
-import type {Category} from '~data/types/base/category.ts'
+import type { Category } from '~data/types/base/category.ts'
 import type {
-  Classification,
   ArmUnit,
-  leftBackUnit,
   BackUnit,
+  Classification,
+  leftBackUnit,
 } from '~data/types/base/classification.ts'
-import type {Manufacture} from '~data/types/base/manufacture.ts'
-import type {ACParts, WithEnLoad} from '~data/types/base/types.ts'
+import type { Manufacture } from '~data/types/base/manufacture.ts'
+import type { ACParts, WithEnLoad } from '~data/types/base/types.ts'
 import type {
   AttackType,
   coral,
@@ -15,39 +15,39 @@ import type {
   kinetic,
   none,
 } from './attack_type.ts'
-import type {melee, shield, WeaponType} from './weapon_type.ts'
+import type { melee, shield, WeaponType } from './weapon_type.ts'
 
 const defineAttackUnit =
   <Cl extends Classification>() =>
-    <Ex extends object>() =>
-      <
-        D extends AttackUnit<Cl, M, W, A, Ca>,
-        M extends Manufacture,
-        W extends WeaponType,
-        A extends AttackType,
-        Ca extends Category,
-      >(
-        d: D & Ex,
-      ) =>
-        d
+  <Ex extends object>() =>
+  <
+    D extends AttackUnit<Cl, M, W, A, Ca>,
+    M extends Manufacture,
+    W extends WeaponType,
+    A extends AttackType,
+    Ca extends Category,
+  >(
+    d: D & Ex,
+  ) =>
+    d
 
 export const defineArmUnit = defineAttackUnit<ArmUnit>()
 export const defineBackUnit = defineAttackUnit<BackUnit>()
 export const defineShieldUnit =
   <Ex>() =>
-    <
-      D extends Unit<
-        typeof leftBackUnit,
-        M,
-        typeof shield,
-        typeof none,
-        Category
-      >,
-      M extends Manufacture,
-    >(
-      d: D & Ex,
-    ) =>
-      d
+  <
+    D extends Unit<
+      typeof leftBackUnit,
+      M,
+      typeof shield,
+      typeof none,
+      Category
+    >,
+    M extends Manufacture,
+  >(
+    d: D & Ex,
+  ) =>
+    d
 
 export type AsMelee = Readonly<{
   weapon_type: typeof melee

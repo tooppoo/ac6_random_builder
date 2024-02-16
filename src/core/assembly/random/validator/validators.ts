@@ -1,7 +1,7 @@
-import type {Assembly} from '~core/assembly/assembly.ts'
-import {sum} from '~core/utils/array.ts'
-import type {Validator} from './base.ts'
-import {failure, success, ValidationResult} from './result.ts'
+import type { Assembly } from '~core/assembly/assembly.ts'
+import { sum } from '~core/utils/array.ts'
+import type { Validator } from './base.ts'
+import { failure, success, ValidationResult } from './result.ts'
 
 export const notOverEnergyOutput: Validator = {
   validate(assembly: Assembly): ValidationResult {
@@ -21,7 +21,7 @@ export const notOverEnergyOutput: Validator = {
     )
     const totalEnOutput = Math.floor(
       assembly.generator.en_output *
-      (assembly.core.generator_output_adjective * 0.01),
+        (assembly.core.generator_output_adjective * 0.01),
     )
 
     return totalEnOutput >= totalEnLoad

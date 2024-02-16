@@ -1,7 +1,13 @@
-import {generator as generatorCategory} from './types/base/category'
-import {generator as generatorClass} from './types/base/classification'
-import {arquebus, arquebus_add, baws, dafeng, rubicon_research_institute,} from './types/base/manufacture'
-import {defineGenerator} from './types/inner/generator'
+import { generator as generatorCategory } from './types/base/category'
+import { generator as generatorClass } from './types/base/classification'
+import {
+  arquebus,
+  arquebus_add,
+  baws,
+  dafeng,
+  rubicon_research_institute,
+} from './types/base/manufacture'
+import { defineGenerator } from './types/inner/generator'
 
 export const generators = [
   defineGenerator({

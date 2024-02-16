@@ -1,8 +1,8 @@
 import type * as Category from '~data/types/base/category.ts'
-import {WithBooster} from '~data/types/inner/booster.ts'
+import { WithBooster } from '~data/types/inner/booster.ts'
 import type * as Classification from '../base/classification'
-import type {Manufacture} from '../base/manufacture'
-import type {ACParts, WithEnLoad} from '../base/types'
+import type { Manufacture } from '../base/manufacture'
+import type { ACParts, WithEnLoad } from '../base/types'
 
 const defineFrame =
   <
@@ -10,8 +10,8 @@ const defineFrame =
     Ca extends Category.Frame,
     Ex extends object,
   >() =>
-    <M extends Manufacture>(d: Frame<Cl, M, Ca> & Ex) =>
-      d
+  <M extends Manufacture>(d: Frame<Cl, M, Ca> & Ex) =>
+    d
 
 export const defineHead = defineFrame<
   Classification.Head,

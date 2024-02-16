@@ -1,42 +1,5 @@
 // ARM UNIT
-import {
-  armUnit,
-  armUnitNotEquipped,
-  leftArmUnit,
-} from './types/base/classification.ts'
-import {
-  WithRapidFire,
-  defineArmUnit,
-  AsMelee,
-  WithBlast,
-  WithCharge,
-  WithChargeBlast,
-  WithChargeTime,
-  WithCooling,
-  WithEffectiveRange,
-  WithHeatBuildup,
-  WithMagazine,
-  WithTotalRounds,
-  AsKineticShooting,
-  AsBlastShooting,
-  AsShooting,
-  WithReload,
-  WithChargeAmmoConsumption,
-  AsCoralShooting,
-  AsPulseGun,
-  AsLaser,
-  AsPlasmaRifle,
-  AsMissile,
-  WithPAInterference,
-  AsGatling,
-  AsLinearRifle,
-  AsAssaultRifle,
-  AsMachineGun,
-  AsShotgun,
-  AsHandgun,
-  AsLauncher,
-  AsLaserRifle,
-} from './types/unit/types.ts'
+import { defineNotEquipped } from '~data/types/base/types.ts'
 import {
   assault_rifle,
   bazooka,
@@ -83,6 +46,11 @@ import {
   stun_gun,
 } from './types/base/category.ts'
 import {
+  armUnit,
+  armUnitNotEquipped,
+  leftArmUnit,
+} from './types/base/classification.ts'
+import {
   allmind,
   arquebus,
   arquebus_add,
@@ -98,7 +66,40 @@ import {
   takigawa,
   vcpl,
 } from './types/base/manufacture.ts'
-import {coral, energy, explosive, kinetic} from './types/unit/attack_type.ts'
+import { coral, energy, explosive, kinetic } from './types/unit/attack_type.ts'
+import {
+  AsAssaultRifle,
+  AsBlastShooting,
+  AsCoralShooting,
+  AsGatling,
+  AsHandgun,
+  AsKineticShooting,
+  AsLaser,
+  AsLaserRifle,
+  AsLauncher,
+  AsLinearRifle,
+  AsMachineGun,
+  AsMelee,
+  AsMissile,
+  AsPlasmaRifle,
+  AsPulseGun,
+  AsShooting,
+  AsShotgun,
+  defineArmUnit,
+  WithBlast,
+  WithCharge,
+  WithChargeAmmoConsumption,
+  WithChargeBlast,
+  WithChargeTime,
+  WithCooling,
+  WithEffectiveRange,
+  WithHeatBuildup,
+  WithMagazine,
+  WithPAInterference,
+  WithRapidFire,
+  WithReload,
+  WithTotalRounds,
+} from './types/unit/types.ts'
 import {
   burst,
   charge,
@@ -107,7 +108,6 @@ import {
   melee,
   semi_auto,
 } from './types/unit/weapon_type.ts'
-import {defineNotEquipped} from '~data/types/base/types.ts'
 
 export const leftArmUnits = [
   defineArmUnit<AsMelee>()({
@@ -137,10 +137,10 @@ export const leftArmUnits = [
   }),
   defineArmUnit<
     WithBlast &
-    WithCharge &
-    WithChargeBlast &
-    WithEffectiveRange &
-    WithTotalRounds
+      WithCharge &
+      WithChargeBlast &
+      WithEffectiveRange &
+      WithTotalRounds
   >()({
     name: 'DF-ET-09 TAI-YANG-SHOU',
     classification: leftArmUnit,
@@ -454,10 +454,10 @@ export type LeftArmUnit = (typeof leftArmUnits)[number]
 export const armUnits = [
   defineArmUnit<
     AsKineticShooting &
-    WithRapidFire &
-    WithCharge &
-    WithChargeTime &
-    WithMagazine
+      WithRapidFire &
+      WithCharge &
+      WithChargeTime &
+      WithMagazine
   >()({
     name: 'MA-J-200 RANSETSU-RF',
     classification: armUnit,
@@ -1213,10 +1213,10 @@ export const armUnits = [
   }),
   defineArmUnit<
     AsShooting &
-    WithHeatBuildup &
-    WithEffectiveRange &
-    WithRapidFire &
-    WithCooling
+      WithHeatBuildup &
+      WithEffectiveRange &
+      WithRapidFire &
+      WithCooling
   >()({
     name: 'WB-0000 BAD COOK',
     classification: armUnit,
@@ -1756,12 +1756,12 @@ export const armUnits = [
   }),
   defineArmUnit<
     AsMissile &
-    WithBlast &
-    WithCharge &
-    WithChargeTime &
-    WithChargeBlast &
-    WithPAInterference &
-    WithReload
+      WithBlast &
+      WithCharge &
+      WithChargeTime &
+      WithChargeBlast &
+      WithPAInterference &
+      WithReload
   >()({
     name: 'PFAU/66D',
     classification: armUnit,

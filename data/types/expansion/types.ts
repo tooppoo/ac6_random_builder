@@ -1,4 +1,4 @@
-import {AsAttackUnit, WithBlast} from '../unit/types'
+import { AsAttackUnit, WithBlast } from '../unit/types'
 
 export const defineExpansion = <Ex extends object>(d: Expansion & Ex) => d
 

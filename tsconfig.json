@@ -21,12 +21,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "~data/*": [
-        "./data/*"
-      ],
-      "~core/*": [
-        "./src/core/*"
-      ]
+      "~data/*": ["./data/*"],
+      "~core/*": ["./src/core/*"]
     }
   },
   "include": ["src"]

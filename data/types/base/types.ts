@@ -1,6 +1,6 @@
-import {Category, notEquipped, NotEquipped} from './category.ts'
-import {Classification} from './classification.ts'
-import {Manufacture} from './manufacture.ts'
+import { Category, notEquipped, NotEquipped } from './category.ts'
+import { Classification } from './classification.ts'
+import { Manufacture } from './manufacture.ts'
 
 export type ACParts<
   Cl extends Classification,

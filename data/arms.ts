@@ -1,6 +1,5 @@
-import {defineArms} from './types/frame/types'
-import {arms as armsClass} from './types/base/classification'
-import {arms as armsCategory} from './types/base/category'
+import { arms as armsCategory } from './types/base/category'
+import { arms as armsClass } from './types/base/classification'
 import {
   allmind,
   arquebus,
@@ -13,6 +12,7 @@ import {
   rubicon_research_institute,
   schneider,
 } from './types/base/manufacture'
+import { defineArms } from './types/frame/types'
 
 export const arms = [
   defineArms({

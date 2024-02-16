@@ -8,7 +8,7 @@ import {
   two_legs,
   TwoLegs as TwoLegsCategory,
 } from './types/base/category'
-import {legs as legsClass} from './types/base/classification'
+import { legs as legsClass } from './types/base/classification'
 import {
   allmind,
   arquebus,
@@ -21,7 +21,7 @@ import {
   rubicon_research_institute,
   schneider,
 } from './types/base/manufacture'
-import {AsJumper, AsTank, defineLegs} from './types/frame/types'
+import { AsJumper, AsTank, defineLegs } from './types/frame/types'
 
 export const twoLegs = [
   defineLegs<TwoLegsCategory, AsJumper>()({

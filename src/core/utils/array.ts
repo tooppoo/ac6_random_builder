@@ -4,9 +4,7 @@ export function sum(xs: number[]): number {
 }
 
 export function random<T>(xs: readonly T[], rand: () => number = () => Math.random()): T {
-  if (xs.length === 0) {
-    throw new Error('random() accept only non empty array')
-  }
+  if (xs.length === 0) throw new Error('random() cannot accept empty array')
 
   return xs[Math.floor(rand() * (xs.length - 1))]
 }

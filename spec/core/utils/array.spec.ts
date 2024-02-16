@@ -13,22 +13,16 @@ describe('utils/array', () => {
       return sum
     }
 
-    fc.assert(
-      fc.property(fc.array(fc.integer()), (data) => {
-        describe(`list = ${JSON.stringify(data)}`, () => {
-          it(`should return sum(${modelSum(data)})`, () => {
-            expect(sum(data)).toStrictEqual(modelSum(data))
-          })
-        })
-      })
-    )
+    fcit.prop([fc.array(fc.integer())])('should return sum of them', (xs) => {
+      return sum(xs) === modelSum(xs)
+    })
   })
 
   describe(random.name, () => {
     fcit.prop([
       fc.array(fc.option(fc.integer()), { minLength: 1 }),
       fc.float({ min: 0, max: 1, noNaN: true }),
-    ])('', (xs, i) => {
+    ])('should select a item', (xs, i) => {
       return random(xs, () => i) !== undefined
     })
 

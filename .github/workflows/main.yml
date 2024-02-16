@@ -11,8 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: '.node-version'
     - name: setup
-      run: npm install
+      run: npm ci
     - name: test with coverage
       run: npm run coverage
     - name: Upload coverage reports to Codecov

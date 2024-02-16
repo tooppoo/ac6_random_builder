@@ -22,7 +22,8 @@
     "baseUrl": ".",
     "paths": {
       "~data/*": ["./data/*"],
-      "~core/*": ["./src/core/*"]
+      "~core/*": ["./src/core/*"],
+      "~view/*": ["./src/view/*"]
     }
   },
   "include": ["src"]

@@ -1,5 +1,6 @@
 import {Assembly} from "~core/assembly/assembly.ts";
 import {Candidates} from "~core/assembly/candidates.ts";
+import {random} from "~core/utils/array.ts";
 import {notEquipped} from "~data/booster.ts";
 
 export type Randomizer = () => number
@@ -7,31 +8,27 @@ export function randomBuild(
   candidates: Candidates,
   randomizer: Randomizer = () => Math.random(),
 ): Assembly {
-  const randomSelect = <T>(xs: readonly T[]): T => xs[
-    Math.floor(randomizer() * (xs.length - 1))
-  ]
-
-  const legs = randomSelect(candidates.legs)
+  const legs = random(candidates.legs, randomizer)
   const base: Omit<Assembly, 'legs' | 'booster'> = {
-    rightArmUnit: randomSelect(candidates.rightArmUnits),
-    leftArmUnit: randomSelect(candidates.leftArmUnits),
-    rightBackUnit: randomSelect(candidates.rightBackUnits),
-    leftBackUnit: randomSelect(candidates.leftBackUnits),
+    rightArmUnit: random(candidates.rightArmUnits, randomizer),
+    leftArmUnit: random(candidates.leftArmUnits, randomizer),
+    rightBackUnit: random(candidates.rightBackUnits, randomizer),
+    leftBackUnit: random(candidates.leftBackUnits, randomizer),
 
-    head: randomSelect(candidates.heads),
-    core: randomSelect(candidates.cores),
-    arms: randomSelect(candidates.arms),
+    head: random(candidates.heads, randomizer),
+    core: random(candidates.cores, randomizer),
+    arms: random(candidates.arms, randomizer),
 
-    fcs: randomSelect(candidates.fcses),
-    generator: randomSelect(candidates.generators),
+    fcs: random(candidates.fcses, randomizer),
+    generator: random(candidates.generators, randomizer),
 
-    expansion: randomSelect(candidates.expansions),
+    expansion: random(candidates.expansions, randomizer),
   }
 
   switch(legs.category) {
     case 'tank':
       return { ...base, legs, booster: notEquipped }
     default:
-      return { ...base, legs, booster: randomSelect(candidates.boosters) }
+      return { ...base, legs, booster: random(candidates.boosters, randomizer) }
   }
 }

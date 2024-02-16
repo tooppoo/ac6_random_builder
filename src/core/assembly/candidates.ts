@@ -10,10 +10,10 @@ import {generators} from "~data/generators.ts";
 import * as Expansion from "~data/expansions.ts";
 
 export const candidates = {
-  rightArmUnits: [...ArmUnits.armUnits, ArmUnits.notEquipped],
-  leftArmUnits: [...ArmUnits.armUnits, ...ArmUnits.leftArmUnits, ArmUnits.notEquipped],
-  rightBackUnits: [...BackUnits.backUnits, BackUnits.notEquipped],
-  leftBackUnits: [...BackUnits.backUnits, ...BackUnits.lefTBackUnits, BackUnits.notEquipped],
+  rightArmUnits: [...ArmUnits.armUnits, ArmUnits.notEquipped] as const,
+  leftArmUnits: [...ArmUnits.armUnits, ...ArmUnits.leftArmUnits, ArmUnits.notEquipped] as const,
+  rightBackUnits: [...BackUnits.backUnits, BackUnits.notEquipped] as const,
+  leftBackUnits: [...BackUnits.backUnits, ...BackUnits.lefTBackUnits, BackUnits.notEquipped] as const,
 
   heads,
   cores,
@@ -24,6 +24,6 @@ export const candidates = {
   fcses,
   generators,
 
-  expansions: [...Expansion.expansions, Expansion.notEquipped],
+  expansions: [...Expansion.expansions, Expansion.notEquipped] as const,
 } as const
 export type Candidates = typeof candidates

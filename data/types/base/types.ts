@@ -11,6 +11,7 @@ export type ACParts<
 }>
 
 export type WithEnLoad = Readonly<{
+  /** EN負荷 */
   en_load: number
 }>
 

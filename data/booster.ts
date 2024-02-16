@@ -1,8 +1,8 @@
-import {defineBooster} from "./types/inner/booster";
-import {booster as boosterClass, boosterNotEquipped} from "./types/base/classification";
-import {booster as boosterCategory} from "./types/base/category";
-import {baws, furlong, rad, rubicon_research_institute, schneider} from "./types/base/manufacture";
-import {defineNotEquipped} from "./types/base/types";
+import {booster as boosterCategory} from './types/base/category'
+import {booster as boosterClass, boosterNotEquipped,} from './types/base/classification'
+import {baws, furlong, rad, rubicon_research_institute, schneider,} from './types/base/manufacture'
+import {defineNotEquipped} from './types/base/types'
+import {defineBooster} from './types/inner/booster'
 
 export const boosters = [
   defineBooster({
@@ -45,7 +45,7 @@ export const boosters = [
     qb_thrust: 17600,
     qb_jet_duration: 0.39,
     qb_en_consumption: 480,
-    qb_reload_time: 0.60,
+    qb_reload_time: 0.6,
     qb_reload_ideal_weight: 65200,
 
     ab_thrust: 8735,
@@ -97,7 +97,7 @@ export const boosters = [
     qb_thrust: 18600,
     qb_jet_duration: 0.36,
     qb_en_consumption: 700,
-    qb_reload_time: 0.50,
+    qb_reload_time: 0.5,
     qb_reload_ideal_weight: 76000,
 
     ab_thrust: 8685,
@@ -121,7 +121,7 @@ export const boosters = [
     upward_en_consumption: 760,
 
     qb_thrust: 21650,
-    qb_jet_duration: 0.30,
+    qb_jet_duration: 0.3,
     qb_en_consumption: 690,
     qb_reload_time: 0.35,
     qb_reload_ideal_weight: 62400,
@@ -147,9 +147,9 @@ export const boosters = [
     upward_en_consumption: 680,
 
     qb_thrust: 20000,
-    qb_jet_duration: 0.40,
+    qb_jet_duration: 0.4,
     qb_en_consumption: 600,
-    qb_reload_time: 0.50,
+    qb_reload_time: 0.5,
     qb_reload_ideal_weight: 73800,
 
     ab_thrust: 8668,
@@ -201,7 +201,7 @@ export const boosters = [
     qb_thrust: 18900,
     qb_jet_duration: 0.54,
     qb_en_consumption: 520,
-    qb_reload_time: 0.80,
+    qb_reload_time: 0.8,
     qb_reload_ideal_weight: 97000,
 
     ab_thrust: 8084,
@@ -253,7 +253,7 @@ export const boosters = [
     qb_thrust: 19000,
     qb_jet_duration: 0.33,
     qb_en_consumption: 660,
-    qb_reload_time: 0.70,
+    qb_reload_time: 0.7,
     qb_reload_ideal_weight: 60900,
 
     ab_thrust: 8585,
@@ -279,7 +279,7 @@ export const boosters = [
     qb_thrust: 18850,
     qb_jet_duration: 0.28,
     qb_en_consumption: 620,
-    qb_reload_time: 0.30,
+    qb_reload_time: 0.3,
     qb_reload_ideal_weight: 68300,
 
     ab_thrust: 8335,
@@ -318,7 +318,7 @@ export const boosters = [
     en_load: 342,
   }),
 ] as const
-export type Booster =  typeof boosters[number]
+export type Booster = (typeof boosters)[number]
 
 export const notEquipped = defineNotEquipped(boosterNotEquipped)
 export type NotEquipped = typeof notEquipped

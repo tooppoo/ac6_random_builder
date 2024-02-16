@@ -1,21 +1,24 @@
-import {Category, notEquipped, NotEquipped} from "./category.ts";
-import {Classification} from "./classification.ts";
-import {Manufacture} from "./manufacture.ts";
+import {Category, notEquipped, NotEquipped} from './category.ts'
+import {Classification} from './classification.ts'
+import {Manufacture} from './manufacture.ts'
 
 export type ACParts<
   Cl extends Classification,
   M extends Manufacture,
   Ca extends Category,
-> = BaseACParts<Cl, Ca> & Readonly<{
-  manufacture: M
-}>
+> = BaseACParts<Cl, Ca> &
+  Readonly<{
+    manufacture: M
+  }>
 
 export type WithEnLoad = Readonly<{
   /** EN負荷 */
   en_load: number
 }>
 
-export const defineNotEquipped = <Cl extends Classification>(classification: Cl): BaseACParts<Cl, NotEquipped> & WithEnLoad => ({
+export const defineNotEquipped = <Cl extends Classification>(
+  classification: Cl,
+): BaseACParts<Cl, NotEquipped> & WithEnLoad => ({
   name: '(Not Equipped)',
   classification,
   category: notEquipped,
@@ -29,8 +32,8 @@ type BaseACParts<Cl extends Classification, Ca extends string> = Readonly<{
   name: string
   classification: Cl
   category: Ca
-  /** 価格　*/
+  /** 価格 */
   price: number
-  /** 重量　*/
+  /** 重量 */
   weight: number
 }>

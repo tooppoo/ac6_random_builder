@@ -1,7 +1,7 @@
-import {Assembly} from "~core/assembly/assembly.ts";
-import {Candidates} from "~core/assembly/candidates.ts";
-import {random} from "~core/utils/array.ts";
-import {notEquipped} from "~data/booster.ts";
+import {Assembly} from '~core/assembly/assembly.ts'
+import {Candidates} from '~core/assembly/candidates.ts'
+import {random} from '~core/utils/array.ts'
+import {notEquipped} from '~data/booster.ts'
 
 export type Randomizer = () => number
 export function randomBuild(
@@ -25,7 +25,7 @@ export function randomBuild(
     expansion: random(candidates.expansions, randomizer),
   }
 
-  switch(legs.category) {
+  switch (legs.category) {
     case 'tank':
       return { ...base, legs, booster: notEquipped }
     default:

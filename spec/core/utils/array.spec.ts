@@ -1,12 +1,12 @@
-import {random, sum} from "src/core/utils/array";
-import {describe, expect, it} from "vitest";
-import {fc, it as fcit} from "@fast-check/vitest";
+import {random, sum} from 'src/core/utils/array'
+import {describe, expect, it} from 'vitest'
+import {fc, it as fcit} from '@fast-check/vitest'
 
 describe('utils/array', () => {
   describe(sum.name, () => {
     const modelSum = (xs: number[]) => {
       let sum = 0
-      xs.forEach(x => {
+      xs.forEach((x) => {
         sum += x
       })
 

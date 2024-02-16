@@ -19,7 +19,7 @@ export type Manufacture =
 
 // ルビコン系
 export const baws = 'baws' as const
-export const elcano = 'elcano'  as const
+export const elcano = 'elcano' as const
 
 // ベイラム系
 export const balam = 'balam' as const
@@ -36,7 +36,7 @@ export const rad = 'rad' as const
 /** 技研 */
 export const rubicon_research_institute = 'rubicon_research_institute' as const
 export const melinite = 'melinite' as const
-export const vcpl  = 'vcpl' as const
+export const vcpl = 'vcpl' as const
 export const takigawa = 'takigawa' as const
 /** ファーロン */
 export const furlong = 'furlong' as const

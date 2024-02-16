@@ -1,5 +1,3 @@
-import {AsJumper, AsTank, defineLegs} from "./types/frame/types";
-import {legs as legsClass} from "./types/base/classification";
 import {
   four_legs,
   FourLegs as FourLegsCategory,
@@ -9,7 +7,8 @@ import {
   Tank as TankCategory,
   two_legs,
   TwoLegs as TwoLegsCategory,
-} from "./types/base/category";
+} from './types/base/category'
+import {legs as legsClass} from './types/base/classification'
 import {
   allmind,
   arquebus,
@@ -20,9 +19,9 @@ import {
   elcano,
   rad,
   rubicon_research_institute,
-  schneider
-} from "./types/base/manufacture";
-
+  schneider,
+} from './types/base/manufacture'
+import {AsJumper, AsTank, defineLegs} from './types/frame/types'
 
 export const twoLegs = [
   defineLegs<TwoLegsCategory, AsJumper>()({
@@ -362,7 +361,7 @@ export const twoLegs = [
     en_load: 385,
   }),
 ] as const
-export type TwoLegs = typeof twoLegs[number]
+export type TwoLegs = (typeof twoLegs)[number]
 
 export const reverseJoints = [
   defineLegs<ReverseJointCategory, AsJumper>()({
@@ -429,7 +428,7 @@ export const reverseJoints = [
     en_load: 402,
   }),
 ] as const
-export type ReverseJoint = typeof reverseJoints[number]
+export type ReverseJoint = (typeof reverseJoints)[number]
 
 export const fourLegs = [
   defineLegs<FourLegsCategory, AsJumper>()({
@@ -496,7 +495,7 @@ export const fourLegs = [
     en_load: 790,
   }),
 ] as const
-export type FourLegs = typeof fourLegs[number]
+export type FourLegs = (typeof fourLegs)[number]
 
 export const tanks = [
   defineLegs<TankCategory, AsTank>()({
@@ -525,7 +524,7 @@ export const tanks = [
     qb_thrust: 22150,
     qb_jet_duration: 0.34,
     qb_en_consumption: 810,
-    qb_reload_time: 0.80,
+    qb_reload_time: 0.8,
     qb_reload_ideal_weight: 100300,
 
     ab_thrust: 7768,
@@ -558,9 +557,9 @@ export const tanks = [
     upward_en_consumption: 912,
 
     qb_thrust: 21500,
-    qb_jet_duration: 0.40,
+    qb_jet_duration: 0.4,
     qb_en_consumption: 880,
-    qb_reload_time: 0.70,
+    qb_reload_time: 0.7,
     qb_reload_ideal_weight: 91000,
 
     ab_thrust: 10502,
@@ -595,7 +594,7 @@ export const tanks = [
     qb_thrust: 25000,
     qb_jet_duration: 0.26,
     qb_en_consumption: 720,
-    qb_reload_time: 0.50,
+    qb_reload_time: 0.5,
     qb_reload_ideal_weight: 69300,
 
     ab_thrust: 8335,
@@ -605,17 +604,14 @@ export const tanks = [
     en_load: 620,
   }),
 ] as const
-export type Tank = typeof tanks[number]
+export type Tank = (typeof tanks)[number]
 
 export const legs = [
   ...twoLegs,
   ...reverseJoints,
   ...fourLegs,
-  ...tanks
+  ...tanks,
 ] as const
 
-export type LegsNotTank =
-  | TwoLegs
-  | ReverseJoint
-  | FourLegs
+export type LegsNotTank = TwoLegs | ReverseJoint | FourLegs
 export type LegsTank = Tank

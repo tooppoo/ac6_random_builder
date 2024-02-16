@@ -2,33 +2,33 @@ name: Test
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v4
-      with:
-        node-version-file: '.node-version'
-    - name: setup
-      run: npm ci
-    - name: test with coverage
-      run: npm run coverage
-    - name: lint
-      run: npm run lint
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v4.0.1
-      with:
-        files: ./coverage/coverage-final.json
-        fail_ci_if_error: true
-        slug: tooppoo/ac6_assemble_tool
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-    - name: publish codeclimate
-      uses: paambaati/codeclimate-action@v5.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+      - name: setup
+        run: npm ci
+      - name: test with coverage
+        run: npm run coverage
+      - name: lint
+        run: npm run lint
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          files: ./coverage/coverage-final.json
+          fail_ci_if_error: true
+          slug: tooppoo/ac6_assemble_tool
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: publish codeclimate
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}

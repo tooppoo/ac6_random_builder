@@ -1,7 +1,7 @@
-import {describe, expect, it} from "vitest";
-import {candidates} from "~core/assembly/candidates";
-import {randomBuild} from "~core/assembly/random/random-builder";
-import {failure, success} from "~core/assembly/random/validator/result";
+import {describe, expect, it} from 'vitest'
+import {candidates} from '~core/assembly/candidates'
+import {randomBuild} from '~core/assembly/random/random-builder'
+import {failure, success} from '~core/assembly/random/validator/result'
 
 describe('validator/result', () => {
   const assemble = randomBuild(candidates)

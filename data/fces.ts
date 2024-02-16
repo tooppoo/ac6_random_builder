@@ -1,7 +1,7 @@
-import {defineFCS} from "./types/inner/fcs";
-import {fcs as fcsClass} from "./types/base/classification";
-import {fcs as fcsCategory} from "./types/base/category";
-import {arquebus_add, balam, furlong, rubicon_research_institute} from "./types/base/manufacture";
+import {fcs as fcsCategory} from './types/base/category'
+import {fcs as fcsClass} from './types/base/classification'
+import {arquebus_add, balam, furlong, rubicon_research_institute,} from './types/base/manufacture'
+import {defineFCS} from './types/inner/fcs'
 
 export const fcses = [
   defineFCS({
@@ -165,4 +165,4 @@ export const fcses = [
     en_load: 486,
   }),
 ] as const
-export type FCS = typeof fcses[number]
+export type FCS = (typeof fcses)[number]

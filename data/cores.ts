@@ -1,6 +1,5 @@
-import {defineCore} from "./types/frame/types";
-import {core as coreClass} from "./types/base/classification";
-import {core as coreCategory} from "./types/base/category";
+import {core as coreCategory} from './types/base/category'
+import {core as coreClass} from './types/base/classification'
 import {
   allmind,
   arquebus,
@@ -11,8 +10,9 @@ import {
   elcano,
   rad,
   rubicon_research_institute,
-  schneider
-} from "./types/base/manufacture";
+  schneider,
+} from './types/base/manufacture'
+import {defineCore} from './types/frame/types'
 
 export const cores = [
   defineCore({
@@ -373,4 +373,4 @@ export const cores = [
     en_load: 366,
   }),
 ] as const
-export type Core = typeof cores[number]
+export type Core = (typeof cores)[number]

@@ -1,5 +1,5 @@
-import {defineConfig} from "vitest/config";
-import viteConfig from "./vite.config.ts";
+import {defineConfig} from 'vitest/config'
+import viteConfig from './vite.config.ts'
 
 export default defineConfig({
   ...viteConfig,
@@ -7,6 +7,6 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'lcov'],
       all: true,
-    }
-  }
+    },
+  },
 })

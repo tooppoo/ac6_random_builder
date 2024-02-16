@@ -1,8 +1,10 @@
-import type {Assembly} from "~core/assembly/assembly.ts";
+import type {Assembly} from '~core/assembly/assembly.ts'
 
 export type ValidationResult = ValidationSuccess | ValidationFailure
-export const success = (assembly: Assembly): ValidationResult => new ValidationSuccess(assembly)
-export const failure = (errors: Error[]): ValidationResult => new ValidationFailure(errors)
+export const success = (assembly: Assembly): ValidationResult =>
+  new ValidationSuccess(assembly)
+export const failure = (errors: Error[]): ValidationResult =>
+  new ValidationFailure(errors)
 
 type OnFail<T> = (errors: Error[]) => T
 type Onsuccess<T> = (assembly: Assembly) => T
@@ -31,8 +33,8 @@ class ValidationFailure {
   }
   concat(other: ValidationResult): ValidationResult {
     return other.fold(
-      errors => new ValidationFailure([...this.errors, ...errors]),
-      (): ValidationResult => this
+      (errors) => new ValidationFailure([...this.errors, ...errors]),
+      (): ValidationResult => this,
     )
   }
   public readonly isSuccess = false as const

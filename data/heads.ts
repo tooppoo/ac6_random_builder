@@ -1,6 +1,5 @@
-import {defineHead} from "./types/frame/types";
-import {head as headClass} from "~data/types/base/classification.ts";
-import {head as headCategory} from "~data/types/base/category.ts";
+import {head as headCategory} from '~data/types/base/category.ts'
+import {head as headClass} from '~data/types/base/classification.ts'
 import {
   allmind,
   arquebus,
@@ -9,9 +8,11 @@ import {
   baws,
   dafeng,
   elcano,
-  rad, rubicon_research_institute,
-  schneider
-} from "~data/types/base/manufacture.ts";
+  rad,
+  rubicon_research_institute,
+  schneider,
+} from '~data/types/base/manufacture.ts'
+import {defineHead} from './types/frame/types'
 
 export const heads = [
   defineHead({
@@ -544,4 +545,4 @@ export const heads = [
     en_load: 215,
   }),
 ] as const
-export type Head = typeof heads[number]
+export type Head = (typeof heads)[number]

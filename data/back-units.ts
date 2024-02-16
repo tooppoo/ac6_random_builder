@@ -1,35 +1,4 @@
-import {
-  AsActiveHomingMissile,
-  AsBlastShooting,
-  AsBuckler, AsContainerMissile, AsCoralMissile,
-  AsGatling,
-  AsKineticShooting,
-  AsLaserCannon, AsLaserDrone, AsMissile, AsOrbit,
-  AsPlasmaCanon, AsPlasmaMissile, AsPulseCanon,
-  AsScutum,
-  AsShield,
-  AsShooting, AsTurret,
-  defineBackUnit,
-  defineShieldUnit,
-  WithBlast,
-  WithChargeBlast, WithEffectiveRange, WithIdealRange,
-  WithMagazine,
-  WithPAInterference,
-  WithRapidFire,
-  WithReload
-} from "./types/unit/types.ts";
-import {backUnit, backUnitNotEquipped, leftBackUnit} from "./types/base/classification.ts";
-import {
-  allmind,
-  arquebus,
-  arquebus_add,
-  balam,
-  dafeng, elcano, furlong, melinite, rad,
-  rubicon_research_institute, schneider,
-  takigawa, vcpl
-} from "./types/base/manufacture.ts";
-import {coral, energy, explosive, kinetic, none} from "./types/unit/attack_type.ts";
-import {burst, charge, full_auto, homing, semi_auto, shield} from "./types/unit/weapon_type.ts";
+import {defineNotEquipped} from '~data/types/base/types.ts'
 import {
   active_homing_missile,
   bullet_orbit,
@@ -43,7 +12,8 @@ import {
   gatling_cannon,
   grenade_cannon,
   laser_canon,
-  laser_orbit, laser_turret,
+  laser_orbit,
+  laser_turret,
   light_wave_cannon,
   missile,
   needle_missile,
@@ -58,9 +28,56 @@ import {
   split_missile,
   spread_bazooka,
   stun_needle_launcher,
-  vertical_missile
-} from "./types/base/category.ts";
-import {defineNotEquipped} from "~data/types/base/types.ts";
+  vertical_missile,
+} from './types/base/category.ts'
+import {backUnit, backUnitNotEquipped, leftBackUnit,} from './types/base/classification.ts'
+import {
+  allmind,
+  arquebus,
+  arquebus_add,
+  balam,
+  dafeng,
+  elcano,
+  furlong,
+  melinite,
+  rad,
+  rubicon_research_institute,
+  schneider,
+  takigawa,
+  vcpl,
+} from './types/base/manufacture.ts'
+import {coral, energy, explosive, kinetic, none,} from './types/unit/attack_type.ts'
+import {
+  AsActiveHomingMissile,
+  AsBlastShooting,
+  AsBuckler,
+  AsContainerMissile,
+  AsCoralMissile,
+  AsGatling,
+  AsKineticShooting,
+  AsLaserCannon,
+  AsLaserDrone,
+  AsMissile,
+  AsOrbit,
+  AsPlasmaCanon,
+  AsPlasmaMissile,
+  AsPulseCanon,
+  AsScutum,
+  AsShield,
+  AsShooting,
+  AsTurret,
+  defineBackUnit,
+  defineShieldUnit,
+  WithBlast,
+  WithChargeBlast,
+  WithEffectiveRange,
+  WithIdealRange,
+  WithMagazine,
+  WithPAInterference,
+  WithRapidFire,
+  WithReload,
+} from './types/unit/types.ts'
+import {burst, charge, full_auto, homing, semi_auto, shield,} from './types/unit/weapon_type.ts'
 
 export const lefTBackUnits = [
   defineShieldUnit<AsShield>()({
@@ -162,7 +179,7 @@ export const lefTBackUnits = [
     ig_impact_dampening: 76,
     ig_duration: 1.6,
     deploy_heat_buildup: 670,
-    deployment:  180,
+    deployment: 180,
     cooling: 142,
 
     weight: 3380,
@@ -211,7 +228,7 @@ export const lefTBackUnits = [
     en_load: 800,
   }),
 ] as const
-export type LeftBackUnit = typeof lefTBackUnits[number]
+export type LeftBackUnit = (typeof lefTBackUnits)[number]
 export const backUnits = [
   defineBackUnit<AsGatling>()({
     name: 'DF-GA-09 SHAO-WEI',
@@ -296,7 +313,7 @@ export const backUnits = [
     manufacture: melinite,
     price: 182000,
 
-    attack_power:  655 * 2,
+    attack_power: 655 * 2,
     impact: 635 * 2,
     accumulative_impact: 494 * 2,
     blast_radius: 60,
@@ -325,7 +342,7 @@ export const backUnits = [
     accumulative_impact: 339,
     blast_radius: 30,
 
-    direct_hit_adjustment:  195,
+    direct_hit_adjustment: 195,
     recoil: 70,
     ideal_range: 280,
     effective_range: 490,
@@ -497,9 +514,9 @@ export const backUnits = [
 
     direct_hit_adjustment: 125,
     recoil: 70,
-    effective_range:  440,
+    effective_range: 440,
     rapid_fire: 0.5,
-    charge_en_load:  944,
+    charge_en_load: 944,
     charge_time: 2.0,
     charge_ammo_consumption: 3,
     total_rounds: 39,
@@ -535,7 +552,14 @@ export const backUnits = [
     weight: 2100,
     en_load: 652,
   }),
-  defineBackUnit<AsShooting & WithBlast & WithPAInterference & WithEffectiveRange & WithRapidFire & WithMagazine>()({
+  defineBackUnit<
+    AsShooting &
+    WithBlast &
+    WithPAInterference &
+    WithEffectiveRange &
+    WithRapidFire &
+    WithMagazine
+  >()({
     name: 'EULE/60D',
     classification: backUnit,
     category: pulse_shield_launcher,
@@ -556,7 +580,7 @@ export const backUnits = [
     rapid_fire: 3.4,
     magazine_rounds: 3,
     total_rounds: 45,
-    reload_time:  6.0,
+    reload_time: 6.0,
     ammunition_cost: 400,
 
     weight: 2760,
@@ -833,7 +857,8 @@ export const backUnits = [
     direct_hit_adjustment: 150,
     guidance: 480,
     effective_range: 1000,
-    homing_lock_time: 0.4,lock_count: 4,
+    homing_lock_time: 0.4,
+    lock_count: 4,
     total_rounds: 108,
     reload_time: 4.8,
     ammunition_cost: 120,
@@ -1296,7 +1321,7 @@ export const backUnits = [
     en_load: 570,
   }),
 ] as const
-export type BackUnit = typeof backUnits[number]
+export type BackUnit = (typeof backUnits)[number]
 
 export const notEquipped = defineNotEquipped(backUnitNotEquipped)
 export type NotEquipped = typeof notEquipped

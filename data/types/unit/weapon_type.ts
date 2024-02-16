@@ -1,4 +1,3 @@
-
 export type WeaponType =
   | typeof semi_auto
   | typeof full_auto

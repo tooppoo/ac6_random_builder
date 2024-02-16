@@ -1,6 +1,9 @@
-
 // ARM UNIT
-import {armUnit, armUnitNotEquipped, leftArmUnit} from "./types/base/classification.ts";
+import {
+  armUnit,
+  armUnitNotEquipped,
+  leftArmUnit,
+} from './types/base/classification.ts'
 import {
   WithRapidFire,
   defineArmUnit,
@@ -30,8 +33,10 @@ import {
   AsAssaultRifle,
   AsMachineGun,
   AsShotgun,
-  AsHandgun, AsLauncher, AsLaserRifle,
-} from "./types/unit/types.ts";
+  AsHandgun,
+  AsLauncher,
+  AsLaserRifle,
+} from './types/unit/types.ts'
 import {
   assault_rifle,
   bazooka,
@@ -68,26 +73,41 @@ import {
   plasma_rifle,
   plasma_thrower,
   pulse_blade,
-  pulse_gun, pulse_hand_missile,
-  shotgun, siege_hand_missile, split_hand_missile,
+  pulse_gun,
+  pulse_hand_missile,
+  shotgun,
+  siege_hand_missile,
+  split_hand_missile,
   stun_baton,
   stun_bomb_launcher,
-  stun_gun
-} from "./types/base/category.ts";
+  stun_gun,
+} from './types/base/category.ts'
 import {
   allmind,
   arquebus,
   arquebus_add,
-  balam, baws,
-  dafeng, elcano, furlong, melinite,
+  balam,
+  baws,
+  dafeng,
+  elcano,
+  furlong,
+  melinite,
   rad,
-  rubicon_research_institute, schneider,
+  rubicon_research_institute,
+  schneider,
   takigawa,
-  vcpl
-} from "./types/base/manufacture.ts";
-import {coral, energy, explosive, kinetic} from "./types/unit/attack_type.ts";
-import {burst, charge, full_auto, homing, melee, semi_auto} from "./types/unit/weapon_type.ts";
-import {defineNotEquipped} from "~data/types/base/types.ts";
+  vcpl,
+} from './types/base/manufacture.ts'
+import {coral, energy, explosive, kinetic} from './types/unit/attack_type.ts'
+import {
+  burst,
+  charge,
+  full_auto,
+  homing,
+  melee,
+  semi_auto,
+} from './types/unit/weapon_type.ts'
+import {defineNotEquipped} from '~data/types/base/types.ts'
 
 export const leftArmUnits = [
   defineArmUnit<AsMelee>()({
@@ -115,7 +135,13 @@ export const leftArmUnits = [
     weight: 4180,
     en_load: 225,
   }),
-  defineArmUnit<WithBlast & WithCharge & WithChargeBlast & WithEffectiveRange & WithTotalRounds>()({
+  defineArmUnit<
+    WithBlast &
+    WithCharge &
+    WithChargeBlast &
+    WithEffectiveRange &
+    WithTotalRounds
+  >()({
     name: 'DF-ET-09 TAI-YANG-SHOU',
     classification: leftArmUnit,
     category: explosive_thrower,
@@ -269,8 +295,8 @@ export const leftArmUnits = [
     en_load: 328,
   }),
   defineArmUnit<AsMelee>()({
-    name:  'VE-67LLA',
-    classification:  leftArmUnit,
+    name: 'VE-67LLA',
+    classification: leftArmUnit,
     category: laser_lance,
     attack_type: energy,
     weapon_type: melee,
@@ -287,7 +313,7 @@ export const leftArmUnits = [
     charge_accumulative_impact: 900,
 
     direct_hit_adjustment: 195,
-    pa_interference:  131,
+    pa_interference: 131,
     cooling: 263,
 
     weight: 4520,
@@ -421,12 +447,18 @@ export const leftArmUnits = [
 
     weight: 2030,
     en_load: 642,
-  })
+  }),
 ] as const
-export type LeftArmUnit = typeof leftArmUnits[number]
+export type LeftArmUnit = (typeof leftArmUnits)[number]
 
 export const armUnits = [
-  defineArmUnit<AsKineticShooting & WithRapidFire & WithCharge & WithChargeTime & WithMagazine>()({
+  defineArmUnit<
+    AsKineticShooting &
+    WithRapidFire &
+    WithCharge &
+    WithChargeTime &
+    WithMagazine
+  >()({
     name: 'MA-J-200 RANSETSU-RF',
     classification: armUnit,
     category: burst_rifle,
@@ -872,7 +904,7 @@ export const armUnits = [
     accumulative_impact: 64 * 2,
 
     direct_hit_adjustment: 125,
-    recoil:  15,
+    recoil: 15,
     ideal_range: 80,
     effective_range: 165,
     rapid_fire: 5.1,
@@ -1049,7 +1081,7 @@ export const armUnits = [
     blast_radius: 70,
 
     direct_hit_adjustment: 140,
-    recoil:  100,
+    recoil: 100,
     effective_range: 625,
     total_rounds: 40,
     reload_time: 5.9,
@@ -1179,7 +1211,13 @@ export const armUnits = [
     weight: 3180,
     en_load: 82,
   }),
-  defineArmUnit<AsShooting & WithHeatBuildup & WithEffectiveRange & WithRapidFire & WithCooling>()({
+  defineArmUnit<
+    AsShooting &
+    WithHeatBuildup &
+    WithEffectiveRange &
+    WithRapidFire &
+    WithCooling
+  >()({
     name: 'WB-0000 BAD COOK',
     classification: armUnit,
     category: flamethrower,
@@ -1339,7 +1377,7 @@ export const armUnits = [
     ammunition_cost: 200,
 
     weight: 2880,
-    en_load:  440,
+    en_load: 440,
   }),
   defineArmUnit<AsLaser & WithChargeAmmoConsumption & WithChargeBlast>()({
     name: 'VP-66LS',
@@ -1352,7 +1390,7 @@ export const armUnits = [
 
     attack_power: 560,
     impact: 304,
-    accumulative_impact:  88,
+    accumulative_impact: 88,
     heat_buildup: 190,
 
     charge_attack_power: 1307,
@@ -1716,7 +1754,15 @@ export const armUnits = [
     weight: 4600,
     en_load: 165,
   }),
-  defineArmUnit<AsMissile & WithBlast & WithCharge & WithChargeTime & WithChargeBlast & WithPAInterference & WithReload>()({
+  defineArmUnit<
+    AsMissile &
+    WithBlast &
+    WithCharge &
+    WithChargeTime &
+    WithChargeBlast &
+    WithPAInterference &
+    WithReload
+  >()({
     name: 'PFAU/66D',
     classification: armUnit,
     category: pulse_hand_missile,
@@ -1750,7 +1796,7 @@ export const armUnits = [
     en_load: 392,
   }),
 ] as const
-export type ArmUnit = typeof armUnits[number]
+export type ArmUnit = (typeof armUnits)[number]
 
 export const notEquipped = defineNotEquipped(armUnitNotEquipped)
 export type NotEquipped = typeof notEquipped

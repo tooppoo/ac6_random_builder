@@ -1,26 +1,32 @@
 // パーツ分類
 export type Classification =
-| ArmUnit
-| BackUnit
-| Head
-| Arms
-| Core
-| Legs
-| Booster
-| FCS
-| Generator
-| Expansion
+  | ArmUnit
+  | BackUnit
+  | Head
+  | Arms
+  | Core
+  | Legs
+  | Booster
+  | FCS
+  | Generator
+  | Expansion
 
 // UNIT
 export const armUnit = 'arm-unit' as const
 export const leftArmUnit = 'left-arm-unit' as const
 export const armUnitNotEquipped = 'arm-unit-not-equipped' as const
-export type ArmUnit = typeof armUnit | typeof leftArmUnit | typeof armUnitNotEquipped
+export type ArmUnit =
+  | typeof armUnit
+  | typeof leftArmUnit
+  | typeof armUnitNotEquipped
 
 export const backUnit = 'back-unit' as const
 export const leftBackUnit = 'left-back-unit' as const
 export const backUnitNotEquipped = 'back-unit-not-equipped' as const
-export type BackUnit = typeof backUnit | typeof leftBackUnit | typeof backUnitNotEquipped
+export type BackUnit =
+  | typeof backUnit
+  | typeof leftBackUnit
+  | typeof backUnitNotEquipped
 
 // FRAME
 export const head = 'head' as const

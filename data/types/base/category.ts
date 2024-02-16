@@ -91,21 +91,13 @@ export const laser_turret = 'laser_turret' as const
 export const laser_drone = 'laser_drone' as const
 
 // FRAME
-export type Frame =
-  | typeof head
-  | typeof arms
-  | typeof core
-  | Legs
+export type Frame = typeof head | typeof arms | typeof core | Legs
 
 export const head = 'head' as const
 export const arms = 'arms' as const
 export const core = 'core' as const
 
-export type Legs =
-  | TwoLegs
-  | ReverseJoint
-  | FourLegs
-  | Tank
+export type Legs = TwoLegs | ReverseJoint | FourLegs | Tank
 export const two_legs = 'two_legs' as const
 export type TwoLegs = typeof two_legs
 export const reverse_joint = 'reverse_joint' as const

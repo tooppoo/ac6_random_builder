@@ -1,11 +1,11 @@
 // 各種武器の攻撃属性
 
 export type AttackType =
-| typeof kinetic
-| typeof explosive
-| typeof energy
-| typeof coral
-| typeof none
+  | typeof kinetic
+  | typeof explosive
+  | typeof energy
+  | typeof coral
+  | typeof none
 
 /** 実弾 */
 export const kinetic = 'kinetic' as const

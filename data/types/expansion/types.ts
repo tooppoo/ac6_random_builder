@@ -1,13 +1,13 @@
-import {AsAttackUnit, WithBlast} from "../unit/types";
+import {AsAttackUnit, WithBlast} from '../unit/types'
 
 export const defineExpansion = <Ex extends object>(d: Expansion & Ex) => d
 
 export type AsAssaultArmor = Readonly<{
   /** 効果範囲 */
   effective_range: number
-}>
-& AsAttackUnit
-& WithBlast
+}> &
+  AsAttackUnit &
+  WithBlast
 
 export type AsProtect = Readonly<{
   /** 耐久性 */

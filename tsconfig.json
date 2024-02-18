@@ -26,5 +26,5 @@
       "~view/*": ["./src/view/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "data"]
 }

@@ -13,10 +13,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier . --write \"**/*.+(js|json|ts|yml|yaml|html)\"",
-    "format:dry": "prettier . --check \"**/*.+(js|json|ts|yml|yaml|html)\"",
+    "lint": "eslint . && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html)\"",
+    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html)\"",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {

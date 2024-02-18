@@ -16,12 +16,14 @@ jobs:
           node-version-file: '.node-version'
       - name: setup
         run: npm ci
+      - name: build
+        run: |
+          npm build
+          npm run check
       - name: test with coverage
         run: npm run coverage
       - name: lint
-        run: |
-          npm run lint
-          npm run format:dry
+        run: npm run lint
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:

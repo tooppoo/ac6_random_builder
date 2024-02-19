@@ -18,7 +18,7 @@ jobs:
         run: npm ci
       - name: build
         run: |
-          npm build
+          npm run build
           npm run check
       - name: test with coverage
         run: npm run coverage

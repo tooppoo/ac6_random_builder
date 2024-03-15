@@ -1,7 +1,7 @@
 import { fc, it } from '@fast-check/vitest'
-import { candidates } from 'src/core/assembly/candidates'
-import { Validator } from 'src/core/assembly/random/validator/base'
-import { failure, success } from 'src/core/assembly/random/validator/result'
+import { candidates } from '~core/assembly/candidates'
+import { Validator } from '~core/assembly/random/validator/base'
+import { failure, success } from '~core/assembly/random/validator/result'
 import { describe } from 'vitest'
 import { RandomAssembly } from '~core/assembly/random/random-assembly'
 

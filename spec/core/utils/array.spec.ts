@@ -1,5 +1,5 @@
 import { fc, it as fcit } from '@fast-check/vitest'
-import { random, sum } from 'src/core/utils/array'
+import { random, sum } from '~core/utils/array'
 import { describe, expect, it } from 'vitest'
 
 describe('utils/array', () => {

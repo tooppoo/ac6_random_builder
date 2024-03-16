@@ -54,8 +54,10 @@ type AssemblyWithTank = BaseAssembly & {
 type BaseAssembly = {
   rightArmUnit: ArmUnits.ArmUnit | ArmUnits.NotEquipped
   leftArmUnit: ArmUnits.ArmUnit | ArmUnits.LeftArmUnit | ArmUnits.NotEquipped
-  rightBackUnit: BackUnits.BackUnit | BackUnits.NotEquipped
+  rightBackUnit: ArmUnits.ArmUnit | BackUnits.BackUnit | BackUnits.NotEquipped
   leftBackUnit:
+    | ArmUnits.ArmUnit
+    | ArmUnits.LeftArmUnit
     | BackUnits.BackUnit
     | BackUnits.LeftBackUnit
     | BackUnits.NotEquipped

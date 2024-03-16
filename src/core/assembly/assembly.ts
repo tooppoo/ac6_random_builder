@@ -12,7 +12,16 @@ import type { LegsNotTank, LegsTank } from '~data/legs.ts'
 
 export type Assembly = RawAssembly & {
   readonly ap: number
+  /** 総重量 */
   readonly weight: number
+  /** 総積載量 */
+  readonly load: number
+  /** 積載上限 */
+  readonly loadLimit: number
+  /**
+   * @return {boolean} 積載量が積載上限以内の場合にtrue
+   */
+  readonly withinLoadLimit: boolean
 }
 
 export function createAssembly(base: RawAssembly): Assembly {
@@ -37,6 +46,15 @@ export function createAssembly(base: RawAssembly): Assembly {
           this.generator,
         ].map((p) => p.weight),
       )
+    },
+    get load(): number {
+      return this.weight - this.legs.weight
+    },
+    get loadLimit(): number {
+      return this.legs.load_limit
+    },
+    get withinLoadLimit(): boolean {
+      return this.load <= this.loadLimit
     },
   }
 }

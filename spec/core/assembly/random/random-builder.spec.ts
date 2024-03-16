@@ -1,11 +1,11 @@
 import { it } from '@fast-check/vitest'
-import fc from 'fast-check'
 import { describe, expect } from 'vitest'
 import type { Assembly } from '~core/assembly/assembly'
 import { candidates } from '~core/assembly/candidates'
 import { randomBuild } from '~core/assembly/random/random-builder'
 import { tank } from '~data/types/base/category'
 import { booster, boosterNotEquipped } from '~data/types/base/classification'
+import { genRandomizer } from '~spec/helper.ts'
 
 describe(randomBuild.name, () => {
   it.prop([genRandomizer()])(
@@ -52,7 +52,3 @@ describe(randomBuild.name, () => {
     )
   })
 })
-
-export function genRandomizer() {
-  return fc.float({ min: 0, max: 1, noNaN: true, noDefaultInfinity: true })
-}

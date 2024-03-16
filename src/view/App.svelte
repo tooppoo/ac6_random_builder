@@ -3,6 +3,7 @@
   import { type Assembly, createAssembly } from "~core/assembly/assembly.ts";
   import { candidates as defaultCandidates } from "~core/assembly/candidates.ts";
   import {RandomAssembly} from "~core/assembly/random/random-assembly.ts";
+  import ReportItem from "~view/report/ReportItem.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte";
   import ToolSection from "./form/ToolSection.svelte";
 
@@ -160,15 +161,35 @@
     />
   </ToolSection>
 
-  <ToolSection id="assembly-tools" class="my-4">
+  <ToolSection id="assembly-command" class="my-4">
     <button on:click={onRandom} class="w-75 p-2">ランダム生成</button>
   </ToolSection>
 
-  <ToolSection id="assembly-view" class="my-4">
-    <dl>
-      <dt class="fs-3">AP</dt><dd class="fs-5">{assembly.ap}</dd>
-      <dt class="fs-3">総重量</dt><dd class="fs-5">{assembly.weight}</dd>
-    </dl>
+  <ToolSection id="assembly-report" class="my-4 container">
+    <div class="row mb-3">
+      <ReportItem
+        caption="AP"
+        class="mb-3"
+        value={assembly.ap}
+      />
+      <ReportItem
+        caption="総重量"
+        class="mb-3"
+        value={assembly.weight}
+      />
+      <ReportItem
+        caption="積載量"
+        class="mb-3"
+        value={assembly.load}
+        status={assembly.withinLoadLimit ? 'normal' : 'danger'}
+      />
+      <ReportItem
+        caption="積載上限"
+        class="mb-3"
+        value={assembly.loadLimit}
+        status={assembly.withinLoadLimit ? 'normal' : 'danger'}
+      />
+    </div>
   </ToolSection>
 </article>
 

@@ -22,7 +22,8 @@
     "paths": {
       "~data/*": ["./data/*"],
       "~core/*": ["./src/core/*"],
-      "~view/*": ["./src/view/*"]
+      "~view/*": ["./src/view/*"],
+      "~spec/*": ["./spec/*"]
     }
   },
   "include": ["./src/**/*", "./data**/*", "./spec/**/*"],

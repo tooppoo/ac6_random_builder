@@ -6,6 +6,12 @@ on:
   pull_request:
     branches:
       - main
+  workflow_call:
+    inputs:
+      package_name:
+        required: true
+        type: string
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -36,3 +42,9 @@ jobs:
         uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
+      - name: archive build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.package_name }}
+          path: dist
+        if: ${{ inputs.package_name != '' }}

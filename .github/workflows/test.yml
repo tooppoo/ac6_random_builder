@@ -32,10 +32,8 @@ jobs:
         run: npm ci
       - name: build
         run: |
-          npm run build
+          npm run build -- --base=${{ inputs.base_url || '/' }}
           npm run check
-        env:
-          BASE_URL: ${{ inputs.base_url || '/' }}
       - name: test with coverage
         run: npm run coverage
       - name: lint

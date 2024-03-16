@@ -12,14 +12,14 @@ import { legs } from '~data/legs.ts'
 export const candidates = {
   rightArmUnits: [...ArmUnits.armUnits, ArmUnits.notEquipped] as const,
   leftArmUnits: [
-    ...ArmUnits.armUnits,
     ...ArmUnits.leftArmUnits,
+    ...ArmUnits.armUnits,
     ArmUnits.notEquipped,
   ] as const,
   rightBackUnits: [...BackUnits.backUnits, BackUnits.notEquipped] as const,
   leftBackUnits: [
-    ...BackUnits.backUnits,
     ...BackUnits.lefTBackUnits,
+    ...BackUnits.backUnits,
     BackUnits.notEquipped,
   ] as const,
 

@@ -26,6 +26,6 @@
       "~view/*": ["./src/view/*"]
     }
   },
-  "include": ["src", "data"],
+  "include": ["./src/**/*", "./data**/*", "./spec/**/*"],
   "extends": "@tsconfig/svelte/tsconfig.json"
 }

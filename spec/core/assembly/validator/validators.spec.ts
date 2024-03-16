@@ -7,7 +7,7 @@ import { notEquipped as expNotEquipped } from '~data/expansions'
 import { fcses } from '~data/fces'
 import { generators } from '~data/generators'
 import { heads } from '~data/heads'
-import { legs, TwoLegs } from '~data/legs'
+import { legs, type TwoLegs } from '~data/legs'
 import { notOverEnergyOutput } from '~core/assembly/random/validator/validators'
 import { describe, expect, it } from 'vitest'
 

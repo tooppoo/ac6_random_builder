@@ -11,9 +11,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "coverage": "vitest run --coverage",
+    "test": "VITE_LOG_LEVEL=silent vitest run",
+    "test:watch": "VITE_LOG_LEVEL=silent vitest",
+    "coverage": "VITE_LOG_LEVEL=silent vitest run --coverage",
     "lint": "eslint . && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
     "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -48,5 +48,8 @@
     "typescript-eslint": "7.2.0",
     "vite": "5.1.6",
     "vitest": "1.4.0"
+  },
+  "dependencies": {
+    "loglevel": "1.9.1"
   }
 }

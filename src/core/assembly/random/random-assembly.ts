@@ -1,8 +1,8 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
 import type { Candidates } from '~core/assembly/candidates.ts'
-import { randomBuild, Randomizer } from './random-builder.ts'
+import { randomBuild, type Randomizer } from './random-builder.ts'
 import type { Validator } from './validator/base.ts'
-import { success, ValidationResult } from './validator/result.ts'
+import { success, type ValidationResult } from './validator/result.ts'
 import { notOverEnergyOutput } from './validator/validators.ts'
 
 type AssembleOption = Readonly<{

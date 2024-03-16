@@ -57,7 +57,7 @@ import {
   kinetic,
   none,
 } from './types/unit/attack_type.ts'
-import {
+import type {
   AsActiveHomingMissile,
   AsBlastShooting,
   AsBuckler,
@@ -76,8 +76,6 @@ import {
   AsShield,
   AsShooting,
   AsTurret,
-  defineBackUnit,
-  defineShieldUnit,
   WithBlast,
   WithChargeBlast,
   WithEffectiveRange,
@@ -87,6 +85,7 @@ import {
   WithRapidFire,
   WithReload,
 } from './types/unit/types.ts'
+import { defineBackUnit, defineShieldUnit } from './types/unit/types.ts'
 import {
   burst,
   charge,

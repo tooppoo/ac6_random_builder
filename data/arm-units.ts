@@ -67,7 +67,7 @@ import {
   vcpl,
 } from './types/base/manufacture.ts'
 import { coral, energy, explosive, kinetic } from './types/unit/attack_type.ts'
-import {
+import type {
   AsAssaultRifle,
   AsBlastShooting,
   AsCoralShooting,
@@ -85,7 +85,6 @@ import {
   AsPulseGun,
   AsShooting,
   AsShotgun,
-  defineArmUnit,
   WithBlast,
   WithCharge,
   WithChargeAmmoConsumption,
@@ -100,6 +99,7 @@ import {
   WithReload,
   WithTotalRounds,
 } from './types/unit/types.ts'
+import { defineArmUnit } from './types/unit/types.ts'
 import {
   burst,
   charge,

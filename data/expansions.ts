@@ -1,8 +1,8 @@
 import { expansion } from './types/base/classification'
 import { defineNotEquipped } from './types/base/types'
 import {
-  AsAssaultArmor,
-  AsProtect,
+  type AsAssaultArmor,
+  type AsProtect,
   defineExpansion,
 } from './types/expansion/types'
 

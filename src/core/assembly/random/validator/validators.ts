@@ -1,7 +1,7 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
 import { sum } from '~core/utils/array.ts'
 import type { Validator } from './base.ts'
-import { failure, success, ValidationResult } from './result.ts'
+import { failure, success, type ValidationResult } from './result.ts'
 
 export const notOverEnergyOutput: Validator = {
   validate(assembly: Assembly): ValidationResult {

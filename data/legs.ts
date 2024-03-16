@@ -1,12 +1,12 @@
 import {
   four_legs,
-  FourLegs as FourLegsCategory,
+  type FourLegs as FourLegsCategory,
   reverse_joint,
-  ReverseJoint as ReverseJointCategory,
+  type ReverseJoint as ReverseJointCategory,
   tank,
-  Tank as TankCategory,
+  type Tank as TankCategory,
   two_legs,
-  TwoLegs as TwoLegsCategory,
+  type TwoLegs as TwoLegsCategory,
 } from './types/base/category'
 import { legs as legsClass } from './types/base/classification'
 import {
@@ -21,7 +21,7 @@ import {
   rubicon_research_institute,
   schneider,
 } from './types/base/manufacture'
-import { AsJumper, AsTank, defineLegs } from './types/frame/types'
+import { type AsJumper, type AsTank, defineLegs } from './types/frame/types'
 
 export const twoLegs = [
   defineLegs<TwoLegsCategory, AsJumper>()({

@@ -17,7 +17,7 @@ jobs:
   test:
     uses: ./.github/workflows/test.yml
     with:
-      package_name: github-pages
+      package_name: app
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       CODECLIMATE_TOKEN: ${{ secrets.CODECLIMATE_TOKEN }}
@@ -34,7 +34,7 @@ jobs:
       - name: fetch app
         uses: actions/download-artifact@v4
         with:
-          name: github-pages
+          name: app
           path: dist
       - name: upload
         uses: actions/upload-pages-artifact@v3

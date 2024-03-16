@@ -15,11 +15,23 @@
   }
 </script>
 
-<svelte:element this={tag}>
-  <label for={id}>{caption}</label>
-  <select id={id} bind:value={selected} on:change={onChange}>
-    {#each parts as p}
-      <option value={p} selected={selected.name === p.name}>{p.name}</option>
-    {/each}
-  </select>
+<svelte:element this={tag} class={$$props.class + ' container'}>
+  <div class="row">
+    <label
+      for={id}
+      class="col-12 col-sm-5 fs-4"
+    >
+      {caption}
+    </label>
+    <select
+      id={id}
+      class="col-12 col-sm-7 fs-4"
+      bind:value={selected}
+      on:change={onChange}
+    >
+      {#each parts as p}
+        <option value={p} selected={selected.name === p.name}>{p.name}</option>
+      {/each}
+    </select>
+  </div>
 </svelte:element>

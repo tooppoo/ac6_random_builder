@@ -4,6 +4,7 @@
   import { candidates as defaultCandidates } from "~core/assembly/candidates.ts";
   import {RandomAssembly} from "~core/assembly/random/random-assembly.ts";
   import PartsSelectForm from "./form/PartsSelectForm.svelte";
+  import ToolSection from "./form/ToolSection.svelte";
 
   // state
   let candidates = defaultCandidates
@@ -36,18 +37,19 @@
   }
 </script>
 
-<header class="text-center">
+<header class="text-center mt-5">
   <h1>
     ARMORED CORE Ⅵ<br class="sp-only">
     ASSEMBLY TOOL
   </h1>
 </header>
 
-<article class="container text-center">
-  <section id="candidates-form">
+<article class="container text-center p-3">
+  <ToolSection id="candidates-form" class="my-4">
     <!-- UNIT -->
     <PartsSelectForm
       id="right-arm-unit"
+      class="mb-3"
       caption="RIGHT ARM UNIT"
       tag="section"
       parts={candidates.rightArmUnits}
@@ -56,6 +58,7 @@
     />
     <PartsSelectForm
       id="left-arm-unit"
+      class="mb-3"
       caption="LEFT ARM UNIT"
       tag="section"
       parts={candidates.leftArmUnits}
@@ -64,6 +67,7 @@
     />
     <PartsSelectForm
       id="right-back-unit"
+      class="mb-3"
       caption="RIGHT BACK UNIT"
       tag="section"
       parts={candidates.rightBackUnits}
@@ -72,6 +76,7 @@
     />
     <PartsSelectForm
       id="left-back-unit"
+      class="mb-3"
       caption="LEFT BACK UNIT"
       tag="section"
       parts={candidates.leftBackUnits}
@@ -81,6 +86,7 @@
     <!-- FRAME -->
     <PartsSelectForm
       id="head"
+      class="mb-3"
       caption="HEAD"
       tag="section"
       parts={candidates.heads}
@@ -89,6 +95,7 @@
     />
     <PartsSelectForm
       id="core"
+      class="mb-3"
       caption="CORE"
       tag="section"
       parts={candidates.cores}
@@ -97,6 +104,7 @@
     />
     <PartsSelectForm
       id="arms"
+      class="mb-3"
       caption="ARMS"
       tag="section"
       parts={candidates.arms}
@@ -105,6 +113,7 @@
     />
     <PartsSelectForm
       id="legs"
+      class="mb-3"
       caption="LEGS"
       tag="section"
       parts={candidates.legs}
@@ -114,6 +123,7 @@
     <!-- INNER -->
     <PartsSelectForm
       id="booster"
+      class="mb-3"
       caption="BOOSTER"
       tag="section"
       parts={candidates.boosters}
@@ -122,6 +132,7 @@
     />
     <PartsSelectForm
       id="fcs"
+      class="mb-3"
       caption="FCS"
       tag="section"
       parts={candidates.fcses}
@@ -130,6 +141,7 @@
     />
     <PartsSelectForm
       id="generator"
+      class="mb-3"
       caption="GENERATOR"
       tag="section"
       parts={candidates.generators}
@@ -139,24 +151,25 @@
     <!-- EXPANSION -->
     <PartsSelectForm
       id="expansion"
+      class="mb-3"
       caption="EXPANSION"
       tag="section"
       parts={candidates.expansions}
       selected={assembly.expansion}
       on:change={onChangeParts('expansion')}
     />
-  </section>
+  </ToolSection>
 
-  <section id="assembly-tools">
-    <button on:click={onRandom}>ランダム生成</button>
-  </section>
+  <ToolSection id="assembly-tools" class="my-4">
+    <button on:click={onRandom} class="w-75 p-2">ランダム生成</button>
+  </ToolSection>
 
-  <section id="assembly-view">
+  <ToolSection id="assembly-view" class="my-4">
     <dl>
-      <dt>AP</dt><dd>{assembly.ap}</dd>
-      <dt>総重量</dt><dd>{assembly.weight}</dd>
+      <dt class="fs-3">AP</dt><dd class="fs-5">{assembly.ap}</dd>
+      <dt class="fs-3">総重量</dt><dd class="fs-5">{assembly.weight}</dd>
     </dl>
-  </section>
+  </ToolSection>
 </article>
 
 <footer class="text-center">
@@ -169,4 +182,7 @@
 </footer>
 
 <style>
+  article {
+    max-width: 800px;
+  }
 </style>

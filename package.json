@@ -31,7 +31,6 @@
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
     "@vitest/coverage-v8": "1.4.0",
-    "bootstrap": "5.3.3",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-svelte": "^2.35.1",
@@ -50,6 +49,7 @@
     "vitest": "1.4.0"
   },
   "dependencies": {
+    "bootstrap": "5.3.3",
     "loglevel": "1.9.1"
   }
 }

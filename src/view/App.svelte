@@ -36,11 +36,14 @@
   }
 </script>
 
-<article class="container text-center">
+<header class="text-center">
   <h1>
     ARMORED CORE Ⅵ<br class="sp-only">
     ASSEMBLY TOOL
   </h1>
+</header>
+
+<article class="container text-center">
   <section id="candidates-form">
     <!-- UNIT -->
     <PartsSelectForm
@@ -155,6 +158,15 @@
     </dl>
   </section>
 </article>
+
+<footer class="text-center">
+  <div>
+    Created by <a href="https://linktr.ee/Philomagi">Philomagi</a>
+  </div>
+  <div>
+    Source code is <a href="https://github.com/tooppoo/ac6_assemble_tool/">here</a>
+  </div>
+</footer>
 
 <style>
 </style>

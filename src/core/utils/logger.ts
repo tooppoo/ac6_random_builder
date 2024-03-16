@@ -1,7 +1,7 @@
 import log, { type Logger } from 'loglevel'
 
 const defaultLogger = log.getLogger('default')
-defaultLogger.setDefaultLevel('warn')
+defaultLogger.setDefaultLevel('error')
 
 if (import.meta.env.VITE_LOG_LEVEL) {
   defaultLogger.setLevel(import.meta.env.VITE_LOG_LEVEL)

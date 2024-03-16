@@ -11,6 +11,9 @@ on:
       package_name:
         required: true
         type: string
+      base_url:
+        required: true
+        type: string
     secrets:
       CODECOV_TOKEN:
         required: true
@@ -31,6 +34,8 @@ jobs:
         run: |
           npm run build
           npm run check
+        env:
+          BASE_URL: ${{ inputs.base_url || '/' }}
       - name: test with coverage
         run: npm run coverage
       - name: lint

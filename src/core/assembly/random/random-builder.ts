@@ -1,4 +1,8 @@
-import type { Assembly } from '~core/assembly/assembly.ts'
+import {
+  type Assembly,
+  createAssembly,
+  type RawAssembly,
+} from '~core/assembly/assembly.ts'
 import type { Candidates } from '~core/assembly/candidates.ts'
 import { random } from '~core/utils/array.ts'
 import { notEquipped } from '~data/booster.ts'
@@ -9,7 +13,7 @@ export function randomBuild(
   randomizer: Randomizer = () => Math.random(),
 ): Assembly {
   const legs = random(candidates.legs, randomizer)
-  const base: Omit<Assembly, 'legs' | 'booster'> = {
+  const base: Omit<RawAssembly, 'legs' | 'booster'> = {
     rightArmUnit: random(candidates.rightArmUnits, randomizer),
     leftArmUnit: random(candidates.leftArmUnits, randomizer),
     rightBackUnit: random(candidates.rightBackUnits, randomizer),
@@ -27,8 +31,12 @@ export function randomBuild(
 
   switch (legs.category) {
     case 'tank':
-      return { ...base, legs, booster: notEquipped }
+      return createAssembly({ ...base, legs, booster: notEquipped })
     default:
-      return { ...base, legs, booster: random(candidates.boosters, randomizer) }
+      return createAssembly({
+        ...base,
+        legs,
+        booster: random(candidates.boosters, randomizer),
+      })
   }
 }

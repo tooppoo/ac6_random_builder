@@ -1,3 +1,4 @@
+import { createAssembly } from '~core/assembly/assembly.ts'
 import { armUnits } from '~data/arm-units'
 import { arms } from '~data/arms'
 import { backUnits } from '~data/back-units'
@@ -43,9 +44,11 @@ describe('validator', () => {
         { core: cores.find((c) => c.name.includes('VP-40S'))!, expected: true },
       ])('when core is $a', ({ core, expected }) => {
         it(`should return ${expected} by isSuccess`, () => {
-          expect(
-            notOverEnergyOutput.validate({ ...baseAssembly, core }).isSuccess,
-          ).toBe(expected)
+          const assembly = createAssembly({ ...baseAssembly, core })
+
+          expect(notOverEnergyOutput.validate(assembly).isSuccess).toBe(
+            expected,
+          )
         })
       })
     })

@@ -16,10 +16,16 @@ export const candidates = {
     ...ArmUnits.armUnits,
     ArmUnits.notEquipped,
   ] as const,
-  rightBackUnits: [...BackUnits.backUnits, BackUnits.notEquipped] as const,
+  rightBackUnits: [
+    ...BackUnits.backUnits,
+    ...ArmUnits.armUnits,
+    BackUnits.notEquipped,
+  ] as const,
   leftBackUnits: [
     ...BackUnits.lefTBackUnits,
     ...BackUnits.backUnits,
+    ...ArmUnits.leftArmUnits,
+    ...ArmUnits.armUnits,
     BackUnits.notEquipped,
   ] as const,
 

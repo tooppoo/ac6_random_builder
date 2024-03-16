@@ -1,11 +1,11 @@
 import { it } from '@fast-check/vitest'
-import { tank } from '~data/types/base/category'
-import { booster, boosterNotEquipped } from '~data/types/base/classification'
 import fc from 'fast-check'
-import type { Assembly } from '~core/assembly/assembly'
 import { describe, expect } from 'vitest'
+import type { Assembly } from '~core/assembly/assembly'
 import { candidates } from '~core/assembly/candidates'
 import { randomBuild } from '~core/assembly/random/random-builder'
+import { tank } from '~data/types/base/category'
+import { booster, boosterNotEquipped } from '~data/types/base/classification'
 
 describe(randomBuild.name, () => {
   it.prop([genRandomizer()])(
@@ -47,9 +47,12 @@ describe(randomBuild.name, () => {
       'expansion',
     ]
 
-    expect(Object.keys(assembly).sort()).toStrictEqual(expected.sort())
+    expect(Object.keys(assembly).sort()).toEqual(
+      expect.arrayContaining(expected.sort()),
+    )
   })
 })
+
 export function genRandomizer() {
   return fc.float({ min: 0, max: 1, noNaN: true, noDefaultInfinity: true })
 }

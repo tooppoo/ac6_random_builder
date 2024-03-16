@@ -114,7 +114,7 @@ export const lefTBackUnits = [
     deployment: 180,
     cooling: 144,
 
-    weight: 27000,
+    weight: 2700,
     en_load: 310,
   }),
   defineShieldUnit<AsShield>()({

@@ -1,6 +1,7 @@
+import type { BaseACParts } from 'data/types/base/types.ts'
 import type { AsAttackUnit, WithBlast } from '../unit/types'
 
-export const defineExpansion = <Ex extends object>(d: Expansion & Ex) => d
+export const defineExpansion = <Ex extends object>(d: BaseACParts & Ex) => d
 
 export type AsAssaultArmor = Readonly<{
   /** 効果範囲 */
@@ -14,8 +15,4 @@ export type AsProtect = Readonly<{
   durability: number
   /** 持続時間 */
   time_limit: number
-}>
-
-type Expansion = Readonly<{
-  name: string
 }>

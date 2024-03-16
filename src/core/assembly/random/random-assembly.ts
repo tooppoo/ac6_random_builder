@@ -31,7 +31,9 @@ export class RandomAssembly {
     const { random } = { ...defaultOption, ...option }
 
     return this.validate(randomBuild(candidates, random)).fold(
-      (_errors) => {
+      (errors) => {
+        console.warn({ errors })
+
         return this.assemble(candidates, option)
       },
       (a) => a,

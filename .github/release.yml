@@ -9,6 +9,7 @@ changelog:
       labels:
         - BREAKING_CHANGE
     - title: New Feature Released 🎉
+      labels:
         - new_feature
     - title: Application Improved 🙂
       labels:

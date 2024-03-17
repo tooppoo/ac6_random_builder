@@ -23,7 +23,8 @@
       "~data/*": ["./data/*"],
       "~core/*": ["./src/core/*"],
       "~view/*": ["./src/view/*"],
-      "~spec/*": ["./spec/*"]
+      "~spec/*": ["./spec/*"],
+      "~root/*": ["./*"]
     }
   },
   "include": ["./src/**/*", "./data**/*", "./spec/**/*"],

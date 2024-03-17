@@ -11,6 +11,7 @@ export default defineConfig({
       '~core/': join(__dirname, 'src/core/'),
       '~view/': join(__dirname, 'src/view/'),
       '~spec/': join(__dirname, 'spec/'),
+      '~root/': join(__dirname, '/'),
     },
   },
 })

@@ -8,6 +8,9 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./form/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
+  import appPackage from '~root/package.json'
+
+  const appVersion = appPackage.version
 
   const initialize = async () => {
     const version = await getCandidates(v1_06_1)
@@ -219,12 +222,15 @@
   </ToolSection>
 </article>
 
-<footer class="text-center my-3">
+<footer class="text-center mb-3">
   <div>
     Created by <a href="https://linktr.ee/Philomagi">Philomagi</a>
   </div>
   <div>
     Source code is <a href="https://github.com/tooppoo/ac6_assemble_tool/">here</a>
+  </div>
+  <div>
+    App Version v{appVersion}
   </div>
 </footer>
 {/await }

@@ -20,7 +20,7 @@ export const heads = [
     classification: headClass,
     category: headCategory,
     manufacture: baws,
-    price: 185000,
+    price: 61000,
 
     ap: 1250,
 

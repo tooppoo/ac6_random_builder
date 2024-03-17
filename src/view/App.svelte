@@ -218,6 +218,11 @@
         value={assembly.enOutput}
         status={assembly.withinEnOutput ? 'normal' : 'danger'}
       />
+      <ReportItem
+        caption="総COAM"
+        class="mb-3"
+        value={assembly.coam}
+      />
     </div>
   </ToolSection>
 </article>

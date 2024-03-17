@@ -1,5 +1,5 @@
 import { it as fcit } from '@fast-check/vitest'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, test } from 'vitest'
 import {
   type Assembly,
   createAssembly,
@@ -200,5 +200,62 @@ describe('assembly', () => {
         })
       },
     )
+  })
+
+  describe('coam', () => {
+    describe.each([
+      {
+        diff: {},
+        expected: 1135000,
+      },
+      {
+        diff: { rightArmUnit: armUnits[1] },
+        expected: 1135000 - 105000 + 65000,
+      },
+      {
+        diff: { rightBackUnit: backUnits[1] },
+        expected: 1135000 - 220000 + 255000,
+      },
+      {
+        diff: { leftArmUnit: leftArmUnits[1] },
+        expected: 1135000 - 185000 + 215000,
+      },
+      {
+        diff: { leftBackUnit: leftBackUnits[1] },
+        expected: 1135000 - 123000 + 43000,
+      },
+      {
+        diff: { head: heads[2] },
+        expected: 1135000 - 61000 + 75000,
+      },
+      {
+        diff: { core: cores[2] },
+        expected: 1135000 - 166000 + 195000,
+      },
+      {
+        diff: { arms: arms[2] },
+        expected: 1135000 - 81000 + 95000,
+      },
+      {
+        diff: { legs: legs[2] },
+        expected: 1135000 - 141000 + 175000,
+      },
+      {
+        diff: { booster: boosters[2] },
+        expected: 1135000 - 53000 + 72000,
+      },
+      {
+        diff: { fcs: fcses[1] },
+        expected: 1135000 + 67000,
+      },
+      {
+        diff: { generator: generators[1] },
+        expected: 1135000 + 240000,
+      },
+    ])('diff is %s', ({ diff, expected }) => {
+      test(`total coam should be ${expected}`, () => {
+        expect(merge(sut, diff).coam).toBe(expected)
+      })
+    })
   })
 })

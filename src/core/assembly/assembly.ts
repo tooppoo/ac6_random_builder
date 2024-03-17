@@ -22,6 +22,8 @@ export type Assembly = RawAssembly & {
   readonly enLoad: number
   /** EN出力 */
   readonly enOutput: number
+  /** 総COAM */
+  readonly coam: number
 
   /**
    * @return {boolean} 積載量が積載上限以内の場合にtrue
@@ -82,6 +84,23 @@ export function createAssembly(base: RawAssembly): Assembly {
       return Math.floor(
         this.generator.en_output *
           (this.core.generator_output_adjective * 0.01),
+      )
+    },
+    get coam(): number {
+      return sum(
+        [
+          this.rightArmUnit,
+          this.rightBackUnit,
+          this.leftArmUnit,
+          this.leftBackUnit,
+          this.head,
+          this.core,
+          this.arms,
+          this.legs,
+          this.booster,
+          this.fcs,
+          this.generator,
+        ].map((p) => p.price),
       )
     },
     get withinLoadLimit(): boolean {

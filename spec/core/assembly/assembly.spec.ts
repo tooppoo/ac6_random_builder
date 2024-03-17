@@ -1,7 +1,10 @@
 import { it as fcit } from '@fast-check/vitest'
-import sinon from 'sinon'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { type Assembly, createAssembly } from '~core/assembly/assembly.ts'
+import { beforeEach, describe, expect, it } from 'vitest'
+import {
+  type Assembly,
+  createAssembly,
+  type RawAssembly,
+} from '~core/assembly/assembly.ts'
 import { armUnits, leftArmUnits } from '~data/arm-units.ts'
 import { arms } from '~data/arms.ts'
 import { backUnits, leftBackUnits } from '~data/back-units'
@@ -16,6 +19,12 @@ import { genAssembly } from '~spec/helper.ts'
 
 describe('assembly', () => {
   let sut: Assembly
+
+  const merge = (base: Assembly, diff: Partial<RawAssembly>): Assembly =>
+    createAssembly({
+      ...base,
+      ...diff,
+    } as never)
 
   beforeEach(() => {
     sut = createAssembly({
@@ -35,93 +44,117 @@ describe('assembly', () => {
   })
 
   describe('ap', () => {
-    it('should return total AP of the assembly', () => {
-      const expected = 1250 + 3580 + 2430 + 4240
+    fcit.prop([genAssembly()])('must be larger than minimum', (assembly) => {
+      expect(assembly.ap).greaterThanOrEqual(6400)
+    })
 
-      expect(sut.ap).toStrictEqual(expected)
+    describe.each([
+      { diff: {}, expected: 11500 },
+      { diff: { head: heads[1] }, expected: 11250 },
+      { diff: { core: cores[1] }, expected: 10320 },
+      { diff: { arms: arms[1] }, expected: 10070 },
+      { diff: { legs: legs[1] }, expected: 9260 },
+    ])('diff is %s', ({ diff, expected }) => {
+      it(`should be ${expected}`, () => {
+        expect(merge(sut, diff).ap).toBe(expected)
+      })
     })
   })
+
   describe('weight', () => {
-    it('should return total weight of the weight', () => {
-      const expected =
-        // unit
-        4210 +
-        4180 +
-        3960 +
-        2700 +
-        // frame
-        4600 +
-        16100 +
-        10480 +
-        19720 +
-        // inner
-        1820 +
-        80 +
-        3420
+    fcit.prop([genAssembly()])(
+      'total weight must be larger than minimum',
+      (assembly) => {
+        expect(assembly.weight).greaterThanOrEqual(34900)
+      },
+    )
+    fcit.prop([genAssembly()])(
+      'total load must be larger than minimum',
+      (assembly) => {
+        expect(assembly.load).greaterThanOrEqual(23700)
+      },
+    )
 
-      expect(sut.weight).toStrictEqual(expected)
-    })
-  })
-  describe('load', () => {
-    it('should return total weight without leg', () => {
-      const expected =
-        // unit
-        4210 +
-        4180 +
-        3960 +
-        2700 +
-        // frame
-        4600 +
-        16100 +
-        10480 +
-        // inner
-        1820 +
-        80 +
-        3420
-
-      expect(sut.load).toStrictEqual(expected)
-    })
-  })
-  describe('withinLoadLimit', () => {
-    let sandbox: sinon.SinonSandbox
-    beforeEach(() => {
-      sandbox = sinon.createSandbox()
-    })
-    afterEach(() => {
-      sandbox.restore()
-    })
-
-    describe('over load limit', () => {
-      fcit.prop([genAssembly()])(
-        'should behave as not within load limit',
-        (assembly) => {
-          const stubAssembly = sandbox.stub(assembly, 'loadLimit')
-
-          stubAssembly.value(0) // 積載上限0なら必ず積載超過
-
-          expect(assembly.withinLoadLimit).toBe(false)
-        },
-      )
-    })
-    describe('within load limit', () => {
-      fcit.prop([genAssembly()])(
-        'should behave as within load limit',
-        (assembly) => {
-          const stubAssembly = sandbox.stub(assembly, 'loadLimit')
-
-          stubAssembly.value(Infinity)
-
-          expect(assembly.withinLoadLimit).toBe(true)
-        },
-      )
-    })
-    describe('load equals with load limit', () => {
-      it('should behave as within load limit', () => {
-        const stubAssembly = sandbox.stub(sut, 'loadLimit')
-
-        stubAssembly.value(sut.load)
-
-        expect(sut.withinLoadLimit).toBe(true)
+    describe.each([
+      { diff: {}, expectedWeight: 71270, expectedLoad: 51550, within: true },
+      {
+        diff: { rightArmUnit: armUnits[1] },
+        expectedWeight: 71210,
+        expectedLoad: 51490,
+        within: true,
+      },
+      {
+        diff: { leftArmUnit: leftArmUnits[1] },
+        expectedWeight: 70880,
+        expectedLoad: 51160,
+        within: true,
+      },
+      {
+        diff: { rightBackUnit: backUnits[1] },
+        expectedWeight: 73890,
+        expectedLoad: 54170,
+        within: true,
+      },
+      {
+        diff: { leftBackUnit: backUnits[6] },
+        expectedWeight: 83390,
+        expectedLoad: 63670,
+        within: false,
+      },
+      {
+        diff: { head: heads[1] },
+        expectedWeight: 70920,
+        expectedLoad: 51200,
+        within: true,
+      },
+      {
+        diff: { core: cores[1] },
+        expectedWeight: 67520,
+        expectedLoad: 47800,
+        within: true,
+      },
+      {
+        diff: { arms: arms[1] },
+        expectedWeight: 69270,
+        expectedLoad: 49550,
+        within: true,
+      },
+      {
+        diff: { legs: legs[6] },
+        expectedWeight: 65580,
+        expectedLoad: 51550,
+        within: false,
+      },
+      {
+        diff: { booster: boosters[1] },
+        expectedWeight: 70750,
+        expectedLoad: 51030,
+        within: true,
+      },
+      {
+        diff: { fcs: fcses[1] },
+        expectedWeight: 71290,
+        expectedLoad: 51570,
+        within: true,
+      },
+      {
+        diff: { generator: generators[1] },
+        expectedWeight: 72930,
+        expectedLoad: 53210,
+        within: true,
+      },
+    ])('diff is %s', ({ diff, expectedWeight, expectedLoad, within }) => {
+      beforeEach(() => {
+        sut = merge(sut, diff)
+      })
+      it(`weight should be ${expectedWeight}`, () => {
+        expect(sut.weight).toBe(expectedWeight)
+      })
+      it(`load should be ${expectedLoad}`, () => {
+        expect(sut.load).toBe(expectedLoad)
+      })
+      it(`within energy output is ${within}`, () => {
+        expect(sut.withinLoadLimit).toBe(within)
       })
     })
   })
@@ -150,11 +183,10 @@ describe('assembly', () => {
         within: true,
       },
     ])(
-      'when core is $core, generator is $generator',
+      'when core is %s, generator is %s',
       ({ core, generator, expectedEnLoad, expectedOutput, within }) => {
         beforeEach(() => {
-          sut.core = core
-          sut.generator = generator
+          sut = merge(sut, { core, generator })
         })
 
         it(`energy load should be ${expectedOutput}`, () => {

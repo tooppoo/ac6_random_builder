@@ -156,13 +156,6 @@ describe('validator', () => {
         const leftArmUnits = halfSlice(candidates.leftArmUnits)
         const leftBackUnits = exclude(candidates.leftBackUnits, leftArmUnits)
 
-        console.log(
-          rightArmUnits.map((x) => x.name),
-          rightBackUnits.map((x) => x.name),
-          leftArmUnits.map((x) => x.name),
-          leftBackUnits.map((x) => x.name),
-        )
-
         return {
           ...candidates,
           rightArmUnits,

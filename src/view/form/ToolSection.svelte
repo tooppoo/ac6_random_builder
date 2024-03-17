@@ -1,7 +1,7 @@
 
 <section
   id={$$props.id}
-  class={$$props.class + " w-100 bg-light-subtle p-4 border border-secondary"}
+  class={$$props.class + " w-100 p-4 border border-secondary bg-dark-subtle"}
 >
   <slot />
 </section>

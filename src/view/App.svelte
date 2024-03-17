@@ -5,6 +5,7 @@
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import type {Candidates} from "~data/types/candidates.ts";
   import {version as v1_06_1} from "~data/versions/v1.06.1.ts";
+  import CoamRangeSlider from "~view/form/CoamRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./form/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
@@ -179,7 +180,18 @@
   </ToolSection>
 
   <ToolSection id="assembly-command" class="my-4">
-    <button on:click={onRandom} class="w-75 p-2">ランダム生成</button>
+    <button
+      id="generate-random"
+      on:click={onRandom}
+      class="my-3 mx-auto w-75 p-2"
+    >
+      ランダム生成
+    </button>
+    <CoamRangeSlider
+      id="total-coam-range"
+      class="my-3 mx-auto w-75"
+      candidates={candidates}
+    />
   </ToolSection>
 
   <ToolSection id="assembly-report" class="my-4 container">

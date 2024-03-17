@@ -10,7 +10,7 @@ on:
         required: true
 
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: true
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
     needs: test
     permissions:
       contents: read
-      pages: write    # to deploy to Pages
+      pages: write # to deploy to Pages
       id-token: write # to verify the deployment originates from an appropriate source
     environment:
       name: github-pages

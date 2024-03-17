@@ -1,0 +1,21 @@
+changelog:
+  exclude:
+    labels:
+      - "not contain release note"
+    authors:
+      - octocat
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - "BREAKING CHANGE"
+    - title: New Feature Released 🎉
+        - "new feature"
+    - title: Application Improved 🙂
+      labels:
+        - enhancement
+    - title: Bug Fix 🤕
+      labels:
+        - bug
+    - title: Other Changes
+      labels:
+        - "*"

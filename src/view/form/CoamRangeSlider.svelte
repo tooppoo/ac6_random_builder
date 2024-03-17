@@ -9,11 +9,7 @@
 
   const max = (() => {
     type WithPrice = Readonly<{ price: number }>
-    const descByPrice = (a: WithPrice, b: WithPrice) => {
-      if (a.price === b.price) return 0
-
-      return a.price < b.price ? 1 : -1
-    }
+    const descByPrice = (a: WithPrice, b: WithPrice) => b.price - a.price
     const sort = <T extends WithPrice>(xs: readonly T[]): readonly T[] => [...xs].sort(descByPrice)
 
     const total = sum([
@@ -37,8 +33,6 @@
     const index = parseInt(strMax.replace(/0/g, ''))
 
     const unit = max / index
-
-    console.log({ strMax, index, unit })
 
     return [...Array(index + 1)].map((_, i) => unit * i)
   })()

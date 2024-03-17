@@ -326,5 +326,5 @@ export const boosters = [
 ] as const
 export type Booster = (typeof boosters)[number]
 
-export const notEquipped = defineNotEquipped()
-export type NotEquipped = typeof notEquipped
+export const boosterNotEquipped = defineNotEquipped()
+export type BoosterNotEquipped = typeof boosterNotEquipped

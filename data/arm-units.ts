@@ -1794,5 +1794,5 @@ export const armUnits = [
 ] as const
 export type ArmUnit = (typeof armUnits)[number]
 
-export const notEquipped = defineNotEquipped()
-export type NotEquipped = typeof notEquipped
+export const armNotEquipped = defineNotEquipped()
+export type ArmNotEquipped = typeof armNotEquipped

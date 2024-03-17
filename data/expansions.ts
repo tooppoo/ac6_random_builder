@@ -37,7 +37,7 @@ export const expansions = [
     time_limit: 2,
   }),
 ] as const
-export const notEquipped = defineNotEquipped()
-export type NotEquipped = typeof notEquipped
+export const expansionNotEquipped = defineNotEquipped()
+export type ExpansionNotEquipped = typeof expansionNotEquipped
 
 export type Expansion = (typeof expansions)[number]

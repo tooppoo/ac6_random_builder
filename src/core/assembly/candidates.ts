@@ -1,3 +1,8 @@
+import {
+  armNotEquipped,
+  armUnits,
+  leftArmUnits,
+} from '~data/versions/v1.06.1.ts'
 import * as ArmUnits from '~data/arm-units.ts'
 import { arms, type Arms } from '~data/arms.ts'
 import * as BackUnits from '~data/back-units.ts'
@@ -10,23 +15,19 @@ import { heads, type Head } from '~data/heads.ts'
 import { type Legs, legs } from '~data/legs.ts'
 
 export const candidates: Candidates = {
-  rightArmUnits: [...ArmUnits.armUnits, ArmUnits.notEquipped],
-  leftArmUnits: [
-    ...ArmUnits.leftArmUnits,
-    ...ArmUnits.armUnits,
-    ArmUnits.notEquipped,
-  ],
+  rightArmUnits: [...armUnits, armNotEquipped],
+  leftArmUnits: [...leftArmUnits, ...armUnits, armNotEquipped],
   rightBackUnits: [
     ...BackUnits.backUnits,
     ...ArmUnits.armUnits,
-    BackUnits.notEquipped,
+    BackUnits.backNotEquipped,
   ],
   leftBackUnits: [
     ...BackUnits.leftBackUnits,
     ...BackUnits.backUnits,
     ...ArmUnits.leftArmUnits,
     ...ArmUnits.armUnits,
-    BackUnits.notEquipped,
+    BackUnits.backNotEquipped,
   ],
 
   heads,
@@ -38,23 +39,23 @@ export const candidates: Candidates = {
   fcses,
   generators,
 
-  expansions: [...Expansion.expansions, Expansion.notEquipped],
+  expansions: [...Expansion.expansions, Expansion.expansionNotEquipped],
 } as const
 
 export type Candidates = Readonly<{
-  rightArmUnits: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.NotEquipped>
+  rightArmUnits: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped>
   leftArmUnits: ReadonlyArray<
-    ArmUnits.LeftArmUnit | ArmUnits.ArmUnit | ArmUnits.NotEquipped
+    ArmUnits.LeftArmUnit | ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped
   >
   rightBackUnits: ReadonlyArray<
-    BackUnits.BackUnit | ArmUnits.ArmUnit | BackUnits.NotEquipped
+    BackUnits.BackUnit | ArmUnits.ArmUnit | BackUnits.BackNotEquipped
   >
   leftBackUnits: ReadonlyArray<
     | BackUnits.LeftBackUnit
     | BackUnits.BackUnit
     | ArmUnits.LeftArmUnit
     | ArmUnits.ArmUnit
-    | BackUnits.NotEquipped
+    | BackUnits.BackNotEquipped
   >
 
   heads: readonly Head[]
@@ -66,5 +67,7 @@ export type Candidates = Readonly<{
   fcses: readonly FCS[]
   generators: readonly Generator[]
 
-  expansions: ReadonlyArray<Expansion.Expansion | Expansion.NotEquipped>
+  expansions: ReadonlyArray<
+    Expansion.Expansion | Expansion.ExpansionNotEquipped
+  >
 }>

@@ -1335,5 +1335,5 @@ export const backUnits = [
 ] as const
 export type BackUnit = (typeof backUnits)[number]
 
-export const notEquipped = defineNotEquipped()
-export type NotEquipped = typeof notEquipped
+export const backNotEquipped = defineNotEquipped()
+export type BackNotEquipped = typeof backNotEquipped

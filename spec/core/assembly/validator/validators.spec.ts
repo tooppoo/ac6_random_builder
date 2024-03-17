@@ -1,5 +1,5 @@
 import { candidates } from '~core/assembly/candidates.ts'
-import { notEquipped } from '~data/arm-units'
+import { armNotEquipped } from '~data/arm-units'
 import {
   notCarrySameUnitInSameSide,
   notOverEnergyOutput,
@@ -72,7 +72,7 @@ describe('validator', () => {
           fcit.prop([genAssembly(candidatesForTest)])(
             'should evaluate as valid. "not equipped" is allowed',
             (assembly) => {
-              assembly.rightBackUnit = assembly.rightArmUnit = notEquipped
+              assembly.rightBackUnit = assembly.rightArmUnit = armNotEquipped
               assembly.leftArmUnit = candidatesForTest.leftArmUnits[0]
               assembly.leftBackUnit = candidatesForTest.leftBackUnits[0]
 
@@ -100,7 +100,7 @@ describe('validator', () => {
           fcit.prop([genAssembly(candidatesForTest)])(
             'should evaluate as valid. "not equipped" is allowed',
             (assembly) => {
-              assembly.leftBackUnit = assembly.leftArmUnit = notEquipped
+              assembly.leftBackUnit = assembly.leftArmUnit = armNotEquipped
               assembly.rightArmUnit = candidatesForTest.rightArmUnits[0]
               assembly.rightBackUnit = candidatesForTest.rightBackUnits[0]
 
@@ -127,8 +127,8 @@ describe('validator', () => {
           fcit.prop([genAssembly(candidatesForTest)])(
             'should evaluate as valid. "not equipped" is allowed',
             (assembly) => {
-              assembly.rightBackUnit = assembly.rightArmUnit = notEquipped
-              assembly.leftBackUnit = assembly.leftArmUnit = notEquipped
+              assembly.rightBackUnit = assembly.rightArmUnit = armNotEquipped
+              assembly.leftBackUnit = assembly.leftArmUnit = armNotEquipped
 
               expect(
                 notCarrySameUnitInSameSide.validate(assembly).isSuccess,

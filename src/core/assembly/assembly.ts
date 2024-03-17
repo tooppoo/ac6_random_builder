@@ -101,18 +101,21 @@ type AssemblyNotTank = BaseAssembly & {
 }
 type AssemblyWithTank = BaseAssembly & {
   legs: LegsTank
-  booster: Boosters.NotEquipped
+  booster: Boosters.BoosterNotEquipped
 }
 type BaseAssembly = {
-  rightArmUnit: ArmUnits.ArmUnit | ArmUnits.NotEquipped
-  leftArmUnit: ArmUnits.ArmUnit | ArmUnits.LeftArmUnit | ArmUnits.NotEquipped
-  rightBackUnit: ArmUnits.ArmUnit | BackUnits.BackUnit | BackUnits.NotEquipped
+  rightArmUnit: ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped
+  leftArmUnit: ArmUnits.ArmUnit | ArmUnits.LeftArmUnit | ArmUnits.ArmNotEquipped
+  rightBackUnit:
+    | ArmUnits.ArmUnit
+    | BackUnits.BackUnit
+    | BackUnits.BackNotEquipped
   leftBackUnit:
     | ArmUnits.ArmUnit
     | ArmUnits.LeftArmUnit
     | BackUnits.BackUnit
     | BackUnits.LeftBackUnit
-    | BackUnits.NotEquipped
+    | BackUnits.BackNotEquipped
 
   head: Head
   core: Core
@@ -120,5 +123,5 @@ type BaseAssembly = {
 
   fcs: FCS
   generator: Generator
-  expansion: Expansion.Expansion | Expansion.NotEquipped
+  expansion: Expansion.Expansion | Expansion.ExpansionNotEquipped
 }

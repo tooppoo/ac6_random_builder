@@ -3,11 +3,12 @@ import { it, fc } from '@fast-check/vitest'
 import { roundUpByRealPart } from '~core/utils/number.ts'
 
 describe(roundUpByRealPart.name, () => {
-  const genNumAndDigit = fc
-    .record({ num: fc.integer(), digit: fc.integer({ min: 1 }) })
-    .filter(({ num, digit }) => digit < `${Math.abs(num)}`.length)
+  const genNumAndDigit = (digit: { min?: number; max?: number } = { min: 1 }) =>
+    fc
+      .record({ num: fc.integer(), digit: fc.integer(digit) })
+      .filter(({ num, digit }) => digit < `${Math.abs(num)}`.length)
 
-  it.prop([genNumAndDigit])(
+  it.prop([genNumAndDigit()])(
     'length should be same or plus 1',
     ({ num, digit }) => {
       const rounded = roundUpByRealPart(digit)(num)
@@ -17,7 +18,7 @@ describe(roundUpByRealPart.name, () => {
       expect([len(num), len(num) + 1]).contain(len(rounded))
     },
   )
-  it.prop([genNumAndDigit])(
+  it.prop([genNumAndDigit()])(
     'all digits other than top should be 0',
     ({ num, digit }) => {
       const rounded = roundUpByRealPart(digit)(num)
@@ -26,6 +27,15 @@ describe(roundUpByRealPart.name, () => {
       expect(other.every((d) => d === '0')).toBe(true)
     },
   )
+  describe('digit < 1', () => {
+    it.prop([genNumAndDigit({ max: 0 })])(
+      'behave as like digit is 1',
+      ({ num, digit }) => {
+        expect(roundUpByRealPart(digit)(num)).toEqual(roundUpByRealPart(1)(num))
+      },
+    )
+  })
+
   describe.each([
     { num: 111010, digit: 1, expected: 200000 },
     { num: 111010, digit: 2, expected: 120000 },

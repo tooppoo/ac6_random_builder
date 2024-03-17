@@ -5,6 +5,7 @@ import { candidates } from '~data/versions/v1.06.1.ts'
 import { afterEach, beforeEach, describe, expect, type Mock, vi } from 'vitest'
 import {
   OverTryLimitError,
+  OverwriteInnerSecretValidatorError,
   RandomAssembly,
 } from '~core/assembly/random/random-assembly'
 
@@ -45,6 +46,35 @@ describe(RandomAssembly.name, () => {
           },
         )
       })
+
+      describe('with inner key', () => {
+        const testValidator: Validator = {
+          validate: () => {
+            throw new Error('this should not be called')
+          },
+        }
+        const sut = RandomAssembly.init()
+        const key = '__inner__test'
+
+        it('should throw error', () => {
+          expect(() => sut.addValidator(key, testValidator)).toThrowError(
+            OverwriteInnerSecretValidatorError,
+          )
+        })
+        it('enable check what key occur error', () => {
+          try {
+            sut.addValidator(key, testValidator)
+
+            expect.fail('should throw error')
+          } catch (e) {
+            if (e instanceof OverwriteInnerSecretValidatorError) {
+              expect(e.key).toEqual(key)
+            } else {
+              expect.fail(`unexpected error ${e} thrown`)
+            }
+          }
+        })
+      })
     })
     describe('when get validator via unknown key', () => {
       it.prop([generateValidator()])(
@@ -81,6 +111,20 @@ describe(RandomAssembly.name, () => {
 
       expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
       expect(mockValidate).toHaveBeenCalledTimes(limit)
+    })
+    it('enable check how many tried', () => {
+      const sut = RandomAssembly.init({ limit }).addValidator('test', validator)
+
+      try {
+        sut.assemble(candidates)
+        expect.fail('should throw error')
+      } catch (e) {
+        if (e instanceof OverTryLimitError) {
+          expect(e.limit).toEqual(limit)
+        } else {
+          expect.fail(`unexpected error ${e} thrown`)
+        }
+      }
     })
     it('can reuse same object after limit', () => {
       const sut = RandomAssembly.init({ limit }).addValidator('test', validator)

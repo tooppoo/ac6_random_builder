@@ -17,7 +17,7 @@ type AssembleOption = Readonly<{
 const defaultOption: Required<AssembleOption> = {
   random: () => Math.random(),
 }
-const innerSecretKey = '__init__' as const
+const innerSecretKey = '__inner__' as const
 
 type RandomAssemblyConfig = Readonly<{
   limit: number
@@ -43,11 +43,7 @@ export class RandomAssembly {
 
   addValidator(key: string, validator: Validator): RandomAssembly {
     if (isInnerSecretKey(key)) {
-      logger.warn(
-        `${key} is inner secret key format, this is not allowed. so ignored`,
-      )
-
-      return this
+      throw new OverwriteInnerSecretValidatorError(key)
     }
     return new RandomAssembly(
       { ...this._validators, [key]: validator },
@@ -100,6 +96,11 @@ export class RandomAssembly {
 
 export class OverTryLimitError extends BaseCustomError<number> {
   get limit(): number {
+    return this.customArgument
+  }
+}
+export class OverwriteInnerSecretValidatorError extends BaseCustomError<string> {
+  get key(): string {
     return this.customArgument
   }
 }

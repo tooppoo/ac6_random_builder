@@ -55,7 +55,7 @@ describe(RandomAssembly.name, () => {
   })
 
   describe('when over limit of try', () => {
-    let mockValidate: Mock<any, any>
+    let mockValidate: Mock
     let validator: Validator
     const limit = 5
 

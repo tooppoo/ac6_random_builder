@@ -3,9 +3,9 @@ import {
   createAssembly,
   type RawAssembly,
 } from '~core/assembly/assembly.ts'
-import type { Candidates } from '~core/assembly/candidates.ts'
 import { random } from '~core/utils/array.ts'
 import { boosterNotEquipped } from '~data/booster.ts'
+import type { Candidates } from '~data/types/candidates.ts'
 
 export type Randomizer = () => number
 export function randomBuild(

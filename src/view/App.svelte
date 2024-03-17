@@ -4,6 +4,7 @@
   import { getCandidates } from "~core/assembly/candidates.ts"
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax} from "~core/assembly/random/validator/validators.ts";
+  import { logger } from '~core/utils/logger.ts'
   import type {Candidates} from "~data/types/candidates.ts";
   import {version as v1_06_1} from "~data/versions/v1.06.1.ts";
   import CoamRangeSlider from "~view/form/CoamRangeSlider.svelte";
@@ -13,6 +14,7 @@
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version
+  const tryLimit = 1000
 
   const initialize = async () => {
     const version = await getCandidates(v1_06_1)
@@ -39,7 +41,7 @@
   // state
   let candidates: Candidates
   let assembly: Assembly
-  let randomAssembly = RandomAssembly.init()
+  let randomAssembly = RandomAssembly.init({ limit: tryLimit })
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -47,7 +49,16 @@
     assembly = assembly
   }
   const onRandom = () => {
-    assembly = randomAssembly.assemble(candidates)
+    try {
+      assembly = randomAssembly.assemble(candidates)
+    } catch (e) {
+      logger.error(e)
+
+      alert(`
+        試行上限以内のランダム生成に失敗しました（試行上限: ${tryLimit}）
+        条件を緩めると、成功の可能性が上がります
+      `)
+    }
   }
   const onChangeMaxCoam = (ev: CustomEvent<{ value: number }>) => {
     randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))

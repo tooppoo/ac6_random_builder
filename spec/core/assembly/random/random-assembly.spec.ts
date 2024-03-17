@@ -6,7 +6,7 @@ import { describe, expect } from 'vitest'
 import { RandomAssembly } from '~core/assembly/random/random-assembly'
 
 describe(RandomAssembly.name, () => {
-  it.prop([fc.array(generateValidator())])(
+  it.prop([fc.array(generateValidatorWithKey())])(
     'should return only valid assembly',
     (validators) => {
       const sut = validators.reduce<RandomAssembly>(
@@ -22,10 +22,7 @@ describe(RandomAssembly.name, () => {
   describe('when add validator with same key', () => {
     it.prop([generateValidator(), generateValidator()])(
       'return later validator for the key',
-      (pair1, pair2) => {
-        const { validator: val1 } = pair1
-        const { validator: val2 } = pair2
-
+      (val1, val2) => {
         const sut = RandomAssembly.init()
           .addValidator('key', val1)
           .addValidator('key', val2)
@@ -35,10 +32,7 @@ describe(RandomAssembly.name, () => {
     )
     it.prop([generateValidator(), generateValidator()])(
       'count of validators should not change',
-      (pair1, pair2) => {
-        const { validator: val1 } = pair1
-        const { validator: val2 } = pair2
-
+      (val1, val2) => {
         const sut1 = RandomAssembly.init().addValidator('key', val1)
         const sut2 = sut1.addValidator('key', val2)
 
@@ -49,7 +43,7 @@ describe(RandomAssembly.name, () => {
   describe('when get validator via unknown key', () => {
     it.prop([generateValidator()])(
       'contain only later validator',
-      ({ validator }) => {
+      (validator) => {
         const sut = RandomAssembly.init().addValidator('key', validator)
 
         expect(sut.getValidator('unknown')).toBeNull()
@@ -59,26 +53,28 @@ describe(RandomAssembly.name, () => {
 })
 
 const generateValidator = () =>
+  fc.oneof(
+    fc.integer({ min: 8480, max: 26740 }).map<Validator>((border) => ({
+      validate: (a) =>
+        a.arms.weight <= border
+          ? success(a)
+          : failure([new Error(`not arms.weight <= ${border}`)]),
+    })),
+    fc.constant<Validator>({
+      validate: (a) =>
+        a.head.manufacture === 'baws'
+          ? success(a)
+          : failure([new Error(`not head.manufacture = baws`)]),
+    }),
+    fc.constant<Validator>({
+      validate: (a) =>
+        a.core.price > 0
+          ? success(a)
+          : failure([new Error('not core.price > 0')]),
+    }),
+  )
+const generateValidatorWithKey = () =>
   fc.record({
     key: fc.string({ minLength: 0 }),
-    validator: fc.oneof(
-      fc.integer({ min: 8480, max: 26740 }).map<Validator>((border) => ({
-        validate: (a) =>
-          a.arms.weight <= border
-            ? success(a)
-            : failure([new Error(`not arms.weight <= ${border}`)]),
-      })),
-      fc.constant<Validator>({
-        validate: (a) =>
-          a.head.manufacture === 'baws'
-            ? success(a)
-            : failure([new Error(`not head.manufacture = baws`)]),
-      }),
-      fc.constant<Validator>({
-        validate: (a) =>
-          a.core.price > 0
-            ? success(a)
-            : failure([new Error('not core.price > 0')]),
-      }),
-    ),
+    validator: generateValidator(),
   })

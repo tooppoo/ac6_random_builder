@@ -3,10 +3,11 @@ import { candidates } from '~data/versions/v1.06.1.ts'
 import {
   notCarrySameUnitInSameSide,
   notOverEnergyOutput,
+  totalCoamNotOverMax,
 } from '~core/assembly/random/validator/validators'
 import { notEquipped as notEquippedClass } from '~data/types/base/classification.ts'
 import { genAssembly } from '~spec/helper.ts'
-import { it as fcit } from '@fast-check/vitest'
+import { fc, it as fcit } from '@fast-check/vitest'
 import sinon from 'sinon'
 import { afterEach, beforeEach, describe, expect } from 'vitest'
 
@@ -174,5 +175,16 @@ describe('validator', () => {
         },
       )
     })
+  })
+
+  describe('total coam not over max', () => {
+    fcit.prop([genAssembly(), fc.integer({ min: 0 })])(
+      'when total coam < max then success, else failure',
+      (assembly, max) => {
+        const sut = totalCoamNotOverMax(max)
+
+        expect(sut.validate(assembly).isSuccess).toBe(assembly.coam <= max)
+      },
+    )
   })
 })

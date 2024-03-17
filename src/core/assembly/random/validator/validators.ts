@@ -41,3 +41,15 @@ export const notCarrySameUnitInSameSide: Validator = {
     return errors.length === 0 ? success(assembly) : failure(errors)
   },
 }
+
+export const totalCoamNotOverMax = (max: number): Validator => ({
+  validate(assembly: Assembly): ValidationResult {
+    return assembly.coam <= max
+      ? success(assembly)
+      : failure([
+          new Error(
+            `total coam of assembly(${assembly.coam}) over max(${max})`,
+          ),
+        ])
+  },
+})

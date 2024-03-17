@@ -3,14 +3,18 @@
   import { type Assembly, createAssembly } from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
+  import {totalCoamNotOverMax} from "~core/assembly/random/validator/validators.ts";
+  import { logger } from '~core/utils/logger.ts'
   import type {Candidates} from "~data/types/candidates.ts";
   import {version as v1_06_1} from "~data/versions/v1.06.1.ts";
+  import CoamRangeSlider from "~view/form/CoamRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./form/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version
+  const tryLimit = 1000
 
   const initialize = async () => {
     const version = await getCandidates(v1_06_1)
@@ -37,7 +41,7 @@
   // state
   let candidates: Candidates
   let assembly: Assembly
-  let randomAssembly = RandomAssembly.init()
+  let randomAssembly = RandomAssembly.init({ limit: tryLimit })
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -45,7 +49,19 @@
     assembly = assembly
   }
   const onRandom = () => {
-    assembly = randomAssembly.assemble(candidates)
+    try {
+      assembly = randomAssembly.assemble(candidates)
+    } catch (e) {
+      logger.error(e)
+
+      alert(`
+        試行上限以内のランダム生成に失敗しました（試行上限: ${tryLimit}）
+        条件を緩めると、成功の可能性が上がります
+      `)
+    }
+  }
+  const onChangeMaxCoam = (ev: CustomEvent<{ value: number }>) => {
+    randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
   }
 </script>
 
@@ -63,7 +79,7 @@
 </header>
 
 <article class="container text-center p-3">
-  <ToolSection id="candidates-form" class="my-4">
+  <ToolSection id="candidates-form" class="my-4 w-100">
     <!-- UNIT -->
     <PartsSelectForm
       id="right-arm-unit"
@@ -178,11 +194,23 @@
     />
   </ToolSection>
 
-  <ToolSection id="assembly-command" class="my-4">
-    <button on:click={onRandom} class="w-75 p-2">ランダム生成</button>
+  <ToolSection id="assembly-command" class="my-4 w-100">
+    <button
+      id="generate-random"
+      on:click={onRandom}
+      class="my-3 w-100 p-2"
+    >
+      ランダム生成
+    </button>
+    <CoamRangeSlider
+      id="total-coam-range"
+      class="my-3 w-100"
+      candidates={candidates}
+      on:change={onChangeMaxCoam}
+    />
   </ToolSection>
 
-  <ToolSection id="assembly-report" class="my-4 container">
+  <ToolSection id="assembly-report" class="container mw-100 mx-0 my-4 w-100">
     <div class="row mb-3">
       <ReportItem
         caption="AP"
@@ -217,6 +245,11 @@
         class="mb-3"
         value={assembly.enOutput}
         status={assembly.withinEnOutput ? 'normal' : 'danger'}
+      />
+      <ReportItem
+        caption="総COAM"
+        class="mb-3"
+        value={assembly.coam}
       />
     </div>
   </ToolSection>

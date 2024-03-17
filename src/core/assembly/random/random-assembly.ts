@@ -16,16 +16,36 @@ type AssembleOption = Readonly<{
 const defaultOption: Required<AssembleOption> = {
   random: () => Math.random(),
 }
+const innerSecretKey = '__init__' as const
 
 export class RandomAssembly {
   static init(): RandomAssembly {
-    return new RandomAssembly([notOverEnergyOutput, notCarrySameUnitInSameSide])
+    return new RandomAssembly({
+      [genInnerSecretKey(`notOverEnergyOutput`)]: notOverEnergyOutput,
+      [genInnerSecretKey(`notCarrySameUnitInSameSide`)]:
+        notCarrySameUnitInSameSide,
+    })
   }
 
-  private constructor(private readonly validators: Validator[]) {}
+  private constructor(
+    private readonly _validators: Record<string, Validator>,
+  ) {}
 
-  addValidator(validator: Validator): RandomAssembly {
-    return new RandomAssembly([...this.validators, validator])
+  addValidator(key: string, validator: Validator): RandomAssembly {
+    if (isInnerSecretKey(key)) {
+      logger.warn(
+        `${key} is inner secret key format, this is not allowed. so ignored`,
+      )
+
+      return this
+    }
+    return new RandomAssembly({ ...this._validators, [key]: validator })
+  }
+  getValidator(key: string): Validator | null {
+    return this._validators[key] || null
+  }
+  get validators(): Validator[] {
+    return Object.values(this._validators)
   }
 
   assemble(
@@ -45,9 +65,16 @@ export class RandomAssembly {
   }
 
   validate(assembly: Assembly): ValidationResult {
-    return this.validators.reduce(
+    return Object.values(this._validators).reduce(
       (r, v) => r.concat(v.validate(assembly)),
       success(assembly),
     )
   }
+}
+
+function genInnerSecretKey(key: string) {
+  return `${innerSecretKey}${key}` as const
+}
+function isInnerSecretKey(key: string): boolean {
+  return key.startsWith(innerSecretKey)
 }

@@ -1,5 +1,9 @@
 import { type Category, notEquipped, type NotEquipped } from './category.ts'
-import { type Classification } from './classification.ts'
+import {
+  type Classification,
+  type NotEquipped as NotEquippedClass,
+  notEquipped as notEquippedClass,
+} from './classification.ts'
 import { type Manufacture } from './manufacture.ts'
 
 export type ACParts<
@@ -16,16 +20,16 @@ export type WithEnLoad = Readonly<{
   en_load: number
 }>
 
-export const defineNotEquipped = <Cl extends Classification>(
-  classification: Cl,
-): ACProducts<Cl, NotEquipped> & WithEnLoad => ({
-  name: '(Not Equipped)',
-  classification,
-  category: notEquipped,
-  price: 0,
-  weight: 0,
-  en_load: 0,
-})
+export const defineNotEquipped = (): ACProducts<NotEquippedClass, NotEquipped> &
+  WithEnLoad =>
+  ({
+    name: '(Not Equipped)',
+    classification: notEquippedClass,
+    category: notEquipped,
+    price: 0,
+    weight: 0,
+    en_load: 0,
+  }) as const
 
 type ACProducts<Cl extends Classification, Ca extends string> = BaseACParts &
   Readonly<{

@@ -1,8 +1,5 @@
 import { booster as boosterCategory } from './types/base/category'
-import {
-  booster as boosterClass,
-  boosterNotEquipped,
-} from './types/base/classification'
+import { booster as boosterClass } from './types/base/classification'
 import {
   baws,
   furlong,
@@ -329,5 +326,5 @@ export const boosters = [
 ] as const
 export type Booster = (typeof boosters)[number]
 
-export const notEquipped = defineNotEquipped(boosterNotEquipped)
+export const notEquipped = defineNotEquipped()
 export type NotEquipped = typeof notEquipped

@@ -1,33 +1,33 @@
 import * as ArmUnits from '~data/arm-units.ts'
-import { arms } from '~data/arms.ts'
+import { arms, type Arms } from '~data/arms.ts'
 import * as BackUnits from '~data/back-units.ts'
-import { boosters } from '~data/booster.ts'
-import { cores } from '~data/cores.ts'
+import { boosters, type Booster } from '~data/booster.ts'
+import { type Core, cores } from '~data/cores.ts'
 import * as Expansion from '~data/expansions.ts'
-import { fcses } from '~data/fces.ts'
-import { generators } from '~data/generators.ts'
-import { heads } from '~data/heads.ts'
-import { legs } from '~data/legs.ts'
+import { type FCS, fcses } from '~data/fces.ts'
+import { type Generator, generators } from '~data/generators.ts'
+import { heads, type Head } from '~data/heads.ts'
+import { type Legs, legs } from '~data/legs.ts'
 
-export const candidates = {
-  rightArmUnits: [...ArmUnits.armUnits, ArmUnits.notEquipped] as const,
+export const candidates: Candidates = {
+  rightArmUnits: [...ArmUnits.armUnits, ArmUnits.notEquipped],
   leftArmUnits: [
     ...ArmUnits.leftArmUnits,
     ...ArmUnits.armUnits,
     ArmUnits.notEquipped,
-  ] as const,
+  ],
   rightBackUnits: [
     ...BackUnits.backUnits,
     ...ArmUnits.armUnits,
     BackUnits.notEquipped,
-  ] as const,
+  ],
   leftBackUnits: [
-    ...BackUnits.lefTBackUnits,
+    ...BackUnits.leftBackUnits,
     ...BackUnits.backUnits,
     ...ArmUnits.leftArmUnits,
     ...ArmUnits.armUnits,
     BackUnits.notEquipped,
-  ] as const,
+  ],
 
   heads,
   cores,
@@ -38,6 +38,33 @@ export const candidates = {
   fcses,
   generators,
 
-  expansions: [...Expansion.expansions, Expansion.notEquipped] as const,
+  expansions: [...Expansion.expansions, Expansion.notEquipped],
 } as const
-export type Candidates = typeof candidates
+
+export type Candidates = Readonly<{
+  rightArmUnits: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.NotEquipped>
+  leftArmUnits: ReadonlyArray<
+    ArmUnits.LeftArmUnit | ArmUnits.ArmUnit | ArmUnits.NotEquipped
+  >
+  rightBackUnits: ReadonlyArray<
+    BackUnits.BackUnit | ArmUnits.ArmUnit | BackUnits.NotEquipped
+  >
+  leftBackUnits: ReadonlyArray<
+    | BackUnits.LeftBackUnit
+    | BackUnits.BackUnit
+    | ArmUnits.LeftArmUnit
+    | ArmUnits.ArmUnit
+    | BackUnits.NotEquipped
+  >
+
+  heads: readonly Head[]
+  cores: readonly Core[]
+  arms: readonly Arms[]
+  legs: readonly Legs[]
+
+  boosters: readonly Booster[]
+  fcses: readonly FCS[]
+  generators: readonly Generator[]
+
+  expansions: ReadonlyArray<Expansion.Expansion | Expansion.NotEquipped>
+}>

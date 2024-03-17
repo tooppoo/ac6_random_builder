@@ -1,4 +1,3 @@
-import { expansion } from './types/base/classification'
 import { defineNotEquipped } from './types/base/types'
 import {
   type AsAssaultArmor,
@@ -38,7 +37,7 @@ export const expansions = [
     time_limit: 2,
   }),
 ] as const
-export const notEquipped = defineNotEquipped(expansion)
+export const notEquipped = defineNotEquipped()
 export type NotEquipped = typeof notEquipped
 
 export type Expansion = (typeof expansions)[number]

@@ -1,5 +1,6 @@
 import { createAssembly } from '~core/assembly/assembly.ts'
-import { armUnits } from '~data/arm-units'
+import { candidates } from '~core/assembly/candidates.ts'
+import { armUnits, notEquipped } from '~data/arm-units'
 import { arms } from '~data/arms'
 import { backUnits } from '~data/back-units'
 import { boosters } from '~data/booster'
@@ -9,7 +10,13 @@ import { fcses } from '~data/fces'
 import { generators } from '~data/generators'
 import { heads } from '~data/heads'
 import { legs, type TwoLegs } from '~data/legs'
-import { notOverEnergyOutput } from '~core/assembly/random/validator/validators'
+import {
+  notCarrySameUnitInSameSide,
+  notOverEnergyOutput,
+} from '~core/assembly/random/validator/validators'
+import { notEquipped as notEquippedClass } from '~data/types/base/classification.ts'
+import { genAssembly } from '~spec/helper.ts'
+import { it as fcit } from '@fast-check/vitest'
 import { describe, expect, it } from 'vitest'
 
 describe('validator', () => {
@@ -51,6 +58,141 @@ describe('validator', () => {
           )
         })
       })
+    })
+  })
+
+  describe('not carry same unit in same side hand and back', () => {
+    describe('when carry same unit', () => {
+      const candidatesForTest = (() => {
+        const withoutNotEquipped = <T extends { classification: string }>(
+          p: T,
+        ) => p.classification !== notEquippedClass
+
+        return {
+          ...candidates,
+          rightArmUnits: candidates.rightArmUnits.filter(withoutNotEquipped),
+          leftArmUnits: candidates.leftArmUnits.filter(withoutNotEquipped),
+          rightBackUnits: candidates.rightBackUnits.filter(withoutNotEquipped),
+          leftBackUnits: candidates.leftBackUnits.filter(withoutNotEquipped),
+        }
+      })()
+
+      describe('at right side', () => {
+        fcit.prop([genAssembly(candidatesForTest)])(
+          'should evaluate as invalid',
+          (assembly) => {
+            assembly.rightBackUnit = assembly.rightArmUnit
+            assembly.leftArmUnit = candidatesForTest.leftArmUnits[0]
+            assembly.leftBackUnit = candidatesForTest.leftBackUnits[0]
+
+            expect(
+              notCarrySameUnitInSameSide.validate(assembly).isSuccess,
+            ).toBe(false)
+          },
+        )
+
+        describe('when not equipped', () => {
+          fcit.prop([genAssembly(candidatesForTest)])(
+            'should evaluate as valid. "not equipped" is allowed',
+            (assembly) => {
+              assembly.rightBackUnit = assembly.rightArmUnit = notEquipped
+              assembly.leftArmUnit = candidatesForTest.leftArmUnits[0]
+              assembly.leftBackUnit = candidatesForTest.leftBackUnits[0]
+
+              expect(
+                notCarrySameUnitInSameSide.validate(assembly).isSuccess,
+              ).toBe(true)
+            },
+          )
+        })
+      })
+      describe('at left side', () => {
+        fcit.prop([genAssembly(candidatesForTest)])(
+          'should evaluate as invalid',
+          (assembly) => {
+            assembly.leftBackUnit = assembly.leftArmUnit
+            assembly.rightArmUnit = candidatesForTest.rightArmUnits[0]
+            assembly.rightBackUnit = candidatesForTest.rightBackUnits[0]
+
+            expect(
+              notCarrySameUnitInSameSide.validate(assembly).isSuccess,
+            ).toBe(false)
+          },
+        )
+        describe('when not equipped', () => {
+          fcit.prop([genAssembly(candidatesForTest)])(
+            'should evaluate as valid. "not equipped" is allowed',
+            (assembly) => {
+              assembly.leftBackUnit = assembly.leftArmUnit = notEquipped
+              assembly.rightArmUnit = candidatesForTest.rightArmUnits[0]
+              assembly.rightBackUnit = candidatesForTest.rightBackUnits[0]
+
+              expect(
+                notCarrySameUnitInSameSide.validate(assembly).isSuccess,
+              ).toBe(true)
+            },
+          )
+        })
+      })
+      describe('at both side', () => {
+        fcit.prop([genAssembly(candidatesForTest)])(
+          'should evaluate as invalid',
+          (assembly) => {
+            assembly.rightBackUnit = assembly.rightArmUnit
+            assembly.leftBackUnit = assembly.leftArmUnit
+
+            expect(
+              notCarrySameUnitInSameSide.validate(assembly).isSuccess,
+            ).toBe(false)
+          },
+        )
+        describe('when not equipped', () => {
+          fcit.prop([genAssembly(candidatesForTest)])(
+            'should evaluate as valid. "not equipped" is allowed',
+            (assembly) => {
+              assembly.rightBackUnit = assembly.rightArmUnit = notEquipped
+              assembly.leftBackUnit = assembly.leftArmUnit = notEquipped
+
+              expect(
+                notCarrySameUnitInSameSide.validate(assembly).isSuccess,
+              ).toBe(true)
+            },
+          )
+        })
+      })
+    })
+    describe('when not carry same unit at same side', () => {
+      const candidatesForTest = (() => {
+        const halfSlice = <T>(xs: readonly T[]): readonly T[] =>
+          xs.slice(0, Math.floor(xs.length / 2))
+
+        // 腕武器と肩武器の候補が重ならないように調整
+        const rightArmUnits = halfSlice(candidates.rightArmUnits)
+        const rightBackUnits = candidates.rightBackUnits.slice(
+          rightArmUnits.length + 1,
+        )
+        const leftArmUnits = halfSlice(candidates.leftArmUnits)
+        const leftBackUnits = candidates.leftBackUnits.slice(
+          leftArmUnits.length + 1,
+        )
+
+        return {
+          ...candidates,
+          rightArmUnits,
+          rightBackUnits,
+          leftArmUnits,
+          leftBackUnits,
+        }
+      })()
+
+      fcit.prop([genAssembly(candidatesForTest)])(
+        'should evaluate as valid',
+        (assembly) => {
+          expect(notCarrySameUnitInSameSide.validate(assembly).isSuccess).toBe(
+            true,
+          )
+        },
+      )
     })
   })
 })

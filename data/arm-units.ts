@@ -45,11 +45,7 @@ import {
   stun_bomb_launcher,
   stun_gun,
 } from './types/base/category.ts'
-import {
-  armUnit,
-  armUnitNotEquipped,
-  leftArmUnit,
-} from './types/base/classification.ts'
+import { armUnit, leftArmUnit } from './types/base/classification.ts'
 import {
   allmind,
   arquebus,
@@ -1798,5 +1794,5 @@ export const armUnits = [
 ] as const
 export type ArmUnit = (typeof armUnits)[number]
 
-export const notEquipped = defineNotEquipped(armUnitNotEquipped)
+export const notEquipped = defineNotEquipped()
 export type NotEquipped = typeof notEquipped

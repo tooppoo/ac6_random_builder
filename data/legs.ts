@@ -613,5 +613,6 @@ export const legs = [
   ...tanks,
 ] as const
 
+export type Legs = LegsNotTank | LegsTank
 export type LegsNotTank = TwoLegs | ReverseJoint | FourLegs
 export type LegsTank = Tank

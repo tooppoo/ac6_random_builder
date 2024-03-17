@@ -4,7 +4,10 @@ import { logger } from '~core/utils/logger.ts'
 import { randomBuild, type Randomizer } from './random-builder.ts'
 import type { Validator } from './validator/base.ts'
 import { success, type ValidationResult } from './validator/result.ts'
-import { notOverEnergyOutput } from './validator/validators.ts'
+import {
+  notCarrySameUnitInSameSide,
+  notOverEnergyOutput,
+} from './validator/validators.ts'
 
 type AssembleOption = Readonly<{
   /** 乱数生成器 */
@@ -16,7 +19,7 @@ const defaultOption: Required<AssembleOption> = {
 
 export class RandomAssembly {
   static init(): RandomAssembly {
-    return new RandomAssembly([notOverEnergyOutput])
+    return new RandomAssembly([notOverEnergyOutput, notCarrySameUnitInSameSide])
   }
 
   private constructor(private readonly validators: Validator[]) {}

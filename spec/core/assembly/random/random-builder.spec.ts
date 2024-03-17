@@ -4,7 +4,7 @@ import type { Assembly } from '~core/assembly/assembly'
 import { candidates } from '~core/assembly/candidates'
 import { randomBuild } from '~core/assembly/random/random-builder'
 import { tank } from '~data/types/base/category'
-import { booster, boosterNotEquipped } from '~data/types/base/classification'
+import { booster, notEquipped } from '~data/types/base/classification'
 import { genRandomizer } from '~spec/helper.ts'
 
 describe(randomBuild.name, () => {
@@ -15,9 +15,7 @@ describe(randomBuild.name, () => {
 
       switch (actual.legs.category) {
         case tank:
-          expect(actual.booster.classification).toStrictEqual(
-            boosterNotEquipped,
-          )
+          expect(actual.booster.classification).toStrictEqual(notEquipped)
           break
         default:
           expect(actual.booster.classification).toStrictEqual(booster)

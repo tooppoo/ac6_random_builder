@@ -3,6 +3,16 @@
   import { type Assembly, createAssembly } from "~core/assembly/assembly.ts";
   import { candidates as defaultCandidates } from "~core/assembly/candidates.ts";
   import {RandomAssembly} from "~core/assembly/random/random-assembly.ts";
+  import {armUnits, leftArmUnits} from "~data/arm-units.ts";
+  import {arms} from "~data/arms.ts";
+  import {backUnits, leftBackUnits} from "~data/back-units.ts";
+  import {boosters} from "~data/booster.ts";
+  import {cores} from "~data/cores.ts";
+  import {expansions} from "~data/expansions.ts";
+  import {fcses} from "~data/fces.ts";
+  import {generators} from "~data/generators.ts";
+  import {heads} from "~data/heads.ts";
+  import {legs} from "~data/legs.ts";
   import ReportItem from "~view/report/ReportItem.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte";
   import ToolSection from "./form/ToolSection.svelte";
@@ -10,21 +20,18 @@
   // state
   let candidates = defaultCandidates
   let assembly: Assembly = createAssembly({
-    rightArmUnit: candidates.rightArmUnits[0],
-    leftArmUnit: candidates.leftArmUnits[0],
-    rightBackUnit: candidates.rightBackUnits[0],
-    leftBackUnit: candidates.leftBackUnits[0],
-
-    head: candidates.heads[0],
-    core: candidates.cores[0],
-    arms: candidates.arms[0],
-    legs: candidates.legs[0],
-
-    booster: candidates.boosters[0],
-    fcs: candidates.fcses[0],
-    generator: candidates.generators[0],
-
-    expansion: candidates.expansions[0],
+    rightArmUnit: armUnits[0],
+    leftArmUnit: leftArmUnits[0],
+    rightBackUnit: backUnits[0],
+    leftBackUnit: leftBackUnits[0],
+    head: heads[0],
+    core: cores[0],
+    arms: arms[0],
+    legs: legs[0],
+    booster: boosters[0],
+    fcs: fcses[0],
+    generator: generators[0],
+    expansion: expansions[0],
   })
   let randomAssembly = RandomAssembly.init()
 

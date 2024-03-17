@@ -22,36 +22,40 @@ describe(RandomAssembly.name, () => {
     },
   )
 
-  describe('when add validator with same key', () => {
-    it.prop([generateValidator(), generateValidator()])(
-      'return later validator for the key',
-      (val1, val2) => {
-        const sut = RandomAssembly.init()
-          .addValidator('key', val1)
-          .addValidator('key', val2)
+  describe('with validator', () => {
+    describe('when add validator', () => {
+      describe('with same key', () => {
+        it.prop([generateValidator(), generateValidator()])(
+          'return later validator for the key',
+          (val1, val2) => {
+            const sut = RandomAssembly.init()
+              .addValidator('key', val1)
+              .addValidator('key', val2)
 
-        expect(sut.getValidator('key')).toBe(val2)
-      },
-    )
-    it.prop([generateValidator(), generateValidator()])(
-      'count of validators should not change',
-      (val1, val2) => {
-        const sut1 = RandomAssembly.init().addValidator('key', val1)
-        const sut2 = sut1.addValidator('key', val2)
+            expect(sut.getValidator('key')).toBe(val2)
+          },
+        )
+        it.prop([generateValidator(), generateValidator()])(
+          'count of validators should not change',
+          (val1, val2) => {
+            const sut1 = RandomAssembly.init().addValidator('key', val1)
+            const sut2 = sut1.addValidator('key', val2)
 
-        expect(sut1.validators.length).toBe(sut2.validators.length)
-      },
-    )
-  })
-  describe('when get validator via unknown key', () => {
-    it.prop([generateValidator()])(
-      'contain only later validator',
-      (validator) => {
-        const sut = RandomAssembly.init().addValidator('key', validator)
+            expect(sut1.validators.length).toBe(sut2.validators.length)
+          },
+        )
+      })
+    })
+    describe('when get validator via unknown key', () => {
+      it.prop([generateValidator()])(
+        'contain only later validator',
+        (validator) => {
+          const sut = RandomAssembly.init().addValidator('key', validator)
 
-        expect(sut.getValidator('unknown')).toBeNull()
-      },
-    )
+          expect(sut.getValidator('unknown')).toBeNull()
+        },
+      )
+    })
   })
 
   describe('when over limit of try', () => {

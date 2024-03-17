@@ -142,16 +142,19 @@ describe('validator', () => {
       const candidatesForTest = (() => {
         const halfSlice = <T>(xs: readonly T[]): readonly T[] =>
           xs.slice(0, Math.floor(xs.length / 2))
+        const exclude = <
+          T extends { name: string },
+          U extends { name: string },
+        >(
+          xs: readonly T[],
+          ex: readonly U[],
+        ): readonly T[] => xs.filter((x) => ex.find((e) => e.name !== x.name))
 
         // 腕武器と肩武器の候補が重ならないように調整
         const rightArmUnits = halfSlice(candidates.rightArmUnits)
-        const rightBackUnits = candidates.rightBackUnits.slice(
-          rightArmUnits.length + 1,
-        )
+        const rightBackUnits = exclude(candidates.rightBackUnits, rightArmUnits)
         const leftArmUnits = halfSlice(candidates.leftArmUnits)
-        const leftBackUnits = candidates.leftBackUnits.slice(
-          leftArmUnits.length + 1,
-        )
+        const leftBackUnits = exclude(candidates.leftBackUnits, leftArmUnits)
 
         return {
           ...candidates,

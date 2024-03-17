@@ -68,7 +68,7 @@
 </header>
 
 <article class="container text-center p-3">
-  <ToolSection id="candidates-form" class="my-4">
+  <ToolSection id="candidates-form" class="my-4 w-100">
     <!-- UNIT -->
     <PartsSelectForm
       id="right-arm-unit"
@@ -183,23 +183,23 @@
     />
   </ToolSection>
 
-  <ToolSection id="assembly-command" class="my-4">
+  <ToolSection id="assembly-command" class="my-4 w-100">
     <button
       id="generate-random"
       on:click={onRandom}
-      class="my-3 mx-auto w-75 p-2"
+      class="my-3 w-100 p-2"
     >
       ランダム生成
     </button>
     <CoamRangeSlider
       id="total-coam-range"
-      class="my-3 mx-auto w-75"
+      class="my-3 w-100"
       candidates={candidates}
       on:change={onChangeMaxCoam}
     />
   </ToolSection>
 
-  <ToolSection id="assembly-report" class="my-4 container">
+  <ToolSection id="assembly-report" class="container mw-100 mx-0 my-4 w-100">
     <div class="row mb-3">
       <ReportItem
         caption="AP"

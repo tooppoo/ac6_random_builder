@@ -18,10 +18,19 @@ export type Assembly = RawAssembly & {
   readonly load: number
   /** 積載上限 */
   readonly loadLimit: number
+  /** EN負荷 */
+  readonly enLoad: number
+  /** EN出力 */
+  readonly enOutput: number
+
   /**
    * @return {boolean} 積載量が積載上限以内の場合にtrue
    */
   readonly withinLoadLimit: boolean
+  /**
+   * @return {boolean} EN出力がEN負荷以上の場合にtrue
+   */
+  readonly withinEnOutput: boolean
 }
 
 export function createAssembly(base: RawAssembly): Assembly {
@@ -53,8 +62,33 @@ export function createAssembly(base: RawAssembly): Assembly {
     get loadLimit(): number {
       return this.legs.load_limit
     },
+    get enLoad(): number {
+      return sum(
+        [
+          this.rightArmUnit,
+          this.rightBackUnit,
+          this.leftArmUnit,
+          this.leftBackUnit,
+          this.head,
+          this.core,
+          this.arms,
+          this.legs,
+          this.booster,
+          this.fcs,
+        ].map((p) => p.en_load),
+      )
+    },
+    get enOutput(): number {
+      return Math.floor(
+        this.generator.en_output *
+          (this.core.generator_output_adjective * 0.01),
+      )
+    },
     get withinLoadLimit(): boolean {
       return this.load <= this.loadLimit
+    },
+    get withinEnOutput(): boolean {
+      return this.enLoad <= this.enOutput
     },
   }
 }

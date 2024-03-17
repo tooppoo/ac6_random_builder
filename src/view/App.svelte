@@ -3,7 +3,7 @@
   import { type Assembly, createAssembly } from "~core/assembly/assembly.ts";
   import { candidates as defaultCandidates } from "~core/assembly/candidates.ts";
   import {RandomAssembly} from "~core/assembly/random/random-assembly.ts";
-  import {armUnits, leftArmUnits} from "~data/arm-units.ts";
+  import { notEquipped as armNotEquipped } from "~data/arm-units.ts";
   import {arms} from "~data/arms.ts";
   import {backUnits, leftBackUnits} from "~data/back-units.ts";
   import {boosters} from "~data/booster.ts";
@@ -20,8 +20,8 @@
   // state
   let candidates = defaultCandidates
   let assembly: Assembly = createAssembly({
-    rightArmUnit: armUnits[0],
-    leftArmUnit: leftArmUnits[0],
+    rightArmUnit: armNotEquipped,
+    leftArmUnit: armNotEquipped,
     rightBackUnit: backUnits[0],
     leftBackUnit: leftBackUnits[0],
     head: heads[0],
@@ -195,6 +195,18 @@
         class="mb-3"
         value={assembly.loadLimit}
         status={assembly.withinLoadLimit ? 'normal' : 'danger'}
+      />
+      <ReportItem
+        caption="EN負荷"
+        class="mb-3"
+        value={assembly.enLoad}
+        status={assembly.withinEnOutput ? 'normal' : 'danger'}
+      />
+      <ReportItem
+        caption="EN出力"
+        class="mb-3"
+        value={assembly.enOutput}
+        status={assembly.withinEnOutput ? 'normal' : 'danger'}
       />
     </div>
   </ToolSection>

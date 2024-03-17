@@ -125,4 +125,48 @@ describe('assembly', () => {
       })
     })
   })
+
+  describe('energy', () => {
+    describe.each([
+      {
+        core: cores[0],
+        generator: generators[0],
+        expectedEnLoad: 2466,
+        expectedOutput: 2158,
+        within: false,
+      },
+      {
+        core: cores[0],
+        generator: generators[1],
+        expectedEnLoad: 2466,
+        expectedOutput: 2490,
+        within: true,
+      },
+      {
+        core: cores[3],
+        generator: generators[0],
+        expectedEnLoad: 2488,
+        expectedOutput: 2652,
+        within: true,
+      },
+    ])(
+      'when core is $core, generator is $generator',
+      ({ core, generator, expectedEnLoad, expectedOutput, within }) => {
+        beforeEach(() => {
+          sut.core = core
+          sut.generator = generator
+        })
+
+        it(`energy load should be ${expectedOutput}`, () => {
+          expect(sut.enLoad).toBe(expectedEnLoad)
+        })
+        it(`energy output should be ${expectedOutput}`, () => {
+          expect(sut.enOutput).toBe(expectedOutput)
+        })
+        it(`within energy output is ${within}`, () => {
+          expect(sut.withinEnOutput).toBe(within)
+        })
+      },
+    )
+  })
 })

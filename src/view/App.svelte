@@ -212,7 +212,7 @@
   </ToolSection>
 </article>
 
-<footer class="text-center">
+<footer class="text-center my-3">
   <div>
     Created by <a href="https://linktr.ee/Philomagi">Philomagi</a>
   </div>

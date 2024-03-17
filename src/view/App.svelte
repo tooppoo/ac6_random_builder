@@ -1,29 +1,29 @@
 
 <script lang="ts">
-  import { type Assembly, createAssembly } from "~core/assembly/assembly.ts";
-  import { candidates as defaultCandidates } from "~core/assembly/candidates.ts";
-  import {RandomAssembly} from "~core/assembly/random/random-assembly.ts";
-  import { notEquipped as armNotEquipped } from "~data/arm-units.ts";
-  import {arms} from "~data/arms.ts";
-  import {backUnits, leftBackUnits} from "~data/back-units.ts";
-  import {boosters} from "~data/booster.ts";
-  import {cores} from "~data/cores.ts";
-  import {expansions} from "~data/expansions.ts";
-  import {fcses} from "~data/fces.ts";
-  import {generators} from "~data/generators.ts";
-  import {heads} from "~data/heads.ts";
-  import {legs} from "~data/legs.ts";
-  import ReportItem from "~view/report/ReportItem.svelte";
-  import PartsSelectForm from "./form/PartsSelectForm.svelte";
-  import ToolSection from "./form/ToolSection.svelte";
+  import { type Assembly, createAssembly } from "~core/assembly/assembly.ts"
+  import { candidates as defaultCandidates } from "~core/assembly/candidates.ts"
+  import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
+  import { notEquipped as armNotEquipped } from "~data/arm-units.ts"
+  import { arms } from "~data/arms.ts"
+  import { notEquipped as backNotEquipped } from "~data/back-units.ts"
+  import { boosters } from "~data/booster.ts"
+  import { cores } from "~data/cores.ts"
+  import { expansions } from "~data/expansions.ts"
+  import { fcses } from "~data/fces.ts"
+  import { generators } from "~data/generators.ts"
+  import { heads } from "~data/heads.ts"
+  import { legs } from "~data/legs.ts"
+  import ReportItem from "~view/report/ReportItem.svelte"
+  import PartsSelectForm from "./form/PartsSelectForm.svelte"
+  import ToolSection from "./form/ToolSection.svelte"
 
   // state
   let candidates = defaultCandidates
   let assembly: Assembly = createAssembly({
     rightArmUnit: armNotEquipped,
     leftArmUnit: armNotEquipped,
-    rightBackUnit: backUnits[0],
-    leftBackUnit: leftBackUnits[0],
+    rightBackUnit: backNotEquipped,
+    leftBackUnit: backNotEquipped,
     head: heads[0],
     core: cores[0],
     arms: arms[0],

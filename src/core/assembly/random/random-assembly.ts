@@ -1,4 +1,5 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
+import { BaseCustomError } from '~core/utils/error.ts'
 import { logger } from '~core/utils/logger.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 import { randomBuild, type Randomizer } from './random-builder.ts'
@@ -18,17 +19,26 @@ const defaultOption: Required<AssembleOption> = {
 }
 const innerSecretKey = '__init__' as const
 
+type RandomAssemblyConfig = Readonly<{
+  limit: number
+}>
 export class RandomAssembly {
-  static init(): RandomAssembly {
-    return new RandomAssembly({
-      [genInnerSecretKey(`notOverEnergyOutput`)]: notOverEnergyOutput,
-      [genInnerSecretKey(`notCarrySameUnitInSameSide`)]:
-        notCarrySameUnitInSameSide,
-    })
+  static init(config: RandomAssemblyConfig = { limit: 10000 }): RandomAssembly {
+    return new RandomAssembly(
+      {
+        [genInnerSecretKey(`notOverEnergyOutput`)]: notOverEnergyOutput,
+        [genInnerSecretKey(`notCarrySameUnitInSameSide`)]:
+          notCarrySameUnitInSameSide,
+      },
+      config,
+    )
   }
+
+  private tryCount: number = 0
 
   private constructor(
     private readonly _validators: Record<string, Validator>,
+    private readonly config: RandomAssemblyConfig,
   ) {}
 
   addValidator(key: string, validator: Validator): RandomAssembly {
@@ -39,7 +49,10 @@ export class RandomAssembly {
 
       return this
     }
-    return new RandomAssembly({ ...this._validators, [key]: validator })
+    return new RandomAssembly(
+      { ...this._validators, [key]: validator },
+      this.config,
+    )
   }
   getValidator(key: string): Validator | null {
     return this._validators[key] || null
@@ -52,16 +65,29 @@ export class RandomAssembly {
     candidates: Candidates,
     option: AssembleOption = defaultOption,
   ): Assembly {
+    this.tryCount += 1
+
     const { random } = { ...defaultOption, ...option }
 
-    return this.validate(randomBuild(candidates, random)).fold(
-      (errors) => {
-        logger.warn({ errors })
+    try {
+      return this.validate(randomBuild(candidates, random)).fold(
+        (errors) => {
+          logger.warn({ errors })
 
-        return this.assemble(candidates, option)
-      },
-      (a) => a,
-    )
+          if (this.tryCount >= this.config.limit) {
+            throw new OverTryLimitError(
+              this.config.limit,
+              `over limit of try(${this.config.limit})`,
+            )
+          }
+
+          return this.assemble(candidates, option)
+        },
+        (a) => a,
+      )
+    } finally {
+      this.tryCount = 0
+    }
   }
 
   validate(assembly: Assembly): ValidationResult {
@@ -69,6 +95,12 @@ export class RandomAssembly {
       (r, v) => r.concat(v.validate(assembly)),
       success(assembly),
     )
+  }
+}
+
+export class OverTryLimitError extends BaseCustomError<number> {
+  get limit(): number {
+    return this.customArgument
   }
 }
 

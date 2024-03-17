@@ -2,8 +2,11 @@ import { fc, it } from '@fast-check/vitest'
 import type { Validator } from '~core/assembly/random/validator/base'
 import { failure, success } from '~core/assembly/random/validator/result'
 import { candidates } from '~data/versions/v1.06.1.ts'
-import { describe, expect } from 'vitest'
-import { RandomAssembly } from '~core/assembly/random/random-assembly'
+import { afterEach, beforeEach, describe, expect, type Mock, vi } from 'vitest'
+import {
+  OverTryLimitError,
+  RandomAssembly,
+} from '~core/assembly/random/random-assembly'
 
 describe(RandomAssembly.name, () => {
   it.prop([fc.array(generateValidatorWithKey())])(
@@ -49,6 +52,43 @@ describe(RandomAssembly.name, () => {
         expect(sut.getValidator('unknown')).toBeNull()
       },
     )
+  })
+
+  describe('when over limit of try', () => {
+    let mockValidate: Mock<any, any>
+    let validator: Validator
+    const limit = 5
+
+    beforeEach(() => {
+      mockValidate = vi
+        .fn()
+        .mockImplementation(() => failure([new Error('test')]))
+      validator = {
+        validate: mockValidate,
+      }
+    })
+
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    it('should throw error', () => {
+      const sut = RandomAssembly.init({ limit }).addValidator('test', validator)
+
+      expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
+      expect(mockValidate).toHaveBeenCalledTimes(limit)
+    })
+    it('can reuse same object after limit', () => {
+      const sut = RandomAssembly.init({ limit }).addValidator('test', validator)
+
+      try {
+        sut.assemble(candidates)
+      } catch (_e) {
+        expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
+      }
+
+      expect(mockValidate).toHaveBeenCalledTimes(limit * 2)
+    })
   })
 })
 

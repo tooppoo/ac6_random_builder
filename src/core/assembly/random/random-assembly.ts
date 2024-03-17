@@ -1,6 +1,6 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
-import type { Candidates } from '~core/assembly/candidates.ts'
 import { logger } from '~core/utils/logger.ts'
+import type { Candidates } from '~data/types/candidates.ts'
 import { randomBuild, type Randomizer } from './random-builder.ts'
 import type { Validator } from './validator/base.ts'
 import { success, type ValidationResult } from './validator/result.ts'

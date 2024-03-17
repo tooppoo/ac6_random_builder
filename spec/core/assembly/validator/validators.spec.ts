@@ -1,5 +1,5 @@
-import { candidates } from '~core/assembly/candidates.ts'
 import { armNotEquipped } from '~data/arm-units'
+import { candidates } from '~data/versions/v1.06.1.ts'
 import {
   notCarrySameUnitInSameSide,
   notOverEnergyOutput,

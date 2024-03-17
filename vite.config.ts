@@ -1,9 +1,10 @@
 import { join } from 'path'
 import { defineConfig } from 'vite'
+import dynamicImport from 'vite-plugin-dynamic-import'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [svelte(), dynamicImport()],
   resolve: {
     alias: {
       '~data/': join(__dirname, 'data/'),

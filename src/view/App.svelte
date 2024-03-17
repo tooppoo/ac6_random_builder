@@ -1,38 +1,39 @@
 
 <script lang="ts">
   import { type Assembly, createAssembly } from "~core/assembly/assembly.ts"
-  import { candidates as defaultCandidates } from "~core/assembly/candidates.ts"
+  import { getCandidates } from "~core/assembly/candidates.ts"
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
-  import { armNotEquipped as armNotEquipped } from "~data/arm-units.ts"
-  import { arms } from "~data/arms.ts"
-  import { backNotEquipped as backNotEquipped } from "~data/back-units.ts"
-  import { boosters } from "~data/booster.ts"
-  import { cores } from "~data/cores.ts"
-  import { expansions } from "~data/expansions.ts"
-  import { fcses } from "~data/fces.ts"
-  import { generators } from "~data/generators.ts"
-  import { heads } from "~data/heads.ts"
-  import { legs } from "~data/legs.ts"
-  import ReportItem from "~view/report/ReportItem.svelte"
+  import type {Candidates} from "~data/types/candidates.ts";
+  import {version as v1_06_1} from "~data/versions/v1.06.1.ts";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./form/ToolSection.svelte"
+  import ReportItem from "./report/ReportItem.svelte"
+
+  const initialize = async () => {
+    const version = await getCandidates(v1_06_1)
+
+    candidates = version.candidates
+    assembly = createAssembly({
+      rightArmUnit: version.armNotEquipped,
+      leftArmUnit: version.armNotEquipped,
+      rightBackUnit: version.backNotEquipped,
+      leftBackUnit: version.backNotEquipped,
+      head: version.heads[0],
+      core: version.cores[0],
+      arms: version.arms[0],
+      legs: version.legs[0],
+      booster: version.boosters[0],
+      fcs: version.fcses[0],
+      generator: version.generators[0],
+      expansion: version.expansions[0],
+    })
+
+    return version.version
+  }
 
   // state
-  let candidates = defaultCandidates
-  let assembly: Assembly = createAssembly({
-    rightArmUnit: armNotEquipped,
-    leftArmUnit: armNotEquipped,
-    rightBackUnit: backNotEquipped,
-    leftBackUnit: backNotEquipped,
-    head: heads[0],
-    core: cores[0],
-    arms: arms[0],
-    legs: legs[0],
-    booster: boosters[0],
-    fcs: fcses[0],
-    generator: generators[0],
-    expansion: expansions[0],
-  })
+  let candidates: Candidates
+  let assembly: Assembly
   let randomAssembly = RandomAssembly.init()
 
   // handler
@@ -45,11 +46,17 @@
   }
 </script>
 
+{#await initialize()}
+  <div>loading...</div>
+{:then version}
 <header class="text-center mt-5">
   <h1>
     ARMORED CORE Ⅵ<br class="sp-only">
     ASSEMBLY TOOL
   </h1>
+  <h3>
+    for {version}
+  </h3>
 </header>
 
 <article class="container text-center p-3">
@@ -220,6 +227,7 @@
     Source code is <a href="https://github.com/tooppoo/ac6_assemble_tool/">here</a>
   </div>
 </footer>
+{/await }
 
 <style>
   article {

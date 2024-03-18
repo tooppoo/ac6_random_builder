@@ -7,9 +7,9 @@
   import { logger } from '~core/utils/logger.ts'
   import type {Candidates} from "~data/types/candidates.ts";
   import {version as v1_06_1} from "~data/versions/v1.06.1.ts";
-  import CoamRangeSlider from "~view/form/CoamRangeSlider.svelte";
+  import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
-  import ToolSection from "./form/ToolSection.svelte"
+  import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
   import appPackage from '~root/package.json'
 

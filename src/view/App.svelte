@@ -7,6 +7,7 @@
   import { logger } from '~core/utils/logger.ts'
   import type {Candidates} from "~data/types/candidates.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
+  import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
@@ -205,6 +206,13 @@
       id="total-coam-range"
       class="my-3 w-100"
       candidates={candidates}
+      on:change={onChangeMaxCoam}
+    />
+    <LoadRangeSlider
+      id="load-range"
+      class="my-3 w-100"
+      candidates={candidates}
+      assembly={assembly}
       on:change={onChangeMaxCoam}
     />
   </ToolSection>

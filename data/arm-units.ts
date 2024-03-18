@@ -486,7 +486,7 @@ export const armUnits = [
     en_load: 158,
   }),
   defineArmUnit<AsLinearRifle>()({
-    name: 'LR-038 CURTIS',
+    name: 'LR-036 CURTIS',
     classification: armUnit,
     category: linear_rifle,
     attack_type: kinetic,

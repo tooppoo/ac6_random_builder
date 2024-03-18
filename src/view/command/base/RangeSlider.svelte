@@ -31,7 +31,9 @@
 
 <div id={id} class={$$props.class}>
   <label for={`${id}-range`} class="current-max-value mx-auto input-group input-group-sm">
-    <span id={`${id}-current-max-value`} class="input-group-text">{label}</span>
+    <slot name="label" labelId={`${id}-current-max-value`} text={label}>
+      <span id={`${id}-current-max-value`} class="input-group-text">{label}</span>
+    </slot>
     <input
       type="number"
       class="form-control form-control-sm"

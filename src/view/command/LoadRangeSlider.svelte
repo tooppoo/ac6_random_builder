@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Dropdown from "bootstrap/js/dist/dropdown";
+  import type {Action} from "svelte/action";
   import {createEventDispatcher} from "svelte";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
@@ -41,6 +43,10 @@
   }
 
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
+
+  const dropdown: Action = (node) => {
+    new Dropdown(node)
+  }
 </script>
 
 <RangeSlider
@@ -51,4 +57,22 @@
   value={value}
   step={10}
   on:change={onChange}
-/>
+>
+  <div
+    slot="label" let:labelId let:text
+    id={labelId} class="dropdown input-group-text "
+    use:dropdown
+  >
+    <span class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {text}
+    </span>
+    <ul class="dropdown-menu">
+      <li><button class="dropdown-item">Action</button></li>
+      <li><button class="dropdown-item">Another action</button></li>
+      <li><button class="dropdown-item">Something else here</button></li>
+    </ul>
+  </div>
+</RangeSlider>
+
+<style>
+</style>

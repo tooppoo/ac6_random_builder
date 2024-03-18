@@ -53,3 +53,15 @@ export const totalCoamNotOverMax = (max: number): Validator => ({
         ])
   },
 })
+
+export const totalLoadNotOverMax = (max: number): Validator => ({
+  validate(assembly: Assembly): ValidationResult {
+    return assembly.load <= max
+      ? success(assembly)
+      : failure([
+          new Error(
+            `total load of assembly(${assembly.load}) over max(${max})`,
+          ),
+        ])
+  },
+})

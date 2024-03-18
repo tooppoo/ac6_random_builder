@@ -3,7 +3,7 @@
   import { type Assembly, createAssembly } from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
-  import {totalCoamNotOverMax} from "~core/assembly/random/validator/validators.ts";
+  import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
   import type {Candidates} from "~data/types/candidates.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
@@ -62,6 +62,9 @@
   }
   const onChangeMaxCoam = (ev: CustomEvent<{ value: number }>) => {
     randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
+  }
+  const onChangeMaxLoad = (ev: CustomEvent<{ value: number }>) => {
+    randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
   }
 </script>
 
@@ -211,7 +214,7 @@
       class="my-3 w-100"
       candidates={candidates}
       assembly={assembly}
-      on:change={onChangeMaxCoam}
+      on:change={onChangeMaxLoad}
     />
   </ToolSection>
 

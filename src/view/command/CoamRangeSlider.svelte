@@ -1,9 +1,9 @@
 <script lang="ts">
   import {createEventDispatcher} from "svelte";
-  import type {ChangeEventHandler} from "svelte/elements";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
   import type {Candidates} from "~data/types/candidates.ts";
+  import CoamRangeSlider from './base/RangeSlider.svelte'
 
   export let candidates: Candidates
 
@@ -28,66 +28,23 @@
 
     return roundUpByRealPart(1)(total)
   })()
-  const dataList = (() => {
-    const strMax = `${max}`
-    const index = parseInt(strMax.replace(/0/g, ''))
-
-    const unit = max / index
-
-    return [...Array(index + 1)].map((_, i) => unit * i)
-  })()
 
   let value: number = max
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (ev) => {
-    value = parseInt(ev.currentTarget.value)
+  const onChange = ({ detail }: CustomEvent<{ value: number }>) => {
+    value = detail.value
 
-    dispatch('change', { value })
+    dispatch('change', detail)
   }
 
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
 </script>
 
-<div id={$$props.id} class={$$props.class}>
-  <label for="coam-range" class="current-max-value mx-auto input-group input-group-sm">
-    <span id="current-max-coam-value" class="input-group-text">総COAM上限</span>
-    <input
-      type="number"
-      class="form-control form-control-sm"
-      aria-label="Max COAM input"
-      aria-describedby="current-max-coam-value"
-      min="0" max={max}
-      value={value}
-      step="1000"
-      on:change={onChange}
-    >
-  </label>
-  <input
-    id="coam-range"
-    type="range"
-    class="form-range w-100"
-    min="0" max={max}
-    value={value}
-    step="1000"
-    on:change={onChange}
-    list="coam-range-mark"
-  />
-  <datalist id="coam-range-mark" class="sp-only w-100">
-    {#each dataList as v}
-      <option value={v} label={`${v}`}>{v}</option>
-    {/each}
-  </datalist>
-</div>
-
-<style>
-  .current-max-value {
-      width: 220px;
-  }
-
-  datalist#coam-range-mark {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      writing-mode: vertical-lr;
-  }
-</style>
+<CoamRangeSlider
+  id={$$props.id} class={$$props.class}
+  label="総COAM上限"
+  max={max}
+  value={value}
+  step={1000}
+  on:change={onChange}
+/>

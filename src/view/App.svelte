@@ -6,7 +6,6 @@
   import {totalCoamNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
   import type {Candidates} from "~data/types/candidates.ts";
-  import {version as v1_06_1} from "~data/versions/v1.06.1.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./layout/ToolSection.svelte"
@@ -17,7 +16,7 @@
   const tryLimit = 1000
 
   const initialize = async () => {
-    const version = await getCandidates(v1_06_1)
+    const version = await getCandidates('v1.06.1')
 
     candidates = version.candidates
     assembly = createAssembly({

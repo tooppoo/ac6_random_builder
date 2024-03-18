@@ -23,23 +23,24 @@ export function randomBuild(
   candidates: Candidates,
   option: RandomBuildOption = defaultRandomBuildOption,
 ): Assembly {
-  const randomizer = option.randomizer || defaultRandomizer
+  const rnd = <T>(xs: readonly T[]): T =>
+    random(xs, option.randomizer || defaultRandomizer)
 
-  const legs = random(candidates.legs, randomizer)
+  const legs = rnd(candidates.legs)
   const base: Omit<RawAssembly, 'legs' | 'booster'> = {
-    rightArmUnit: random(candidates.rightArmUnits, randomizer),
-    leftArmUnit: random(candidates.leftArmUnits, randomizer),
-    rightBackUnit: random(candidates.rightBackUnits, randomizer),
-    leftBackUnit: random(candidates.leftBackUnits, randomizer),
+    rightArmUnit: rnd(candidates.rightArmUnits),
+    leftArmUnit: rnd(candidates.leftArmUnits),
+    rightBackUnit: rnd(candidates.rightBackUnits),
+    leftBackUnit: rnd(candidates.leftBackUnits),
 
-    head: random(candidates.heads, randomizer),
-    core: random(candidates.cores, randomizer),
-    arms: random(candidates.arms, randomizer),
+    head: rnd(candidates.heads),
+    core: rnd(candidates.cores),
+    arms: rnd(candidates.arms),
 
-    fcs: random(candidates.fcses, randomizer),
-    generator: random(candidates.generators, randomizer),
+    fcs: rnd(candidates.fcses),
+    generator: rnd(candidates.generators),
 
-    expansion: random(candidates.expansions, randomizer),
+    expansion: rnd(candidates.expansions),
   }
 
   switch (legs.category) {
@@ -49,7 +50,7 @@ export function randomBuild(
       return createAssembly({
         ...base,
         legs,
-        booster: random(candidates.boosters, randomizer),
+        booster: rnd(candidates.boosters),
       })
   }
 }

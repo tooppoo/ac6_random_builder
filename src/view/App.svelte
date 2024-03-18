@@ -16,28 +16,6 @@
   const appVersion = appPackage.version
   const tryLimit = 1000
 
-  const initialize = async () => {
-    const version = await getCandidates('v1.06.1')
-
-    candidates = version.candidates
-    assembly = createAssembly({
-      rightArmUnit: version.armNotEquipped,
-      leftArmUnit: version.armNotEquipped,
-      rightBackUnit: version.backNotEquipped,
-      leftBackUnit: version.backNotEquipped,
-      head: version.heads[0],
-      core: version.cores[0],
-      arms: version.arms[0],
-      legs: version.legs[0],
-      booster: version.boosters[0],
-      fcs: version.fcses[0],
-      generator: version.generators[0],
-      expansion: version.expansions[0],
-    })
-
-    return version.version
-  }
-
   // state
   let candidates: Candidates
   let assembly: Assembly
@@ -65,6 +43,29 @@
   }
   const onChangeMaxLoad = (ev: CustomEvent<{ value: number }>) => {
     randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
+  }
+
+  // setup
+  const initialize = async () => {
+    const version = await getCandidates('v1.06.1')
+
+    candidates = version.candidates
+    assembly = createAssembly({
+      rightArmUnit: version.armNotEquipped,
+      leftArmUnit: version.armNotEquipped,
+      rightBackUnit: version.backNotEquipped,
+      leftBackUnit: version.backNotEquipped,
+      head: version.heads[0],
+      core: version.cores[0],
+      arms: version.arms[0],
+      legs: version.legs[0],
+      booster: version.boosters[0],
+      fcs: version.fcses[0],
+      generator: version.generators[0],
+      expansion: version.expansions[0],
+    })
+
+    return version.version
   }
 </script>
 

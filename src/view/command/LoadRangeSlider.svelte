@@ -25,6 +25,9 @@
   const onSetLoadLimit = () => {
     value = assembly.loadLimit
   }
+  const onLockLegs = () => {
+    dispatch('lockLegs')
+  }
 
   // setup
   function getMinAndMax(): { max: number, min: number } {
@@ -51,7 +54,10 @@
 
     return { max: roundUpByRealPart(2)(max), min }
   }
-  const dispatch = createEventDispatcher<{ change: { value: number } }>()
+  const dispatch = createEventDispatcher<{
+    change: { value: number },
+    lockLegs: null,
+  }>()
 
   const dropdown: Action = (node) => {
     new Dropdown(node)
@@ -76,6 +82,7 @@
       {text}
     </span>
     <ul class="dropdown-menu">
+      <li><button class="dropdown-item" on:click={onLockLegs}>脚部を固定</button></li>
       <li><button class="dropdown-item" on:click={onSetLoadLimit}>脚部の積載上限を適用</button></li>
     </ul>
   </div>

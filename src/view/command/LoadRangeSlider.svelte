@@ -7,12 +7,25 @@
   import type {Candidates} from "~data/types/candidates.ts";
   import RangeSlider from './base/RangeSlider.svelte'
 
+  // state
   export let candidates: Candidates
 
-  type WithWeight = Readonly<{ weight: number }>
-  type Sort = <T extends WithWeight>(xs: readonly T[]) => readonly T[]
+  const { max, min } = getMinAndMax()
 
-  const { max, min } = (() => {
+  let value: number = max
+
+  // handler
+  const onChange = ({ detail }: CustomEvent<{ value: number }>) => {
+    value = detail.value
+
+    dispatch('change', detail)
+  }
+
+  // setup
+  function getMinAndMax(): { max: number, min: number } {
+    type WithWeight = Readonly<{ weight: number }>
+    type Sort = <T extends WithWeight>(xs: readonly T[]) => readonly T[]
+
     const desc: Sort = (xs) => xs.toSorted((a, b) => b.weight - a.weight)
     const asc: Sort = (xs) => xs.toSorted((a, b) => a.weight - b.weight)
     const total = (s: Sort): number => sum([
@@ -32,16 +45,7 @@
     const min = total(asc)
 
     return { max: roundUpByRealPart(2)(max), min }
-  })()
-
-  let value: number = max
-
-  const onChange = ({ detail }: CustomEvent<{ value: number }>) => {
-    value = detail.value
-
-    dispatch('change', detail)
   }
-
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
 
   const dropdown: Action = (node) => {
@@ -67,9 +71,7 @@
       {text}
     </span>
     <ul class="dropdown-menu">
-      <li><button class="dropdown-item">Action</button></li>
-      <li><button class="dropdown-item">Another action</button></li>
-      <li><button class="dropdown-item">Something else here</button></li>
+      <li><button class="dropdown-item">現在の積載上限にする</button></li>
     </ul>
   </div>
 </RangeSlider>

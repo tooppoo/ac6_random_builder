@@ -7,7 +7,20 @@
 
   export let candidates: Candidates
 
-  const max = (() => {
+  // state
+  const max = getMax()
+
+  let value: number = max
+
+  // handle
+  const onChange = ({ detail }: CustomEvent<{ value: number }>) => {
+    value = detail.value
+
+    dispatch('change', detail)
+  }
+
+  // setup
+  function getMax(): number {
     type WithPrice = Readonly<{ price: number }>
     const sortDesc = <T extends WithPrice>(xs: readonly T[]): readonly T[] =>
       xs.toSorted((a: WithPrice, b: WithPrice) => b.price - a.price)
@@ -27,16 +40,7 @@
     ].map(p => p.price))
 
     return roundUpByRealPart(1)(total)
-  })()
-
-  let value: number = max
-
-  const onChange = ({ detail }: CustomEvent<{ value: number }>) => {
-    value = detail.value
-
-    dispatch('change', detail)
   }
-
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
 </script>
 

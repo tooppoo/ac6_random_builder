@@ -3,27 +3,27 @@
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
   import type {Candidates} from "~data/types/candidates.ts";
-  import CoamRangeSlider from './base/RangeSlider.svelte'
+  import RangeSlider from './base/RangeSlider.svelte'
 
   export let candidates: Candidates
 
   const max = (() => {
     type WithPrice = Readonly<{ price: number }>
-    const descByPrice = (a: WithPrice, b: WithPrice) => b.price - a.price
-    const sort = <T extends WithPrice>(xs: readonly T[]): readonly T[] => [...xs].sort(descByPrice)
+    const sortDesc = <T extends WithPrice>(xs: readonly T[]): readonly T[] =>
+      xs.toSorted((a: WithPrice, b: WithPrice) => b.price - a.price)
 
     const total = sum([
-      sort(candidates.rightArmUnits)[0],
-      sort(candidates.leftArmUnits)[0],
-      sort(candidates.rightBackUnits)[0],
-      sort(candidates.leftBackUnits)[0],
-      sort(candidates.heads)[0],
-      sort(candidates.cores)[0],
-      sort(candidates.arms)[0],
-      sort(candidates.legs)[0],
-      sort(candidates.boosters)[0],
-      sort(candidates.fcses)[0],
-      sort(candidates.generators)[0],
+      sortDesc(candidates.rightArmUnits)[0],
+      sortDesc(candidates.leftArmUnits)[0],
+      sortDesc(candidates.rightBackUnits)[0],
+      sortDesc(candidates.leftBackUnits)[0],
+      sortDesc(candidates.heads)[0],
+      sortDesc(candidates.cores)[0],
+      sortDesc(candidates.arms)[0],
+      sortDesc(candidates.legs)[0],
+      sortDesc(candidates.boosters)[0],
+      sortDesc(candidates.fcses)[0],
+      sortDesc(candidates.generators)[0],
     ].map(p => p.price))
 
     return roundUpByRealPart(1)(total)

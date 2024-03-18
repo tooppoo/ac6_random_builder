@@ -3,29 +3,33 @@
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
   import type {Candidates} from "~data/types/candidates.ts";
-  import CoamRangeSlider from './base/RangeSlider.svelte'
+  import RangeSlider from './base/RangeSlider.svelte'
 
   export let candidates: Candidates
 
-  const max = (() => {
-    type WithWeight = Readonly<{ weight: number }>
-    const descByPrice = (a: WithWeight, b: WithWeight) => b.weight - a.weight
-    const sort = <T extends WithWeight>(xs: readonly T[]): readonly T[] => [...xs].sort(descByPrice)
+  type WithWeight = Readonly<{ weight: number }>
+  type Sort = <T extends WithWeight>(xs: readonly T[]) => readonly T[]
 
-    const total = sum([
-      sort(candidates.rightArmUnits)[0],
-      sort(candidates.leftArmUnits)[0],
-      sort(candidates.rightBackUnits)[0],
-      sort(candidates.leftBackUnits)[0],
-      sort(candidates.heads)[0],
-      sort(candidates.cores)[0],
-      sort(candidates.arms)[0],
-      sort(candidates.boosters)[0],
-      sort(candidates.fcses)[0],
-      sort(candidates.generators)[0],
-    ].map(p => p.weight))
+  const { max, min } = (() => {
+    const desc: Sort = (xs) => xs.toSorted((a, b) => b.weight - a.weight)
+    const asc: Sort = (xs) => xs.toSorted((a, b) => a.weight - b.weight)
+    const total = (s: Sort): number => sum([
+      s(candidates.rightArmUnits)[0],
+      s(candidates.leftArmUnits)[0],
+      s(candidates.rightBackUnits)[0],
+      s(candidates.leftBackUnits)[0],
+      s(candidates.heads)[0],
+      s(candidates.cores)[0],
+      s(candidates.arms)[0],
+      s(candidates.boosters)[0],
+      s(candidates.fcses)[0],
+      s(candidates.generators)[0],
+    ].map(x => x.weight))
 
-    return roundUpByRealPart(2)(total)
+    const max = total(desc)
+    const min = total(asc)
+
+    return { max: roundUpByRealPart(2)(max), min }
   })()
 
   let value: number = max
@@ -39,8 +43,8 @@
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
 </script>
 
-<CoamRangeSlider
-  id={$$props.id} class={$$props.class}
+<RangeSlider
+  id="load" class={$$props.class}
   label="積載量上限"
   max={max}
   value={value}

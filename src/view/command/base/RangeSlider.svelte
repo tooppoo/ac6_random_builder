@@ -11,12 +11,13 @@
   export let step: number = 1
 
   const dataList = (() => {
-    const strMax = `${max}`
-    const index = parseInt(strMax.replace(/0/g, ''))
+    const range = max - min
+    const index = parseInt(`${range}`[0])
 
-    const unit = max / index
+    // 最上位の桁を基準に区切りを決める
+    const unit = Math.floor(range / index)
 
-    return [...Array(index + 1)].map((_, i) => unit * i)
+    return [...Array(index + 1)].map((_, i) => unit * i + min)
   })()
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (ev) => {
@@ -46,7 +47,7 @@
     id={`${id}-range`}
     type="range"
     class="form-range w-100"
-    min="0" max={max}
+    min={min} max={max}
     value={value}
     step={step}
     on:change={onChange}

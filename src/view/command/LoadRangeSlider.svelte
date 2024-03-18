@@ -47,6 +47,7 @@
   id="load" class={$$props.class}
   label="積載量上限"
   max={max}
+  min={min}
   value={value}
   step={10}
   on:change={onChange}

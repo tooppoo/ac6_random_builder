@@ -40,8 +40,8 @@
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
 </script>
 
-<CoamRangeSlider
-  id={$$props.id} class={$$props.class}
+<RangeSlider
+  id="coam" class={$$props.class}
   label="総COAM上限"
   max={max}
   value={value}

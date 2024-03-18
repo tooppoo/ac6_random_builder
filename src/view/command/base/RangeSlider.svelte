@@ -2,6 +2,7 @@
   import {createEventDispatcher} from "svelte";
   import type {ChangeEventHandler} from "svelte/elements";
 
+  export let id: string
   export let label: string
 
   export let max: number
@@ -27,14 +28,14 @@
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
 </script>
 
-<div id={$$props.id} class={$$props.class}>
-  <label for="coam-range" class="current-max-value mx-auto input-group input-group-sm">
-    <span id="current-max-value" class="input-group-text">{label}</span>
+<div id={id} class={$$props.class}>
+  <label for={`${id}-range`} class="current-max-value mx-auto input-group input-group-sm">
+    <span id={`${id}-current-max-value`} class="input-group-text">{label}</span>
     <input
       type="number"
       class="form-control form-control-sm"
       aria-label={label}
-      aria-describedby="current-max-value"
+      aria-describedby={`${id}-current-max-value`}
       min={min} max={max}
       value={value}
       step={step}
@@ -42,16 +43,16 @@
     >
   </label>
   <input
-    id="coam-range"
+    id={`${id}-range`}
     type="range"
     class="form-range w-100"
     min="0" max={max}
     value={value}
     step={step}
     on:change={onChange}
-    list="range-mark"
+    list={`${id}-range-mark`}
   />
-  <datalist id="range-mark" class="sp-only w-100">
+  <datalist id={`${id}-range-mark`} class="sp-only w-100">
     {#each dataList as v}
       <option value={v} label={`${v}`}>{v}</option>
     {/each}
@@ -63,7 +64,7 @@
         width: 220px;
     }
 
-    datalist#range-mark {
+    datalist {
         display: flex;
         flex-direction: column;
         justify-content: space-between;

@@ -203,13 +203,11 @@
       ランダム生成
     </button>
     <CoamRangeSlider
-      id="total-coam-range"
       class="my-3 w-100"
       candidates={candidates}
       on:change={onChangeMaxCoam}
     />
     <LoadRangeSlider
-      id="load-range"
       class="my-3 w-100"
       candidates={candidates}
       assembly={assembly}

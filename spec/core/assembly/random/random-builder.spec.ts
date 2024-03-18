@@ -11,7 +11,7 @@ describe(randomBuild.name, () => {
   it.prop([genRandomizer()])(
     'should build correct coupling booster and legs',
     (i) => {
-      const actual = randomBuild(candidates, () => i)
+      const actual = randomBuild(candidates, { randomizer: () => i })
 
       switch (actual.legs.category) {
         case tank:
@@ -24,12 +24,12 @@ describe(randomBuild.name, () => {
     },
   )
   it.prop([genRandomizer()])('should not contain any empty parts', (i) => {
-    const actual = randomBuild(candidates, () => i)
+    const actual = randomBuild(candidates, { randomizer: () => i })
 
     expect(Object.values(actual)).not.toContain(undefined)
   })
   it.prop([genRandomizer()])('should contain all parts as key', (i) => {
-    const assembly = randomBuild(candidates, () => i)
+    const assembly = randomBuild(candidates, { randomizer: () => i })
     const expected: Array<keyof Assembly> = [
       'rightArmUnit',
       'leftArmUnit',

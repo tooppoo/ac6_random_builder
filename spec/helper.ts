@@ -8,5 +8,5 @@ export function genRandomizer() {
 }
 
 export function genAssembly(c: Candidates = candidates) {
-  return genRandomizer().map((i) => randomBuild(c, () => i))
+  return genRandomizer().map((i) => randomBuild(c, { randomizer: () => i }))
 }

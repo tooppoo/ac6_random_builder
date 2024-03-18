@@ -6,12 +6,25 @@ import {
 import { random } from '~core/utils/array.ts'
 import { boosterNotEquipped } from '~data/booster.ts'
 import type { Candidates } from '~data/types/candidates.ts'
+import { LockedParts } from './lock.ts'
 
-export type Randomizer = () => number
+export type RandomBuildOption = Readonly<{
+  randomizer?: () => number
+  lockedParts?: LockedParts
+}>
+
+const defaultRandomizer = () => Math.random()
+export const defaultRandomBuildOption: Required<RandomBuildOption> = {
+  randomizer: () => Math.random(),
+  lockedParts: LockedParts.empty,
+}
+
 export function randomBuild(
   candidates: Candidates,
-  randomizer: Randomizer = () => Math.random(),
+  option: RandomBuildOption = defaultRandomBuildOption,
 ): Assembly {
+  const randomizer = option.randomizer || defaultRandomizer
+
   const legs = random(candidates.legs, randomizer)
   const base: Omit<RawAssembly, 'legs' | 'booster'> = {
     rightArmUnit: random(candidates.rightArmUnits, randomizer),

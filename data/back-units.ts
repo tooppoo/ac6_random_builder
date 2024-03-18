@@ -400,7 +400,7 @@ export const backUnits = [
     en_load: 683,
   }),
   defineBackUnit<AsLaserCannon>()({
-    name: 'VP-60LCA',
+    name: 'VE-60LCA',
     classification: backUnit,
     category: laser_canon,
     attack_type: energy,

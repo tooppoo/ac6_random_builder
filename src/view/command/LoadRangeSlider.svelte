@@ -2,6 +2,7 @@
   import Dropdown from "bootstrap/js/dist/dropdown";
   import type {Action} from "svelte/action";
   import {createEventDispatcher} from "svelte";
+  import { type Assembly } from "~core/assembly/assembly.ts"
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
   import type {Candidates} from "~data/types/candidates.ts";
@@ -9,6 +10,7 @@
 
   // state
   export let candidates: Candidates
+  export let assembly: Assembly
 
   const { max, min } = getMinAndMax()
 
@@ -19,6 +21,9 @@
     value = detail.value
 
     dispatch('change', detail)
+  }
+  const onSetLoadLimit = () => {
+    value = assembly.loadLimit
   }
 
   // setup
@@ -71,7 +76,7 @@
       {text}
     </span>
     <ul class="dropdown-menu">
-      <li><button class="dropdown-item">現在の積載上限にする</button></li>
+      <li><button class="dropdown-item" on:click={onSetLoadLimit}>脚部の積載上限を適用</button></li>
     </ul>
   </div>
 </RangeSlider>

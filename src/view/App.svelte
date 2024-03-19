@@ -54,6 +54,9 @@
       ? lockedParts.lock(key, assembly[key])
       : lockedParts.unlock(key)
   }
+  const onResetLock = () => {
+    lockedParts = LockedParts.empty
+  }
 
   // setup
   const initialize = async () => {
@@ -238,8 +241,16 @@
       on:click={onRandom}
       class="my-3 w-100 p-2"
     >
-      ランダム生成
+      ランダムアセンブル
     </button>
+    <button
+      id="reset-lock"
+      on:click={onResetLock}
+      class="my-3 w-100 p-2"
+    >
+      すべてのロックを解除
+    </button>
+
     <CoamRangeSlider
       class="my-3 w-100"
       candidates={candidates}

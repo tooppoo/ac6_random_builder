@@ -1,5 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/svelte'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { AssemblyKey } from '~core/assembly/assembly.ts'
 import App from '~view/App.svelte'
 
 describe(`App.svelte`, () => {
@@ -22,11 +23,11 @@ describe(`App.svelte`, () => {
 
     const selectBoxes = screen.getAllByRole('combobox')
 
-    const expected = [
-      'right-arm-unit',
-      'left-arm-unit',
-      'right-back-unit',
-      'left-back-unit',
+    const expected: AssemblyKey[] = [
+      'rightArmUnit',
+      'leftArmUnit',
+      'rightBackUnit',
+      'leftBackUnit',
       'head',
       'core',
       'arms',

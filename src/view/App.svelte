@@ -51,11 +51,9 @@
   }
 
   const onLock = (key: AssemblyKey) => (ev: CustomEvent<{ value: boolean }>) => {
-    console.log(ev.detail, lockedParts)
     lockedParts = ev.detail.value
       ? lockedParts.lock(key, assembly[key])
       : lockedParts.unlock(key)
-    console.log(lockedParts)
   }
   const onResetLock = () => {
     lockedParts = LockedParts.empty

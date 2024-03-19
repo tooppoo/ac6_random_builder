@@ -6,11 +6,13 @@
   --bs-font-monospace: 'DM Mono', monospace;
 }
 
-
 @font-face {
   font-display: block;
-  font-family: "bootstrap-icons";
-  src: local("bootstrap-icons"), url("bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"), url("bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
+  font-family: 'bootstrap-icons';
+  src:
+    local('bootstrap-icons'),
+    url('bootstrap-icons/font/fonts/bootstrap-icons.woff2') format('woff2'),
+    url('bootstrap-icons/font/fonts/bootstrap-icons.woff') format('woff');
 }
 
 @include media-breakpoint-up(md) {

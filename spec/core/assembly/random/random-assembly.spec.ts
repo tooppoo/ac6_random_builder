@@ -39,7 +39,10 @@ describe(RandomAssembly.name, () => {
         it.prop([generateValidator(), generateValidator()])(
           'count of validators should not change',
           (val1, val2) => {
-            const sut1 = RandomAssembly.init({ limit: 10000 }).addValidator('key', val1)
+            const sut1 = RandomAssembly.init({ limit: 10000 }).addValidator(
+              'key',
+              val1,
+            )
             const sut2 = sut1.addValidator('key', val2)
 
             expect(sut1.validators.length).toBe(sut2.validators.length)

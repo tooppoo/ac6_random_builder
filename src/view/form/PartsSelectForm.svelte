@@ -32,9 +32,12 @@
     >
       {caption}
       <StatusBadgeList class="float-end">
-        {#if lock.isLocking(id)}
-          <LockBadge title="このパーツは変更されません" />
-        {/if}
+        <LockBadge
+          titleWhenLocked="このパーツは変更されません"
+          titleWhenUnlocked="このパーツは変更されます"
+          locked={lock.isLocking(id)}
+          clickable={true}
+        />
       </StatusBadgeList>
     </label>
     <select

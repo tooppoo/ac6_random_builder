@@ -3,6 +3,8 @@
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import type {BaseACParts} from "~data/types/base/types.ts";
+  import LockBadge from "~view/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
 
   export let id: AssemblyKey
   export let caption: string
@@ -23,12 +25,17 @@
 </script>
 
 <svelte:element this={tag} class={$$props.class + ' container'}>
-  <div class="row">
+  <div class="row text-start">
     <label
       for={id}
-      class="col-12 col-sm-5 fs-4"
+      class="col-12 col-sm-5 fs-4 d-flex justify-content-between"
     >
       {caption}
+      <StatusBadgeList class="float-end">
+        {#if lock.isLocking(id)}
+          <LockBadge title="このパーツは変更されません" />
+        {/if}
+      </StatusBadgeList>
     </label>
     <select
       id={id}

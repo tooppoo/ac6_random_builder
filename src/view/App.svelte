@@ -1,6 +1,6 @@
 
 <script lang="ts">
-  import { type Assembly, createAssembly } from "~core/assembly/assembly.ts"
+  import {type Assembly, type AssemblyKey, createAssembly} from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
   import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
@@ -47,6 +47,12 @@
   }
   const onChangeMaxLoad = (ev: CustomEvent<{ value: number }>) => {
     randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
+  }
+
+  const onLock = (key: AssemblyKey) => (ev: CustomEvent<{ value: boolean }>) => {
+    lockedParts = ev.detail.value
+      ? lockedParts.lock(key, assembly[key])
+      : lockedParts.unlock(key)
   }
 
   // setup
@@ -233,6 +239,7 @@
       assembly={assembly}
       lock={lockedParts}
       on:change={onChangeMaxLoad}
+      on:toggle-lock={onLock('legs')}
     />
   </ToolSection>
 

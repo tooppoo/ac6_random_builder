@@ -3,14 +3,18 @@
   import type {Action} from "svelte/action";
   import {createEventDispatcher} from "svelte";
   import { type Assembly } from "~core/assembly/assembly.ts"
+  import type {LockedParts} from "~core/assembly/random/lock.ts";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
   import type {Candidates} from "~data/types/candidates.ts";
+  import LockBadge from "~view/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
   import RangeSlider from './base/RangeSlider.svelte'
 
   // state
   export let candidates: Candidates
   export let assembly: Assembly
+  export let lock: LockedParts
 
   const { max, min } = getMinAndMax()
 
@@ -25,8 +29,8 @@
   const onSetLoadLimit = () => {
     value = assembly.loadLimit
   }
-  const onLockLegs = () => {
-    dispatch('lockLegs')
+  const onToggleLock = () => {
+    dispatch('toggle-lock', { value: !lock.isLocking('legs') })
   }
 
   // setup
@@ -56,7 +60,7 @@
   }
   const dispatch = createEventDispatcher<{
     change: { value: number },
-    lockLegs: null,
+    'toggle-lock': { value: boolean },
   }>()
 
   const dropdown: Action = (node) => {
@@ -73,6 +77,11 @@
   step={10}
   on:change={onChange}
 >
+  <StatusBadgeList class="ms-2" slot="status">
+    {#if lock.isLocking('legs')}
+      <LockBadge title="脚部を固定しています" />
+    {/if}
+  </StatusBadgeList>
   <div
     slot="label" let:labelId let:text
     id={labelId} class="dropdown input-group-text "
@@ -82,7 +91,15 @@
       {text}
     </span>
     <ul class="dropdown-menu">
-      <li><button class="dropdown-item" on:click={onLockLegs}>脚部を固定</button></li>
+      <li>
+        <button class="dropdown-item" on:click={onToggleLock}>
+          {#if lock.isLocking('legs')}
+            脚部固定を解除
+          {:else}
+            脚部を固定
+          {/if}
+        </button>
+      </li>
       <li><button class="dropdown-item" on:click={onSetLoadLimit}>脚部の積載上限を適用</button></li>
     </ul>
   </div>

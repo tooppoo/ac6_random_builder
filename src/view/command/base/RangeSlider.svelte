@@ -30,21 +30,24 @@
 </script>
 
 <div id={id} class={$$props.class}>
-  <label for={`${id}-range`} class="current-max-value mx-auto input-group input-group-sm">
-    <slot name="label" labelId={`${id}-current-max-value`} text={label}>
-      <span id={`${id}-current-max-value`} class="input-group-text">{label}</span>
-    </slot>
-    <input
-      type="number"
-      class="form-control form-control-sm"
-      aria-label={label}
-      aria-describedby={`${id}-current-max-value`}
-      min={min} max={max}
-      value={value}
-      step={step}
-      on:change={onChange}
-    >
-  </label>
+  <div class="d-flex align-items-center">
+    <label for={`${id}-range`} class="current-max-value mr-auto input-group input-group-sm">
+      <slot name="label" labelId={`${id}-current-max-value`} text={label}>
+        <span id={`${id}-current-max-value`} class="input-group-text">{label}</span>
+      </slot>
+      <input
+        type="number"
+        class="form-control form-control-sm"
+        aria-label={label}
+        aria-describedby={`${id}-current-max-value`}
+        min={min} max={max}
+        value={value}
+        step={step}
+        on:change={onChange}
+      >
+    </label>
+    <slot name="status"></slot>
+  </div>
   <input
     id={`${id}-range`}
     type="range"

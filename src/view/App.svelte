@@ -8,6 +8,7 @@
   import { logger } from '~core/utils/logger.ts'
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
+  import {boosterNotEquipped} from "~data/booster.ts";
   import type {Candidates} from "~data/types/candidates.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
@@ -50,9 +51,11 @@
   }
 
   const onLock = (key: AssemblyKey) => (ev: CustomEvent<{ value: boolean }>) => {
+    console.log(ev.detail, lockedParts)
     lockedParts = ev.detail.value
       ? lockedParts.lock(key, assembly[key])
       : lockedParts.unlock(key)
+    console.log(lockedParts)
   }
   const onResetLock = () => {
     lockedParts = LockedParts.empty
@@ -193,7 +196,7 @@
       class="mb-3"
       caption="BOOSTER"
       tag="section"
-      parts={candidates.boosters}
+      parts={[...candidates.boosters, boosterNotEquipped]}
       selected={assembly.booster}
       lock={lockedParts}
       on:toggle-lock={onLock('booster')}

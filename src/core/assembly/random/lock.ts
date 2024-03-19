@@ -81,11 +81,11 @@ export class LockedParts {
   }
   unlock<K extends AssemblyKey>(target: K): LockedParts {
     const copyMap = { ...this.map }
-    const copyFilter = { ...this.filterMap }
     delete copyMap[target]
-    delete copyFilter[target]
 
-    return this.withMap(copyMap).withFilter(copyFilter)
+    // filterはロック時の特殊な状況でのみ必要なので、
+    // unlockでは一律解除で良い
+    return this.withMap(copyMap).clearFilter()
   }
   isLocking(key: AssemblyKey): boolean {
     return !!this.map[key]
@@ -109,6 +109,9 @@ export class LockedParts {
   }
   private withFilter(filter: LockedPartsFilter) {
     return new LockedParts(this.map, filter)
+  }
+  private clearFilter() {
+    return this.withFilter({})
   }
 }
 

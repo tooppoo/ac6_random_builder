@@ -5,14 +5,22 @@ import {createEventDispatcher} from "svelte";
 export let title: string
 export let clickable: boolean = false
 
+let tooltip: Tooltip | null = null
+$: {
+  tooltip && tooltip.setContent({ '.tooltip-inner': title })
+}
+
 // handler
 function onClick() {
-  clickable && dispatch('click')
+  if (clickable) {
+    tooltip && tooltip.hide()
+    dispatch('click')
+  }
 }
 
 // setup
-function tooltip(el: HTMLElement) {
-  new Tooltip(el)
+function bindTooltip(el: HTMLElement) {
+  tooltip = new Tooltip(el)
 }
 const dispatch = createEventDispatcher<{ click: null }>()
 </script>
@@ -22,7 +30,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
   data-bs-toggle="tooltip"
   data-bs-title={title}
   data-clickable={clickable}
-  use:tooltip
+  use:bindTooltip
   on:click={onClick}
   role={clickable ? 'button' : 'img'}
 />

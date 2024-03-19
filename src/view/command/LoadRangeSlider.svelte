@@ -81,7 +81,7 @@
 >
   <StatusBadgeList class="ms-2" slot="status">
     {#if lock.isLocking('legs')}
-      <LockBadge titleWhenLocked="脚部を固定しています" />
+      <LockBadge titleWhenLocked="脚部を固定しています" locked={true} />
     {/if}
   </StatusBadgeList>
   <div

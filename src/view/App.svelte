@@ -103,6 +103,7 @@
       parts={candidates.rightArmUnits}
       selected={assembly.rightArmUnit}
       lock={lockedParts}
+      on:toggle-lock={onLock('rightArmUnit')}
       on:change={onChangeParts('rightArmUnit')}
     />
     <PartsSelectForm
@@ -113,6 +114,7 @@
       parts={candidates.leftArmUnits}
       selected={assembly.leftArmUnit}
       lock={lockedParts}
+      on:toggle-lock={onLock('leftArmUnit')}
       on:change={onChangeParts('leftArmUnit')}
     />
     <PartsSelectForm
@@ -123,6 +125,7 @@
       parts={candidates.rightBackUnits}
       selected={assembly.rightBackUnit}
       lock={lockedParts}
+      on:toggle-lock={onLock('rightBackUnit')}
       on:change={onChangeParts('rightBackUnit')}
     />
     <PartsSelectForm
@@ -133,6 +136,7 @@
       parts={candidates.leftBackUnits}
       selected={assembly.leftBackUnit}
       lock={lockedParts}
+      on:toggle-lock={onLock('leftBackUnit')}
       on:change={onChangeParts('leftBackUnit')}
     />
     <!-- FRAME -->
@@ -144,6 +148,7 @@
       parts={candidates.heads}
       selected={assembly.head}
       lock={lockedParts}
+      on:toggle-lock={onLock('head')}
       on:change={onChangeParts('head')}
     />
     <PartsSelectForm
@@ -154,6 +159,7 @@
       parts={candidates.cores}
       selected={assembly.core}
       lock={lockedParts}
+      on:toggle-lock={onLock('core')}
       on:change={onChangeParts('core')}
     />
     <PartsSelectForm
@@ -164,6 +170,7 @@
       parts={candidates.arms}
       selected={assembly.arms}
       lock={lockedParts}
+      on:toggle-lock={onLock('arms')}
       on:change={onChangeParts('arms')}
     />
     <PartsSelectForm
@@ -174,6 +181,7 @@
       parts={candidates.legs}
       selected={assembly.legs}
       lock={lockedParts}
+      on:toggle-lock={onLock('legs')}
       on:change={onChangeParts('legs')}
     />
     <!-- INNER -->
@@ -185,6 +193,7 @@
       parts={candidates.boosters}
       selected={assembly.booster}
       lock={lockedParts}
+      on:toggle-lock={onLock('booster')}
       on:change={onChangeParts('booster')}
     />
     <PartsSelectForm
@@ -195,6 +204,7 @@
       parts={candidates.fcses}
       selected={assembly.fcs}
       lock={lockedParts}
+      on:toggle-lock={onLock('fcs')}
       on:change={onChangeParts('fcs')}
     />
     <PartsSelectForm
@@ -205,6 +215,7 @@
       parts={candidates.generators}
       selected={assembly.generator}
       lock={lockedParts}
+      on:toggle-lock={onLock('generator')}
       on:change={onChangeParts('generator')}
     />
     <!-- EXPANSION -->
@@ -216,6 +227,7 @@
       parts={candidates.expansions}
       selected={assembly.expansion}
       lock={lockedParts}
+      on:toggle-lock={onLock('expansion')}
       on:change={onChangeParts('expansion')}
     />
   </ToolSection>

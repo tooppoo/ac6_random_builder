@@ -13,15 +13,23 @@
   export let tag = 'div'
   export let lock: LockedParts
 
+  $: locked = lock.isLocking(id)
+
   // handler
   const onChange = () => {
     if (lock.isLocking(id)) return
 
     dispatch('change', selected)
   }
+  const onToggleLock = () => {
+    dispatch('toggle-lock', { value: !lock.isLocking(id) })
+  }
 
   // setup
-  const dispatch = createEventDispatcher<{ change: BaseACParts }>()
+  const dispatch = createEventDispatcher<{
+    change: BaseACParts,
+    'toggle-lock': { value: boolean }
+  }>()
 </script>
 
 <svelte:element this={tag} class={$$props.class + ' container'}>
@@ -37,6 +45,7 @@
           titleWhenUnlocked="このパーツは変更されます"
           locked={lock.isLocking(id)}
           clickable={true}
+          on:click={onToggleLock}
         />
       </StatusBadgeList>
     </label>

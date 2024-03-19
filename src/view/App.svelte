@@ -5,6 +5,8 @@
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
+  import {armNotEquipped} from "~data/arm-units.ts";
+  import {backNotEquipped} from "~data/back-units.ts";
   import type {Candidates} from "~data/types/candidates.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
@@ -51,10 +53,10 @@
 
     candidates = version.candidates
     assembly = createAssembly({
-      rightArmUnit: version.armNotEquipped,
-      leftArmUnit: version.armNotEquipped,
-      rightBackUnit: version.backNotEquipped,
-      leftBackUnit: version.backNotEquipped,
+      rightArmUnit: armNotEquipped,
+      leftArmUnit: armNotEquipped,
+      rightBackUnit: backNotEquipped,
+      leftBackUnit: backNotEquipped,
       head: version.heads[0],
       core: version.cores[0],
       arms: version.arms[0],

@@ -2,7 +2,11 @@ import type { Assembly } from '~core/assembly/assembly.ts'
 import { BaseCustomError } from '~core/utils/error.ts'
 import { logger } from '~core/utils/logger.ts'
 import type { Candidates } from '~data/types/candidates.ts'
-import { randomBuild, type Randomizer } from './random-builder.ts'
+import {
+  defaultRandomBuildOption,
+  randomBuild,
+  type RandomBuildOption,
+} from './random-builder.ts'
 import type { Validator } from './validator/base.ts'
 import { success, type ValidationResult } from './validator/result.ts'
 import {
@@ -10,20 +14,10 @@ import {
   notOverEnergyOutput,
 } from './validator/validators.ts'
 
-type AssembleOption = Readonly<{
-  /** 乱数生成器 */
-  random?: Randomizer
-}>
-const defaultOption: Required<AssembleOption> = {
-  random: () => Math.random(),
-}
-const innerSecretKey = '__inner__' as const
-
-type RandomAssemblyConfig = Readonly<{
-  limit: number
-}>
 export class RandomAssembly {
-  static init(config: RandomAssemblyConfig = { limit: 10000 }): RandomAssembly {
+  static init(
+    config: RandomAssemblyConfig = defaultAssemblyConfig,
+  ): RandomAssembly {
     return new RandomAssembly(
       {
         [genInnerSecretKey(`notOverEnergyOutput`)]: notOverEnergyOutput,
@@ -59,14 +53,14 @@ export class RandomAssembly {
 
   assemble(
     candidates: Candidates,
-    option: AssembleOption = defaultOption,
+    option: RandomBuildOption = defaultRandomBuildOption,
   ): Assembly {
     this.tryCount += 1
 
-    const { random } = { ...defaultOption, ...option }
+    const opt = { ...defaultRandomBuildOption, ...option }
 
     try {
-      return this.validate(randomBuild(candidates, random)).fold(
+      return this.validate(randomBuild(candidates, opt)).fold(
         (errors) => {
           logger.warn({ errors })
 
@@ -105,9 +99,17 @@ export class OverwriteInnerSecretValidatorError extends BaseCustomError<string> 
   }
 }
 
+const innerSecretKey = '__inner__' as const
 function genInnerSecretKey(key: string) {
   return `${innerSecretKey}${key}` as const
 }
 function isInnerSecretKey(key: string): boolean {
   return key.startsWith(innerSecretKey)
+}
+
+type RandomAssemblyConfig = Readonly<{
+  limit: number
+}>
+const defaultAssemblyConfig: RandomAssemblyConfig = {
+  limit: 1000,
 }

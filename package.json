@@ -9,12 +9,13 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && npm run check",
+    "build:ci": "tsc && vite build",
     "preview": "vite preview",
     "test": "VITE_LOG_LEVEL=silent vitest run",
     "test:watch": "VITE_LOG_LEVEL=silent vitest",
     "coverage": "VITE_LOG_LEVEL=silent vitest run --coverage",
-    "lint": "eslint . && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
     "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
@@ -27,6 +28,7 @@
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/svelte": "4.1.0",
     "@tsconfig/svelte": "5.0.2",
+    "@types/bootstrap": "5.2.10",
     "@types/node": "20.11.28",
     "@types/sinon": "17.0.3",
     "@typescript-eslint/eslint-plugin": "7.2.0",
@@ -53,6 +55,7 @@
   },
   "dependencies": {
     "bootstrap": "5.3.3",
+    "bootstrap-icons": "1.11.3",
     "loglevel": "1.9.1"
   }
 }

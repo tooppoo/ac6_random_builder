@@ -1,47 +1,29 @@
 
 <script lang="ts">
-  import { type Assembly, createAssembly } from "~core/assembly/assembly.ts"
+  import {type Assembly, type AssemblyKey, createAssembly} from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
+  import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
-  import {totalCoamNotOverMax} from "~core/assembly/random/validator/validators.ts";
+  import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
+  import {armNotEquipped} from "~data/arm-units.ts";
+  import {backNotEquipped} from "~data/back-units.ts";
   import type {Candidates} from "~data/types/candidates.ts";
-  import {version as v1_06_1} from "~data/versions/v1.06.1.ts";
-  import CoamRangeSlider from "~view/form/CoamRangeSlider.svelte";
+  import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
+  import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
-  import ToolSection from "./form/ToolSection.svelte"
+  import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version
   const tryLimit = 1000
 
-  const initialize = async () => {
-    const version = await getCandidates(v1_06_1)
-
-    candidates = version.candidates
-    assembly = createAssembly({
-      rightArmUnit: version.armNotEquipped,
-      leftArmUnit: version.armNotEquipped,
-      rightBackUnit: version.backNotEquipped,
-      leftBackUnit: version.backNotEquipped,
-      head: version.heads[0],
-      core: version.cores[0],
-      arms: version.arms[0],
-      legs: version.legs[0],
-      booster: version.boosters[0],
-      fcs: version.fcses[0],
-      generator: version.generators[0],
-      expansion: version.expansions[0],
-    })
-
-    return version.version
-  }
-
   // state
   let candidates: Candidates
   let assembly: Assembly
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
+  let lockedParts: LockedParts = LockedParts.empty
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -50,7 +32,7 @@
   }
   const onRandom = () => {
     try {
-      assembly = randomAssembly.assemble(candidates)
+      assembly = randomAssembly.assemble(candidates, { lockedParts })
     } catch (e) {
       logger.error(e)
 
@@ -62,6 +44,41 @@
   }
   const onChangeMaxCoam = (ev: CustomEvent<{ value: number }>) => {
     randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
+  }
+  const onChangeMaxLoad = (ev: CustomEvent<{ value: number }>) => {
+    randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
+  }
+
+  const onLock = (key: AssemblyKey) => (ev: CustomEvent<{ value: boolean }>) => {
+    lockedParts = ev.detail.value
+      ? lockedParts.lock(key, assembly[key])
+      : lockedParts.unlock(key)
+  }
+  const onResetLock = () => {
+    lockedParts = LockedParts.empty
+  }
+
+  // setup
+  const initialize = async () => {
+    const version = await getCandidates('v1.06.1')
+
+    candidates = version.candidates
+    assembly = createAssembly({
+      rightArmUnit: armNotEquipped,
+      leftArmUnit: armNotEquipped,
+      rightBackUnit: backNotEquipped,
+      leftBackUnit: backNotEquipped,
+      head: version.heads[0],
+      core: version.cores[0],
+      arms: version.arms[0],
+      legs: version.legs[0],
+      booster: version.boosters[0],
+      fcs: version.fcses[0],
+      generator: version.generators[0],
+      expansion: version.expansions[0],
+    })
+
+    return version.version
   }
 </script>
 
@@ -82,39 +99,47 @@
   <ToolSection id="candidates-form" class="my-4 w-100">
     <!-- UNIT -->
     <PartsSelectForm
-      id="right-arm-unit"
+      id="rightArmUnit"
       class="mb-3"
       caption="RIGHT ARM UNIT"
       tag="section"
       parts={candidates.rightArmUnits}
       selected={assembly.rightArmUnit}
+      lock={lockedParts}
+      on:toggle-lock={onLock('rightArmUnit')}
       on:change={onChangeParts('rightArmUnit')}
     />
     <PartsSelectForm
-      id="left-arm-unit"
+      id="leftArmUnit"
       class="mb-3"
       caption="LEFT ARM UNIT"
       tag="section"
       parts={candidates.leftArmUnits}
       selected={assembly.leftArmUnit}
+      lock={lockedParts}
+      on:toggle-lock={onLock('leftArmUnit')}
       on:change={onChangeParts('leftArmUnit')}
     />
     <PartsSelectForm
-      id="right-back-unit"
+      id="rightBackUnit"
       class="mb-3"
       caption="RIGHT BACK UNIT"
       tag="section"
       parts={candidates.rightBackUnits}
       selected={assembly.rightBackUnit}
+      lock={lockedParts}
+      on:toggle-lock={onLock('rightBackUnit')}
       on:change={onChangeParts('rightBackUnit')}
     />
     <PartsSelectForm
-      id="left-back-unit"
+      id="leftBackUnit"
       class="mb-3"
       caption="LEFT BACK UNIT"
       tag="section"
       parts={candidates.leftBackUnits}
       selected={assembly.leftBackUnit}
+      lock={lockedParts}
+      on:toggle-lock={onLock('leftBackUnit')}
       on:change={onChangeParts('leftBackUnit')}
     />
     <!-- FRAME -->
@@ -125,6 +150,8 @@
       tag="section"
       parts={candidates.heads}
       selected={assembly.head}
+      lock={lockedParts}
+      on:toggle-lock={onLock('head')}
       on:change={onChangeParts('head')}
     />
     <PartsSelectForm
@@ -134,6 +161,8 @@
       tag="section"
       parts={candidates.cores}
       selected={assembly.core}
+      lock={lockedParts}
+      on:toggle-lock={onLock('core')}
       on:change={onChangeParts('core')}
     />
     <PartsSelectForm
@@ -143,6 +172,8 @@
       tag="section"
       parts={candidates.arms}
       selected={assembly.arms}
+      lock={lockedParts}
+      on:toggle-lock={onLock('arms')}
       on:change={onChangeParts('arms')}
     />
     <PartsSelectForm
@@ -152,6 +183,8 @@
       tag="section"
       parts={candidates.legs}
       selected={assembly.legs}
+      lock={lockedParts}
+      on:toggle-lock={onLock('legs')}
       on:change={onChangeParts('legs')}
     />
     <!-- INNER -->
@@ -162,6 +195,8 @@
       tag="section"
       parts={candidates.boosters}
       selected={assembly.booster}
+      lock={lockedParts}
+      on:toggle-lock={onLock('booster')}
       on:change={onChangeParts('booster')}
     />
     <PartsSelectForm
@@ -171,6 +206,8 @@
       tag="section"
       parts={candidates.fcses}
       selected={assembly.fcs}
+      lock={lockedParts}
+      on:toggle-lock={onLock('fcs')}
       on:change={onChangeParts('fcs')}
     />
     <PartsSelectForm
@@ -180,6 +217,8 @@
       tag="section"
       parts={candidates.generators}
       selected={assembly.generator}
+      lock={lockedParts}
+      on:toggle-lock={onLock('generator')}
       on:change={onChangeParts('generator')}
     />
     <!-- EXPANSION -->
@@ -190,6 +229,8 @@
       tag="section"
       parts={candidates.expansions}
       selected={assembly.expansion}
+      lock={lockedParts}
+      on:toggle-lock={onLock('expansion')}
       on:change={onChangeParts('expansion')}
     />
   </ToolSection>
@@ -200,13 +241,28 @@
       on:click={onRandom}
       class="my-3 w-100 p-2"
     >
-      ランダム生成
+      ランダムアセンブル
     </button>
+    <button
+      id="reset-lock"
+      on:click={onResetLock}
+      class="my-3 w-100 p-2"
+    >
+      すべてのロックを解除
+    </button>
+
     <CoamRangeSlider
-      id="total-coam-range"
       class="my-3 w-100"
       candidates={candidates}
       on:change={onChangeMaxCoam}
+    />
+    <LoadRangeSlider
+      class="my-3 w-100"
+      candidates={candidates}
+      assembly={assembly}
+      lock={lockedParts}
+      on:change={onChangeMaxLoad}
+      on:toggle-lock={onLock('legs')}
     />
   </ToolSection>
 

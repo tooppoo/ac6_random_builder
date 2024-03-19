@@ -33,6 +33,8 @@ export type Assembly = RawAssembly & {
    * @return {boolean} EN出力がEN負荷以上の場合にtrue
    */
   readonly withinEnOutput: boolean
+
+  readonly keys: readonly AssemblyKey[]
 }
 
 export function createAssembly(base: RawAssembly): Assembly {
@@ -57,6 +59,9 @@ export function createAssembly(base: RawAssembly): Assembly {
           this.generator,
         ].map((p) => p.weight),
       )
+    },
+    get keys(): readonly AssemblyKey[] {
+      return Object.keys(base) as readonly AssemblyKey[]
     },
     get load(): number {
       return this.weight - this.legs.weight
@@ -113,6 +118,7 @@ export function createAssembly(base: RawAssembly): Assembly {
 }
 
 export type RawAssembly = AssemblyNotTank | AssemblyWithTank
+export type AssemblyKey = keyof RawAssembly
 
 type AssemblyNotTank = BaseAssembly & {
   legs: LegsNotTank

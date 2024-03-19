@@ -4,39 +4,121 @@ import {
   type RawAssembly,
 } from '~core/assembly/assembly.ts'
 import { random } from '~core/utils/array.ts'
-import { boosterNotEquipped } from '~data/booster.ts'
+import { type Booster, boosterNotEquipped } from '~data/booster.ts'
+import { notEquipped } from '~data/types/base/classification.ts'
 import type { Candidates } from '~data/types/candidates.ts'
+import { LockedParts } from './lock.ts'
+import { tank } from '~data/types/base/category.ts'
 
-export type Randomizer = () => number
+export type RandomBuildOption = Readonly<{
+  randomizer?: () => number
+  lockedParts?: LockedParts
+}>
+
+export const defaultRandomBuildOption: Required<RandomBuildOption> = {
+  randomizer: () => Math.random(),
+  lockedParts: LockedParts.empty,
+}
+
 export function randomBuild(
   candidates: Candidates,
-  randomizer: Randomizer = () => Math.random(),
+  option: RandomBuildOption = defaultRandomBuildOption,
 ): Assembly {
-  const legs = random(candidates.legs, randomizer)
+  const { lockedParts, randomizer } = { ...defaultRandomBuildOption, ...option }
+
+  /*
+   * 「ロックからパーツを取得し、ロックされてなかった場合はランダム選択」という処理自体は
+   *  ジェネリクスを活用することで単一の関数として共通化可能.
+   *
+   * 当初はその方法で実装していたが、結果として型定義の解析が非常に複雑になるらしく、
+   * tscによるコンパイルで膨大なメモリが消費されるようになり、CIはおろかローカルですら
+   * コンパイルが不可能になった（参考までに、16GBまでtscに割り当てても処理が完了せずOOMで中断）
+   * 実例としては以下のジョブ.
+   * https://github.com/tooppoo/ac6_assemble_tool/actions/runs/8343264527/job/22833141484
+   *
+   * 上記を回避するため、非常に冗長ながら処理を一元化せず、個別に処理を当てている.
+   */
+
+  const legs = lockedParts.get('legs', () =>
+    random(lockedParts.filter('legs', candidates.legs), randomizer),
+  )
   const base: Omit<RawAssembly, 'legs' | 'booster'> = {
-    rightArmUnit: random(candidates.rightArmUnits, randomizer),
-    leftArmUnit: random(candidates.leftArmUnits, randomizer),
-    rightBackUnit: random(candidates.rightBackUnits, randomizer),
-    leftBackUnit: random(candidates.leftBackUnits, randomizer),
+    rightArmUnit: lockedParts.get('rightArmUnit', () =>
+      random(
+        lockedParts.filter('rightArmUnit', candidates.rightArmUnits),
+        randomizer,
+      ),
+    ),
+    leftArmUnit: lockedParts.get('leftArmUnit', () =>
+      random(
+        lockedParts.filter('leftArmUnit', candidates.leftArmUnits),
+        randomizer,
+      ),
+    ),
+    rightBackUnit: lockedParts.get('rightBackUnit', () =>
+      random(
+        lockedParts.filter('rightBackUnit', candidates.rightBackUnits),
+        randomizer,
+      ),
+    ),
+    leftBackUnit: lockedParts.get('leftBackUnit', () =>
+      random(
+        lockedParts.filter('leftBackUnit', candidates.leftBackUnits),
+        randomizer,
+      ),
+    ),
 
-    head: random(candidates.heads, randomizer),
-    core: random(candidates.cores, randomizer),
-    arms: random(candidates.arms, randomizer),
+    head: lockedParts.get('head', () =>
+      random(lockedParts.filter('head', candidates.heads), randomizer),
+    ),
+    core: lockedParts.get('core', () =>
+      random(lockedParts.filter('core', candidates.cores), randomizer),
+    ),
+    arms: lockedParts.get('arms', () =>
+      random(lockedParts.filter('arms', candidates.arms), randomizer),
+    ),
 
-    fcs: random(candidates.fcses, randomizer),
-    generator: random(candidates.generators, randomizer),
+    fcs: lockedParts.get('fcs', () =>
+      random(lockedParts.filter('fcs', candidates.fcses), randomizer),
+    ),
+    generator: lockedParts.get('generator', () =>
+      random(
+        lockedParts.filter('generator', candidates.generators),
+        randomizer,
+      ),
+    ),
 
-    expansion: random(candidates.expansions, randomizer),
+    expansion: lockedParts.get('expansion', () =>
+      random(
+        lockedParts.filter('expansion', candidates.expansions),
+        randomizer,
+      ),
+    ),
   }
 
   switch (legs.category) {
-    case 'tank':
+    case tank:
       return createAssembly({ ...base, legs, booster: boosterNotEquipped })
-    default:
+    default: {
+      const booster = lockedParts.get('booster', () =>
+        random(lockedParts.filter('booster', candidates.boosters), randomizer),
+      )
+      assertBoosterEquipped(booster)
+
       return createAssembly({
         ...base,
         legs,
-        booster: random(candidates.boosters, randomizer),
+        booster,
       })
+    }
   }
+}
+
+function assertBoosterEquipped(
+  b: RawAssembly['booster'],
+): asserts b is Booster {
+  if (b.classification === notEquipped)
+    throw new Error(`${b.name} is not equipped`)
+
+  return
 }

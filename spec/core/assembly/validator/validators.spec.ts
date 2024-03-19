@@ -4,6 +4,7 @@ import {
   notCarrySameUnitInSameSide,
   notOverEnergyOutput,
   totalCoamNotOverMax,
+  totalLoadNotOverMax,
 } from '~core/assembly/random/validator/validators'
 import { notEquipped as notEquippedClass } from '~data/types/base/classification.ts'
 import { genAssembly } from '~spec/helper.ts'
@@ -179,11 +180,21 @@ describe('validator', () => {
 
   describe('total coam not over max', () => {
     fcit.prop([genAssembly(), fc.integer({ min: 0 })])(
-      'when total coam < max then success, else failure',
+      'when total coam <= max then success, else failure',
       (assembly, max) => {
         const sut = totalCoamNotOverMax(max)
 
         expect(sut.validate(assembly).isSuccess).toBe(assembly.coam <= max)
+      },
+    )
+  })
+  describe('total load not over max', () => {
+    fcit.prop([genAssembly(), fc.integer({ min: 0 })])(
+      'when total load <= max then success, else failure',
+      (assembly, max) => {
+        const sut = totalLoadNotOverMax(max)
+
+        expect(sut.validate(assembly).isSuccess).toBe(assembly.load <= max)
       },
     )
   })

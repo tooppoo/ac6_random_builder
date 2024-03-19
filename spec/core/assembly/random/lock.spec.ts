@@ -131,4 +131,13 @@ describe(LockedParts.name, () => {
       })
     })
   })
+
+  describe('when unlock', () => {
+    it.prop([genLockedParts(), genAssemblyKeys({ minLength: 1 }).map(random)])(
+      'filters are cleared',
+      ({ lockedParts }, key) => {
+        expect(lockedParts.unlock(key).filters.length).toBe(0)
+      },
+    )
+  })
 })

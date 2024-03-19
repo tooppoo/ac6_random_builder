@@ -8,8 +8,9 @@ type LockedPartsMap = {
   [P in AssemblyKey]?: RawAssembly[P]
 }
 type LockedPartsFilter = {
-  [P in AssemblyKey]?: (x: RawAssembly[P]) => boolean
+  [P in AssemblyKey]?: Filter<P>
 }
+type Filter<P extends AssemblyKey> = (x: RawAssembly[P]) => boolean
 
 export class LockedParts {
   static get empty(): LockedParts {
@@ -96,6 +97,9 @@ export class LockedParts {
   }
   get list(): Array<RawAssembly[keyof RawAssembly]> {
     return Object.values(this.map)
+  }
+  get filters(): Filter<AssemblyKey>[] {
+    return Object.values(this.filterMap) as Filter<AssemblyKey>[]
   }
 
   private writeMap<K extends AssemblyKey>(

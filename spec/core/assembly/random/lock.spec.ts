@@ -15,25 +15,18 @@ describe(LockedParts.name, () => {
       expect(lockedParts.list.length).toEqual(lockedParts.lockedKeys.length)
     },
   )
-  test.prop(
-    [
-      genLockedParts(),
-      genAssembly()
-        .chain((a1) =>
-          fc.record({
-            a1: fc.constant(a1),
-            a2: genAssembly(),
-            key: genAssemblyKeys({ minLength: 1 }).map(random),
-          }),
-        )
-        .filter(({ a1, a2, key }) => a1[key].name !== a2[key].name),
-    ],
-    {
-      seed: 727061250,
-      path: '2:12:3:2:0:2:0:2:0:0:0:12:35:2:4:2:2:2:3',
-      endOnFailure: true,
-    },
-  )('lock state transition', ({ lockedParts }, { a1, a2, key }) => {
+  test.prop([
+    genLockedParts(),
+    genAssembly()
+      .chain((a1) =>
+        fc.record({
+          a1: fc.constant(a1),
+          a2: genAssembly(),
+          key: genAssemblyKeys({ minLength: 1 }).map(random),
+        }),
+      )
+      .filter(({ a1, a2, key }) => a1[key].name !== a2[key].name),
+  ])('lock state transition', ({ lockedParts }, { a1, a2, key }) => {
     const stat1 = lockedParts.lock(key, a1[key])
     expect(stat1.isLocking(key)).toBe(true)
     expect(stat1.lockedKeys).toContain(key)
@@ -137,5 +130,14 @@ describe(LockedParts.name, () => {
         expect(filtered.every((x) => x.classification === booster)).toBe(true)
       })
     })
+  })
+
+  describe('when unlock', () => {
+    it.prop([genLockedParts(), genAssemblyKeys({ minLength: 1 }).map(random)])(
+      'filters are cleared',
+      ({ lockedParts }, key) => {
+        expect(lockedParts.unlock(key).filters.length).toBe(0)
+      },
+    )
   })
 })

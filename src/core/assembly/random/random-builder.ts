@@ -1,5 +1,6 @@
 import {
   type Assembly,
+  type AssemblyKey,
   createAssembly,
   type RawAssembly,
 } from '~core/assembly/assembly.ts'
@@ -13,7 +14,6 @@ export type RandomBuildOption = Readonly<{
   lockedParts?: LockedParts
 }>
 
-const defaultRandomizer = () => Math.random()
 export const defaultRandomBuildOption: Required<RandomBuildOption> = {
   randomizer: () => Math.random(),
   lockedParts: LockedParts.empty,
@@ -23,24 +23,23 @@ export function randomBuild(
   candidates: Candidates,
   option: RandomBuildOption = defaultRandomBuildOption,
 ): Assembly {
-  const rnd = <T>(xs: readonly T[]): T =>
-    random(xs, option.randomizer || defaultRandomizer)
+  const rnd = randomIfNotLocked({ ...defaultRandomBuildOption, ...option })
 
-  const legs = rnd(candidates.legs)
+  const legs = rnd('legs', candidates.legs)
   const base: Omit<RawAssembly, 'legs' | 'booster'> = {
-    rightArmUnit: rnd(candidates.rightArmUnits),
-    leftArmUnit: rnd(candidates.leftArmUnits),
-    rightBackUnit: rnd(candidates.rightBackUnits),
-    leftBackUnit: rnd(candidates.leftBackUnits),
+    rightArmUnit: rnd('rightArmUnit', candidates.rightArmUnits),
+    leftArmUnit: rnd('leftArmUnit', candidates.leftArmUnits),
+    rightBackUnit: rnd('rightBackUnit', candidates.rightBackUnits),
+    leftBackUnit: rnd('leftBackUnit', candidates.leftBackUnits),
 
-    head: rnd(candidates.heads),
-    core: rnd(candidates.cores),
-    arms: rnd(candidates.arms),
+    head: rnd('head', candidates.heads),
+    core: rnd('core', candidates.cores),
+    arms: rnd('arms', candidates.arms),
 
-    fcs: rnd(candidates.fcses),
-    generator: rnd(candidates.generators),
+    fcs: rnd('fcs', candidates.fcses),
+    generator: rnd('generator', candidates.generators),
 
-    expansion: rnd(candidates.expansions),
+    expansion: rnd('expansion', candidates.expansions),
   }
 
   switch (legs.category) {
@@ -50,7 +49,15 @@ export function randomBuild(
       return createAssembly({
         ...base,
         legs,
-        booster: rnd(candidates.boosters),
+        booster: rnd('booster', candidates.boosters),
       })
   }
 }
+
+const randomIfNotLocked =
+  ({ lockedParts, randomizer }: Required<RandomBuildOption>) =>
+  <K extends AssemblyKey, T extends RawAssembly[K]>(
+    key: K,
+    xs: readonly T[],
+  ): T =>
+    lockedParts.get(key, () => random(lockedParts.filter(key, xs), randomizer))

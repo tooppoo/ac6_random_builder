@@ -323,7 +323,7 @@ export const boosters = [
     weight: 1930,
     en_load: 342,
   }),
-] as const
+]
 export type Booster = (typeof boosters)[number]
 
 export const boosterNotEquipped = defineNotEquipped()

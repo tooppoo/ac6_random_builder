@@ -5,7 +5,7 @@ import { randomBuild } from '~core/assembly/random/random-builder'
 import { tank } from '~data/types/base/category'
 import { booster, notEquipped } from '~data/types/base/classification'
 import { candidates } from '~data/versions/v1.06.1.ts'
-import { genRandomizer } from '~spec/helper.ts'
+import { genLockedParts, genRandomizer } from '~spec/helper.ts'
 
 describe(randomBuild.name, () => {
   it.prop([genRandomizer()])(
@@ -45,8 +45,15 @@ describe(randomBuild.name, () => {
       'expansion',
     ]
 
-    expect(Object.keys(assembly).sort()).toEqual(
+    expect(assembly.keys.toSorted()).toEqual(
       expect.arrayContaining(expected.sort()),
     )
+  })
+  it.prop([genLockedParts()])('should use locked parts', ({ lockedParts }) => {
+    const assembly = randomBuild(candidates, { lockedParts })
+
+    const partsShouldBeLocked = lockedParts.lockedKeys.map((k) => assembly[k])
+
+    expect(partsShouldBeLocked.toSorted()).toEqual(lockedParts.list.toSorted())
   })
 })

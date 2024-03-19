@@ -28,6 +28,8 @@
   }
   const onSetLoadLimit = () => {
     value = assembly.loadLimit
+
+    dispatch('change', { value })
   }
   const onToggleLock = () => {
     dispatch('toggle-lock', { value: !lock.isLocking('legs') })

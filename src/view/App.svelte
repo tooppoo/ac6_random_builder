@@ -2,6 +2,7 @@
 <script lang="ts">
   import { type Assembly, createAssembly } from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
+  import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
@@ -22,6 +23,7 @@
   let candidates: Candidates
   let assembly: Assembly
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
+  let lockedParts: LockedParts = LockedParts.empty
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -30,7 +32,7 @@
   }
   const onRandom = () => {
     try {
-      assembly = randomAssembly.assemble(candidates)
+      assembly = randomAssembly.assemble(candidates, { lockedParts })
     } catch (e) {
       logger.error(e)
 
@@ -88,39 +90,43 @@
   <ToolSection id="candidates-form" class="my-4 w-100">
     <!-- UNIT -->
     <PartsSelectForm
-      id="right-arm-unit"
+      id="rightArmUnit"
       class="mb-3"
       caption="RIGHT ARM UNIT"
       tag="section"
       parts={candidates.rightArmUnits}
       selected={assembly.rightArmUnit}
+      lock={lockedParts}
       on:change={onChangeParts('rightArmUnit')}
     />
     <PartsSelectForm
-      id="left-arm-unit"
+      id="leftArmUnit"
       class="mb-3"
       caption="LEFT ARM UNIT"
       tag="section"
       parts={candidates.leftArmUnits}
       selected={assembly.leftArmUnit}
+      lock={lockedParts}
       on:change={onChangeParts('leftArmUnit')}
     />
     <PartsSelectForm
-      id="right-back-unit"
+      id="rightBackUnit"
       class="mb-3"
       caption="RIGHT BACK UNIT"
       tag="section"
       parts={candidates.rightBackUnits}
       selected={assembly.rightBackUnit}
+      lock={lockedParts}
       on:change={onChangeParts('rightBackUnit')}
     />
     <PartsSelectForm
-      id="left-back-unit"
+      id="leftBackUnit"
       class="mb-3"
       caption="LEFT BACK UNIT"
       tag="section"
       parts={candidates.leftBackUnits}
       selected={assembly.leftBackUnit}
+      lock={lockedParts}
       on:change={onChangeParts('leftBackUnit')}
     />
     <!-- FRAME -->
@@ -131,6 +137,7 @@
       tag="section"
       parts={candidates.heads}
       selected={assembly.head}
+      lock={lockedParts}
       on:change={onChangeParts('head')}
     />
     <PartsSelectForm
@@ -140,6 +147,7 @@
       tag="section"
       parts={candidates.cores}
       selected={assembly.core}
+      lock={lockedParts}
       on:change={onChangeParts('core')}
     />
     <PartsSelectForm
@@ -149,6 +157,7 @@
       tag="section"
       parts={candidates.arms}
       selected={assembly.arms}
+      lock={lockedParts}
       on:change={onChangeParts('arms')}
     />
     <PartsSelectForm
@@ -158,6 +167,7 @@
       tag="section"
       parts={candidates.legs}
       selected={assembly.legs}
+      lock={lockedParts}
       on:change={onChangeParts('legs')}
     />
     <!-- INNER -->
@@ -168,6 +178,7 @@
       tag="section"
       parts={candidates.boosters}
       selected={assembly.booster}
+      lock={lockedParts}
       on:change={onChangeParts('booster')}
     />
     <PartsSelectForm
@@ -177,6 +188,7 @@
       tag="section"
       parts={candidates.fcses}
       selected={assembly.fcs}
+      lock={lockedParts}
       on:change={onChangeParts('fcs')}
     />
     <PartsSelectForm
@@ -186,6 +198,7 @@
       tag="section"
       parts={candidates.generators}
       selected={assembly.generator}
+      lock={lockedParts}
       on:change={onChangeParts('generator')}
     />
     <!-- EXPANSION -->
@@ -196,6 +209,7 @@
       tag="section"
       parts={candidates.expansions}
       selected={assembly.expansion}
+      lock={lockedParts}
       on:change={onChangeParts('expansion')}
     />
   </ToolSection>
@@ -217,6 +231,7 @@
       class="my-3 w-100"
       candidates={candidates}
       assembly={assembly}
+      lock={lockedParts}
       on:change={onChangeMaxLoad}
     />
   </ToolSection>

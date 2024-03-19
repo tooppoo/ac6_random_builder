@@ -13,8 +13,6 @@
   export let tag = 'div'
   export let lock: LockedParts
 
-  $: locked = lock.isLocking(id)
-
   // handler
   const onChange = () => {
     if (lock.isLocking(id)) return

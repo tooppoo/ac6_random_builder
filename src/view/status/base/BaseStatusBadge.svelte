@@ -4,6 +4,7 @@ import {createEventDispatcher} from "svelte";
 
 export let title: string
 export let clickable: boolean = false
+export let withTooltip: boolean = true
 
 let tooltip: Tooltip | null = null
 $: {
@@ -20,7 +21,9 @@ function onClick() {
 
 // setup
 function bindTooltip(el: HTMLElement) {
-  tooltip = new Tooltip(el)
+  if (withTooltip) {
+    tooltip = new Tooltip(el)
+  }
 }
 const dispatch = createEventDispatcher<{ click: null }>()
 </script>

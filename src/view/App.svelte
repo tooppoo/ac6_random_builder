@@ -11,6 +11,7 @@
   import {boosterNotEquipped} from "~data/booster.ts";
   import type {Candidates} from "~data/types/candidates.ts";
   import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
+  import {type FilterState, initialFilterState, toggleFilter} from "~view/index/interaction/filter.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
@@ -26,9 +27,7 @@
   let assembly: Assembly
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
-  let filter = {
-    open: false
-  }
+  let filter: FilterState = initialFilterState()
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -60,8 +59,8 @@
       : lockedParts.unlock(key)
   }
 
-  const onToggleFilter = (_ev: CustomEvent<{ id: AssemblyKey }>) => {
-    filter.open = !filter.open
+  const onToggleFilter = (ev: CustomEvent<{ id: AssemblyKey }>) => {
+    filter = toggleFilter(ev.detail.id, filter)
   }
 
   // setup
@@ -343,6 +342,8 @@
 <FilterOffCanvas
   open={filter.open}
   on:toggle={(ev) => filter.open = ev.detail.open}
+  caption={`${filter.current.name || ''} FILTER`}
+  filter={filter.current.filter}
 />
 {/await }
 

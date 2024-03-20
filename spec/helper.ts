@@ -7,10 +7,8 @@ import { candidates } from '~data/versions/v1.06.1.ts'
 
 export const genAssembly = (candidates: Candidates | null = null) =>
   (candidates ? fc.constant(candidates) : genCandidates()).map(randomBuild)
-export const genAssemblyKeys = (cons: ArrayConstraints) =>
-  genAssembly().chain((a) =>
-    fc.array(fc.oneof(...a.keys.map(fc.constant)), cons),
-  )
+export const genAssemblyKeys = (cons: ArrayConstraints = {}) =>
+  genAssembly().chain((a) => fc.uniqueArray(fc.constantFrom(...a.keys), cons))
 
 export const genLockedParts = () =>
   genAssemblyPartWithKeyPairs().map((pairs) => ({

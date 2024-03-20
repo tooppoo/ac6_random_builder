@@ -1,8 +1,11 @@
 <script lang="ts">
   import Offcanvas from "bootstrap/js/dist/offcanvas";
   import {createEventDispatcher} from "svelte";
+  import type {PartsFilterSet} from "~core/assembly/filter/base.ts";
 
   export let open: boolean
+  export let caption: string
+  export let filter: PartsFilterSet
 
   let toggle: (op: boolean) => void = () => {}
   $: {
@@ -13,9 +16,6 @@
   function setOffcanvas(el: HTMLElement) {
     const offcanvas = new Offcanvas(el)
 
-    el.addEventListener('show.bs.offcanvas', () => {
-      dispatch('toggle', { open: true })
-    })
     el.addEventListener('hide.bs.offcanvas', () => {
       dispatch('toggle', { open: false })
     })
@@ -25,7 +25,9 @@
     }
   }
 
-  const dispatch = createEventDispatcher<{ toggle: { open: boolean }}>()
+  const dispatch = createEventDispatcher<{
+    toggle: { open: boolean }
+  }>()
 </script>
 
 <div
@@ -38,10 +40,18 @@
   use:setOffcanvas
 >
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">
+      {caption}
+    </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
     ...
   </div>
 </div>
+
+<style>
+  #offcanvasRightLabel {
+      text-transform: uppercase;
+  }
+</style>

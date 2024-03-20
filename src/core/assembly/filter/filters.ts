@@ -1,24 +1,23 @@
-import type { PartsFilter } from 'src/core/assembly/filter/base.ts'
+import type { PartsFilter } from '~core/assembly/filter/base.ts'
 import { notEquipped } from '~data/types/base/classification.ts'
-import type { Candidates } from '~data/types/candidates.ts'
+import { type Candidates, type CandidatesKey } from '~data/types/candidates.ts'
 
-export const excludeNotEquipped: PartsFilter = {
-  name: 'exclude-not-equipped',
-  apply: (candidates: Candidates): Candidates => {
-    type Unit =
-      | 'rightArmUnits'
-      | 'leftArmUnits'
-      | 'rightBackUnits'
-      | 'leftBackUnits'
-    const f = <K extends Unit>(p: Candidates[K][number]) =>
-      p.classification !== notEquipped
+export const excludeNotEquipped = (() => {
+  const name = 'exclude-not-equipped'
 
-    return {
-      ...candidates,
-      rightArmUnits: candidates.rightArmUnits.filter(f),
-      leftArmUnits: candidates.leftArmUnits.filter(f),
-      rightBackUnits: candidates.rightBackUnits.filter(f),
-      leftBackUnits: candidates.leftBackUnits.filter(f),
-    }
-  },
-}
+  return {
+    name,
+    build: (key: CandidatesKey): PartsFilter => ({
+      name,
+      apply: (candidates: Candidates): Candidates => {
+        const f = (p: Candidates[typeof key][number]) =>
+          p.classification !== notEquipped
+
+        return {
+          ...candidates,
+          [key]: candidates[key].filter(f),
+        }
+      },
+    }),
+  }
+})()

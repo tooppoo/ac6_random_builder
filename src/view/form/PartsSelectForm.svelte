@@ -2,17 +2,20 @@
   import {createEventDispatcher} from "svelte";
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
+  import type {Classification} from "~data/types/base/classification.ts";
   import type {BaseACParts} from "~data/types/base/types.ts";
   import FilterBadge from "~view/status/badge/FilterBadge.svelte";
   import LockBadge from "~view/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
+  import {anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
 
   export let id: AssemblyKey
   export let caption: string
-  export let parts: readonly BaseACParts[]
-  export let selected: BaseACParts
+  export let parts: readonly BaseACParts<Classification>[]
+  export let selected: BaseACParts<Classification>
   export let tag = 'div'
   export let lock: LockedParts
+  export let filter: FilterState
 
   // handler
   const onChange = () => {
@@ -29,7 +32,7 @@
 
   // setup
   const dispatch = createEventDispatcher<{
-    change: BaseACParts,
+    change: BaseACParts<Classification>,
     'toggle-lock': { value: boolean },
     'toggle-filter': { id: AssemblyKey },
   }>()
@@ -51,7 +54,7 @@
           on:click={onToggleLock}
         />
         <FilterBadge
-          applied={false}
+          applied={anyFilterEnabled(id, filter)}
           on:click={onToggleFilter}
         />
       </StatusBadgeList>

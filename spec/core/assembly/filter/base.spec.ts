@@ -31,9 +31,13 @@ describe(PartsFilterSet.name, () => {
 
         return PartsFilterSet.empty
           .add('1', f1)
+          .enable('1')
           .add('2', f2)
+          .enable('2')
           .add('3', f3)
+          .enable('3')
           .add('4', f4)
+          .enable('4')
       })().disable('4')
       expect(sut1.apply(candidates)).to.deep.equals(candidates, 'sut1')
       expect(stubs.map((s) => s.callCount)).to.deep.equals([1, 1, 1, 0], 'sut1')

@@ -1,4 +1,4 @@
-import type { Candidates } from 'data/types/candidates.ts'
+import type { Candidates } from '~data/types/candidates.ts'
 
 export const version = 'v1.06.1' as const
 export type VERSION = typeof version

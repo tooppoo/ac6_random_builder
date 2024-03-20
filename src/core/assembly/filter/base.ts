@@ -1,3 +1,4 @@
+import { logger } from '~core/utils/logger.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 
 export interface PartsFilter {
@@ -9,7 +10,10 @@ export interface PartsFilter {
 interface PartsFilterMap {
   [name: string]: PartsFilterState
 }
+
+export type ReadonlyPartsFilterState = Readonly<PartsFilterState>
 interface PartsFilterState {
+  readonly key: string
   readonly filter: PartsFilter
   enabled: boolean
 }
@@ -29,8 +33,9 @@ export class PartsFilterSet {
     return new PartsFilterSet({
       ...this.map,
       [key]: {
+        key,
         filter,
-        enabled: true,
+        enabled: false,
       },
     })
   }
@@ -42,15 +47,25 @@ export class PartsFilterSet {
     return this.toggle(key, false)
   }
 
+  get list(): ReadonlyPartsFilterState[] {
+    return Object.values(this.map)
+  }
+
+  get containEnabled(): boolean {
+    return this.enableFilters.length > 0
+  }
+
   private toggle(key: string, state: boolean): PartsFilterSet {
     const copy = { ...this.map }
     copy[key] && (copy[key].enabled = state)
+
+    logger.debug(`${this.constructor.name}#toggle`, { copy, key })
 
     return new PartsFilterSet(copy)
   }
 
   private get enableFilters(): PartsFilter[] {
-    return Object.values(this.map)
+    return this.list
       .filter(({ enabled }) => enabled)
       .map(({ filter }) => filter)
   }

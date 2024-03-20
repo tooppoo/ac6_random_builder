@@ -9,9 +9,17 @@
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
   import {boosterNotEquipped} from "~data/booster.ts";
+  import {tank} from "~data/types/base/category.ts";
   import type {Candidates} from "~data/types/candidates.ts";
   import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
-  import {type FilterState, initialFilterState, toggleFilter} from "~view/index/interaction/filter.ts";
+  import type {CheckFilter} from "~view/form/FilterOffCanvas.svelte";
+  import {
+    applyFilter,
+    changePartsFilter,
+    type FilterState,
+    initialFilterState,
+    toggleFilter
+  } from "~view/index/interaction/filter.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
@@ -20,7 +28,7 @@
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version
-  const tryLimit = 1000
+  const tryLimit = 3000
 
   // state
   let candidates: Candidates
@@ -59,8 +67,42 @@
       : lockedParts.unlock(key)
   }
 
-  const onToggleFilter = (ev: CustomEvent<{ id: AssemblyKey }>) => {
+  const openFilter = (ev: CustomEvent<{ id: AssemblyKey }>) => {
     filter = toggleFilter(ev.detail.id, filter)
+  }
+  const onCheckFilter = (ev: CustomEvent<CheckFilter>) => {
+    filter = changePartsFilter({ changed: ev.detail.target, state: filter })
+
+    candidates = applyFilter(candidates, filter)
+    // filterによって選択状態の武器が除外される可能性があるので
+    // filter適用後の候補から先頭を機械的に適用
+    const base = {
+      rightArmUnit: candidates.rightArmUnits[0],
+      leftArmUnit: candidates.leftArmUnits[0],
+      rightBackUnit: candidates.rightBackUnits[0],
+      leftBackUnit: candidates.leftBackUnits[0],
+      head: candidates.heads[0],
+      core: candidates.cores[0],
+      arms: candidates.arms[0],
+      fcs: candidates.fcses[0],
+      generator: candidates.generators[0],
+      expansion: candidates.expansions[0],
+    }
+    const legs = candidates.legs[0]
+
+    if (legs.category === tank) {
+      assembly = createAssembly({
+        ...base,
+        legs,
+        booster: boosterNotEquipped,
+      })
+    } else {
+      assembly = createAssembly({
+        ...base,
+        legs,
+        booster: candidates.boosters[0],
+      })
+    }
   }
 
   // setup
@@ -111,8 +153,9 @@
       parts={candidates.rightArmUnits}
       selected={assembly.rightArmUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('rightArmUnit')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('rightArmUnit')}
     />
     <PartsSelectForm
@@ -123,8 +166,9 @@
       parts={candidates.leftArmUnits}
       selected={assembly.leftArmUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('leftArmUnit')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('leftArmUnit')}
     />
     <PartsSelectForm
@@ -135,8 +179,9 @@
       parts={candidates.rightBackUnits}
       selected={assembly.rightBackUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('rightBackUnit')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('rightBackUnit')}
     />
     <PartsSelectForm
@@ -147,8 +192,9 @@
       parts={candidates.leftBackUnits}
       selected={assembly.leftBackUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('leftBackUnit')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('leftBackUnit')}
     />
     <!-- FRAME -->
@@ -160,8 +206,9 @@
       parts={candidates.heads}
       selected={assembly.head}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('head')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('head')}
     />
     <PartsSelectForm
@@ -172,8 +219,9 @@
       parts={candidates.cores}
       selected={assembly.core}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('core')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('core')}
     />
     <PartsSelectForm
@@ -184,8 +232,9 @@
       parts={candidates.arms}
       selected={assembly.arms}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('arms')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('arms')}
     />
     <PartsSelectForm
@@ -196,8 +245,9 @@
       parts={candidates.legs}
       selected={assembly.legs}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('legs')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('legs')}
     />
     <!-- INNER -->
@@ -209,8 +259,9 @@
       parts={[...candidates.boosters, boosterNotEquipped]}
       selected={assembly.booster}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('booster')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('booster')}
     />
     <PartsSelectForm
@@ -221,8 +272,9 @@
       parts={candidates.fcses}
       selected={assembly.fcs}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('fcs')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('fcs')}
     />
     <PartsSelectForm
@@ -233,8 +285,9 @@
       parts={candidates.generators}
       selected={assembly.generator}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('generator')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('generator')}
     />
     <!-- EXPANSION -->
@@ -245,8 +298,9 @@
       parts={candidates.expansions}
       selected={assembly.expansion}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('expansion')}
-      on:toggle-filter={onToggleFilter}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('expansion')}
     />
   </ToolSection>
@@ -341,9 +395,9 @@
 
 <FilterOffCanvas
   open={filter.open}
+  current={filter.current}
   on:toggle={(ev) => filter.open = ev.detail.open}
-  caption={`${filter.current.name || ''} FILTER`}
-  filter={filter.current.filter}
+  on:check-filter={onCheckFilter}
 />
 {/await }
 

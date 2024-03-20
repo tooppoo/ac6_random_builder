@@ -5,9 +5,10 @@ import BaseStatusBadge from "~view/status/base/BaseStatusBadge.svelte";
 export let applied: boolean
 
 // state
-let classes = [
+$: classes = [
   $$props.class || '',
-  'bi',applied ? 'bi-filter-square-fill' : 'bi-filter-square'
+  'bi',
+  applied ? 'bi-filter-square-fill' : 'bi-filter-square'
 ].join(' ')
 
 // handler

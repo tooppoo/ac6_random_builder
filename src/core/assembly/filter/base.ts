@@ -1,34 +1,57 @@
 import type { Candidates } from '~data/types/candidates.ts'
 
 export interface PartsFilter {
+  readonly name: string
+
   apply(candidates: Candidates): Candidates
 }
 
-export class PartsFilterSet implements PartsFilter {
+interface PartsFilterMap {
+  [name: string]: PartsFilterState
+}
+interface PartsFilterState {
+  readonly filter: PartsFilter
+  enabled: boolean
+}
+
+export class PartsFilterSet {
   static get empty(): PartsFilterSet {
     return new PartsFilterSet({})
   }
 
-  private constructor(private readonly map: Record<string, PartsFilter>) {}
+  private constructor(private readonly map: PartsFilterMap) {}
 
   apply(candidates: Candidates): Candidates {
-    return this.list.reduce((acc, f) => f.apply(acc), candidates)
+    return this.enableFilters.reduce((acc, f) => f.apply(acc), candidates)
   }
 
-  add(key: string, f: PartsFilter): PartsFilterSet {
+  add(key: string, filter: PartsFilter): PartsFilterSet {
     return new PartsFilterSet({
       ...this.map,
-      [key]: f,
+      [key]: {
+        filter,
+        enabled: true,
+      },
     })
   }
-  remove(key: string): PartsFilterSet {
+
+  enable(key: string): PartsFilterSet {
+    return this.toggle(key, true)
+  }
+  disable(key: string): PartsFilterSet {
+    return this.toggle(key, false)
+  }
+
+  private toggle(key: string, state: boolean): PartsFilterSet {
     const copy = { ...this.map }
-    delete copy[key]
+    copy[key] && (copy[key].enabled = state)
 
     return new PartsFilterSet(copy)
   }
 
-  private get list(): PartsFilter[] {
+  private get enableFilters(): PartsFilter[] {
     return Object.values(this.map)
+      .filter(({ enabled }) => enabled)
+      .map(({ filter }) => filter)
   }
 }

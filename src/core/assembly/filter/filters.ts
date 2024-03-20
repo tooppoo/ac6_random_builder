@@ -3,6 +3,7 @@ import { notEquipped } from '~data/types/base/classification.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 
 export const excludeNotEquipped: PartsFilter = {
+  name: 'exclude-not-equipped',
   apply: (candidates: Candidates): Candidates => {
     type Unit =
       | 'rightArmUnits'

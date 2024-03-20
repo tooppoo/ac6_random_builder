@@ -10,6 +10,7 @@
   import {backNotEquipped} from "~data/back-units.ts";
   import {boosterNotEquipped} from "~data/booster.ts";
   import type {Candidates} from "~data/types/candidates.ts";
+  import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
@@ -25,6 +26,9 @@
   let assembly: Assembly
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
+  let filter = {
+    open: false
+  }
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -55,8 +59,9 @@
       ? lockedParts.lock(key, assembly[key])
       : lockedParts.unlock(key)
   }
-  const onResetLock = () => {
-    lockedParts = LockedParts.empty
+
+  const onToggleFilter = (_ev: CustomEvent<{ id: AssemblyKey }>) => {
+    filter.open = !filter.open
   }
 
   // setup
@@ -108,6 +113,7 @@
       selected={assembly.rightArmUnit}
       lock={lockedParts}
       on:toggle-lock={onLock('rightArmUnit')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('rightArmUnit')}
     />
     <PartsSelectForm
@@ -119,6 +125,7 @@
       selected={assembly.leftArmUnit}
       lock={lockedParts}
       on:toggle-lock={onLock('leftArmUnit')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('leftArmUnit')}
     />
     <PartsSelectForm
@@ -130,6 +137,7 @@
       selected={assembly.rightBackUnit}
       lock={lockedParts}
       on:toggle-lock={onLock('rightBackUnit')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('rightBackUnit')}
     />
     <PartsSelectForm
@@ -141,6 +149,7 @@
       selected={assembly.leftBackUnit}
       lock={lockedParts}
       on:toggle-lock={onLock('leftBackUnit')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('leftBackUnit')}
     />
     <!-- FRAME -->
@@ -153,6 +162,7 @@
       selected={assembly.head}
       lock={lockedParts}
       on:toggle-lock={onLock('head')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('head')}
     />
     <PartsSelectForm
@@ -164,6 +174,7 @@
       selected={assembly.core}
       lock={lockedParts}
       on:toggle-lock={onLock('core')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('core')}
     />
     <PartsSelectForm
@@ -175,6 +186,7 @@
       selected={assembly.arms}
       lock={lockedParts}
       on:toggle-lock={onLock('arms')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('arms')}
     />
     <PartsSelectForm
@@ -186,6 +198,7 @@
       selected={assembly.legs}
       lock={lockedParts}
       on:toggle-lock={onLock('legs')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('legs')}
     />
     <!-- INNER -->
@@ -198,6 +211,7 @@
       selected={assembly.booster}
       lock={lockedParts}
       on:toggle-lock={onLock('booster')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('booster')}
     />
     <PartsSelectForm
@@ -209,6 +223,7 @@
       selected={assembly.fcs}
       lock={lockedParts}
       on:toggle-lock={onLock('fcs')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('fcs')}
     />
     <PartsSelectForm
@@ -220,6 +235,7 @@
       selected={assembly.generator}
       lock={lockedParts}
       on:toggle-lock={onLock('generator')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('generator')}
     />
     <!-- EXPANSION -->
@@ -231,6 +247,7 @@
       selected={assembly.expansion}
       lock={lockedParts}
       on:toggle-lock={onLock('expansion')}
+      on:toggle-filter={onToggleFilter}
       on:change={onChangeParts('expansion')}
     />
   </ToolSection>
@@ -245,7 +262,7 @@
     </button>
     <button
       id="reset-lock"
-      on:click={onResetLock}
+      on:click={() => lockedParts = LockedParts.empty}
       class="my-3 w-100 p-2"
     >
       すべてのロックを解除
@@ -322,6 +339,11 @@
     App Version v{appVersion}
   </div>
 </footer>
+
+<FilterOffCanvas
+  open={filter.open}
+  on:toggle={(ev) => filter.open = ev.detail.open}
+/>
 {/await }
 
 <style>

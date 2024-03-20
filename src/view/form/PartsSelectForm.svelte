@@ -23,11 +23,15 @@
   const onToggleLock = () => {
     dispatch('toggle-lock', { value: !lock.isLocking(id) })
   }
+  const onToggleFilter = () => {
+    dispatch('toggle-filter', { id })
+  }
 
   // setup
   const dispatch = createEventDispatcher<{
     change: BaseACParts,
-    'toggle-lock': { value: boolean }
+    'toggle-lock': { value: boolean },
+    'toggle-filter': { id: AssemblyKey },
   }>()
 </script>
 
@@ -48,6 +52,7 @@
         />
         <FilterBadge
           applied={false}
+          on:click={onToggleFilter}
         />
       </StatusBadgeList>
     </label>

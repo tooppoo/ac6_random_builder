@@ -101,7 +101,7 @@
     <!-- UNIT -->
     <PartsSelectForm
       id="rightArmUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="RIGHT ARM UNIT"
       tag="section"
       parts={candidates.rightArmUnits}
@@ -112,7 +112,7 @@
     />
     <PartsSelectForm
       id="leftArmUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="LEFT ARM UNIT"
       tag="section"
       parts={candidates.leftArmUnits}
@@ -123,7 +123,7 @@
     />
     <PartsSelectForm
       id="rightBackUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="RIGHT BACK UNIT"
       tag="section"
       parts={candidates.rightBackUnits}
@@ -134,7 +134,7 @@
     />
     <PartsSelectForm
       id="leftBackUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="LEFT BACK UNIT"
       tag="section"
       parts={candidates.leftBackUnits}
@@ -146,7 +146,7 @@
     <!-- FRAME -->
     <PartsSelectForm
       id="head"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="HEAD"
       tag="section"
       parts={candidates.heads}
@@ -157,7 +157,7 @@
     />
     <PartsSelectForm
       id="core"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="CORE"
       tag="section"
       parts={candidates.cores}
@@ -168,7 +168,7 @@
     />
     <PartsSelectForm
       id="arms"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="ARMS"
       tag="section"
       parts={candidates.arms}
@@ -179,7 +179,7 @@
     />
     <PartsSelectForm
       id="legs"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="LEGS"
       tag="section"
       parts={candidates.legs}
@@ -191,7 +191,7 @@
     <!-- INNER -->
     <PartsSelectForm
       id="booster"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="BOOSTER"
       tag="section"
       parts={[...candidates.boosters, boosterNotEquipped]}
@@ -202,7 +202,7 @@
     />
     <PartsSelectForm
       id="fcs"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="FCS"
       tag="section"
       parts={candidates.fcses}
@@ -213,7 +213,7 @@
     />
     <PartsSelectForm
       id="generator"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="GENERATOR"
       tag="section"
       parts={candidates.generators}
@@ -225,7 +225,6 @@
     <!-- EXPANSION -->
     <PartsSelectForm
       id="expansion"
-      class="mb-3"
       caption="EXPANSION"
       tag="section"
       parts={candidates.expansions}
@@ -327,6 +326,6 @@
 
 <style>
   article {
-    max-width: 800px;
+    max-width: 1000px;
   }
 </style>

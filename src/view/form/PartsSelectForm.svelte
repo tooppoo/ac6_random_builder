@@ -3,6 +3,7 @@
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import type {BaseACParts} from "~data/types/base/types.ts";
+  import FilterBadge from "~view/status/badge/FilterBadge.svelte";
   import LockBadge from "~view/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
 
@@ -30,20 +31,23 @@
   }>()
 </script>
 
-<svelte:element this={tag} class={$$props.class + ' container'}>
+<svelte:element this={tag} class={($$props.class || '') + ' container'}>
   <div class="row text-start">
     <label
       for={id}
-      class="col-12 col-sm-5 fs-4 d-flex justify-content-between"
+      class="p-0 col-12 col-sm-5 fs-4 d-flex justify-content-between"
     >
       {caption}
-      <StatusBadgeList class="float-end">
+      <StatusBadgeList>
         <LockBadge
           titleWhenLocked="このパーツは変更されません"
           titleWhenUnlocked="このパーツは変更されます"
           locked={lock.isLocking(id)}
           clickable={true}
           on:click={onToggleLock}
+        />
+        <FilterBadge
+          applied={false}
         />
       </StatusBadgeList>
     </label>

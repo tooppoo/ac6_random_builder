@@ -1,4 +1,5 @@
 import { armNotEquipped } from '~data/arm-units'
+import type { Candidates } from '~data/types/candidates.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'
 import {
   notCarrySameUnitInSameSide,
@@ -42,17 +43,17 @@ describe('validator', () => {
 
   describe('not carry same unit in same side hand and back', () => {
     describe('when carry same unit', () => {
-      const candidatesForTest = (() => {
+      const candidatesForTest = ((): Candidates => {
         const withoutNotEquipped = <T extends { classification: string }>(
           p: T,
         ) => p.classification !== notEquippedClass
 
         return {
           ...candidates,
-          rightArmUnits: candidates.rightArmUnit.filter(withoutNotEquipped),
-          leftArmUnits: candidates.leftArmUnit.filter(withoutNotEquipped),
-          rightBackUnits: candidates.rightBackUnit.filter(withoutNotEquipped),
-          leftBackUnits: candidates.leftBackUnit.filter(withoutNotEquipped),
+          rightArmUnit: candidates.rightArmUnit.filter(withoutNotEquipped),
+          leftArmUnit: candidates.leftArmUnit.filter(withoutNotEquipped),
+          rightBackUnit: candidates.rightBackUnit.filter(withoutNotEquipped),
+          leftBackUnit: candidates.leftBackUnit.filter(withoutNotEquipped),
         }
       })()
 
@@ -61,8 +62,8 @@ describe('validator', () => {
           'should evaluate as invalid',
           (assembly) => {
             assembly.rightBackUnit = assembly.rightArmUnit
-            assembly.leftArmUnit = candidatesForTest.leftArmUnits[0]
-            assembly.leftBackUnit = candidatesForTest.leftBackUnits[0]
+            assembly.leftArmUnit = candidatesForTest.leftArmUnit[0]
+            assembly.leftBackUnit = candidatesForTest.leftBackUnit[0]
 
             expect(
               notCarrySameUnitInSameSide.validate(assembly).isSuccess,
@@ -75,8 +76,8 @@ describe('validator', () => {
             'should evaluate as valid. "not equipped" is allowed',
             (assembly) => {
               assembly.rightBackUnit = assembly.rightArmUnit = armNotEquipped
-              assembly.leftArmUnit = candidatesForTest.leftArmUnits[0]
-              assembly.leftBackUnit = candidatesForTest.leftBackUnits[0]
+              assembly.leftArmUnit = candidatesForTest.leftArmUnit[0]
+              assembly.leftBackUnit = candidatesForTest.leftBackUnit[0]
 
               expect(
                 notCarrySameUnitInSameSide.validate(assembly).isSuccess,
@@ -90,8 +91,8 @@ describe('validator', () => {
           'should evaluate as invalid',
           (assembly) => {
             assembly.leftBackUnit = assembly.leftArmUnit
-            assembly.rightArmUnit = candidatesForTest.rightArmUnits[0]
-            assembly.rightBackUnit = candidatesForTest.rightBackUnits[0]
+            assembly.rightArmUnit = candidatesForTest.rightArmUnit[0]
+            assembly.rightBackUnit = candidatesForTest.rightBackUnit[0]
 
             expect(
               notCarrySameUnitInSameSide.validate(assembly).isSuccess,
@@ -103,8 +104,8 @@ describe('validator', () => {
             'should evaluate as valid. "not equipped" is allowed',
             (assembly) => {
               assembly.leftBackUnit = assembly.leftArmUnit = armNotEquipped
-              assembly.rightArmUnit = candidatesForTest.rightArmUnits[0]
-              assembly.rightBackUnit = candidatesForTest.rightBackUnits[0]
+              assembly.rightArmUnit = candidatesForTest.rightArmUnit[0]
+              assembly.rightBackUnit = candidatesForTest.rightBackUnit[0]
 
               expect(
                 notCarrySameUnitInSameSide.validate(assembly).isSuccess,

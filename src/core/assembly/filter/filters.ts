@@ -9,15 +9,13 @@ export const excludeNotEquipped = (() => {
     name,
     build: (key: CandidatesKey): PartsFilter => ({
       name,
-      apply: (candidates: Candidates): Candidates => {
-        const f = (p: Candidates[typeof key][number]) =>
-          p.classification !== notEquipped
-
-        return {
-          ...candidates,
-          [key]: candidates[key].filter(f),
-        }
-      },
+      apply: (candidates: Candidates): Candidates => ({
+        ...candidates,
+        [key]: candidates[key].filter(
+          (p: Candidates[typeof key][number]) =>
+            p.classification !== notEquipped,
+        ),
+      }),
     }),
   }
 })()

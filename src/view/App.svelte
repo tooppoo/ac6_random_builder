@@ -37,6 +37,7 @@
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState = initialFilterState()
+  $: candidates = applyFilter(initialCandidates, filter)
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -73,8 +74,6 @@
   }
   const onCheckFilter = (ev: CustomEvent<CheckFilter>) => {
     filter = changePartsFilter({ changed: ev.detail.target, state: filter })
-
-    candidates = applyFilter(initialCandidates, filter)
 
     // filterによって選択状態の武器が除外される可能性があるので
     // filter適用後の候補から先頭を機械的に適用
@@ -322,6 +321,13 @@
       class="my-3 w-100 p-2"
     >
       すべてのロックを解除
+    </button>
+    <button
+      id="reset-filter"
+      on:click={() => filter = initialFilterState()}
+      class="my-3 w-100 p-2"
+    >
+      すべての絞り込みを解除
     </button>
 
     <CoamRangeSlider

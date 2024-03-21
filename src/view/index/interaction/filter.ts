@@ -91,6 +91,21 @@ export function changePartsFilter({
   return state
 }
 
+export function enableFilterOnAllParts(
+  key: string,
+  state: FilterState,
+): FilterState {
+  logger.debug('enableFilterOnAllParts', { key, state })
+
+  return {
+    ...state,
+    map: Object.entries(state.map).reduce(
+      (acc, [setKey, set]) => ({ ...acc, [setKey]: set.enable(key) }),
+      state.map,
+    ),
+  }
+}
+
 export function setupFilter(key: AssemblyKey): PartsFilterSet {
   switch (key) {
     case 'rightArmUnit':

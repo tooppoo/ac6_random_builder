@@ -40,6 +40,9 @@ export class PartsFilterSet {
     })
   }
 
+  isEnabled(filterName: string) {
+    return this.enableFilters.some((f) => f.name === filterName)
+  }
   enable(key: string): PartsFilterSet {
     return this.toggle(key, true)
   }

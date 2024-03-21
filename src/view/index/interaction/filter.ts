@@ -92,21 +92,34 @@ export function changePartsFilter({
 }
 
 export function enableFilterOnAllParts(
-  key: string,
+  filterName: string,
   state: FilterState,
 ): FilterState {
-  logger.debug('enableFilterOnAllParts', { key, state })
+  logger.debug('enableFilterOnAllParts', { filterName, state })
 
   return {
     ...state,
     map: Object.entries(state.map).reduce(
-      (acc, [setKey, set]) => ({ ...acc, [setKey]: set.enable(key) }),
+      (acc, [setKey, set]) => ({ ...acc, [setKey]: set.enable(filterName) }),
       state.map,
     ),
   }
 }
 
-export function setupFilter(key: AssemblyKey): PartsFilterSet {
+export function anyFilterEnabled(
+  key: AssemblyKey,
+  state: FilterState,
+): boolean {
+  return getFilter(key, state).containEnabled
+}
+export function anyFilterContain(
+  key: AssemblyKey,
+  state: FilterState,
+): boolean {
+  return getFilter(key, state).list.length > 0
+}
+
+function setupFilter(key: AssemblyKey): PartsFilterSet {
   switch (key) {
     case 'rightArmUnit':
     case 'leftArmUnit':
@@ -122,22 +135,6 @@ export function setupFilter(key: AssemblyKey): PartsFilterSet {
   }
 }
 
-export function getFilter(
-  key: AssemblyKey,
-  state: FilterState,
-): PartsFilterSet {
+function getFilter(key: AssemblyKey, state: FilterState): PartsFilterSet {
   return state.map[key] || setupFilter(key)
-}
-
-export function anyFilterEnabled(
-  key: AssemblyKey,
-  state: FilterState,
-): boolean {
-  return getFilter(key, state).containEnabled
-}
-export function anyFilterContain(
-  key: AssemblyKey,
-  state: FilterState,
-): boolean {
-  return getFilter(key, state).list.length > 0
 }

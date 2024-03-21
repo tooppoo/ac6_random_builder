@@ -1,23 +1,24 @@
-import * as ArmUnits from 'data/arm-units.ts'
-import type { Arms } from 'data/arms.ts'
-import * as BackUnits from 'data/back-units.ts'
-import type { Booster } from 'data/booster.ts'
-import type { Core } from 'data/cores.ts'
-import * as Expansion from 'data/expansions.ts'
-import type { FCS } from 'data/fces.ts'
-import type { Generator } from 'data/generators.ts'
-import type { Head } from 'data/heads.ts'
-import type { Legs } from 'data/legs.ts'
+import * as ArmUnits from '~data/arm-units.ts'
+import type { Arms } from '~data/arms.ts'
+import * as BackUnits from '~data/back-units.ts'
+import type { Booster } from '~data/booster.ts'
+import type { Core } from '~data/cores.ts'
+import * as Expansion from '~data/expansions.ts'
+import type { FCS } from '~data/fces.ts'
+import type { Generator } from '~data/generators.ts'
+import type { Head } from '~data/heads.ts'
+import type { Legs } from '~data/legs.ts'
 
+export type CandidatesKey = keyof Candidates
 export type Candidates = Readonly<{
-  rightArmUnits: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped>
-  leftArmUnits: ReadonlyArray<
+  rightArmUnit: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped>
+  leftArmUnit: ReadonlyArray<
     ArmUnits.LeftArmUnit | ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped
   >
-  rightBackUnits: ReadonlyArray<
+  rightBackUnit: ReadonlyArray<
     BackUnits.BackUnit | ArmUnits.ArmUnit | BackUnits.BackNotEquipped
   >
-  leftBackUnits: ReadonlyArray<
+  leftBackUnit: ReadonlyArray<
     | BackUnits.LeftBackUnit
     | BackUnits.BackUnit
     | ArmUnits.LeftArmUnit
@@ -25,16 +26,14 @@ export type Candidates = Readonly<{
     | BackUnits.BackNotEquipped
   >
 
-  heads: readonly Head[]
-  cores: readonly Core[]
+  head: readonly Head[]
+  core: readonly Core[]
   arms: readonly Arms[]
   legs: readonly Legs[]
 
-  boosters: readonly Booster[]
-  fcses: readonly FCS[]
-  generators: readonly Generator[]
+  booster: readonly Booster[]
+  fcs: readonly FCS[]
+  generator: readonly Generator[]
 
-  expansions: ReadonlyArray<
-    Expansion.Expansion | Expansion.ExpansionNotEquipped
-  >
+  expansion: ReadonlyArray<Expansion.Expansion | Expansion.ExpansionNotEquipped>
 }>

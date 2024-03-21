@@ -8,5 +8,5 @@ export function random<T>(
 ): T {
   if (xs.length === 0) throw new Error('random() cannot accept empty array')
 
-  return xs[Math.floor(rand() * (xs.length - 1))]
+  return xs[Math.floor(rand() * xs.length)]
 }

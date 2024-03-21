@@ -2,6 +2,7 @@
 <script lang="ts">
   import {type Assembly, type AssemblyKey, createAssembly} from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
+  import {excludeNotEquipped} from "~core/assembly/filter/filters.ts";
   import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
@@ -10,6 +11,14 @@
   import {backNotEquipped} from "~data/back-units.ts";
   import {boosterNotEquipped} from "~data/booster.ts";
   import type {Candidates} from "~data/types/candidates.ts";
+  import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
+  import {
+    applyFilter, assemblyWithHeadParts,
+    changePartsFilter, enableFilterOnAllParts,
+    type FilterState,
+    initialFilterState,
+    toggleFilter
+  } from "~view/index/interaction/filter.ts";
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
@@ -18,13 +27,16 @@
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version
-  const tryLimit = 1000
+  const tryLimit = 3000
 
   // state
+  let initialCandidates: Candidates
   let candidates: Candidates
   let assembly: Assembly
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
+  let filter: FilterState = initialFilterState()
+  $: candidates = applyFilter(initialCandidates, filter)
 
   // handler
   const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
@@ -43,27 +55,23 @@
       `)
     }
   }
-  const onChangeMaxCoam = (ev: CustomEvent<{ value: number }>) => {
-    randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
-  }
-  const onChangeMaxLoad = (ev: CustomEvent<{ value: number }>) => {
-    randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
-  }
 
   const onLock = (key: AssemblyKey) => (ev: CustomEvent<{ value: boolean }>) => {
     lockedParts = ev.detail.value
       ? lockedParts.lock(key, assembly[key])
       : lockedParts.unlock(key)
   }
-  const onResetLock = () => {
-    lockedParts = LockedParts.empty
+
+  const openFilter = (ev: CustomEvent<{ id: AssemblyKey }>) => {
+    filter = toggleFilter(ev.detail.id, filter)
   }
 
   // setup
   const initialize = async () => {
     const version = await getCandidates('v1.06.1')
 
-    candidates = version.candidates
+    initialCandidates = candidates = version.candidates
+
     assembly = createAssembly({
       rightArmUnit: armNotEquipped,
       leftArmUnit: armNotEquipped,
@@ -101,137 +109,160 @@
     <!-- UNIT -->
     <PartsSelectForm
       id="rightArmUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="RIGHT ARM UNIT"
       tag="section"
-      parts={candidates.rightArmUnits}
+      parts={candidates.rightArmUnit}
       selected={assembly.rightArmUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('rightArmUnit')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('rightArmUnit')}
     />
     <PartsSelectForm
       id="leftArmUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="LEFT ARM UNIT"
       tag="section"
-      parts={candidates.leftArmUnits}
+      parts={candidates.leftArmUnit}
       selected={assembly.leftArmUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('leftArmUnit')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('leftArmUnit')}
     />
     <PartsSelectForm
       id="rightBackUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="RIGHT BACK UNIT"
       tag="section"
-      parts={candidates.rightBackUnits}
+      parts={candidates.rightBackUnit}
       selected={assembly.rightBackUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('rightBackUnit')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('rightBackUnit')}
     />
     <PartsSelectForm
       id="leftBackUnit"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="LEFT BACK UNIT"
       tag="section"
-      parts={candidates.leftBackUnits}
+      parts={candidates.leftBackUnit}
       selected={assembly.leftBackUnit}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('leftBackUnit')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('leftBackUnit')}
     />
     <!-- FRAME -->
     <PartsSelectForm
       id="head"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="HEAD"
       tag="section"
-      parts={candidates.heads}
+      parts={candidates.head}
       selected={assembly.head}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('head')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('head')}
     />
     <PartsSelectForm
       id="core"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="CORE"
       tag="section"
-      parts={candidates.cores}
+      parts={candidates.core}
       selected={assembly.core}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('core')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('core')}
     />
     <PartsSelectForm
       id="arms"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="ARMS"
       tag="section"
       parts={candidates.arms}
       selected={assembly.arms}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('arms')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('arms')}
     />
     <PartsSelectForm
       id="legs"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="LEGS"
       tag="section"
       parts={candidates.legs}
       selected={assembly.legs}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('legs')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('legs')}
     />
     <!-- INNER -->
     <PartsSelectForm
       id="booster"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="BOOSTER"
       tag="section"
-      parts={[...candidates.boosters, boosterNotEquipped]}
+      parts={[...candidates.booster, boosterNotEquipped]}
       selected={assembly.booster}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('booster')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('booster')}
     />
     <PartsSelectForm
       id="fcs"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="FCS"
       tag="section"
-      parts={candidates.fcses}
+      parts={candidates.fcs}
       selected={assembly.fcs}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('fcs')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('fcs')}
     />
     <PartsSelectForm
       id="generator"
-      class="mb-3"
+      class="mb-3 mb-sm-4"
       caption="GENERATOR"
       tag="section"
-      parts={candidates.generators}
+      parts={candidates.generator}
       selected={assembly.generator}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('generator')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('generator')}
     />
     <!-- EXPANSION -->
     <PartsSelectForm
       id="expansion"
-      class="mb-3"
       caption="EXPANSION"
       tag="section"
-      parts={candidates.expansions}
+      parts={candidates.expansion}
       selected={assembly.expansion}
       lock={lockedParts}
+      filter={filter}
       on:toggle-lock={onLock('expansion')}
+      on:toggle-filter={openFilter}
       on:change={onChangeParts('expansion')}
     />
   </ToolSection>
@@ -246,23 +277,44 @@
     </button>
     <button
       id="reset-lock"
-      on:click={onResetLock}
+      on:click={() => lockedParts = LockedParts.empty}
       class="my-3 w-100 p-2"
     >
       すべてのロックを解除
+    </button>
+    <button
+      id="exclude-all-not-equipped"
+      on:click={() => {
+        filter = enableFilterOnAllParts(excludeNotEquipped.name, filter)
+        assembly = assemblyWithHeadParts(candidates)
+      }}
+      class="my-3 w-100 p-2"
+    >
+      すべての非武装を除外
+    </button>
+    <button
+      id="reset-filter"
+      on:click={() => filter = initialFilterState()}
+      class="my-3 w-100 p-2"
+    >
+      すべての絞り込みを解除
     </button>
 
     <CoamRangeSlider
       class="my-3 w-100"
       candidates={candidates}
-      on:change={onChangeMaxCoam}
+      on:change={(ev) =>
+        randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
+      }
     />
     <LoadRangeSlider
       class="my-3 w-100"
       candidates={candidates}
       assembly={assembly}
       lock={lockedParts}
-      on:change={onChangeMaxLoad}
+      on:change={(ev) =>
+        randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
+      }
       on:toggle-lock={onLock('legs')}
     />
   </ToolSection>
@@ -323,10 +375,21 @@
     App Version v{appVersion}
   </div>
 </footer>
+
+<FilterOffCanvas
+  open={filter.open}
+  current={filter.current}
+  on:toggle={(ev) => filter.open = ev.detail.open}
+  on:check-filter={(ev) => {
+    filter = changePartsFilter({ changed: ev.detail.target, state: filter })
+
+    assembly = assemblyWithHeadParts(candidates)
+  }}
+/>
 {/await }
 
 <style>
   article {
-    max-width: 800px;
+    max-width: 1000px;
   }
 </style>

@@ -1,4 +1,4 @@
-import type { Candidates } from 'data/types/candidates.ts'
+import type { Candidates } from '~data/types/candidates.ts'
 
 export const version = 'v1.06.1' as const
 export type VERSION = typeof version
@@ -29,10 +29,10 @@ import { expansions, expansionNotEquipped } from '~data/expansions.ts'
 export { expansions } from '~data/expansions.ts'
 
 export const candidates: Candidates = {
-  rightArmUnits: [...armUnits, armNotEquipped],
-  leftArmUnits: [...leftArmUnits, ...armUnits, armNotEquipped],
-  rightBackUnits: [...backUnits, ...armUnits, backNotEquipped],
-  leftBackUnits: [
+  rightArmUnit: [...armUnits, armNotEquipped],
+  leftArmUnit: [...leftArmUnits, ...armUnits, armNotEquipped],
+  rightBackUnit: [...backUnits, ...armUnits, backNotEquipped],
+  leftBackUnit: [
     ...leftBackUnits,
     ...backUnits,
     ...leftArmUnits,
@@ -40,14 +40,14 @@ export const candidates: Candidates = {
     backNotEquipped,
   ],
 
-  heads,
-  cores,
+  head: heads,
+  core: cores,
   arms,
   legs,
 
-  boosters,
-  fcses,
-  generators,
+  booster: boosters,
+  fcs: fcses,
+  generator: generators,
 
-  expansions: [...expansions, expansionNotEquipped],
+  expansion: [...expansions, expansionNotEquipped],
 } as const

@@ -26,17 +26,17 @@
       xs.toSorted((a: WithPrice, b: WithPrice) => b.price - a.price)
 
     const total = sum([
-      sortDesc(candidates.rightArmUnits)[0],
-      sortDesc(candidates.leftArmUnits)[0],
-      sortDesc(candidates.rightBackUnits)[0],
-      sortDesc(candidates.leftBackUnits)[0],
-      sortDesc(candidates.heads)[0],
-      sortDesc(candidates.cores)[0],
+      sortDesc(candidates.rightArmUnit)[0],
+      sortDesc(candidates.leftArmUnit)[0],
+      sortDesc(candidates.rightBackUnit)[0],
+      sortDesc(candidates.leftBackUnit)[0],
+      sortDesc(candidates.head)[0],
+      sortDesc(candidates.core)[0],
       sortDesc(candidates.arms)[0],
       sortDesc(candidates.legs)[0],
-      sortDesc(candidates.boosters)[0],
-      sortDesc(candidates.fcses)[0],
-      sortDesc(candidates.generators)[0],
+      sortDesc(candidates.booster)[0],
+      sortDesc(candidates.fcs)[0],
+      sortDesc(candidates.generator)[0],
     ].map(p => p.price))
 
     return roundUpByRealPart(1)(total)

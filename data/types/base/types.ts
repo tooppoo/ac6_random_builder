@@ -31,9 +31,11 @@ export const defineNotEquipped = (): ACProducts<NotEquippedClass, NotEquipped> &
     en_load: 0,
   }) as const
 
-type ACProducts<Cl extends Classification, Ca extends string> = BaseACParts &
+type ACProducts<
+  Cl extends Classification,
+  Ca extends string,
+> = BaseACParts<Cl> &
   Readonly<{
-    classification: Cl
     category: Ca
     /** 価格 */
     price: number
@@ -41,7 +43,8 @@ type ACProducts<Cl extends Classification, Ca extends string> = BaseACParts &
     weight: number
   }>
 
-export type BaseACParts = Readonly<{
+export type BaseACParts<Cl extends Classification> = Readonly<{
   /** 名前 */
   name: string
+  classification: Cl
 }>

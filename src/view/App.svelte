@@ -2,6 +2,7 @@
 <script lang="ts">
   import {type Assembly, type AssemblyKey, createAssembly} from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
+  import {excludeNotEquipped} from "~core/assembly/filter/filters.ts";
   import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
@@ -9,13 +10,11 @@
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
   import {boosterNotEquipped} from "~data/booster.ts";
-  import {tank} from "~data/types/base/category.ts";
   import type {Candidates} from "~data/types/candidates.ts";
   import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
-  import type {CheckFilter} from "~view/form/FilterOffCanvas.svelte";
   import {
-    applyFilter,
-    changePartsFilter,
+    applyFilter, assemblyWithHeadParts,
+    changePartsFilter, enableFilterOnAllParts,
     type FilterState,
     initialFilterState,
     toggleFilter
@@ -65,39 +64,6 @@
 
   const openFilter = (ev: CustomEvent<{ id: AssemblyKey }>) => {
     filter = toggleFilter(ev.detail.id, filter)
-  }
-  const onCheckFilter = (ev: CustomEvent<CheckFilter>) => {
-    filter = changePartsFilter({ changed: ev.detail.target, state: filter })
-
-    // filterによって選択状態の武器が除外される可能性があるので
-    // filter適用後の候補から先頭を機械的に適用
-    const base = {
-      rightArmUnit: candidates.rightArmUnit[0],
-      leftArmUnit: candidates.leftArmUnit[0],
-      rightBackUnit: candidates.rightBackUnit[0],
-      leftBackUnit: candidates.leftBackUnit[0],
-      head: candidates.head[0],
-      core: candidates.core[0],
-      arms: candidates.arms[0],
-      fcs: candidates.fcs[0],
-      generator: candidates.generator[0],
-      expansion: candidates.expansion[0],
-    }
-    const legs = candidates.legs[0]
-
-    if (legs.category === tank) {
-      assembly = createAssembly({
-        ...base,
-        legs,
-        booster: boosterNotEquipped,
-      })
-    } else {
-      assembly = createAssembly({
-        ...base,
-        legs,
-        booster: candidates.booster[0],
-      })
-    }
   }
 
   // setup
@@ -317,6 +283,16 @@
       すべてのロックを解除
     </button>
     <button
+      id="exclude-all-not-equipped"
+      on:click={() => {
+        filter = enableFilterOnAllParts(excludeNotEquipped.name, filter)
+        assembly = assemblyWithHeadParts(candidates)
+      }}
+      class="my-3 w-100 p-2"
+    >
+      すべての非武装を除外
+    </button>
+    <button
       id="reset-filter"
       on:click={() => filter = initialFilterState()}
       class="my-3 w-100 p-2"
@@ -404,7 +380,11 @@
   open={filter.open}
   current={filter.current}
   on:toggle={(ev) => filter.open = ev.detail.open}
-  on:check-filter={onCheckFilter}
+  on:check-filter={(ev) => {
+    filter = changePartsFilter({ changed: ev.detail.target, state: filter })
+
+    assembly = assemblyWithHeadParts(candidates)
+  }}
 />
 {/await }
 

@@ -1,10 +1,16 @@
-import type { AssemblyKey } from '~core/assembly/assembly.ts'
+import {
+  type Assembly,
+  type AssemblyKey,
+  createAssembly,
+} from '~core/assembly/assembly.ts'
 import {
   PartsFilterSet,
   type ReadonlyPartsFilterState,
 } from '~core/assembly/filter/base.ts'
 import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
 import { logger } from '~core/utils/logger.ts'
+import { boosterNotEquipped } from '~data/booster.ts'
+import { tank } from '~data/types/base/category.ts'
 import { type Candidates } from '~data/types/candidates.ts'
 
 export interface FilterState {
@@ -46,6 +52,38 @@ export function applyFilter(
   state: FilterState,
 ): Candidates {
   return Object.values(state.map).reduce((c, f) => f.apply(c), candidates)
+}
+
+export function assemblyWithHeadParts(candidates: Candidates): Assembly {
+  // filterによって選択状態の武器が除外される可能性があるので
+  // filter適用後の候補から先頭を機械的に適用
+  const base = {
+    rightArmUnit: candidates.rightArmUnit[0],
+    leftArmUnit: candidates.leftArmUnit[0],
+    rightBackUnit: candidates.rightBackUnit[0],
+    leftBackUnit: candidates.leftBackUnit[0],
+    head: candidates.head[0],
+    core: candidates.core[0],
+    arms: candidates.arms[0],
+    fcs: candidates.fcs[0],
+    generator: candidates.generator[0],
+    expansion: candidates.expansion[0],
+  }
+  const legs = candidates.legs[0]
+
+  if (legs.category === tank) {
+    return createAssembly({
+      ...base,
+      legs,
+      booster: boosterNotEquipped,
+    })
+  } else {
+    return createAssembly({
+      ...base,
+      legs,
+      booster: candidates.booster[0],
+    })
+  }
 }
 
 export function toggleFilter(

@@ -9,9 +9,7 @@ import { type Candidates } from '~data/types/candidates.ts'
 
 export interface FilterState {
   open: boolean
-  map: {
-    [key in AssemblyKey]?: PartsFilterSet
-  }
+  map: Record<AssemblyKey, PartsFilterSet>
   current: CurrentFilter
 }
 export interface CurrentFilter {
@@ -22,7 +20,20 @@ export interface CurrentFilter {
 
 export const initialFilterState = (): FilterState => ({
   open: false,
-  map: {},
+  map: {
+    rightArmUnit: setupFilter('rightArmUnit'),
+    leftArmUnit: setupFilter('leftArmUnit'),
+    rightBackUnit: setupFilter('rightBackUnit'),
+    leftBackUnit: setupFilter('leftBackUnit'),
+    head: setupFilter('head'),
+    core: setupFilter('core'),
+    arms: setupFilter('arms'),
+    legs: setupFilter('legs'),
+    booster: setupFilter('booster'),
+    fcs: setupFilter('fcs'),
+    generator: setupFilter('generator'),
+    expansion: setupFilter('expansion'),
+  },
   current: {
     id: null,
     name: '',

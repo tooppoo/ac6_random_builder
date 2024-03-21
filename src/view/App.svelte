@@ -77,16 +77,16 @@
     // filterによって選択状態の武器が除外される可能性があるので
     // filter適用後の候補から先頭を機械的に適用
     const base = {
-      rightArmUnit: candidates.rightArmUnits[0],
-      leftArmUnit: candidates.leftArmUnits[0],
-      rightBackUnit: candidates.rightBackUnits[0],
-      leftBackUnit: candidates.leftBackUnits[0],
-      head: candidates.heads[0],
-      core: candidates.cores[0],
+      rightArmUnit: candidates.rightArmUnit[0],
+      leftArmUnit: candidates.leftArmUnit[0],
+      rightBackUnit: candidates.rightBackUnit[0],
+      leftBackUnit: candidates.leftBackUnit[0],
+      head: candidates.head[0],
+      core: candidates.core[0],
       arms: candidates.arms[0],
-      fcs: candidates.fcses[0],
-      generator: candidates.generators[0],
-      expansion: candidates.expansions[0],
+      fcs: candidates.fcs[0],
+      generator: candidates.generator[0],
+      expansion: candidates.expansion[0],
     }
     const legs = candidates.legs[0]
 
@@ -100,7 +100,7 @@
       assembly = createAssembly({
         ...base,
         legs,
-        booster: candidates.boosters[0],
+        booster: candidates.booster[0],
       })
     }
   }
@@ -150,7 +150,7 @@
       class="mb-3 mb-sm-4"
       caption="RIGHT ARM UNIT"
       tag="section"
-      parts={candidates.rightArmUnits}
+      parts={candidates.rightArmUnit}
       selected={assembly.rightArmUnit}
       lock={lockedParts}
       filter={filter}
@@ -163,7 +163,7 @@
       class="mb-3 mb-sm-4"
       caption="LEFT ARM UNIT"
       tag="section"
-      parts={candidates.leftArmUnits}
+      parts={candidates.leftArmUnit}
       selected={assembly.leftArmUnit}
       lock={lockedParts}
       filter={filter}
@@ -176,7 +176,7 @@
       class="mb-3 mb-sm-4"
       caption="RIGHT BACK UNIT"
       tag="section"
-      parts={candidates.rightBackUnits}
+      parts={candidates.rightBackUnit}
       selected={assembly.rightBackUnit}
       lock={lockedParts}
       filter={filter}
@@ -189,7 +189,7 @@
       class="mb-3 mb-sm-4"
       caption="LEFT BACK UNIT"
       tag="section"
-      parts={candidates.leftBackUnits}
+      parts={candidates.leftBackUnit}
       selected={assembly.leftBackUnit}
       lock={lockedParts}
       filter={filter}
@@ -203,7 +203,7 @@
       class="mb-3 mb-sm-4"
       caption="HEAD"
       tag="section"
-      parts={candidates.heads}
+      parts={candidates.head}
       selected={assembly.head}
       lock={lockedParts}
       filter={filter}
@@ -216,7 +216,7 @@
       class="mb-3 mb-sm-4"
       caption="CORE"
       tag="section"
-      parts={candidates.cores}
+      parts={candidates.core}
       selected={assembly.core}
       lock={lockedParts}
       filter={filter}
@@ -256,7 +256,7 @@
       class="mb-3 mb-sm-4"
       caption="BOOSTER"
       tag="section"
-      parts={[...candidates.boosters, boosterNotEquipped]}
+      parts={[...candidates.booster, boosterNotEquipped]}
       selected={assembly.booster}
       lock={lockedParts}
       filter={filter}
@@ -269,7 +269,7 @@
       class="mb-3 mb-sm-4"
       caption="FCS"
       tag="section"
-      parts={candidates.fcses}
+      parts={candidates.fcs}
       selected={assembly.fcs}
       lock={lockedParts}
       filter={filter}
@@ -282,7 +282,7 @@
       class="mb-3 mb-sm-4"
       caption="GENERATOR"
       tag="section"
-      parts={candidates.generators}
+      parts={candidates.generator}
       selected={assembly.generator}
       lock={lockedParts}
       filter={filter}
@@ -295,7 +295,7 @@
       id="expansion"
       caption="EXPANSION"
       tag="section"
-      parts={candidates.expansions}
+      parts={candidates.expansion}
       selected={assembly.expansion}
       lock={lockedParts}
       filter={filter}

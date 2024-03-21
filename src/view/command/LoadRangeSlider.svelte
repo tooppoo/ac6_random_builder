@@ -43,16 +43,16 @@
     const desc: Sort = (xs) => xs.toSorted((a, b) => b.weight - a.weight)
     const asc: Sort = (xs) => xs.toSorted((a, b) => a.weight - b.weight)
     const total = (s: Sort): number => sum([
-      s(candidates.rightArmUnits)[0],
-      s(candidates.leftArmUnits)[0],
-      s(candidates.rightBackUnits)[0],
-      s(candidates.leftBackUnits)[0],
-      s(candidates.heads)[0],
-      s(candidates.cores)[0],
+      s(candidates.rightArmUnit)[0],
+      s(candidates.leftArmUnit)[0],
+      s(candidates.rightBackUnit)[0],
+      s(candidates.leftBackUnit)[0],
+      s(candidates.head)[0],
+      s(candidates.core)[0],
       s(candidates.arms)[0],
-      s(candidates.boosters)[0],
-      s(candidates.fcses)[0],
-      s(candidates.generators)[0],
+      s(candidates.booster)[0],
+      s(candidates.fcs)[0],
+      s(candidates.generator)[0],
     ].map(x => x.weight))
 
     const max = total(desc)

@@ -52,8 +52,8 @@ describe(LockedParts.name, () => {
     const genBooster = () =>
       fc.oneof(
         fc
-          .integer({ min: 0, max: candidates.boosters.length - 1 })
-          .map((i) => candidates.boosters[i]),
+          .integer({ min: 0, max: candidates.booster.length - 1 })
+          .map((i) => candidates.booster[i]),
       )
 
     it.prop([
@@ -111,7 +111,7 @@ describe(LockedParts.name, () => {
       ])('booster should not be equipped', ({ lockedParts }, legs) => {
         const filtered = lockedParts
           .lock('legs', legs)
-          .filter('booster', candidates.boosters)
+          .filter('booster', candidates.booster)
 
         expect(filtered.every((x) => x.classification === notEquipped)).toBe(
           true,
@@ -125,7 +125,7 @@ describe(LockedParts.name, () => {
       ])('booster should not be equipped', ({ lockedParts }, legs) => {
         const filtered = lockedParts
           .lock('legs', legs)
-          .filter('booster', candidates.boosters)
+          .filter('booster', candidates.booster)
 
         expect(filtered.every((x) => x.classification === booster)).toBe(true)
       })

@@ -11,14 +11,14 @@ import type { Legs } from '~data/legs.ts'
 
 export type CandidatesKey = keyof Candidates
 export type Candidates = Readonly<{
-  rightArmUnits: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped>
-  leftArmUnits: ReadonlyArray<
+  rightArmUnit: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped>
+  leftArmUnit: ReadonlyArray<
     ArmUnits.LeftArmUnit | ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped
   >
-  rightBackUnits: ReadonlyArray<
+  rightBackUnit: ReadonlyArray<
     BackUnits.BackUnit | ArmUnits.ArmUnit | BackUnits.BackNotEquipped
   >
-  leftBackUnits: ReadonlyArray<
+  leftBackUnit: ReadonlyArray<
     | BackUnits.LeftBackUnit
     | BackUnits.BackUnit
     | ArmUnits.LeftArmUnit
@@ -26,34 +26,14 @@ export type Candidates = Readonly<{
     | BackUnits.BackNotEquipped
   >
 
-  heads: readonly Head[]
-  cores: readonly Core[]
+  head: readonly Head[]
+  core: readonly Core[]
   arms: readonly Arms[]
   legs: readonly Legs[]
 
-  boosters: readonly Booster[]
-  fcses: readonly FCS[]
-  generators: readonly Generator[]
+  booster: readonly Booster[]
+  fcs: readonly FCS[]
+  generator: readonly Generator[]
 
-  expansions: ReadonlyArray<
-    Expansion.Expansion | Expansion.ExpansionNotEquipped
-  >
+  expansion: ReadonlyArray<Expansion.Expansion | Expansion.ExpansionNotEquipped>
 }>
-
-export const mapAssemblyKeyToCandidatesKey = {
-  rightArmUnit: 'rightArmUnits',
-  leftArmUnit: 'leftArmUnits',
-  rightBackUnit: 'rightBackUnits',
-  leftBackUnit: 'leftBackUnits',
-
-  head: 'heads',
-  core: 'cores',
-  arms: 'arms',
-  legs: 'legs',
-
-  booster: 'boosters',
-  fcs: 'fcses',
-  generator: 'generators',
-
-  expansion: 'expansions',
-} as const

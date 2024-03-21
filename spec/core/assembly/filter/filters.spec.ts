@@ -7,26 +7,26 @@ import { genCandidates } from '~spec/helper.ts'
 
 describe('excludeNotEquipped', () => {
   it.prop([genCandidates()])('not contain not-equipped unit', (candidates) => {
-    const applied = excludeNotEquipped.build('rightArmUnits').apply(candidates)
-    const actual = applied.rightArmUnits
+    const applied = excludeNotEquipped.build('rightArmUnit').apply(candidates)
+    const actual = applied.rightArmUnit
 
     expect(actual).not.toContain(armNotEquipped)
     expect(actual).not.toContain(backNotEquipped)
   })
   it.prop([genCandidates()])('not change other candidates', (candidates) => {
-    const applied = excludeNotEquipped.build('rightArmUnits').apply(candidates)
+    const applied = excludeNotEquipped.build('rightArmUnit').apply(candidates)
 
     expect(applied).toMatchObject({
-      heads: candidates.heads,
-      cores: candidates.cores,
+      head: candidates.head,
+      core: candidates.core,
       arms: candidates.arms,
       legs: candidates.legs,
 
-      boosters: candidates.boosters,
-      fcses: candidates.fcses,
-      generators: candidates.generators,
+      booster: candidates.booster,
+      fcs: candidates.fcs,
+      generator: candidates.generator,
 
-      expansions: candidates.expansions,
+      expansion: candidates.expansion,
     })
   })
 })

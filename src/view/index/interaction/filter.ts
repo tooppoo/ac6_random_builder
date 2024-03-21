@@ -5,10 +5,7 @@ import {
 } from '~core/assembly/filter/base.ts'
 import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
 import { logger } from '~core/utils/logger.ts'
-import {
-  type Candidates,
-  mapAssemblyKeyToCandidatesKey,
-} from '~data/types/candidates.ts'
+import { type Candidates } from '~data/types/candidates.ts'
 
 export interface FilterState {
   open: boolean
@@ -86,7 +83,7 @@ export function changePartsFilter({
 export function setupFilter(key: AssemblyKey): PartsFilterSet {
   return PartsFilterSet.empty.add(
     excludeNotEquipped.name,
-    excludeNotEquipped.build(mapAssemblyKeyToCandidatesKey[key]),
+    excludeNotEquipped.build(key),
   )
 }
 

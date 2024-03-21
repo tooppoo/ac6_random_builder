@@ -46,21 +46,21 @@ export const genCandidates = (() => {
     const toArr = toArray(constraints)
 
     return fc.record<Candidates>({
-      rightArmUnits: toArr(candidates.rightArmUnits),
-      leftArmUnits: toArr(candidates.leftArmUnits),
-      rightBackUnits: toArr(candidates.rightBackUnits),
-      leftBackUnits: toArr(candidates.leftBackUnits),
+      rightArmUnit: toArr(candidates.rightArmUnit),
+      leftArmUnit: toArr(candidates.leftArmUnit),
+      rightBackUnit: toArr(candidates.rightBackUnit),
+      leftBackUnit: toArr(candidates.leftBackUnit),
 
-      heads: toArr(candidates.heads),
-      cores: toArr(candidates.cores),
+      head: toArr(candidates.head),
+      core: toArr(candidates.core),
       arms: toArr(candidates.arms),
       legs: toArr(candidates.legs),
 
-      boosters: toArr(candidates.boosters),
-      fcses: toArr(candidates.fcses),
-      generators: toArr(candidates.generators),
+      booster: toArr(candidates.booster),
+      fcs: toArr(candidates.fcs),
+      generator: toArr(candidates.generator),
 
-      expansions: toArr(candidates.expansions),
+      expansion: toArr(candidates.expansion),
     })
   }
 })()

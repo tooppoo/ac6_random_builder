@@ -31,6 +31,7 @@
   const tryLimit = 3000
 
   // state
+  let initialCandidates: Candidates
   let candidates: Candidates
   let assembly: Assembly
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
@@ -73,7 +74,8 @@
   const onCheckFilter = (ev: CustomEvent<CheckFilter>) => {
     filter = changePartsFilter({ changed: ev.detail.target, state: filter })
 
-    candidates = applyFilter(candidates, filter)
+    candidates = applyFilter(initialCandidates, filter)
+
     // filterによって選択状態の武器が除外される可能性があるので
     // filter適用後の候補から先頭を機械的に適用
     const base = {
@@ -109,7 +111,8 @@
   const initialize = async () => {
     const version = await getCandidates('v1.06.1')
 
-    candidates = version.candidates
+    initialCandidates = candidates = version.candidates
+
     assembly = createAssembly({
       rightArmUnit: armNotEquipped,
       leftArmUnit: armNotEquipped,

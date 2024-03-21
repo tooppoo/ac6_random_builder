@@ -81,10 +81,19 @@ export function changePartsFilter({
 }
 
 export function setupFilter(key: AssemblyKey): PartsFilterSet {
-  return PartsFilterSet.empty.add(
-    excludeNotEquipped.name,
-    excludeNotEquipped.build(key),
-  )
+  switch (key) {
+    case 'rightArmUnit':
+    case 'leftArmUnit':
+    case 'rightBackUnit':
+    case 'leftBackUnit':
+    case 'expansion':
+      return PartsFilterSet.empty.add(
+        excludeNotEquipped.name,
+        excludeNotEquipped.build(key),
+      )
+    default:
+      return PartsFilterSet.empty
+  }
 }
 
 export function getFilter(
@@ -99,4 +108,10 @@ export function anyFilterEnabled(
   state: FilterState,
 ): boolean {
   return getFilter(key, state).containEnabled
+}
+export function anyFilterContain(
+  key: AssemblyKey,
+  state: FilterState,
+): boolean {
+  return getFilter(key, state).list.length > 0
 }

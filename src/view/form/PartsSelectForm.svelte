@@ -7,7 +7,7 @@
   import FilterBadge from "~view/status/badge/FilterBadge.svelte";
   import LockBadge from "~view/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
-  import {anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
+  import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
 
   export let id: AssemblyKey
   export let caption: string
@@ -53,10 +53,12 @@
           clickable={true}
           on:click={onToggleLock}
         />
-        <FilterBadge
-          applied={anyFilterEnabled(id, filter)}
-          on:click={onToggleFilter}
-        />
+        {#if anyFilterContain(id, filter)}
+          <FilterBadge
+            applied={anyFilterEnabled(id, filter)}
+            on:click={onToggleFilter}
+          />
+        {/if}
       </StatusBadgeList>
     </label>
     <select

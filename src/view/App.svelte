@@ -56,12 +56,6 @@
       `)
     }
   }
-  const onChangeMaxCoam = (ev: CustomEvent<{ value: number }>) => {
-    randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
-  }
-  const onChangeMaxLoad = (ev: CustomEvent<{ value: number }>) => {
-    randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
-  }
 
   const onLock = (key: AssemblyKey) => (ev: CustomEvent<{ value: boolean }>) => {
     lockedParts = ev.detail.value
@@ -333,14 +327,18 @@
     <CoamRangeSlider
       class="my-3 w-100"
       candidates={candidates}
-      on:change={onChangeMaxCoam}
+      on:change={(ev) =>
+        randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
+      }
     />
     <LoadRangeSlider
       class="my-3 w-100"
       candidates={candidates}
       assembly={assembly}
       lock={lockedParts}
-      on:change={onChangeMaxLoad}
+      on:change={(ev) =>
+        randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
+      }
       on:toggle-lock={onLock('legs')}
     />
   </ToolSection>

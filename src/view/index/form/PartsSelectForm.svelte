@@ -8,9 +8,9 @@
   import type {LockedParts} from "~core/assembly/random/lock.ts";
 
   import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
-  import FilterBadge from "~view/status/badge/FilterBadge.svelte";
-  import LockBadge from "~view/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
+  import FilterBadge from "~view/index/status/badge/FilterBadge.svelte";
+  import LockBadge from "~view/index/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/index/status/StatusBadgeList.svelte";
 
   import type {Classification} from "~data/types/base/classification.ts";
   import type {BaseACParts} from "~data/types/base/types.ts";

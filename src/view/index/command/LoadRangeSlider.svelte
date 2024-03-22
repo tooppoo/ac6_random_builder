@@ -4,8 +4,8 @@
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
 
-  import LockBadge from "~view/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
+  import LockBadge from "~view/index/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/index/status/StatusBadgeList.svelte";
 
   import type {Candidates} from "~data/types/candidates.ts";
 

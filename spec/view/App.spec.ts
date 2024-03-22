@@ -1,6 +1,6 @@
 import type { AssemblyKey } from '~core/assembly/assembly.ts'
 
-import App from '~view/App.svelte'
+import App from '~view/index/Index.svelte'
 
 import { cleanup, render, screen } from '@testing-library/svelte'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'

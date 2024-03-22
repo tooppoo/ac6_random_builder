@@ -8,7 +8,8 @@
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
 
-  import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
+  import FilterOffCanvas from "~view/index/form/FilterOffCanvas.svelte";
+  import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
   import {
     applyFilter, assemblyWithHeadParts,
     changePartsFilter, enableFilterOnAllParts,
@@ -27,7 +28,6 @@
   import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
 
-  import type {ChangePartsEvent, ToggleLockEvent} from "src/view/form/PartsSelectForm.svelte";
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version

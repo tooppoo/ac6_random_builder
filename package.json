@@ -1,7 +1,7 @@
 {
   "name": "ac6_assemble_tool",
   "private": true,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
   "engines": {
     "node": ">=21.6.1",

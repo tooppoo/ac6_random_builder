@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type Assembly } from "~core/assembly/assembly.ts"
+  import type {AssemblyKey, Assembly } from "~core/assembly/assembly.js";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
@@ -36,7 +36,7 @@
     dispatch('change', { value })
   }
   const onToggleLock = () => {
-    dispatch('toggle-lock', { value: !lock.isLocking('legs') })
+    dispatch('toggle-lock', { id: 'legs', value: !lock.isLocking('legs') })
   }
 
   // setup
@@ -66,7 +66,7 @@
   }
   const dispatch = createEventDispatcher<{
     change: { value: number },
-    'toggle-lock': { value: boolean },
+    'toggle-lock': { id: AssemblyKey, value: boolean },
   }>()
 
   const dropdown: Action = (node) => {

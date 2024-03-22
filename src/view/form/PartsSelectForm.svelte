@@ -1,3 +1,8 @@
+<script lang="ts" context="module">
+  export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: BaseACParts<Classification> }>
+  export type ToggleLockEvent = Readonly<{ id: AssemblyKey, value: boolean }>
+  export type ToggleFilterEvent = Readonly<{ id: AssemblyKey }>
+</script>
 <script lang="ts">
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
@@ -24,10 +29,10 @@
   const onChange = () => {
     if (lock.isLocking(id)) return
 
-    dispatch('change', selected)
+    dispatch('change', { id, selected })
   }
   const onToggleLock = () => {
-    dispatch('toggle-lock', { value: !lock.isLocking(id) })
+    dispatch('toggle-lock', { id, value: !lock.isLocking(id) })
   }
   const onToggleFilter = () => {
     dispatch('toggle-filter', { id })
@@ -35,10 +40,11 @@
 
   // setup
   const dispatch = createEventDispatcher<{
-    change: BaseACParts<Classification>,
-    'toggle-lock': { value: boolean },
-    'toggle-filter': { id: AssemblyKey },
+    change: ChangePartsEvent,
+    'toggle-lock': ToggleLockEvent,
+    'toggle-filter': ToggleFilterEvent,
   }>()
+
 </script>
 
 <svelte:element this={tag} class={($$props.class || '') + ' container'}>

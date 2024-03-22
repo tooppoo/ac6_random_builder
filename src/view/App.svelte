@@ -28,6 +28,7 @@
   import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
 
+  import type {ChangePartsEvent, ToggleLockEvent} from "src/view/form/PartsSelectForm.svelte";
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version
@@ -43,8 +44,9 @@
   $: candidates = applyFilter(initialCandidates, filter)
 
   // handler
-  const onChangeParts = <T extends keyof Assembly>(target: T) => (ev: CustomEvent) => {
-    assembly[target] = ev.detail
+  const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
+    // @ts-expect-error TS2590
+    assembly[detail.id] = detail.selected
     assembly = assembly
   }
   const onRandom = () => {
@@ -60,10 +62,10 @@
     }
   }
 
-  const onLock = (key: AssemblyKey) => (ev: CustomEvent<{ value: boolean }>) => {
-    lockedParts = ev.detail.value
-      ? lockedParts.lock(key, assembly[key])
-      : lockedParts.unlock(key)
+  const onLock = ({ detail }: CustomEvent<ToggleLockEvent>) => {
+    lockedParts = detail.value
+      ? lockedParts.lock(detail.id, assembly[detail.id])
+      : lockedParts.unlock(detail.id)
   }
 
   const openFilter = (ev: CustomEvent<{ id: AssemblyKey }>) => {
@@ -120,9 +122,9 @@
       selected={assembly.rightArmUnit}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('rightArmUnit')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('rightArmUnit')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="leftArmUnit"
@@ -133,9 +135,9 @@
       selected={assembly.leftArmUnit}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('leftArmUnit')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('leftArmUnit')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="rightBackUnit"
@@ -146,9 +148,9 @@
       selected={assembly.rightBackUnit}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('rightBackUnit')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('rightBackUnit')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="leftBackUnit"
@@ -159,9 +161,9 @@
       selected={assembly.leftBackUnit}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('leftBackUnit')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('leftBackUnit')}
+      on:change={onChangeParts}
     />
     <!-- FRAME -->
     <PartsSelectForm
@@ -173,9 +175,9 @@
       selected={assembly.head}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('head')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('head')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="core"
@@ -186,9 +188,9 @@
       selected={assembly.core}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('core')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('core')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="arms"
@@ -199,9 +201,9 @@
       selected={assembly.arms}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('arms')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('arms')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="legs"
@@ -212,9 +214,9 @@
       selected={assembly.legs}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('legs')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('legs')}
+      on:change={onChangeParts}
     />
     <!-- INNER -->
     <PartsSelectForm
@@ -226,9 +228,9 @@
       selected={assembly.booster}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('booster')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('booster')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="fcs"
@@ -239,9 +241,9 @@
       selected={assembly.fcs}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('fcs')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('fcs')}
+      on:change={onChangeParts}
     />
     <PartsSelectForm
       id="generator"
@@ -252,9 +254,9 @@
       selected={assembly.generator}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('generator')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('generator')}
+      on:change={onChangeParts}
     />
     <!-- EXPANSION -->
     <PartsSelectForm
@@ -265,9 +267,9 @@
       selected={assembly.expansion}
       lock={lockedParts}
       filter={filter}
-      on:toggle-lock={onLock('expansion')}
+      on:toggle-lock={onLock}
       on:toggle-filter={openFilter}
-      on:change={onChangeParts('expansion')}
+      on:change={onChangeParts}
     />
   </ToolSection>
 
@@ -319,7 +321,7 @@
       on:change={(ev) =>
         randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
       }
-      on:toggle-lock={onLock('legs')}
+      on:toggle-lock={onLock}
     />
   </ToolSection>
 

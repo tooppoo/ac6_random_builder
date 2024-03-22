@@ -1,4 +1,8 @@
-import type { AssemblyKey, RawAssembly } from '~core/assembly/assembly.ts'
+import {
+  type AssemblyKey,
+  assemblyKeys,
+  type RawAssembly,
+} from '~core/assembly/assembly.ts'
 import { LockedParts } from '~core/assembly/random/lock.ts'
 import { randomBuild } from '~core/assembly/random/random-builder.ts'
 import { random } from '~core/utils/array.ts'
@@ -11,7 +15,7 @@ import fc, { Arbitrary, type ArrayConstraints } from 'fast-check'
 export const genAssembly = (candidates: Candidates | null = null) =>
   (candidates ? fc.constant(candidates) : genCandidates()).map(randomBuild)
 export const genAssemblyKeys = (cons: ArrayConstraints = {}) =>
-  genAssembly().chain((a) => fc.uniqueArray(fc.constantFrom(...a.keys), cons))
+  fc.uniqueArray(fc.constantFrom(...assemblyKeys()), cons)
 
 type AssemblyKeyConstraint =
   | { only: AssemblyKey[]; without?: undefined }
@@ -40,9 +44,9 @@ const genAssemblyPartWithKeyPairs = () =>
     .chain((assembly) =>
       fc.record({
         assembly: fc.constant(assembly as RawAssembly),
-        keys: fc.uniqueArray(fc.constantFrom(...assembly.keys), {
+        keys: fc.uniqueArray(fc.constantFrom(...assemblyKeys()), {
           minLength: 0,
-          maxLength: assembly.keys.length,
+          maxLength: assemblyKeys().length,
         }),
       }),
     )

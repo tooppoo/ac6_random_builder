@@ -1,4 +1,3 @@
-import type { Assembly } from '~core/assembly/assembly'
 import { randomBuild } from '~core/assembly/random/random-builder'
 
 import { tank } from '~data/types/base/category'
@@ -32,30 +31,6 @@ describe(randomBuild.name, () => {
       const actual = randomBuild(candidates)
 
       expect(Object.values(actual)).not.toContain(undefined)
-    },
-  )
-  it.prop([genCandidates()])(
-    'should contain all parts as key',
-    (candidates) => {
-      const assembly = randomBuild(candidates)
-      const expected: Array<keyof Assembly> = [
-        'rightArmUnit',
-        'leftArmUnit',
-        'rightBackUnit',
-        'leftBackUnit',
-        'head',
-        'arms',
-        'core',
-        'legs',
-        'booster',
-        'fcs',
-        'generator',
-        'expansion',
-      ]
-
-      expect(assembly.keys.toSorted()).toEqual(
-        expect.arrayContaining(expected.sort()),
-      )
     },
   )
   describe('with lock', () => {

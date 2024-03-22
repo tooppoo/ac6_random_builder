@@ -1,12 +1,13 @@
 
 <script lang="ts">
-  import {type Assembly, type AssemblyKey, createAssembly} from "~core/assembly/assembly.ts"
+  import {type Assembly, type AssemblyKey, assemblyKeys, createAssembly, spaceByWord} from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
   import {excludeNotEquipped} from "~core/assembly/filter/filters.ts";
   import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
+
 
   import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
   import {
@@ -19,7 +20,6 @@
 
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
-  import {boosterNotEquipped} from "~data/booster.ts";
   import type {Candidates} from "~data/types/candidates.ts";
 
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
@@ -112,165 +112,21 @@
 
 <article class="container text-center p-3">
   <ToolSection id="candidates-form" class="my-4 w-100">
-    <!-- UNIT -->
-    <PartsSelectForm
-      id="rightArmUnit"
-      class="mb-3 mb-sm-4"
-      caption="RIGHT ARM UNIT"
-      tag="section"
-      parts={candidates.rightArmUnit}
-      selected={assembly.rightArmUnit}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="leftArmUnit"
-      class="mb-3 mb-sm-4"
-      caption="LEFT ARM UNIT"
-      tag="section"
-      parts={candidates.leftArmUnit}
-      selected={assembly.leftArmUnit}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="rightBackUnit"
-      class="mb-3 mb-sm-4"
-      caption="RIGHT BACK UNIT"
-      tag="section"
-      parts={candidates.rightBackUnit}
-      selected={assembly.rightBackUnit}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="leftBackUnit"
-      class="mb-3 mb-sm-4"
-      caption="LEFT BACK UNIT"
-      tag="section"
-      parts={candidates.leftBackUnit}
-      selected={assembly.leftBackUnit}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <!-- FRAME -->
-    <PartsSelectForm
-      id="head"
-      class="mb-3 mb-sm-4"
-      caption="HEAD"
-      tag="section"
-      parts={candidates.head}
-      selected={assembly.head}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="core"
-      class="mb-3 mb-sm-4"
-      caption="CORE"
-      tag="section"
-      parts={candidates.core}
-      selected={assembly.core}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="arms"
-      class="mb-3 mb-sm-4"
-      caption="ARMS"
-      tag="section"
-      parts={candidates.arms}
-      selected={assembly.arms}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="legs"
-      class="mb-3 mb-sm-4"
-      caption="LEGS"
-      tag="section"
-      parts={candidates.legs}
-      selected={assembly.legs}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <!-- INNER -->
-    <PartsSelectForm
-      id="booster"
-      class="mb-3 mb-sm-4"
-      caption="BOOSTER"
-      tag="section"
-      parts={[...candidates.booster, boosterNotEquipped]}
-      selected={assembly.booster}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="fcs"
-      class="mb-3 mb-sm-4"
-      caption="FCS"
-      tag="section"
-      parts={candidates.fcs}
-      selected={assembly.fcs}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <PartsSelectForm
-      id="generator"
-      class="mb-3 mb-sm-4"
-      caption="GENERATOR"
-      tag="section"
-      parts={candidates.generator}
-      selected={assembly.generator}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
-    <!-- EXPANSION -->
-    <PartsSelectForm
-      id="expansion"
-      caption="EXPANSION"
-      tag="section"
-      parts={candidates.expansion}
-      selected={assembly.expansion}
-      lock={lockedParts}
-      filter={filter}
-      on:toggle-lock={onLock}
-      on:toggle-filter={openFilter}
-      on:change={onChangeParts}
-    />
+    {#each assemblyKeys() as key}
+      <PartsSelectForm
+        id={key}
+        class="mb-3 mb-sm-4"
+        caption={spaceByWord(key).toUpperCase()}
+        tag="section"
+        parts={candidates[key]}
+        selected={assembly[key]}
+        lock={lockedParts}
+        filter={filter}
+        on:toggle-lock={onLock}
+        on:toggle-filter={openFilter}
+        on:change={onChangeParts}
+      />
+    {/each}
   </ToolSection>
 
   <ToolSection id="assembly-command" class="my-4 w-100">
@@ -386,8 +242,8 @@
   open={filter.open}
   current={filter.current}
   on:toggle={(ev) => filter.open = ev.detail.open}
-  on:check-filter={(ev) => {
-    filter = changePartsFilter({ changed: ev.detail.target, state: filter })
+  on:check-filter={({ detail }) => {
+    filter = changePartsFilter({ changed: detail.target, state: filter })
 
     assembly = assemblyWithHeadParts(candidates)
   }}

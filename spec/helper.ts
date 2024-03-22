@@ -85,3 +85,6 @@ export const genCandidates = (() => {
     })
   }
 })()
+
+export const genFilterApplyContext = () =>
+  genAssembly().map((assembly) => ({ assembly }))

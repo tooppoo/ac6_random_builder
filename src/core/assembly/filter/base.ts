@@ -2,11 +2,16 @@ import { logger } from '~core/utils/logger.ts'
 
 import type { Candidates } from '~data/types/candidates.ts'
 
+import type { Assembly } from 'src/core/assembly/assembly.ts'
+
 export interface PartsFilter {
   readonly name: string
 
-  apply(candidates: Candidates): Candidates
+  apply(candidates: Candidates, context: FilterApplyContext): Candidates
 }
+export type FilterApplyContext = Readonly<{
+  assembly: Assembly
+}>
 
 interface PartsFilterMap {
   [name: string]: PartsFilterState
@@ -25,8 +30,11 @@ export class PartsFilterSet {
 
   private constructor(private readonly map: PartsFilterMap) {}
 
-  apply(candidates: Candidates): Candidates {
-    return this.enableFilters.reduce((acc, f) => f.apply(acc), candidates)
+  apply(candidates: Candidates, context: FilterApplyContext): Candidates {
+    return this.enableFilters.reduce(
+      (acc, f) => f.apply(acc, context),
+      candidates,
+    )
   }
 
   add(filter: PartsFilter): PartsFilterSet {

@@ -50,7 +50,7 @@
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState = initialFilterState()
-  $: candidates = applyFilter(initialCandidates, filter)
+  $: candidates = applyFilter(initialCandidates, filter, { assembly })
 
   let reportItems: readonly {
     key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,

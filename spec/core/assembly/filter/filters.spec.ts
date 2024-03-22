@@ -11,13 +11,17 @@ import { armUnit } from '~data/types/base/classification.ts'
 import { fc, it } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'
 
-import { genAssemblyKey, genCandidates } from '~spec/helper.ts'
+import {
+  genAssemblyKey,
+  genCandidates,
+  genFilterApplyContext,
+} from '~spec/helper.ts'
 
 describe(excludeNotEquipped.name, () => {
-  it.prop([genCandidates(), genAssemblyKey()])(
+  it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
     'not contain not-equipped unit at specified key',
-    (candidates, key) => {
-      const applied = excludeNotEquipped.build(key).apply(candidates)
+    (candidates, key, context) => {
+      const applied = excludeNotEquipped.build(key).apply(candidates, context)
       const actual = applied[key]
 
       expect(actual).not.toContain(armNotEquipped)
@@ -25,10 +29,10 @@ describe(excludeNotEquipped.name, () => {
       expect(actual).not.toContain(expansionNotEquipped)
     },
   )
-  it.prop([genCandidates(), genAssemblyKey()])(
+  it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
     'not change other candidates',
-    (candidates, key) => {
-      const applied = excludeNotEquipped.build(key).apply(candidates)
+    (candidates, key, context) => {
+      const applied = excludeNotEquipped.build(key).apply(candidates, context)
 
       expect(applied).toMatchObject({
         head: candidates.head,
@@ -48,16 +52,18 @@ describe(notUseHanger.name, () => {
   it.prop([
     genCandidates(),
     fc.constantFrom(...(['rightBackUnit', 'leftBackUnit'] as const)),
-  ])('remove arm unit from back unit', (candidates, key) => {
-    const applied = notUseHanger.build(key).apply(candidates)
+    genFilterApplyContext(),
+  ])('remove arm unit from back unit', (candidates, key, context) => {
+    const applied = notUseHanger.build(key).apply(candidates, context)
 
     expect(applied[key].map((p) => p.classification)).not.toContain(armUnit)
   })
   it.prop([
     genCandidates(),
     genAssemblyKey({ without: ['rightBackUnit', 'leftBackUnit'] }),
-  ])('not change parts other than back unit', (candidates, key) => {
-    const applied = notUseHanger.build(key).apply(candidates)
+    genFilterApplyContext(),
+  ])('not change parts other than back unit', (candidates, key, context) => {
+    const applied = notUseHanger.build(key).apply(candidates, context)
 
     expect(applied[key]).toEqual(candidates[key])
   })

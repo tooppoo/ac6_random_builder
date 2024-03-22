@@ -4,6 +4,7 @@ import {
   createAssembly,
 } from '~core/assembly/assembly.ts'
 import {
+  type FilterApplyContext,
   PartsFilterSet,
   type ReadonlyPartsFilterState,
 } from '~core/assembly/filter/base.ts'
@@ -54,8 +55,12 @@ export const initialFilterState = (): FilterState => ({
 export function applyFilter(
   candidates: Candidates,
   state: FilterState,
+  context: FilterApplyContext,
 ): Candidates {
-  return Object.values(state.map).reduce((c, f) => f.apply(c), candidates)
+  return Object.values(state.map).reduce(
+    (c, f) => f.apply(c, context),
+    candidates,
+  )
 }
 
 export function assemblyWithHeadParts(candidates: Candidates): Assembly {

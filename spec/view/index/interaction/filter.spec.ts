@@ -18,7 +18,12 @@ import { booster, notEquipped, tank } from '~data/types/base/category.ts'
 import { fc, it } from '@fast-check/vitest'
 import { beforeEach, describe, expect } from 'vitest'
 
-import { genAssemblyKey, genAssemblyKeys, genCandidates } from '~spec/helper.ts'
+import {
+  genAssemblyKey,
+  genAssemblyKeys,
+  genCandidates,
+  genFilterApplyContext,
+} from '~spec/helper.ts'
 
 describe('filter interaction', () => {
   describe('toggle', () => {
@@ -84,9 +89,10 @@ describe('filter interaction', () => {
       only: ['rightArmUnit', 'leftArmUnit', 'rightBackUnit', 'leftBackUnit'],
     }),
     genCandidates(),
+    genFilterApplyContext(),
   ])(
     'after apply filter, candidates are changed',
-    (enabled, key, oldCandidates) => {
+    (enabled, key, oldCandidates, context) => {
       const state = toggleFilter(key, initialFilterState())
       const filterState = {
         ...random(state.current.filter.list),
@@ -95,8 +101,8 @@ describe('filter interaction', () => {
 
       const updated = changePartsFilter({ changed: filterState, state })
 
-      expect(applyFilter(oldCandidates, updated)).toEqual(
-        updated.current.filter.apply(oldCandidates),
+      expect(applyFilter(oldCandidates, updated, context)).toEqual(
+        updated.current.filter.apply(oldCandidates, context),
       )
     },
   )

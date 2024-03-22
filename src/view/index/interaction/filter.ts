@@ -119,8 +119,8 @@ export function changePartsFilter({
   if (!state.current.id) return state
 
   const updated = changed.enabled
-    ? state.current.filter.disable(changed.key)
-    : state.current.filter.enable(changed.key)
+    ? state.current.filter.disable(changed.filter.name)
+    : state.current.filter.enable(changed.filter.name)
 
   state.current.filter = updated
   state.map[state.current.id] = updated
@@ -165,10 +165,7 @@ function setupFilter(key: AssemblyKey): PartsFilterSet {
     case 'rightBackUnit':
     case 'leftBackUnit':
     case 'expansion':
-      return PartsFilterSet.empty.add(
-        excludeNotEquipped.name,
-        excludeNotEquipped.build(key),
-      )
+      return PartsFilterSet.empty.add(excludeNotEquipped.build(key))
     default:
       return PartsFilterSet.empty
   }

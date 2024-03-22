@@ -16,8 +16,8 @@ describe(PartsFilterSet.name, () => {
   it.prop([genCandidates()])(
     'should apply filter, and not apply removed',
     (candidates) => {
-      const filters = [...new Array(4)].map<PartsFilter>(() => ({
-        name: 'test',
+      const filters = [...new Array(4)].map<PartsFilter>((_, i) => ({
+        name: `${i + 1}`,
         apply: (_) => _,
       }))
       const stubs = filters
@@ -32,13 +32,13 @@ describe(PartsFilterSet.name, () => {
         const [f1, f2, f3, f4] = filters
 
         return PartsFilterSet.empty
-          .add('1', f1)
+          .add(f1)
           .enable('1')
-          .add('2', f2)
+          .add(f2)
           .enable('2')
-          .add('3', f3)
+          .add(f3)
           .enable('3')
-          .add('4', f4)
+          .add(f4)
           .enable('4')
       })().disable('4')
       expect(sut1.apply(candidates)).to.deep.equals(candidates, 'sut1')

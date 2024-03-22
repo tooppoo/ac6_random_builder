@@ -1,8 +1,10 @@
+<script lang="ts" context="module">
+  export type ReportStatus = 'danger' | 'warning' | 'normal'
+</script>
 <script lang="ts">
-  export let status: 'danger' | 'warning' | 'normal' = 'normal'
-  type Status = typeof status
+  export let status: ReportStatus = 'normal'
 
-  const textClass = (base: string, stat: Status) => {
+  const textClass = (base: string, stat: ReportStatus) => {
     switch(stat) {
       case 'danger': return `${base} text-danger`
       case 'warning': return `${base} text-warning`

@@ -32,7 +32,8 @@ export function assemblyKeys(): AssemblyKey[] {
   ]
 }
 
-export type Assembly = RawAssembly & {
+export type Assembly = RawAssembly & AssemblyProperty
+export type AssemblyProperty = {
   readonly ap: number
   /** 総重量 */
   readonly weight: number

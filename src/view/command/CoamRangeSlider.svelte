@@ -1,8 +1,11 @@
 <script lang="ts">
-  import {createEventDispatcher} from "svelte";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
+
   import type {Candidates} from "~data/types/candidates.ts";
+
+  import {createEventDispatcher} from "svelte";
+
   import RangeSlider from './base/RangeSlider.svelte'
 
   export let candidates: Candidates

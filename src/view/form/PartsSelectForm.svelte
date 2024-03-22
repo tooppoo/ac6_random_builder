@@ -1,13 +1,16 @@
 <script lang="ts">
-  import {createEventDispatcher} from "svelte";
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
-  import type {Classification} from "~data/types/base/classification.ts";
-  import type {BaseACParts} from "~data/types/base/types.ts";
+
+  import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
   import FilterBadge from "~view/status/badge/FilterBadge.svelte";
   import LockBadge from "~view/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
-  import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
+
+  import type {Classification} from "~data/types/base/classification.ts";
+  import type {BaseACParts} from "~data/types/base/types.ts";
+
+  import {createEventDispatcher} from "svelte";
 
   export let id: AssemblyKey
   export let caption: string

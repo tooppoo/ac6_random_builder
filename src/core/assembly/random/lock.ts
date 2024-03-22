@@ -1,8 +1,9 @@
-import type { AssemblyKey, RawAssembly } from 'src/core/assembly/assembly.ts'
 import type { Booster, BoosterNotEquipped } from '~data/booster.ts'
 import type { Legs } from '~data/legs.ts'
 import { tank } from '~data/types/base/category.ts'
 import { booster, notEquipped } from '~data/types/base/classification.ts'
+
+import type { AssemblyKey, RawAssembly } from 'src/core/assembly/assembly.ts'
 
 type LockedPartsMap = {
   [P in AssemblyKey]?: RawAssembly[P]

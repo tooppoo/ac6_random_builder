@@ -1,7 +1,9 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
 import { BaseCustomError } from '~core/utils/error.ts'
 import { logger } from '~core/utils/logger.ts'
+
 import type { Candidates } from '~data/types/candidates.ts'
+
 import {
   defaultRandomBuildOption,
   randomBuild,

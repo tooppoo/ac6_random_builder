@@ -1,10 +1,12 @@
-import fc, { Arbitrary, type ArrayConstraints } from 'fast-check'
 import type { AssemblyKey, RawAssembly } from '~core/assembly/assembly.ts'
 import { LockedParts } from '~core/assembly/random/lock.ts'
 import { randomBuild } from '~core/assembly/random/random-builder.ts'
 import { random } from '~core/utils/array.ts'
+
 import type { Candidates } from '~data/types/candidates.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'
+
+import fc, { Arbitrary, type ArrayConstraints } from 'fast-check'
 
 export const genAssembly = (candidates: Candidates | null = null) =>
   (candidates ? fc.constant(candidates) : genCandidates()).map(randomBuild)

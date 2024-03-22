@@ -1,7 +1,9 @@
+import type { AssemblyKey } from '~core/assembly/assembly.ts'
+
+import App from '~view/App.svelte'
+
 import { cleanup, render, screen } from '@testing-library/svelte'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { AssemblyKey } from '~core/assembly/assembly.ts'
-import App from '~view/App.svelte'
 
 describe(`App.svelte`, () => {
   beforeEach(() => {

@@ -4,11 +4,13 @@ import {
   type RawAssembly,
 } from '~core/assembly/assembly.ts'
 import { random } from '~core/utils/array.ts'
+
 import { type Booster, boosterNotEquipped } from '~data/booster.ts'
+import { tank } from '~data/types/base/category.ts'
 import { notEquipped } from '~data/types/base/classification.ts'
 import type { Candidates } from '~data/types/candidates.ts'
+
 import { LockedParts } from './lock.ts'
-import { tank } from '~data/types/base/category.ts'
 
 export type RandomBuildOption = Readonly<{
   randomizer?: () => number

@@ -1,10 +1,9 @@
-import { it as fcit } from '@fast-check/vitest'
-import { beforeEach, describe, expect, it, test } from 'vitest'
 import {
   type Assembly,
   createAssembly,
   type RawAssembly,
 } from '~core/assembly/assembly.ts'
+
 import { armUnits, leftArmUnits } from '~data/arm-units.ts'
 import { arms } from '~data/arms.ts'
 import { backUnits, leftBackUnits } from '~data/back-units'
@@ -15,6 +14,10 @@ import { fcses } from '~data/fces.ts'
 import { generators } from '~data/generators.ts'
 import { heads } from '~data/heads'
 import { legs } from '~data/legs.ts'
+
+import { it as fcit } from '@fast-check/vitest'
+import { beforeEach, describe, expect, it, test } from 'vitest'
+
 import { genAssembly } from '~spec/helper.ts'
 
 describe('assembly', () => {

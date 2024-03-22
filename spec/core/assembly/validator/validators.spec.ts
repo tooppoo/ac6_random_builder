@@ -1,17 +1,20 @@
-import { armNotEquipped } from '~data/arm-units'
-import type { Candidates } from '~data/types/candidates.ts'
-import { candidates } from '~data/versions/v1.06.1.ts'
 import {
   notCarrySameUnitInSameSide,
   notOverEnergyOutput,
   totalCoamNotOverMax,
   totalLoadNotOverMax,
 } from '~core/assembly/random/validator/validators'
+
+import { armNotEquipped } from '~data/arm-units'
 import { notEquipped as notEquippedClass } from '~data/types/base/classification.ts'
-import { genAssembly } from '~spec/helper.ts'
+import type { Candidates } from '~data/types/candidates.ts'
+import { candidates } from '~data/versions/v1.06.1.ts'
+
 import { fc, it as fcit } from '@fast-check/vitest'
 import sinon from 'sinon'
 import { afterEach, beforeEach, describe, expect } from 'vitest'
+
+import { genAssembly } from '~spec/helper.ts'
 
 describe('validator', () => {
   describe('not over energy output', () => {

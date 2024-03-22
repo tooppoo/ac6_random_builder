@@ -7,6 +7,7 @@ import type {
 } from '~data/types/base/classification.ts'
 import type { Manufacture } from '~data/types/base/manufacture.ts'
 import type { ACParts, WithEnLoad } from '~data/types/base/types.ts'
+
 import type {
   AttackType,
   coral,

@@ -7,10 +7,7 @@
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
-  import {armNotEquipped} from "~data/arm-units.ts";
-  import {backNotEquipped} from "~data/back-units.ts";
-  import {boosterNotEquipped} from "~data/booster.ts";
-  import type {Candidates} from "~data/types/candidates.ts";
+
   import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
   import {
     applyFilter, assemblyWithHeadParts,
@@ -19,11 +16,18 @@
     initialFilterState,
     toggleFilter
   } from "~view/index/interaction/filter.ts";
+
+  import {armNotEquipped} from "~data/arm-units.ts";
+  import {backNotEquipped} from "~data/back-units.ts";
+  import {boosterNotEquipped} from "~data/booster.ts";
+  import type {Candidates} from "~data/types/candidates.ts";
+
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
+
   import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version

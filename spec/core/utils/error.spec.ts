@@ -1,6 +1,7 @@
+import { BaseCustomError } from '~core/utils/error.ts'
+
 import { fc, it } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'
-import { BaseCustomError } from '~core/utils/error.ts'
 
 describe('CustomError', () => {
   it.prop([genErrorWithConstructor()])(

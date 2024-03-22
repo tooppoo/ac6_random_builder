@@ -1,14 +1,18 @@
 <script lang="ts">
-  import Dropdown from "bootstrap/js/dist/dropdown";
-  import type {Action} from "svelte/action";
-  import {createEventDispatcher} from "svelte";
   import { type Assembly } from "~core/assembly/assembly.ts"
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
-  import type {Candidates} from "~data/types/candidates.ts";
+
   import LockBadge from "~view/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
+
+  import type {Candidates} from "~data/types/candidates.ts";
+
+  import Dropdown from "bootstrap/js/dist/dropdown";
+  import {createEventDispatcher} from "svelte";
+  import type {Action} from "svelte/action";
+
   import RangeSlider from './base/RangeSlider.svelte'
 
   // state

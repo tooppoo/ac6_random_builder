@@ -1,6 +1,7 @@
 <script lang="ts">
-import {createEventDispatcher} from "svelte";
 import BaseStatusBadge from "~view/status/base/BaseStatusBadge.svelte";
+
+import {createEventDispatcher} from "svelte";
 
 export let applied: boolean
 

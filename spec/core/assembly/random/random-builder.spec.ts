@@ -1,10 +1,13 @@
-import { fc, it } from '@fast-check/vitest'
-import { describe, expect } from 'vitest'
 import type { Assembly } from '~core/assembly/assembly'
 import { randomBuild } from '~core/assembly/random/random-builder'
+
 import { tank } from '~data/types/base/category'
 import { booster, notEquipped } from '~data/types/base/classification'
 import { candidates } from '~data/versions/v1.06.1.ts'
+
+import { fc, it } from '@fast-check/vitest'
+import { describe, expect } from 'vitest'
+
 import { genCandidates, genLockedParts } from '~spec/helper.ts'
 
 describe(randomBuild.name, () => {

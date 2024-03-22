@@ -1,6 +1,7 @@
-import { describe, expect } from 'vitest'
-import { it, fc } from '@fast-check/vitest'
 import { roundUpByRealPart } from '~core/utils/number.ts'
+
+import { it, fc } from '@fast-check/vitest'
+import { describe, expect } from 'vitest'
 
 describe(roundUpByRealPart.name, () => {
   const genNumAndDigit = (digit: { min?: number; max?: number } = { min: 1 }) =>

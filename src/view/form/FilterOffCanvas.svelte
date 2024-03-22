@@ -7,12 +7,13 @@
   }
 </script>
 <script lang="ts">
-  import Offcanvas from "bootstrap/js/dist/offcanvas";
-  import {createEventDispatcher} from "svelte";
-  import type {ChangeEventHandler} from "svelte/elements";
   import type {ReadonlyPartsFilterState} from "~core/assembly/filter/base.ts";
   import {excludeNotEquipped} from "~core/assembly/filter/filters.ts";
   import {logger} from "~core/utils/logger.ts";
+
+  import Offcanvas from "bootstrap/js/dist/offcanvas";
+  import {createEventDispatcher} from "svelte";
+  import type {ChangeEventHandler} from "svelte/elements";
 
   export let open: boolean
   export let current: CurrentFilter

@@ -4,7 +4,7 @@ import { notEquipped } from '~data/types/base/classification.ts'
 import { type Candidates, type CandidatesKey } from '~data/types/candidates.ts'
 
 export const excludeNotEquipped = (() => {
-  const name = 'exclude-not-equipped'
+  const name = 'excludeNotEquipped'
 
   return {
     name,

@@ -7,6 +7,7 @@
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
 
+  import i18n from "~view/i18n/define.ts";
   import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
   import FilterBadge from "~view/index/status/badge/FilterBadge.svelte";
   import LockBadge from "~view/index/status/badge/LockBadge.svelte";
@@ -56,8 +57,8 @@
       {caption}
       <StatusBadgeList>
         <LockBadge
-          titleWhenLocked="このパーツは変更されません"
-          titleWhenUnlocked="このパーツは変更されます"
+          titleWhenLocked={$i18n.t('locked', { ns: 'lock' })}
+          titleWhenUnlocked={$i18n.t('unlocked', { ns: 'lock' })}
           locked={lock.isLocking(id)}
           clickable={true}
           on:click={onToggleLock}

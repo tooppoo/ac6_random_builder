@@ -4,6 +4,7 @@
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
 
+  import i18n from '~view/i18n/define.ts'
   import LockBadge from "~view/index/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/index/status/StatusBadgeList.svelte";
 
@@ -76,7 +77,7 @@
 
 <RangeSlider
   id="load" class={$$props.class}
-  label="積載量上限"
+  label={$i18n.t('maxLoadLimit', { ns: 'filter' })}
   max={max}
   min={min}
   value={value}
@@ -85,7 +86,14 @@
 >
   <StatusBadgeList class="ms-2" slot="status">
     {#if lock.isLocking('legs')}
-      <LockBadge titleWhenLocked="脚部を固定しています" locked={true} />
+      <LockBadge
+        titleWhenLocked={
+          $i18n.t('lock:locking', {
+            part: $i18n.t('legs', { ns: 'assembly' })
+          })
+        }
+        locked={true}
+      />
     {/if}
   </StatusBadgeList>
   <div
@@ -100,13 +108,25 @@
       <li>
         <button class="dropdown-item" on:click={onToggleLock}>
           {#if lock.isLocking('legs')}
-            脚部固定を解除
+            {
+              $i18n.t('lock:unlockAt', {
+                part: $i18n.t('legs', { ns: 'assembly' })
+              })
+            }
           {:else}
-            脚部を固定
+            {
+              $i18n.t('lock:lockAt', {
+                part: $i18n.t('legs', { ns: 'assembly' })
+              })
+            }
           {/if}
         </button>
       </li>
-      <li><button class="dropdown-item" on:click={onSetLoadLimit}>脚部の積載上限を適用</button></li>
+      <li>
+        <button class="dropdown-item" on:click={onSetLoadLimit}>
+          { $i18n.t('applyCurrentLegsLoadLimit', { ns: 'filter' }) }
+        </button>
+      </li>
     </ul>
   </div>
 </RangeSlider>

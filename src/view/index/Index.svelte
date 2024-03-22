@@ -8,6 +8,7 @@
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
 
+  import i18n from "~view/i18n/define.ts";
   import FilterOffCanvas from "~view/index/form/FilterOffCanvas.svelte";
   import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
   import {
@@ -22,13 +23,13 @@
   import {backNotEquipped} from "~data/back-units.ts";
   import type {Candidates} from "~data/types/candidates.ts";
 
+  import appPackage from '~root/package.json'
+
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
-
-  import appPackage from '~root/package.json'
 
   const appVersion = appPackage.version
   const tryLimit = 3000
@@ -134,14 +135,14 @@
       on:click={onRandom}
       class="my-3 w-100 p-2"
     >
-      ランダムアセンブル
+      {$i18n.t('command.random', { ns: 'pageIndex' })}
     </button>
     <button
       id="reset-lock"
       on:click={() => lockedParts = LockedParts.empty}
       class="my-3 w-100 p-2"
     >
-      すべてのロックを解除
+      {$i18n.t('resetAllLock', { ns: 'lock' })}
     </button>
     <button
       id="exclude-all-not-equipped"
@@ -151,14 +152,14 @@
       }}
       class="my-3 w-100 p-2"
     >
-      すべての非武装を除外
+      {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
     </button>
     <button
       id="reset-filter"
       on:click={() => filter = initialFilterState()}
       class="my-3 w-100 p-2"
     >
-      すべての絞り込みを解除
+      {$i18n.t('resetAllFilter', { ns: 'filter' })}
     </button>
 
     <CoamRangeSlider
@@ -183,41 +184,41 @@
   <ToolSection id="assembly-report" class="container mw-100 mx-0 my-4 w-100">
     <div class="row mb-3">
       <ReportItem
-        caption="AP"
+        caption={$i18n.t('ap', { ns: 'assembly' })}
         class="mb-3"
         value={assembly.ap}
       />
       <ReportItem
-        caption="総重量"
+        caption={$i18n.t('weight', { ns: 'assembly' })}
         class="mb-3"
         value={assembly.weight}
       />
       <ReportItem
-        caption="積載量"
+        caption={$i18n.t('load', { ns: 'assembly' })}
         class="mb-3"
         value={assembly.load}
         status={assembly.withinLoadLimit ? 'normal' : 'danger'}
       />
       <ReportItem
-        caption="積載上限"
+        caption={$i18n.t('loadLimit', { ns: 'assembly' })}
         class="mb-3"
         value={assembly.loadLimit}
         status={assembly.withinLoadLimit ? 'normal' : 'danger'}
       />
       <ReportItem
-        caption="EN負荷"
+        caption={$i18n.t('enLoad', { ns: 'assembly' })}
         class="mb-3"
         value={assembly.enLoad}
         status={assembly.withinEnOutput ? 'normal' : 'danger'}
       />
       <ReportItem
-        caption="EN出力"
+        caption={$i18n.t('enOutput', { ns: 'assembly' })}
         class="mb-3"
         value={assembly.enOutput}
         status={assembly.withinEnOutput ? 'normal' : 'danger'}
       />
       <ReportItem
-        caption="総COAM"
+        caption={$i18n.t('coam', { ns: 'assembly' })}
         class="mb-3"
         value={assembly.coam}
       />

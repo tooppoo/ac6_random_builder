@@ -2,6 +2,8 @@
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
 
+  import i18n from "~view/i18n/define.ts";
+
   import type {Candidates} from "~data/types/candidates.ts";
 
   import {createEventDispatcher} from "svelte";
@@ -49,7 +51,7 @@
 
 <RangeSlider
   id="coam" class={$$props.class}
-  label="総COAM上限"
+  label={$i18n.t('maxCoamLimit', { ns: 'filter' })}
   max={max}
   value={value}
   step={1000}

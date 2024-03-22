@@ -76,11 +76,16 @@ export default tsConfig(
             {
               pattern: '~view/**',
               group: 'builtin',
-              position: 'before',
+              position: 'after',
             },
             {
               pattern: '~data/**',
               group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '~root/**',
+              group: 'parent',
               position: 'before',
             },
           ],

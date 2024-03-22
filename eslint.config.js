@@ -96,6 +96,14 @@ export default tsConfig(
         'error',
         { argsIgnorePattern: '^_' },
       ],
+      'no-multiple-empty-lines': [
+        'error',
+        {
+          max: 1,
+          maxBOF: 1,
+          maxEOF: 1,
+        },
+      ],
     },
   },
 )

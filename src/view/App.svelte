@@ -8,7 +8,6 @@
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
 
-
   import FilterOffCanvas from "~view/form/FilterOffCanvas.svelte";
   import {
     applyFilter, assemblyWithHeadParts,

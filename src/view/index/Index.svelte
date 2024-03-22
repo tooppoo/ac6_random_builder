@@ -9,7 +9,7 @@
     spaceByWord
   } from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
-  import {excludeNotEquipped} from "~core/assembly/filter/filters.ts";
+  import {excludeNotEquipped, notUseHanger} from "~core/assembly/filter/filters.ts";
   import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
@@ -180,6 +180,16 @@
       class="my-3 w-100 p-2"
     >
       {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
+    </button>
+    <button
+      id="exclude-all-not-equipped"
+      on:click={() => {
+        filter = enableFilterOnAllParts(notUseHanger.name, filter)
+        assembly = assemblyWithHeadParts(candidates)
+      }}
+      class="my-3 w-100 p-2"
+    >
+      {$i18n.t('notUseAllHanger', { ns: 'filter' })}
     </button>
     <button
       id="reset-filter"

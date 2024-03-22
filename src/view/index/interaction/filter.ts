@@ -7,7 +7,10 @@ import {
   PartsFilterSet,
   type ReadonlyPartsFilterState,
 } from '~core/assembly/filter/base.ts'
-import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
+import {
+  excludeNotEquipped,
+  notUseHanger,
+} from '~core/assembly/filter/filters.ts'
 import { logger } from '~core/utils/logger.ts'
 
 import { boosterNotEquipped } from '~data/booster.ts'
@@ -162,10 +165,13 @@ function setupFilter(key: AssemblyKey): PartsFilterSet {
   switch (key) {
     case 'rightArmUnit':
     case 'leftArmUnit':
-    case 'rightBackUnit':
-    case 'leftBackUnit':
     case 'expansion':
       return PartsFilterSet.empty.add(excludeNotEquipped.build(key))
+    case 'rightBackUnit':
+    case 'leftBackUnit':
+      return PartsFilterSet.empty
+        .add(excludeNotEquipped.build(key))
+        .add(notUseHanger.build(key))
     default:
       return PartsFilterSet.empty
   }

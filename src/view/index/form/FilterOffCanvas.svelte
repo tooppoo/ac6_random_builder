@@ -78,7 +78,7 @@
           on:change={onChecked(f)}
         >
         <label class="form-check-label" for={f.filter.name}>
-          {$i18n.t('excludeNotEquipped', { ns: 'filter' })}
+          {$i18n.t(`filter:${f.filter.name}`)}
         </label>
       </div>
     {/each}

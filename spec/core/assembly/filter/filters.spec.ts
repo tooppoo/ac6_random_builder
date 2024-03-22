@@ -1,10 +1,13 @@
-import { it } from '@fast-check/vitest'
-import { describe, expect } from 'vitest'
 import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
 import { random } from '~core/utils/array.ts'
+
 import { armNotEquipped } from '~data/arm-units.ts'
 import { backNotEquipped } from '~data/back-units.ts'
 import { expansionNotEquipped } from '~data/expansions.ts'
+
+import { it } from '@fast-check/vitest'
+import { describe, expect } from 'vitest'
+
 import { genAssemblyKeys, genCandidates } from '~spec/helper.ts'
 
 describe('excludeNotEquipped', () => {

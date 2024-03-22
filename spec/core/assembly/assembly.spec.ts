@@ -1,10 +1,12 @@
-import { it as fcit } from '@fast-check/vitest'
-import { beforeEach, describe, expect, it, test } from 'vitest'
 import {
   type Assembly,
+  type AssemblyKey,
+  assemblyKeys,
   createAssembly,
   type RawAssembly,
+  spaceByWord,
 } from '~core/assembly/assembly.ts'
+
 import { armUnits, leftArmUnits } from '~data/arm-units.ts'
 import { arms } from '~data/arms.ts'
 import { backUnits, leftBackUnits } from '~data/back-units'
@@ -15,6 +17,10 @@ import { fcses } from '~data/fces.ts'
 import { generators } from '~data/generators.ts'
 import { heads } from '~data/heads'
 import { legs } from '~data/legs.ts'
+
+import { it as fcit } from '@fast-check/vitest'
+import { beforeEach, describe, expect, it, test } from 'vitest'
+
 import { genAssembly } from '~spec/helper.ts'
 
 describe('assembly', () => {
@@ -256,6 +262,53 @@ describe('assembly', () => {
       test(`total coam should be ${expected}`, () => {
         expect(merge(sut, diff).coam).toBe(expected)
       })
+    })
+  })
+
+  describe('keys', () => {
+    describe('space by word', () => {
+      describe.each([
+        { key: 'rightArmUnit', expected: 'right Arm Unit' },
+        { key: 'leftArmUnit', expected: 'left Arm Unit' },
+        { key: 'rightBackUnit', expected: 'right Back Unit' },
+        { key: 'leftBackUnit', expected: 'left Back Unit' },
+        { key: 'head', expected: 'head' },
+        { key: 'core', expected: 'core' },
+        { key: 'arms', expected: 'arms' },
+        { key: 'legs', expected: 'legs' },
+        { key: 'booster', expected: 'booster' },
+        { key: 'fcs', expected: 'fcs' },
+        { key: 'generator', expected: 'generator' },
+        { key: 'expansion', expected: 'expansion' },
+      ] as {
+        key: AssemblyKey
+        expected: string
+      }[])('when key is $key', ({ key, expected }) => {
+        it(`should return ${expected}`, () => {
+          expect(spaceByWord(key)).toEqual(expected)
+        })
+      })
+    })
+  })
+
+  describe('keys', () => {
+    it('should be static array', () => {
+      const expected: AssemblyKey[] = [
+        'rightArmUnit',
+        'leftArmUnit',
+        'rightBackUnit',
+        'leftBackUnit',
+        'head',
+        'core',
+        'arms',
+        'legs',
+        'booster',
+        'fcs',
+        'generator',
+        'expansion',
+      ]
+
+      expect(assemblyKeys()).toEqual(expected)
     })
   })
 })

@@ -1,9 +1,6 @@
-import { fc, it } from '@fast-check/vitest'
 import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
 import { random } from '~core/utils/array.ts'
-import { booster, notEquipped, tank } from '~data/types/base/category.ts'
-import { genAssemblyKey, genAssemblyKeys, genCandidates } from '~spec/helper.ts'
-import { beforeEach, describe, expect } from 'vitest'
+
 import {
   anyFilterContain,
   anyFilterEnabled,
@@ -15,6 +12,13 @@ import {
   initialFilterState,
   toggleFilter,
 } from '~view/index/interaction/filter.ts'
+
+import { booster, notEquipped, tank } from '~data/types/base/category.ts'
+
+import { fc, it } from '@fast-check/vitest'
+import { beforeEach, describe, expect } from 'vitest'
+
+import { genAssemblyKey, genAssemblyKeys, genCandidates } from '~spec/helper.ts'
 
 describe('filter interaction', () => {
   describe('toggle', () => {

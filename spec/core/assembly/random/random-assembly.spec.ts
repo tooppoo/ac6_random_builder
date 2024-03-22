@@ -1,13 +1,15 @@
-import { fc, it } from '@fast-check/vitest'
-import type { Validator } from '~core/assembly/random/validator/base'
-import { failure, success } from '~core/assembly/random/validator/result'
-import { candidates } from '~data/versions/v1.06.1.ts'
-import { afterEach, beforeEach, describe, expect, type Mock, vi } from 'vitest'
 import {
   OverTryLimitError,
   OverwriteInnerSecretValidatorError,
   RandomAssembly,
 } from '~core/assembly/random/random-assembly'
+import type { Validator } from '~core/assembly/random/validator/base'
+import { failure, success } from '~core/assembly/random/validator/result'
+
+import { candidates } from '~data/versions/v1.06.1.ts'
+
+import { fc, it } from '@fast-check/vitest'
+import { afterEach, beforeEach, describe, expect, type Mock, vi } from 'vitest'
 
 describe(RandomAssembly.name, () => {
   it.prop([fc.array(generateValidatorWithKey())])(

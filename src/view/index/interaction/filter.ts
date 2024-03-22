@@ -9,6 +9,7 @@ import {
 } from '~core/assembly/filter/base.ts'
 import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
 import { logger } from '~core/utils/logger.ts'
+
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
 import { type Candidates } from '~data/types/candidates.ts'

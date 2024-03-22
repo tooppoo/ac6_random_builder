@@ -1,4 +1,5 @@
 import { sum } from '~core/utils/array.ts'
+
 import type * as ArmUnits from '~data/arm-units.ts'
 import type { Arms } from '~data/arms.ts'
 import type * as BackUnits from '~data/back-units.ts'
@@ -9,6 +10,27 @@ import type { FCS } from '~data/fces.ts'
 import type { Generator } from '~data/generators.ts'
 import type { Head } from '~data/heads.ts'
 import type { LegsNotTank, LegsTank } from '~data/legs.ts'
+
+export function spaceByWord(key: AssemblyKey): string {
+  return key.replaceAll(/([A-Z])/g, ' $1')
+}
+
+export function assemblyKeys(): AssemblyKey[] {
+  return [
+    'rightArmUnit',
+    'leftArmUnit',
+    'rightBackUnit',
+    'leftBackUnit',
+    'head',
+    'core',
+    'arms',
+    'legs',
+    'booster',
+    'fcs',
+    'generator',
+    'expansion',
+  ]
+}
 
 export type Assembly = RawAssembly & {
   readonly ap: number
@@ -33,8 +55,6 @@ export type Assembly = RawAssembly & {
    * @return {boolean} EN出力がEN負荷以上の場合にtrue
    */
   readonly withinEnOutput: boolean
-
-  readonly keys: readonly AssemblyKey[]
 }
 
 export function createAssembly(base: RawAssembly): Assembly {
@@ -59,9 +79,6 @@ export function createAssembly(base: RawAssembly): Assembly {
           this.generator,
         ].map((p) => p.weight),
       )
-    },
-    get keys(): readonly AssemblyKey[] {
-      return Object.keys(base) as readonly AssemblyKey[]
     },
     get load(): number {
       return this.weight - this.legs.weight

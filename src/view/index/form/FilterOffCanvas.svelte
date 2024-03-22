@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
-  import type {CurrentFilter} from "src/view/index/interaction/filter.ts";
+  import i18n from "~view/i18n/define.ts";
+  import type {CurrentFilter} from "~view/index/interaction/filter.ts";
 
   export type ToggleFilter = { open: boolean }
   export type CheckFilter = {
@@ -7,12 +8,12 @@
   }
 </script>
 <script lang="ts">
+  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/base.ts";
+  import {logger} from "~core/utils/logger.ts";
+
   import Offcanvas from "bootstrap/js/dist/offcanvas";
   import {createEventDispatcher} from "svelte";
   import type {ChangeEventHandler} from "svelte/elements";
-  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/base.ts";
-  import {excludeNotEquipped} from "~core/assembly/filter/filters.ts";
-  import {logger} from "~core/utils/logger.ts";
 
   export let open: boolean
   export let current: CurrentFilter
@@ -21,10 +22,6 @@
   $: {
     toggle(open)
   }
-
-  const captions = {
-    [excludeNotEquipped.name]: '非武装を除外する',
-  } as const
 
   // handle
   const onChecked = (target: ReadonlyPartsFilterState): ChangeEventHandler<HTMLInputElement> => (_e) => {
@@ -81,7 +78,7 @@
           on:change={onChecked(f)}
         >
         <label class="form-check-label" for={f.filter.name}>
-          {captions[f.filter.name]}
+          {$i18n.t('excludeNotEquipped', { ns: 'filter' })}
         </label>
       </div>
     {/each}

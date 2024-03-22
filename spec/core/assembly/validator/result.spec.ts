@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest'
 import type { Assembly } from '~core/assembly/assembly.ts'
 import { failure, success } from '~core/assembly/random/validator/result'
+
+import { describe, expect, it } from 'vitest'
 
 describe('validator/result', () => {
   const assemble = { id: 'dummy' } as never as Assembly

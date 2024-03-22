@@ -1,7 +1,8 @@
-import { fc, it as fcit } from '@fast-check/vitest'
 import { random, sum } from '~core/utils/array'
-import { describe, expect, it } from 'vitest'
 import { logger } from '~core/utils/logger.ts'
+
+import { fc, it as fcit } from '@fast-check/vitest'
+import { describe, expect, it } from 'vitest'
 
 describe('utils/array', () => {
   describe(sum.name, () => {

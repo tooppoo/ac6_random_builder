@@ -1,10 +1,12 @@
-import { fc, it } from '@fast-check/vitest'
-import { describe, expect } from 'vitest'
-import type { Assembly } from '~core/assembly/assembly'
 import { randomBuild } from '~core/assembly/random/random-builder'
+
 import { tank } from '~data/types/base/category'
 import { booster, notEquipped } from '~data/types/base/classification'
 import { candidates } from '~data/versions/v1.06.1.ts'
+
+import { fc, it } from '@fast-check/vitest'
+import { describe, expect } from 'vitest'
+
 import { genCandidates, genLockedParts } from '~spec/helper.ts'
 
 describe(randomBuild.name, () => {
@@ -29,30 +31,6 @@ describe(randomBuild.name, () => {
       const actual = randomBuild(candidates)
 
       expect(Object.values(actual)).not.toContain(undefined)
-    },
-  )
-  it.prop([genCandidates()])(
-    'should contain all parts as key',
-    (candidates) => {
-      const assembly = randomBuild(candidates)
-      const expected: Array<keyof Assembly> = [
-        'rightArmUnit',
-        'leftArmUnit',
-        'rightBackUnit',
-        'leftBackUnit',
-        'head',
-        'arms',
-        'core',
-        'legs',
-        'booster',
-        'fcs',
-        'generator',
-        'expansion',
-      ]
-
-      expect(assembly.keys.toSorted()).toEqual(
-        expect.arrayContaining(expected.sort()),
-      )
     },
   )
   describe('with lock', () => {

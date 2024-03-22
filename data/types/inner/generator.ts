@@ -1,6 +1,7 @@
 import type * as Category from '~data/types/base/category.ts'
 import type * as Classification from '~data/types/base/classification.ts'
 import type { Manufacture } from '~data/types/base/manufacture'
+
 import type { ACParts } from '../base/types'
 
 export const defineGenerator = <M extends Manufacture>(d: Generator<M>) => d

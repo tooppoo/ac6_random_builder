@@ -1,13 +1,14 @@
-import eslint from '@eslint/js'
 import { FlatCompat } from '@eslint/eslintrc'
+import eslint from '@eslint/js'
 import tsParser from '@typescript-eslint/parser'
+import importPlugin from 'eslint-plugin-import'
 import globals from 'globals'
 import svelteParser from 'svelte-eslint-parser'
-import tsEslint from 'typescript-eslint'
+import { config as tsConfig, configs as tsConfigs } from 'typescript-eslint'
 
 const compat = new FlatCompat()
 
-export default tsEslint.config(
+export default tsConfig(
   {
     ignores: ['dist/**/*', 'coverage/**/*'],
   },
@@ -35,14 +36,78 @@ export default tsEslint.config(
     },
   },
   eslint.configs.recommended,
-  ...tsEslint.configs.recommended,
+  ...tsConfigs.recommended,
   ...compat.extends('plugin:svelte/recommended'),
+  {
+    // https://github.com/import-js/eslint-plugin-import/issues/2556#issuecomment-1419518561
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 'esnext',
+        sourceType: 'module',
+      },
+    },
+    plugins: { import: importPlugin },
+    settings: {
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.js'],
+      },
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
+    },
+    rules: {
+      ...importPlugin.configs.recommended.rules,
+      ...importPlugin.configs.typescript.rules,
+      'import/order': [
+        'error',
+        {
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+          'newlines-between': 'always',
+          pathGroups: [
+            {
+              pattern: '~core/**',
+              group: 'builtin',
+              position: 'before',
+            },
+            {
+              pattern: '~view/**',
+              group: 'builtin',
+              position: 'after',
+            },
+            {
+              pattern: '~data/**',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '~root/**',
+              group: 'parent',
+              position: 'before',
+            },
+          ],
+          distinctGroup: true,
+        },
+      ],
+    },
+  },
   {
     rules: {
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },
+      ],
+      'no-multiple-empty-lines': [
+        'error',
+        {
+          max: 1,
+          maxBOF: 1,
+          maxEOF: 1,
+        },
       ],
     },
   },

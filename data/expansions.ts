@@ -1,4 +1,5 @@
 import { expansion } from '~data/types/base/classification.ts'
+
 import { defineNotEquipped } from './types/base/types'
 import {
   type AsAssaultArmor,

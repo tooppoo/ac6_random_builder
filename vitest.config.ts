@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config'
+
 import viteConfig from './vite.config.ts'
 
 export default defineConfig({
@@ -7,7 +8,7 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'lcov'],
       all: true,
-      exclude: ['src/view/main.ts', '*.config.*'],
+      exclude: ['src/view/index.ts', '*.config.*'],
     },
     environment: 'jsdom',
     setupFiles: ['./vitest-setup.ts'],

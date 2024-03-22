@@ -1,8 +1,10 @@
-import sinon from 'sinon'
-import { it } from '@fast-check/vitest'
-import { genCandidates } from '~spec/helper.ts'
-import { afterEach, describe, expect } from 'vitest'
 import { type PartsFilter, PartsFilterSet } from '~core/assembly/filter/base.ts'
+
+import { it } from '@fast-check/vitest'
+import sinon from 'sinon'
+import { afterEach, describe, expect } from 'vitest'
+
+import { genCandidates } from '~spec/helper.ts'
 
 describe(PartsFilterSet.name, () => {
   const sandbox = sinon.createSandbox()

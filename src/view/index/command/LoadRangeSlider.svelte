@@ -1,14 +1,19 @@
 <script lang="ts">
-  import Dropdown from "bootstrap/js/dist/dropdown";
-  import type {Action} from "svelte/action";
-  import {createEventDispatcher} from "svelte";
-  import { type Assembly } from "~core/assembly/assembly.ts"
+  import type {AssemblyKey, Assembly } from "~core/assembly/assembly.js";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
+
+  import i18n from '~view/i18n/define.ts'
+  import LockBadge from "~view/index/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/index/status/StatusBadgeList.svelte";
+
   import type {Candidates} from "~data/types/candidates.ts";
-  import LockBadge from "~view/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/status/StatusBadgeList.svelte";
+
+  import Dropdown from "bootstrap/js/dist/dropdown";
+  import {createEventDispatcher} from "svelte";
+  import type {Action} from "svelte/action";
+
   import RangeSlider from './base/RangeSlider.svelte'
 
   // state
@@ -32,7 +37,7 @@
     dispatch('change', { value })
   }
   const onToggleLock = () => {
-    dispatch('toggle-lock', { value: !lock.isLocking('legs') })
+    dispatch('toggle-lock', { id: 'legs', value: !lock.isLocking('legs') })
   }
 
   // setup
@@ -62,7 +67,7 @@
   }
   const dispatch = createEventDispatcher<{
     change: { value: number },
-    'toggle-lock': { value: boolean },
+    'toggle-lock': { id: AssemblyKey, value: boolean },
   }>()
 
   const dropdown: Action = (node) => {
@@ -72,7 +77,7 @@
 
 <RangeSlider
   id="load" class={$$props.class}
-  label="積載量上限"
+  label={$i18n.t('maxLoadLimit', { ns: 'filter' })}
   max={max}
   min={min}
   value={value}
@@ -81,7 +86,14 @@
 >
   <StatusBadgeList class="ms-2" slot="status">
     {#if lock.isLocking('legs')}
-      <LockBadge titleWhenLocked="脚部を固定しています" locked={true} />
+      <LockBadge
+        titleWhenLocked={
+          $i18n.t('lock:locking', {
+            part: $i18n.t('legs', { ns: 'assembly' })
+          })
+        }
+        locked={true}
+      />
     {/if}
   </StatusBadgeList>
   <div
@@ -96,13 +108,25 @@
       <li>
         <button class="dropdown-item" on:click={onToggleLock}>
           {#if lock.isLocking('legs')}
-            脚部固定を解除
+            {
+              $i18n.t('lock:unlockAt', {
+                part: $i18n.t('legs', { ns: 'assembly' })
+              })
+            }
           {:else}
-            脚部を固定
+            {
+              $i18n.t('lock:lockAt', {
+                part: $i18n.t('legs', { ns: 'assembly' })
+              })
+            }
           {/if}
         </button>
       </li>
-      <li><button class="dropdown-item" on:click={onSetLoadLimit}>脚部の積載上限を適用</button></li>
+      <li>
+        <button class="dropdown-item" on:click={onSetLoadLimit}>
+          { $i18n.t('applyCurrentLegsLoadLimit', { ns: 'filter' }) }
+        </button>
+      </li>
     </ul>
   </div>
 </RangeSlider>

@@ -12,6 +12,7 @@ import {
   rubicon_research_institute,
   schneider,
 } from '~data/types/base/manufacture.ts'
+
 import { defineHead } from './types/frame/types'
 
 export const heads = [

@@ -1,5 +1,7 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
+
 import { notEquipped } from '~data/types/base/classification.ts'
+
 import type { Validator } from './base.ts'
 import { failure, success, type ValidationResult } from './result.ts'
 

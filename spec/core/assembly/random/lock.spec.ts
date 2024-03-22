@@ -1,11 +1,14 @@
-import { it, fc, test } from '@fast-check/vitest'
-import { describe, expect } from 'vitest'
 import { LockedParts } from '~core/assembly/random/lock.ts'
 import { random } from '~core/utils/array.ts'
+
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
 import { booster, notEquipped } from '~data/types/base/classification.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'
+
+import { it, fc, test } from '@fast-check/vitest'
+import { describe, expect } from 'vitest'
+
 import { genAssembly, genAssemblyKeys, genLockedParts } from '~spec/helper.ts'
 
 describe(LockedParts.name, () => {

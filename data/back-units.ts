@@ -1,4 +1,5 @@
 import { defineNotEquipped } from '~data/types/base/types.ts'
+
 import {
   active_homing_missile,
   bullet_orbit,

@@ -1,8 +1,15 @@
 
 <script lang="ts">
-  import {type Assembly, type AssemblyKey, assemblyKeys, createAssembly, spaceByWord} from "~core/assembly/assembly.ts"
+  import {
+    type Assembly,
+    type AssemblyKey,
+    assemblyKeys,
+    type AssemblyProperty,
+    createAssembly,
+    spaceByWord
+  } from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
-  import {excludeNotEquipped} from "~core/assembly/filter/filters.ts";
+  import {excludeNotEquipped, notUseHanger} from "~core/assembly/filter/filters.ts";
   import {LockedParts} from "~core/assembly/random/lock.ts";
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
@@ -31,6 +38,8 @@
   import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
 
+  import type {ReportStatus} from "src/view/index/report/ReportItem.svelte";
+
   const appVersion = appPackage.version
   const tryLimit = 3000
 
@@ -42,6 +51,24 @@
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState = initialFilterState()
   $: candidates = applyFilter(initialCandidates, filter)
+
+  let reportItems: readonly {
+    key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,
+    status: ReportStatus
+  }[]
+  $: {
+    if (assembly) {
+      reportItems = [
+        { key: 'ap', status: 'normal' },
+        { key: 'weight', status: 'normal' },
+        { key: 'load', status: assembly.withinLoadLimit ? 'normal' : 'danger' },
+        { key: 'loadLimit', status: assembly.withinLoadLimit ? 'normal' : 'danger' },
+        { key: 'enLoad', status: assembly.withinEnOutput ? 'normal' : 'danger' },
+        { key: 'enOutput', status: assembly.withinEnOutput ? 'normal' : 'danger' },
+        { key: 'coam', status: 'normal' },
+      ]
+    }
+  }
 
   // handler
   const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
@@ -155,6 +182,16 @@
       {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
     </button>
     <button
+      id="exclude-all-not-equipped"
+      on:click={() => {
+        filter = enableFilterOnAllParts(notUseHanger.name, filter)
+        assembly = assemblyWithHeadParts(candidates)
+      }}
+      class="my-3 w-100 p-2"
+    >
+      {$i18n.t('notUseAllHanger', { ns: 'filter' })}
+    </button>
+    <button
       id="reset-filter"
       on:click={() => filter = initialFilterState()}
       class="my-3 w-100 p-2"
@@ -183,45 +220,14 @@
 
   <ToolSection id="assembly-report" class="container mw-100 mx-0 my-4 w-100">
     <div class="row mb-3">
-      <ReportItem
-        caption={$i18n.t('ap', { ns: 'assembly' })}
-        class="mb-3"
-        value={assembly.ap}
-      />
-      <ReportItem
-        caption={$i18n.t('weight', { ns: 'assembly' })}
-        class="mb-3"
-        value={assembly.weight}
-      />
-      <ReportItem
-        caption={$i18n.t('load', { ns: 'assembly' })}
-        class="mb-3"
-        value={assembly.load}
-        status={assembly.withinLoadLimit ? 'normal' : 'danger'}
-      />
-      <ReportItem
-        caption={$i18n.t('loadLimit', { ns: 'assembly' })}
-        class="mb-3"
-        value={assembly.loadLimit}
-        status={assembly.withinLoadLimit ? 'normal' : 'danger'}
-      />
-      <ReportItem
-        caption={$i18n.t('enLoad', { ns: 'assembly' })}
-        class="mb-3"
-        value={assembly.enLoad}
-        status={assembly.withinEnOutput ? 'normal' : 'danger'}
-      />
-      <ReportItem
-        caption={$i18n.t('enOutput', { ns: 'assembly' })}
-        class="mb-3"
-        value={assembly.enOutput}
-        status={assembly.withinEnOutput ? 'normal' : 'danger'}
-      />
-      <ReportItem
-        caption={$i18n.t('coam', { ns: 'assembly' })}
-        class="mb-3"
-        value={assembly.coam}
-      />
+      {#each reportItems as { key, status }}
+        <ReportItem
+          caption={$i18n.t(key, { ns: 'assembly' })}
+          class="mb-3"
+          value={assembly[key]}
+          status={status}
+        />
+      {/each}
     </div>
   </ToolSection>
 </article>

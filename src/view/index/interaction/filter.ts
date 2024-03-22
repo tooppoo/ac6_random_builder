@@ -7,7 +7,10 @@ import {
   PartsFilterSet,
   type ReadonlyPartsFilterState,
 } from '~core/assembly/filter/base.ts'
-import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
+import {
+  excludeNotEquipped,
+  notUseHanger,
+} from '~core/assembly/filter/filters.ts'
 import { logger } from '~core/utils/logger.ts'
 
 import { boosterNotEquipped } from '~data/booster.ts'
@@ -119,8 +122,8 @@ export function changePartsFilter({
   if (!state.current.id) return state
 
   const updated = changed.enabled
-    ? state.current.filter.disable(changed.key)
-    : state.current.filter.enable(changed.key)
+    ? state.current.filter.disable(changed.filter.name)
+    : state.current.filter.enable(changed.filter.name)
 
   state.current.filter = updated
   state.map[state.current.id] = updated
@@ -162,13 +165,13 @@ function setupFilter(key: AssemblyKey): PartsFilterSet {
   switch (key) {
     case 'rightArmUnit':
     case 'leftArmUnit':
+    case 'expansion':
+      return PartsFilterSet.empty.add(excludeNotEquipped.build(key))
     case 'rightBackUnit':
     case 'leftBackUnit':
-    case 'expansion':
-      return PartsFilterSet.empty.add(
-        excludeNotEquipped.name,
-        excludeNotEquipped.build(key),
-      )
+      return PartsFilterSet.empty
+        .add(excludeNotEquipped.build(key))
+        .add(notUseHanger.build(key))
     default:
       return PartsFilterSet.empty
   }

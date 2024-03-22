@@ -14,7 +14,6 @@ interface PartsFilterMap {
 
 export type ReadonlyPartsFilterState = Readonly<PartsFilterState>
 interface PartsFilterState {
-  readonly key: string
   readonly filter: PartsFilter
   enabled: boolean
 }
@@ -30,11 +29,10 @@ export class PartsFilterSet {
     return this.enableFilters.reduce((acc, f) => f.apply(acc), candidates)
   }
 
-  add(key: string, filter: PartsFilter): PartsFilterSet {
+  add(filter: PartsFilter): PartsFilterSet {
     return new PartsFilterSet({
       ...this.map,
-      [key]: {
-        key,
+      [filter.name]: {
         filter,
         enabled: false,
       },

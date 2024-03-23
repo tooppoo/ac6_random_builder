@@ -46,11 +46,17 @@
   // state
   let initialCandidates: Candidates
   let candidates: Candidates
+  $: {
+    if (initialCandidates && filter && assembly) {
+      console.log({ initialCandidates, filter, assembly })
+      candidates = applyFilter(initialCandidates, filter, { assembly })
+    }
+  }
+
   let assembly: Assembly
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
-  let filter: FilterState = initialFilterState()
-  $: candidates = applyFilter(initialCandidates, filter, { assembly })
+  let filter: FilterState
 
   let reportItems: readonly {
     key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,
@@ -104,6 +110,7 @@
     const version = await getCandidates('v1.06.1')
 
     initialCandidates = candidates = version.candidates
+    filter = initialFilterState(initialCandidates)
 
     assembly = createAssembly({
       rightArmUnit: armNotEquipped,
@@ -193,7 +200,7 @@
     </button>
     <button
       id="reset-filter"
-      on:click={() => filter = initialFilterState()}
+      on:click={() => filter = initialFilterState(initialCandidates)}
       class="my-3 w-100 p-2"
     >
       {$i18n.t('resetAllFilter', { ns: 'filter' })}
@@ -249,7 +256,7 @@
   current={filter.current}
   on:toggle={(ev) => filter.open = ev.detail.open}
   on:check-filter={({ detail }) => {
-    filter = changePartsFilter({ changed: detail.target, state: filter })
+    filter = changePartsFilter({ target: detail.target, state: filter })
 
     assembly = assemblyWithHeadParts(candidates)
   }}

@@ -39,7 +39,7 @@ export class PartsFilterSet {
   private constructor(private readonly map: PartsFilterMap) {}
 
   apply(candidates: Candidates, context: FilterApplyContext): Candidates {
-    return this.enableFilters.reduce(
+    return this.enableFilters(this.listAll).reduce(
       (acc, f) => f.apply(acc, context),
       candidates,
     )
@@ -57,7 +57,7 @@ export class PartsFilterSet {
   }
 
   isEnabled(filterName: string) {
-    return this.enableFilters.some((f) => f.name === filterName)
+    return this.enableFilters(this.list).some((f) => f.name === filterName)
   }
   enable(key: string): PartsFilterSet {
     return this.toggle(key, true)
@@ -67,11 +67,11 @@ export class PartsFilterSet {
   }
 
   get list(): ReadonlyPartsFilterState[] {
-    return Object.values(this.map).filter((f) => !f.private)
+    return this.listAll.filter((f) => !f.private)
   }
 
   get containEnabled(): boolean {
-    return this.enableFilters.length > 0
+    return this.enableFilters(this.list).length > 0
   }
 
   private toggle(key: string, state: boolean): PartsFilterSet {
@@ -94,9 +94,10 @@ export class PartsFilterSet {
     })
   }
 
-  private get enableFilters(): PartsFilter[] {
-    return this.list
-      .filter(({ enabled }) => enabled)
-      .map(({ filter }) => filter)
+  private enableFilters(list: PartsFilterState[]): PartsFilter[] {
+    return list.filter(({ enabled }) => enabled).map(({ filter }) => filter)
+  }
+  private get listAll(): PartsFilterState[] {
+    return Object.values(this.map)
   }
 }

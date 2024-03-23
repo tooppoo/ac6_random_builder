@@ -9,6 +9,7 @@ import {
   type ReadonlyPartsFilterState,
 } from '~core/assembly/filter/base.ts'
 import {
+  assumeConstraintLegsAndBooster,
   excludeNotEquipped,
   notUseHanger,
 } from '~core/assembly/filter/filters.ts'
@@ -29,28 +30,34 @@ export interface CurrentFilter {
   filter: PartsFilterSet
 }
 
-export const initialFilterState = (): FilterState => ({
-  open: false,
-  map: {
-    rightArmUnit: setupFilter('rightArmUnit'),
-    leftArmUnit: setupFilter('leftArmUnit'),
-    rightBackUnit: setupFilter('rightBackUnit'),
-    leftBackUnit: setupFilter('leftBackUnit'),
-    head: setupFilter('head'),
-    core: setupFilter('core'),
-    arms: setupFilter('arms'),
-    legs: setupFilter('legs'),
-    booster: setupFilter('booster'),
-    fcs: setupFilter('fcs'),
-    generator: setupFilter('generator'),
-    expansion: setupFilter('expansion'),
-  },
-  current: {
-    id: null,
-    name: '',
-    filter: PartsFilterSet.empty,
-  },
-})
+export const initialFilterState = (
+  initialCandidates: Candidates,
+): FilterState => {
+  const setup = (key: AssemblyKey) => setupFilter(key, initialCandidates)
+
+  return {
+    open: false,
+    map: {
+      rightArmUnit: setup('rightArmUnit'),
+      leftArmUnit: setup('leftArmUnit'),
+      rightBackUnit: setup('rightBackUnit'),
+      leftBackUnit: setup('leftBackUnit'),
+      head: setup('head'),
+      core: setup('core'),
+      arms: setup('arms'),
+      legs: setup('legs'),
+      booster: setup('booster'),
+      fcs: setup('fcs'),
+      generator: setup('generator'),
+      expansion: setup('expansion'),
+    },
+    current: {
+      id: null,
+      name: '',
+      filter: PartsFilterSet.empty,
+    },
+  }
+}
 
 export function applyFilter(
   candidates: Candidates,
@@ -99,7 +106,7 @@ export function toggleFilter(
   key: AssemblyKey,
   state: FilterState,
 ): FilterState {
-  const filter = state.map[key] || setupFilter(key)
+  const filter = state.map[key]
 
   return {
     open: !state.open,
@@ -116,24 +123,27 @@ export function toggleFilter(
 }
 
 export function changePartsFilter({
-  changed,
+  target,
   state,
 }: {
-  changed: ReadonlyPartsFilterState
+  target: ReadonlyPartsFilterState
   state: FilterState
 }): FilterState {
-  logger.debug('changePartsFilter begin', { changed, state: { ...state } })
+  logger.debug('changePartsFilter begin', { target, state })
 
   if (!state.current.id) return state
 
-  const updated = changed.enabled
-    ? state.current.filter.disable(changed.filter.name)
-    : state.current.filter.enable(changed.filter.name)
+  const updated = target.enabled
+    ? state.current.filter.disable(target.filter.name)
+    : state.current.filter.enable(target.filter.name)
 
   state.current.filter = updated
   state.map[state.current.id] = updated
 
-  logger.debug('changePartsFilter end', { changed, state: { ...state } })
+  logger.debug('changePartsFilter end', {
+    changed: target,
+    state,
+  })
 
   return state
 }
@@ -166,22 +176,30 @@ export function anyFilterContain(
   return getFilter(key, state).list.length > 0
 }
 
-function setupFilter(key: AssemblyKey): PartsFilterSet {
+function setupFilter(
+  key: AssemblyKey,
+  initialCandidates: Candidates,
+): PartsFilterSet {
+  const base = PartsFilterSet.empty.add(
+    assumeConstraintLegsAndBooster.build(initialCandidates),
+    { enabled: true, private: true },
+  )
+
   switch (key) {
     case 'rightArmUnit':
     case 'leftArmUnit':
     case 'expansion':
-      return PartsFilterSet.empty.add(excludeNotEquipped.build(key))
+      return base.add(excludeNotEquipped.build(key))
     case 'rightBackUnit':
     case 'leftBackUnit':
-      return PartsFilterSet.empty
+      return base
         .add(excludeNotEquipped.build(key))
         .add(notUseHanger.build(key))
     default:
-      return PartsFilterSet.empty
+      return base
   }
 }
 
 function getFilter(key: AssemblyKey, state: FilterState): PartsFilterSet {
-  return state.map[key] || setupFilter(key)
+  return state.map[key]
 }

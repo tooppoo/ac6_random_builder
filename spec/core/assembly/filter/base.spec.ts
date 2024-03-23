@@ -1,6 +1,6 @@
 import { type PartsFilter, PartsFilterSet } from '~core/assembly/filter/base.ts'
 
-import { it } from '@fast-check/vitest'
+import { fc, it } from '@fast-check/vitest'
 import sinon from 'sinon'
 import { afterEach, describe, expect } from 'vitest'
 
@@ -28,19 +28,9 @@ describe(PartsFilterSet.name, () => {
           return s
         })
 
-      const sut1 = (() => {
-        const [f1, f2, f3, f4] = filters
-
-        return PartsFilterSet.empty
-          .add(f1)
-          .enable('1')
-          .add(f2)
-          .enable('2')
-          .add(f3)
-          .enable('3')
-          .add(f4)
-          .enable('4')
-      })().disable('4')
+      const sut1 = filters
+        .reduce((acc, f) => acc.add(f, { enabled: true }), PartsFilterSet.empty)
+        .disable('4')
 
       expect(sut1.apply(candidates, context)).to.deep.equals(candidates, 'sut1')
       expect(stubs.map((s) => s.callCount)).to.deep.equals([1, 1, 1, 0], 'sut1')
@@ -58,4 +48,86 @@ describe(PartsFilterSet.name, () => {
       expect(stubs.map((s) => s.callCount)).to.deep.equals([4, 1, 2, 1], 'sut4')
     },
   )
+
+  it('should not change state via enable / disable', () => {
+    const filters = [...new Array(4)].map<PartsFilter>((_, i) => ({
+      name: `${i + 1}`,
+      apply: (_) => _,
+    }))
+    const sut = filters.reduce(
+      (acc, f) => acc.add(f, { enabled: true }),
+      PartsFilterSet.empty,
+    )
+
+    const updated = sut.disable('1').disable('2').disable('3').disable('4')
+
+    expect(updated).not.toEqual(sut)
+  })
+
+  describe('private filter', () => {
+    const buildSetFromPair = (
+      stat: { enabled: boolean },
+      pairs: { name: string; private: boolean }[],
+    ) =>
+      pairs.reduce(
+        (acc, p) =>
+          acc.add(
+            {
+              name: p.name,
+              apply: (_) => _,
+            },
+            { enabled: stat.enabled, private: p.private },
+          ),
+        PartsFilterSet.empty,
+      )
+
+    it.prop([genNameAndPrivatePair()])(
+      'list filters without private filter',
+      (pairs) => {
+        const set = buildSetFromPair({ enabled: true }, pairs)
+
+        const actual = set.list.map((s) => s.filter.name)
+        const expected = pairs.filter((x) => !x.private).map((x) => x.name)
+
+        expect(actual.toSorted()).to.deep.equals(expected.toSorted())
+      },
+    )
+    it.prop([
+      genNameAndPrivatePair().filter((ps) => ps.every((p) => p.private)),
+    ])('ignore enable message for private filter', (pairs) => {
+      const set = buildSetFromPair({ enabled: false }, pairs)
+      const updated = pairs.reduce((acc, { name }) => acc.enable(name), set)
+
+      console.log({ set, updated })
+
+      expect(updated).toStrictEqual(set)
+    })
+    it.prop([
+      genNameAndPrivatePair().filter((ps) => ps.every((p) => p.private)),
+    ])('ignore disable message for private filter', (pairs) => {
+      const set = buildSetFromPair({ enabled: true }, pairs)
+      const updated = pairs.reduce((acc, { name }) => acc.disable(name), set)
+
+      expect(updated).toStrictEqual(set)
+    })
+  })
 })
+
+const genNameAndPrivatePair = () =>
+  fc
+    .uniqueArray(fc.string({ minLength: 1 }))
+    .chain((names) =>
+      fc.record({
+        names: fc.constant(names),
+        privates: fc.array(fc.boolean(), {
+          minLength: names.length,
+          maxLength: names.length,
+        }),
+      }),
+    )
+    .map(({ names, privates }) =>
+      names.map((name, i) => ({
+        name,
+        private: privates[i],
+      })),
+    )

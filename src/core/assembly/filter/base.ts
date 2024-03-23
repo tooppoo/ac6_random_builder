@@ -21,7 +21,15 @@ export type ReadonlyPartsFilterState = Readonly<PartsFilterState>
 interface PartsFilterState {
   readonly filter: PartsFilter
   enabled: boolean
+  private: boolean
 }
+
+type AddFilterOption = Readonly<
+  Partial<{
+    enabled: boolean
+    private: boolean
+  }>
+>
 
 export class PartsFilterSet {
   static get empty(): PartsFilterSet {
@@ -37,12 +45,13 @@ export class PartsFilterSet {
     )
   }
 
-  add(filter: PartsFilter): PartsFilterSet {
+  add(filter: PartsFilter, opt: AddFilterOption = {}): PartsFilterSet {
     return new PartsFilterSet({
       ...this.map,
       [filter.name]: {
         filter,
-        enabled: false,
+        enabled: opt.enabled || false,
+        private: opt.private || false,
       },
     })
   }
@@ -58,7 +67,7 @@ export class PartsFilterSet {
   }
 
   get list(): ReadonlyPartsFilterState[] {
-    return Object.values(this.map)
+    return Object.values(this.map).filter((f) => !f.private)
   }
 
   get containEnabled(): boolean {
@@ -66,12 +75,23 @@ export class PartsFilterSet {
   }
 
   private toggle(key: string, state: boolean): PartsFilterSet {
-    const copy = { ...this.map }
-    copy[key] && (copy[key].enabled = state)
+    const target = { ...this.map[key] }
 
-    logger.debug(`${this.constructor.name}#toggle`, { copy, key })
+    logger.debug(`${this.constructor.name}#toggle`, {
+      target,
+      key,
+      map: this.map,
+    })
 
-    return new PartsFilterSet(copy)
+    if (target.private) return this
+
+    return new PartsFilterSet({
+      ...this.map,
+      [key]: {
+        ...target,
+        enabled: state,
+      },
+    })
   }
 
   private get enableFilters(): PartsFilter[] {

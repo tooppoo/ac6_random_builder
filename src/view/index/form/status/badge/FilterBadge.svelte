@@ -23,7 +23,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
 <BaseStatusBadge
-  class={classes}
+  class={`${$$props.class || ''} ${classes}`}
   data-clickable={true}
   title={title}
   clickable={true}

@@ -58,11 +58,12 @@
   <div class="row text-start">
     <label
       for={id}
-      class="p-0 col-12 col-sm-5 fs-4 d-flex justify-content-between"
+      class="mb-1 mb-sm-0 p-0 col-12 col-sm-5 fs-5 d-flex justify-content-between"
     >
       {caption}
       <StatusBadgeList>
         <LockBadge
+          class="me-sm-2"
           titleWhenLocked={$i18n.t('locked', { ns: 'lock' })}
           titleWhenUnlocked={$i18n.t('unlocked', { ns: 'lock' })}
           locked={lock.isLocking(id)}
@@ -71,6 +72,7 @@
         />
         {#if anyFilterContain(id, filter)}
           <FilterBadge
+            class="ms-2 ms-sm-0 me-sm-2"
             title={$i18n.t('filterByParts.description', { ns: 'filter' })}
             applied={anyFilterEnabled(id, filter)}
             on:click={onToggleFilter}

@@ -140,14 +140,16 @@
   <NavButton
     slot="random"
     class="me-3"
+    title={$i18n.t('command.random.description', { ns: 'page/index' })}
     on:click={onRandom}
   >
     <i slot="icon" class="bi bi-tools"></i>
-    {$i18n.t('command.random', { ns: 'pageIndex' })}
+    {$i18n.t('command.random.label', { ns: 'page/index' })}
   </NavButton>
   <NavButton
     slot="reset-lock"
     class="me-3"
+    title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
     on:click={() => lockedParts = LockedParts.empty}
   >
     <i slot="icon" class="bi bi-unlock"></i>
@@ -155,6 +157,7 @@
   </NavButton>
   <NavButton
     slot="filter"
+    title={$i18n.t('command.filterForWhole.description', { ns: 'page/index' })}
     on:click={() => openWholeFilter = true}
   >
     <i slot="icon" class="bi bi-filter-square"></i>

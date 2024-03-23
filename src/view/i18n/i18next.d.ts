@@ -10,7 +10,7 @@ declare module 'i18next' {
       assembly: typeof jaAssembly
       lock: typeof jaLock
       filter: typeof jaFilter
-      pageIndex: typeof jaPageIndex
+      'page/index': typeof jaPageIndex
     }
   }
 }

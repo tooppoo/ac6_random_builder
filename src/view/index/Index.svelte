@@ -25,6 +25,7 @@
     initialFilterState,
     toggleFilter
   } from "~view/index/interaction/filter.ts";
+  import NavButton from "~view/index/layout/navbar/NavButton.svelte";
 
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
@@ -134,37 +135,28 @@
   <div>loading...</div>
 {:then version}
 <Navbar>
-  <button
+  <NavButton
     slot="random"
-    class="btn btn-secondary bg-dark-subtle me-3"
+    class="me-3"
     on:click={onRandom}
   >
-    <i class="bi bi-tools"></i>
-    <span class="d-none d-sm-inline">
-      {$i18n.t('command.random', { ns: 'pageIndex' })}
-    </span>
-  </button>
-  <button
+    <i slot="icon" class="bi bi-tools"></i>
+    {$i18n.t('command.random', { ns: 'pageIndex' })}
+  </NavButton>
+  <NavButton
     slot="reset-lock"
-    id="reset-lock"
+    class="me-3"
     on:click={() => lockedParts = LockedParts.empty}
-    class="btn btn-secondary bg-dark-subtle me-3"
   >
-    <i class="bi bi-unlock"></i>
-    <span class="d-none d-sm-inline">
-      {$i18n.t('resetAllLock', { ns: 'lock' })}
-    </span>
-  </button>
-  <button
+    <i slot="icon" class="bi bi-unlock"></i>
+    {$i18n.t('resetAllLock', { ns: 'lock' })}
+  </NavButton>
+  <NavButton
     slot="filter"
-    id="filter"
-    class="btn btn-secondary bg-dark-subtle me-3"
   >
-    <i class="bi bi-filter-square"></i>
-    <span class="d-none d-sm-inline">
-      {$i18n.t('filter', { ns: 'filter' })}
-    </span>
-  </button>
+    <i slot="icon" class="bi bi-filter-square"></i>
+    {$i18n.t('filter', { ns: 'filter' })}
+  </NavButton>
 </Navbar>
 
 <header class="text-center mt-5">

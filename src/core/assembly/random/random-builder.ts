@@ -98,7 +98,7 @@ export function randomBuild(
   }
 }
 
-function assertBoosterEquipped(
+export function assertBoosterEquipped(
   b: RawAssembly['booster'],
 ): asserts b is Booster {
   if (b.classification === notEquipped)

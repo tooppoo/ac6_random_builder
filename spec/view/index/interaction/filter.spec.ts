@@ -103,6 +103,19 @@ describe('filter interaction', () => {
       ).to.equals(!enabledOldState, 'switched enabled state')
     },
   )
+  it.prop([
+    genAssemblyKey({
+      only: ['rightArmUnit', 'leftArmUnit', 'rightBackUnit', 'leftBackUnit'],
+    }),
+    genInitialFilterState(),
+  ])('return same state when', (key, state) => {
+    const updated = changePartsFilter({
+      target: random(state.map[key].list),
+      state,
+    })
+
+    expect(updated).toBe(state)
+  })
 
   it.prop([
     genAssemblyKey({

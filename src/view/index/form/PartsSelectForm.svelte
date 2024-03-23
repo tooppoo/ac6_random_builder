@@ -71,6 +71,7 @@
         />
         {#if anyFilterContain(id, filter)}
           <FilterBadge
+            title={$i18n.t('filterByParts.description', { ns: 'filter' })}
             applied={anyFilterEnabled(id, filter)}
             on:click={onToggleFilter}
           />

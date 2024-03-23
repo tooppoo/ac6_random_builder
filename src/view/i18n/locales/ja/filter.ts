@@ -8,4 +8,7 @@ export const jaFilter = {
   maxCoamLimit: '最大$t(assembly:coam)',
   maxLoadLimit: '最大$t(assembly:load)',
   applyCurrentLegsLoadLimit: '$t(assembly:legs)の$t(assembly:load)を適用',
+  filterByParts: {
+    description: '選択するパーツの<br>条件を設定する',
+  },
 }

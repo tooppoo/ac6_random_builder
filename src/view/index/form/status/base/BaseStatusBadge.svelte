@@ -31,7 +31,9 @@ const dispatch = createEventDispatcher<{ click: null }>()
 <span
   class={$$props.class}
   data-bs-toggle="tooltip"
+  data-bs-placement="left"
   data-bs-title={title}
+  data-bs-html="true"
   data-clickable={clickable}
   use:bindTooltip
   on:click={onClick}

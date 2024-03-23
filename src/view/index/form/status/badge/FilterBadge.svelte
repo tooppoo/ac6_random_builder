@@ -4,6 +4,7 @@ import BaseStatusBadge from "~view/index/form/status/base/BaseStatusBadge.svelte
 import {createEventDispatcher} from "svelte";
 
 export let applied: boolean
+export let title: string
 
 // state
 $: classes = [
@@ -24,8 +25,8 @@ const dispatch = createEventDispatcher<{ click: null }>()
 <BaseStatusBadge
   class={classes}
   data-clickable={true}
-  title=""
+  title={title}
   clickable={true}
-  withTooltip={false}
+  withTooltip={true}
   on:click={onClick}
 />

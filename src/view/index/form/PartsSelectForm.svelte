@@ -8,10 +8,10 @@
   import type {LockedParts} from "~core/assembly/random/lock.ts";
 
   import i18n from "~view/i18n/define.ts";
+  import FilterBadge from "~view/index/form/status/badge/FilterBadge.svelte";
+  import LockBadge from "~view/index/form/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/index/form/status/StatusBadgeList.svelte";
   import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
-  import FilterBadge from "~view/index/status/badge/FilterBadge.svelte";
-  import LockBadge from "~view/index/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/index/status/StatusBadgeList.svelte";
 
   import type {Classification} from "~data/types/base/classification.ts";
   import type {BaseACParts} from "~data/types/base/types.ts";
@@ -58,11 +58,12 @@
   <div class="row text-start">
     <label
       for={id}
-      class="p-0 col-12 col-sm-5 fs-4 d-flex justify-content-between"
+      class="mb-1 mb-sm-0 p-0 col-12 col-sm-5 fs-5 d-flex justify-content-between"
     >
       {caption}
       <StatusBadgeList>
         <LockBadge
+          class="me-sm-2"
           titleWhenLocked={$i18n.t('locked', { ns: 'lock' })}
           titleWhenUnlocked={$i18n.t('unlocked', { ns: 'lock' })}
           locked={lock.isLocking(id)}
@@ -71,6 +72,8 @@
         />
         {#if anyFilterContain(id, filter)}
           <FilterBadge
+            class="ms-2 ms-sm-0 me-sm-2"
+            title={$i18n.t('filterByParts.description', { ns: 'filter' })}
             applied={anyFilterEnabled(id, filter)}
             on:click={onToggleFilter}
           />

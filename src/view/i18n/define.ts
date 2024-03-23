@@ -15,7 +15,7 @@ i18next.init({
       assembly: jaAssembly,
       filter: jaFilter,
       lock: jaLock,
-      pageIndex: jaPageIndex,
+      'page/index': jaPageIndex,
     },
   },
   interpolation: {

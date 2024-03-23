@@ -1,8 +1,7 @@
+import type { Assembly } from '~core/assembly/assembly.ts'
 import { logger } from '~core/utils/logger.ts'
 
 import type { Candidates } from '~data/types/candidates.ts'
-
-import type { Assembly } from 'src/core/assembly/assembly.ts'
 
 export interface PartsFilter {
   readonly name: string

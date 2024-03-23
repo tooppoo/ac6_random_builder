@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BaseStatusBadge from "~view/index/status/base/BaseStatusBadge.svelte";
+  import BaseStatusBadge from "~view/index/form/status/base/BaseStatusBadge.svelte";
 
   import {createEventDispatcher} from "svelte";
 
@@ -12,7 +12,7 @@
   let classes: string = ''
 
   // state
-  $: classes = ['bi'].concat(locked ? 'bi-file-lock-fill' : 'bi-file-lock').join(' ')
+  $: classes = ['bi'].concat(locked ? 'bi-lock-fill' : 'bi-unlock').join(' ')
   $: title = locked ? titleWhenLocked : titleWhenUnlocked
 
   // handler
@@ -25,7 +25,7 @@
 </script>
 
 <BaseStatusBadge
-  class={classes}
+  class={`${$$props.class || ''} ${classes}`}
   data-clickable={clickable}
   title={title}
   clickable={clickable}

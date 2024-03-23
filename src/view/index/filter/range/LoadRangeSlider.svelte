@@ -1,20 +1,19 @@
 <script lang="ts">
-  import type {AssemblyKey, Assembly } from "~core/assembly/assembly.js";
+  import type {AssemblyKey, Assembly } from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
 
   import i18n from '~view/i18n/define.ts'
-  import LockBadge from "~view/index/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/index/status/StatusBadgeList.svelte";
+  import RangeSlider from '~view/index/filter/range/base/RangeSlider.svelte'
+  import LockBadge from "~view/index/form/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/index/form/status/StatusBadgeList.svelte";
 
   import type {Candidates} from "~data/types/candidates.ts";
 
   import Dropdown from "bootstrap/js/dist/dropdown";
   import {createEventDispatcher} from "svelte";
   import type {Action} from "svelte/action";
-
-  import RangeSlider from './base/RangeSlider.svelte'
 
   // state
   export let candidates: Candidates

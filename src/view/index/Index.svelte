@@ -16,7 +16,9 @@
   import { logger } from '~core/utils/logger.ts'
 
   import i18n from "~view/i18n/define.ts";
-  import FilterOffCanvas from "~view/index/form/FilterOffCanvas.svelte";
+  import FilterOffCanvas from "~view/index/filter/FilterOffCanvas.svelte";
+  import CoamRangeSlider from "~view/index/filter/range/CoamRangeSlider.svelte";
+  import LoadRangeSlider from "~view/index/filter/range/LoadRangeSlider.svelte";
   import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
   import {
     applyFilter, assemblyWithHeadParts,
@@ -33,8 +35,6 @@
 
   import appPackage from '~root/package.json'
 
-  import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
-  import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"

@@ -8,10 +8,10 @@
   import type {LockedParts} from "~core/assembly/random/lock.ts";
 
   import i18n from "~view/i18n/define.ts";
+  import FilterBadge from "~view/index/form/status/badge/FilterBadge.svelte";
+  import LockBadge from "~view/index/form/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/index/form/status/StatusBadgeList.svelte";
   import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
-  import FilterBadge from "~view/index/status/badge/FilterBadge.svelte";
-  import LockBadge from "~view/index/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/index/status/StatusBadgeList.svelte";
 
   import type {Classification} from "~data/types/base/classification.ts";
   import type {BaseACParts} from "~data/types/base/types.ts";

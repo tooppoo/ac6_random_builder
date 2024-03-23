@@ -77,7 +77,13 @@ describe('filter interaction', () => {
       expect(toggleFilter(key, state).open).toBe(!open)
     },
   )
-  it.prop([fc.boolean(), genAssemblyKey(), genInitialFilterState()])(
+  it.prop([
+    fc.boolean(),
+    genAssemblyKey({
+      only: ['rightArmUnit', 'leftArmUnit', 'rightBackUnit', 'leftBackUnit'],
+    }),
+    genInitialFilterState(),
+  ])(
     'after apply filter, candidates are changed',
     (enabledOldState, key, initialState) => {
       const state = toggleFilter(key, initialState)
@@ -98,17 +104,19 @@ describe('filter interaction', () => {
     },
   )
 
-  it.prop([genAssemblyKey(), genInitialFilterState()])(
-    'any filter enabled',
-    (key, initialState) => {
-      const state = toggleFilter(key, initialState)
-      state.map[key] = state.map[key].enable(
-        random(state.map[key].list).filter.name,
-      )
+  it.prop([
+    genAssemblyKey({
+      only: ['rightArmUnit', 'leftArmUnit', 'rightBackUnit', 'leftBackUnit'],
+    }),
+    genInitialFilterState(),
+  ])('any filter enabled', (key, initialState) => {
+    const state = toggleFilter(key, initialState)
+    state.map[key] = state.map[key].enable(
+      random(state.map[key].list).filter.name,
+    )
 
-      expect(anyFilterEnabled(key, state)).toBe(true)
-    },
-  )
+    expect(anyFilterEnabled(key, state)).toBe(true)
+  })
 
   it.prop([
     genAssemblyKey({

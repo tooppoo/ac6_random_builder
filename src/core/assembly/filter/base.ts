@@ -57,7 +57,10 @@ export class PartsFilterSet {
   }
 
   isEnabled(filterName: string) {
-    return this.enableFilters(this.list).some((f) => f.name === filterName)
+    return (
+      this.contains(filterName) &&
+      this.enableFilters(this.list).some((f) => f.name === filterName)
+    )
   }
   enable(key: string): PartsFilterSet {
     return this.toggle(key, true)
@@ -74,7 +77,13 @@ export class PartsFilterSet {
     return this.enableFilters(this.list).length > 0
   }
 
+  private contains(name: string): boolean {
+    return !!this.map[name]
+  }
+
   private toggle(key: string, state: boolean): PartsFilterSet {
+    if (!this.contains(key)) return this
+
     const target = { ...this.map[key] }
 
     logger.debug(`${this.constructor.name}#toggle`, {

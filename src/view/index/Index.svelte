@@ -155,6 +155,16 @@
       {$i18n.t('resetAllLock', { ns: 'lock' })}
     </span>
   </button>
+  <button
+    slot="filter"
+    id="filter"
+    class="btn btn-secondary bg-dark-subtle me-3"
+  >
+    <i class="bi bi-filter-square"></i>
+    <span class="d-none d-sm-inline">
+      {$i18n.t('filter', { ns: 'filter' })}
+    </span>
+  </button>
 </Navbar>
 
 <header class="text-center mt-5">

@@ -1,4 +1,5 @@
 export const jaFilter = {
+  filter: '絞り込み',
   excludeNotEquipped: '非武装を除外する',
   notUseHanger: 'ハンガーを使用しない',
   excludeAllNotEquipped: 'すべての$t(excludeNotEquipped)',

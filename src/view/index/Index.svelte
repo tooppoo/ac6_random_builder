@@ -16,7 +16,7 @@
   import { logger } from '~core/utils/logger.ts'
 
   import i18n from "~view/i18n/define.ts";
-  import FilterOffCanvas from "~view/index/filter/FilterOffCanvas.svelte";
+  import FilterByPartsOffCanvas from "~view/index/filter/FilterByPartsOffCanvas.svelte";
   import CoamRangeSlider from "~view/index/filter/range/CoamRangeSlider.svelte";
   import LoadRangeSlider from "~view/index/filter/range/LoadRangeSlider.svelte";
   import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
@@ -263,7 +263,7 @@
   </div>
 </footer>
 
-<FilterOffCanvas
+<FilterByPartsOffCanvas
   open={filter.open}
   current={filter.current}
   on:toggle={(ev) => filter.open = ev.detail.open}

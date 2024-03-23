@@ -4,7 +4,6 @@ import { random } from '~core/utils/array.ts'
 import {
   anyFilterContain,
   anyFilterEnabled,
-  applyFilter,
   assemblyWithHeadParts,
   changePartsFilter,
   enableFilterOnAllParts,
@@ -14,16 +13,12 @@ import {
 } from '~view/index/interaction/filter.ts'
 
 import { booster, notEquipped, tank } from '~data/types/base/category.ts'
+import { candidates } from '~data/versions/v1.06.1.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import { beforeEach, describe, expect } from 'vitest'
 
-import {
-  genAssemblyKey,
-  genAssemblyKeys,
-  genCandidates,
-  genFilterApplyContext,
-} from '~spec/helper.ts'
+import { genAssemblyKey, genAssemblyKeys, genCandidates } from '~spec/helper.ts'
 
 describe('filter interaction', () => {
   describe('toggle', () => {
@@ -31,28 +26,27 @@ describe('filter interaction', () => {
       genAssemblyKeys({ minLength: 1 }),
       genAssemblyKeys(),
       genAssemblyKeys(),
-    ])('filter for each key is assumed', (k1, k2, k3) => {
+      genInitialFilterState(),
+    ])('filter for each key is assumed', (k1, k2, k3, state) => {
       const keys = [...k1, ...k2, ...k3]
-      let state = initialFilterState()
-
       keys.forEach((key, i) => {
         state = toggleFilter(key, state)
 
         expect(state.map[key], `${key} ${i}`).not.undefined
       })
     })
-    it.prop([genAssemblyKey()])(
+    it.prop([genAssemblyKey(), genInitialFilterState()])(
       `filter for specified key is used as current filter`,
-      (key) => {
-        const state = toggleFilter(key, initialFilterState())
+      (key, initialState) => {
+        const state = toggleFilter(key, initialState)
 
         expect(state.current.filter).toBe(state.map[key])
       },
     )
-    it.prop([genAssemblyKey()])(
+    it.prop([genAssemblyKey(), genInitialFilterState()])(
       `specified key is used as current id`,
-      (key) => {
-        const state = toggleFilter(key, initialFilterState())
+      (key, initialState) => {
+        const state = toggleFilter(key, initialState)
 
         expect(state.current.id).toEqual(key)
       },
@@ -72,65 +66,56 @@ describe('filter interaction', () => {
     }
   })
 
-  it.prop([fc.boolean(), genAssemblyKey()])(
+  it.prop([fc.boolean(), genAssemblyKey(), genCandidates()])(
     `open status should be reversed from before toggle`,
-    (open, key) => {
+    (open, key, candidates) => {
       const state = {
-        ...initialFilterState(),
+        ...initialFilterState(candidates),
         open,
       }
 
       expect(toggleFilter(key, state).open).toBe(!open)
     },
   )
-  it.prop([
-    fc.boolean(),
-    genAssemblyKey({
-      only: ['rightArmUnit', 'leftArmUnit', 'rightBackUnit', 'leftBackUnit'],
-    }),
-    genCandidates(),
-    genFilterApplyContext(),
-  ])(
+  it.prop([fc.boolean(), genAssemblyKey(), genInitialFilterState()])(
     'after apply filter, candidates are changed',
-    (enabled, key, oldCandidates, context) => {
-      const state = toggleFilter(key, initialFilterState())
+    (enabledOldState, key, initialState) => {
+      const state = toggleFilter(key, initialState)
       const filterState = {
         ...random(state.current.filter.list),
-        enabled,
+        enabled: enabledOldState,
       }
 
-      const updated = changePartsFilter({ changed: filterState, state })
+      const updated = changePartsFilter({ target: filterState, state })
 
-      expect(applyFilter(oldCandidates, updated, context)).toEqual(
-        updated.current.filter.apply(oldCandidates, context),
+      expect(updated.current.filter).to.deep.equals(
+        updated.map[key],
+        'current == map[key]',
       )
+      expect(
+        updated.current.filter.isEnabled(filterState.filter.name),
+      ).to.equals(!enabledOldState, 'switched enabled state')
+    },
+  )
+
+  it.prop([genAssemblyKey(), genInitialFilterState()])(
+    'any filter enabled',
+    (key, initialState) => {
+      const state = toggleFilter(key, initialState)
+      state.map[key] = state.map[key].enable(
+        random(state.map[key].list).filter.name,
+      )
+
+      expect(anyFilterEnabled(key, state)).toBe(true)
     },
   )
 
   it.prop([
-    fc.boolean(),
     genAssemblyKey({
       only: ['rightArmUnit', 'leftArmUnit', 'rightBackUnit', 'leftBackUnit'],
     }),
-  ])('any filter enabled or not', (enabledOldState, key) => {
-    const state = toggleFilter(key, initialFilterState())
-    const filterState = {
-      ...random(state.current.filter.list),
-      enabled: enabledOldState,
-    }
-
-    const updated = changePartsFilter({ changed: filterState, state })
-
-    expect(anyFilterEnabled(key, updated)).toBe(!enabledOldState)
-  })
-
-  it.prop([
-    genAssemblyKey({
-      only: ['rightArmUnit', 'leftArmUnit', 'rightBackUnit', 'leftBackUnit'],
-    }),
-  ])('filterable parts should contain any filter', (key) => {
-    const state = initialFilterState()
-
+    genInitialFilterState(),
+  ])('filterable parts should contain any filter', (key, state) => {
     expect(anyFilterContain(key, state)).toBe(true)
   })
 
@@ -139,7 +124,7 @@ describe('filter interaction', () => {
       let state: FilterState
       const filterName = excludeNotEquipped.name
       beforeEach(() => {
-        const init = initialFilterState()
+        const init = initialFilterState(candidates)
 
         state = enableFilterOnAllParts(filterName, init)
       })
@@ -186,3 +171,5 @@ describe('filter interaction', () => {
     })
   })
 })
+
+const genInitialFilterState = () => genCandidates().map(initialFilterState)

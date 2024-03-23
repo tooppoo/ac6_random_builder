@@ -17,6 +17,7 @@
 
   import i18n from "~view/i18n/define.ts";
   import FilterByPartsOffCanvas from "~view/index/filter/FilterByPartsOffCanvas.svelte";
+  import FilterForWholeOffCanvas from "~view/index/filter/FilterForWholeOffCanvas.svelte";
   import CoamRangeSlider from "~view/index/filter/range/CoamRangeSlider.svelte";
   import LoadRangeSlider from "~view/index/filter/range/LoadRangeSlider.svelte";
   import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
@@ -57,6 +58,7 @@
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState
+  let openWholeFilter: boolean
 
   let reportItems: readonly {
     key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,
@@ -153,6 +155,7 @@
   </NavButton>
   <NavButton
     slot="filter"
+    on:click={() => openWholeFilter = true}
   >
     <i slot="icon" class="bi bi-filter-square"></i>
     {$i18n.t('filter', { ns: 'filter' })}
@@ -186,55 +189,6 @@
         on:change={onChangeParts}
       />
     {/each}
-  </ToolSection>
-
-  <ToolSection id="assembly-command" class="my-4 w-100">
-
-    <button
-      id="exclude-all-not-equipped"
-      on:click={() => {
-        filter = enableFilterOnAllParts(excludeNotEquipped.name, filter)
-        assembly = assemblyWithHeadParts(candidates)
-      }}
-      class="my-3 w-100 p-2"
-    >
-      {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
-    </button>
-    <button
-      id="exclude-all-not-equipped"
-      on:click={() => {
-        filter = enableFilterOnAllParts(notUseHanger.name, filter)
-        assembly = assemblyWithHeadParts(candidates)
-      }}
-      class="my-3 w-100 p-2"
-    >
-      {$i18n.t('notUseAllHanger', { ns: 'filter' })}
-    </button>
-    <button
-      id="reset-filter"
-      on:click={() => filter = initialFilterState(initialCandidates)}
-      class="my-3 w-100 p-2"
-    >
-      {$i18n.t('resetAllFilter', { ns: 'filter' })}
-    </button>
-
-    <CoamRangeSlider
-      class="my-3 w-100"
-      candidates={candidates}
-      on:change={(ev) =>
-        randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
-      }
-    />
-    <LoadRangeSlider
-      class="my-3 w-100"
-      candidates={candidates}
-      assembly={assembly}
-      lock={lockedParts}
-      on:change={(ev) =>
-        randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
-      }
-      on:toggle-lock={onLock}
-    />
   </ToolSection>
 
   <ToolSection id="assembly-report" class="container mw-100 mx-0 my-4 w-100">
@@ -273,6 +227,56 @@
     assembly = assemblyWithHeadParts(candidates)
   }}
 />
+<FilterForWholeOffCanvas
+  open={openWholeFilter}
+  on:toggle={(ev) => openWholeFilter = ev.detail.open}
+>
+  <button
+    id="exclude-all-not-equipped"
+    on:click={() => {
+        filter = enableFilterOnAllParts(excludeNotEquipped.name, filter)
+        assembly = assemblyWithHeadParts(candidates)
+      }}
+    class="my-3 w-100 p-2"
+  >
+    {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
+  </button>
+  <button
+    id="exclude-all-not-equipped"
+    on:click={() => {
+        filter = enableFilterOnAllParts(notUseHanger.name, filter)
+        assembly = assemblyWithHeadParts(candidates)
+      }}
+    class="my-3 w-100 p-2"
+  >
+    {$i18n.t('notUseAllHanger', { ns: 'filter' })}
+  </button>
+  <button
+    id="reset-filter"
+    on:click={() => filter = initialFilterState(initialCandidates)}
+    class="my-3 w-100 p-2"
+  >
+    {$i18n.t('resetAllFilter', { ns: 'filter' })}
+  </button>
+
+  <CoamRangeSlider
+    class="my-3 w-100"
+    candidates={candidates}
+    on:change={(ev) =>
+        randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
+      }
+  />
+  <LoadRangeSlider
+    class="my-3 w-100"
+    candidates={candidates}
+    assembly={assembly}
+    lock={lockedParts}
+    on:change={(ev) =>
+        randomAssembly = randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
+      }
+    on:toggle-lock={onLock}
+  />
+</FilterForWholeOffCanvas>
 {/await }
 
 <style>

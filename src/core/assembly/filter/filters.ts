@@ -1,5 +1,7 @@
 import type { PartsFilter } from '~core/assembly/filter/base.ts'
 
+import { boosterNotEquipped } from '~data/booster.ts'
+import { tank } from '~data/types/base/category.ts'
 import { armUnit, notEquipped } from '~data/types/base/classification.ts'
 import { type Candidates, type CandidatesKey } from '~data/types/candidates.ts'
 
@@ -44,4 +46,28 @@ export const notUseHanger = (() => {
       },
     }),
   } as const
+})()
+
+export const assumeConstraintLegsAndBooster = (() => {
+  const name = 'assumeConstraintLegsAndBooster' as const
+
+  return {
+    name,
+    build: (initialCandidates: Candidates): PartsFilter => ({
+      name,
+      apply: (candidates, { assembly }): Candidates => {
+        if (assembly.legs.category === tank) {
+          return {
+            ...candidates,
+            booster: [boosterNotEquipped],
+          }
+        } else {
+          return {
+            ...candidates,
+            booster: initialCandidates.booster,
+          }
+        }
+      },
+    }),
+  }
 })()

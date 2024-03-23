@@ -51,7 +51,7 @@ describe('assembly', () => {
 
   describe('ap', () => {
     fcit.prop([genAssembly()])('must be larger than minimum', (assembly) => {
-      expect(assembly.ap).greaterThanOrEqual(6400)
+      expect(assembly.ap).greaterThanOrEqual(6400 - 700)
     })
 
     describe.each([

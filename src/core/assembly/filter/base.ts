@@ -2,11 +2,16 @@ import { logger } from '~core/utils/logger.ts'
 
 import type { Candidates } from '~data/types/candidates.ts'
 
+import type { Assembly } from 'src/core/assembly/assembly.ts'
+
 export interface PartsFilter {
   readonly name: string
 
-  apply(candidates: Candidates): Candidates
+  apply(candidates: Candidates, context: FilterApplyContext): Candidates
 }
+export type FilterApplyContext = Readonly<{
+  assembly: Assembly
+}>
 
 interface PartsFilterMap {
   [name: string]: PartsFilterState
@@ -16,7 +21,15 @@ export type ReadonlyPartsFilterState = Readonly<PartsFilterState>
 interface PartsFilterState {
   readonly filter: PartsFilter
   enabled: boolean
+  private: boolean
 }
+
+type AddFilterOption = Readonly<
+  Partial<{
+    enabled: boolean
+    private: boolean
+  }>
+>
 
 export class PartsFilterSet {
   static get empty(): PartsFilterSet {
@@ -25,22 +38,29 @@ export class PartsFilterSet {
 
   private constructor(private readonly map: PartsFilterMap) {}
 
-  apply(candidates: Candidates): Candidates {
-    return this.enableFilters.reduce((acc, f) => f.apply(acc), candidates)
+  apply(candidates: Candidates, context: FilterApplyContext): Candidates {
+    return this.enableFilters(this.listAll).reduce(
+      (acc, f) => f.apply(acc, context),
+      candidates,
+    )
   }
 
-  add(filter: PartsFilter): PartsFilterSet {
+  add(filter: PartsFilter, opt: AddFilterOption = {}): PartsFilterSet {
     return new PartsFilterSet({
       ...this.map,
       [filter.name]: {
         filter,
-        enabled: false,
+        enabled: opt.enabled || false,
+        private: opt.private || false,
       },
     })
   }
 
   isEnabled(filterName: string) {
-    return this.enableFilters.some((f) => f.name === filterName)
+    return (
+      this.contains(filterName) &&
+      this.enableFilters(this.list).some((f) => f.name === filterName)
+    )
   }
   enable(key: string): PartsFilterSet {
     return this.toggle(key, true)
@@ -50,25 +70,43 @@ export class PartsFilterSet {
   }
 
   get list(): ReadonlyPartsFilterState[] {
-    return Object.values(this.map)
+    return this.listAll.filter((f) => !f.private)
   }
 
   get containEnabled(): boolean {
-    return this.enableFilters.length > 0
+    return this.enableFilters(this.list).length > 0
+  }
+
+  private contains(name: string): boolean {
+    return !!this.map[name]
   }
 
   private toggle(key: string, state: boolean): PartsFilterSet {
-    const copy = { ...this.map }
-    copy[key] && (copy[key].enabled = state)
+    if (!this.contains(key)) return this
 
-    logger.debug(`${this.constructor.name}#toggle`, { copy, key })
+    const target = { ...this.map[key] }
 
-    return new PartsFilterSet(copy)
+    logger.debug(`${this.constructor.name}#toggle`, {
+      target,
+      key,
+      map: this.map,
+    })
+
+    if (target.private) return this
+
+    return new PartsFilterSet({
+      ...this.map,
+      [key]: {
+        ...target,
+        enabled: state,
+      },
+    })
   }
 
-  private get enableFilters(): PartsFilter[] {
-    return this.list
-      .filter(({ enabled }) => enabled)
-      .map(({ filter }) => filter)
+  private enableFilters(list: PartsFilterState[]): PartsFilter[] {
+    return list.filter(({ enabled }) => enabled).map(({ filter }) => filter)
+  }
+  private get listAll(): PartsFilterState[] {
+    return Object.values(this.map)
   }
 }

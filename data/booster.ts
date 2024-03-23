@@ -324,7 +324,7 @@ export const boosters = [
     en_load: 342,
   }),
 ] as const
-export type Booster = (typeof boosters)[number]
+export type Booster = (typeof boosters)[number] | BoosterNotEquipped
 
 export const boosterNotEquipped = defineNotEquipped()
 export type BoosterNotEquipped = typeof boosterNotEquipped

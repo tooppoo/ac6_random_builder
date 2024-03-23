@@ -26,6 +26,12 @@
   export let lock: LockedParts
   export let filter: FilterState
 
+  $: {
+    if (!parts.find(p => p.name === selected.name)) {
+      dispatch('change', { id, selected: parts[0] })
+    }
+  }
+
   // handler
   const onChange = () => {
     if (lock.isLocking(id)) return

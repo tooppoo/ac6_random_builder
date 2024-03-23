@@ -1,10 +1,5 @@
-import {
-  assertBoosterEquipped,
-  randomBuild,
-} from '~core/assembly/random/random-builder'
-import { random } from '~core/utils/array.ts'
+import { randomBuild } from '~core/assembly/random/random-builder'
 
-import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category'
 import { booster, notEquipped } from '~data/types/base/classification'
 import { candidates } from '~data/versions/v1.06.1.ts'
@@ -62,22 +57,6 @@ describe(randomBuild.name, () => {
       ])('should throw error', (candidates, { lockedParts }) => {
         expect(() => randomBuild(candidates, { lockedParts })).toThrowError()
       })
-    })
-  })
-})
-
-describe(assertBoosterEquipped.name, () => {
-  describe('booster', () => {
-    it.prop([genCandidates().map((c) => random(c.booster))])(
-      'not throw error',
-      (booster) => {
-        expect(() => assertBoosterEquipped(booster)).not.toThrowError()
-      },
-    )
-  })
-  describe('booster not-equipped', () => {
-    it('not throw error', () => {
-      expect(() => assertBoosterEquipped(boosterNotEquipped)).toThrowError()
     })
   })
 })

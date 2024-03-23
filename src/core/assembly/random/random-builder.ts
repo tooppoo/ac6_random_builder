@@ -87,7 +87,6 @@ export function randomBuild(
       const booster = lockedParts.get('booster', () =>
         random(lockedParts.filter(candidates).booster, randomizer),
       )
-      assertBoosterEquipped(booster)
 
       return createAssembly({
         ...base,

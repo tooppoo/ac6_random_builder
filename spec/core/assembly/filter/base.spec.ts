@@ -98,8 +98,6 @@ describe(PartsFilterSet.name, () => {
       const set = buildSetFromPair({ enabled: false }, pairs)
       const updated = pairs.reduce((acc, { name }) => acc.enable(name), set)
 
-      console.log({ set, updated })
-
       expect(updated).toStrictEqual(set)
     })
     it.prop([

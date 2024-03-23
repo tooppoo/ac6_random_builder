@@ -1,26 +1,33 @@
-import type { Booster, BoosterNotEquipped } from '~data/booster.ts'
+import {
+  type Booster,
+  boosterNotEquipped,
+  type BoosterNotEquipped,
+} from '~data/booster.ts'
 import type { Legs } from '~data/legs.ts'
 import { tank } from '~data/types/base/category.ts'
 import { booster, notEquipped } from '~data/types/base/classification.ts'
+import {
+  type Candidates,
+  excludeNotEquipped,
+  notTank,
+  onlyTank,
+} from '~data/types/candidates.ts'
 
 import type { AssemblyKey, RawAssembly } from 'src/core/assembly/assembly.ts'
 
 type LockedPartsMap = {
   [P in AssemblyKey]?: RawAssembly[P]
 }
-type LockedPartsFilter = {
-  [P in AssemblyKey]?: Filter<P>
-}
-type Filter<P extends AssemblyKey> = (x: RawAssembly[P]) => boolean
+type Filter = (c: Candidates) => Candidates
 
 export class LockedParts {
   static get empty(): LockedParts {
-    return new LockedParts({}, {})
+    return new LockedParts({}, (_) => _)
   }
 
   constructor(
     private readonly map: LockedPartsMap,
-    private readonly filterMap: LockedPartsFilter,
+    private readonly candidatesFilter: Filter,
   ) {}
 
   get<K extends AssemblyKey>(
@@ -29,11 +36,8 @@ export class LockedParts {
   ): NonNullable<LockedPartsMap[K]> {
     return this.map[target] || fallback()
   }
-  filter<K extends AssemblyKey>(
-    target: K,
-    xs: readonly NonNullable<LockedPartsMap[K]>[],
-  ): NonNullable<LockedPartsMap[K]>[] {
-    return xs.filter(this.filterMap[target] || ((_) => true))
+  filter(candidates: Candidates): Candidates {
+    return this.candidatesFilter(candidates)
   }
 
   lock<K extends AssemblyKey>(
@@ -46,17 +50,19 @@ export class LockedParts {
           // ブースター未装備はタンク限定なので、
           // ブースター未装備にロックする場合は脚部のロックを強制解除 + タンク限定
           return this.unlock('legs')
-            .withFilter({
-              legs: (x) => x.category === tank,
-            })
+            .withFilter((c) => ({
+              ...c,
+              legs: onlyTank(c.legs),
+            }))
             .writeMap(target, item)
         case booster:
           // ブースター装備はタンク以外限定なので、
           // ブースター装備で固定する場合は脚部のロックを強制解除 + タンク以外に限定
           return this.unlock('legs')
-            .withFilter({
-              legs: (x) => x.category !== tank,
-            })
+            .withFilter((c) => ({
+              ...c,
+              legs: notTank(c.legs),
+            }))
             .writeMap(target, item)
       }
     if (isLegs(target, item))
@@ -65,17 +71,19 @@ export class LockedParts {
           // タンクはブースター装備不可なので、
           // タンクにロックする場合はブースターのロックを強制解除 + ブースター未装備限定
           return this.unlock('booster')
-            .withFilter({
-              booster: (x) => x.classification === notEquipped,
-            })
+            .withFilter((c) => ({
+              ...c,
+              booster: [boosterNotEquipped],
+            }))
             .writeMap(target, item)
         default:
           // タンク以外はブースター装備必須なので、
           // タンク以外の脚にロックする場合はブースターのロックを強制解除 + ブースター装備限定
           return this.unlock('booster')
-            .withFilter({
-              booster: (x) => x.classification !== notEquipped,
-            })
+            .withFilter((c) => ({
+              ...c,
+              booster: excludeNotEquipped(c.booster),
+            }))
             .writeMap(target, item)
       }
 
@@ -85,9 +93,11 @@ export class LockedParts {
     const copyMap = { ...this.map }
     delete copyMap[target]
 
-    // filterはロック時の特殊な状況でのみ必要なので、
-    // unlockでは一律解除で良い
-    return this.withMap(copyMap).clearFilter()
+    if (!copyMap.legs && !copyMap.booster) {
+      return this.withMap(copyMap).clearFilter()
+    } else {
+      return this.withMap(copyMap)
+    }
   }
   isLocking(key: AssemblyKey): boolean {
     return !!this.map[key]
@@ -99,9 +109,6 @@ export class LockedParts {
   get list(): Array<RawAssembly[keyof RawAssembly]> {
     return Object.values(this.map)
   }
-  get filters(): Filter<AssemblyKey>[] {
-    return Object.values(this.filterMap) as Filter<AssemblyKey>[]
-  }
 
   private writeMap<K extends AssemblyKey>(
     target: K,
@@ -110,13 +117,13 @@ export class LockedParts {
     return this.withMap({ ...this.map, [target]: item })
   }
   private withMap(map: LockedPartsMap) {
-    return new LockedParts(map, this.filterMap)
+    return new LockedParts(map, this.candidatesFilter)
   }
-  private withFilter(filter: LockedPartsFilter) {
+  private withFilter(filter: Filter) {
     return new LockedParts(this.map, filter)
   }
   private clearFilter() {
-    return this.withFilter({})
+    return this.withFilter((_) => _)
   }
 }
 

@@ -47,9 +47,8 @@
   let initialCandidates: Candidates
   let candidates: Candidates
   $: {
-    if (initialCandidates && filter && assembly) {
-      console.log({ initialCandidates, filter, assembly })
-      candidates = applyFilter(initialCandidates, filter, { assembly })
+    if (initialCandidates && filter && assembly && lockedParts) {
+      candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly }))
     }
   }
 

@@ -8,6 +8,11 @@ import type { FCS } from '~data/fces.ts'
 import type { Generator } from '~data/generators.ts'
 import type { Head } from '~data/heads.ts'
 import type { Legs } from '~data/legs.ts'
+import { tank } from '~data/types/base/category.ts'
+import {
+  type Classification,
+  notEquipped,
+} from '~data/types/base/classification.ts'
 
 export type CandidatesKey = keyof Candidates
 export type Candidates = Readonly<{
@@ -37,3 +42,15 @@ export type Candidates = Readonly<{
 
   expansion: ReadonlyArray<Expansion.Expansion | Expansion.ExpansionNotEquipped>
 }>
+
+export function onlyTank(xs: readonly Legs[]): Legs[] {
+  return xs.filter((x) => x.category === tank)
+}
+export function notTank(xs: readonly Legs[]): Legs[] {
+  return xs.filter((x) => x.category !== tank)
+}
+export function excludeNotEquipped<
+  T extends { classification: Classification },
+>(xs: readonly T[]): T[] {
+  return xs.filter((x) => x.classification !== notEquipped)
+}

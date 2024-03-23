@@ -42,53 +42,41 @@ export function randomBuild(
    */
 
   const legs = lockedParts.get('legs', () =>
-    random(lockedParts.filter('legs', candidates.legs), randomizer),
+    random(lockedParts.filter(candidates).legs, randomizer),
   )
   const base: Omit<RawAssembly, 'legs' | 'booster'> = {
     rightArmUnit: lockedParts.get('rightArmUnit', () =>
-      random(
-        lockedParts.filter('rightArmUnit', candidates.rightArmUnit),
-        randomizer,
-      ),
+      random(lockedParts.filter(candidates).rightArmUnit, randomizer),
     ),
     leftArmUnit: lockedParts.get('leftArmUnit', () =>
-      random(
-        lockedParts.filter('leftArmUnit', candidates.leftArmUnit),
-        randomizer,
-      ),
+      random(lockedParts.filter(candidates).leftArmUnit, randomizer),
     ),
     rightBackUnit: lockedParts.get('rightBackUnit', () =>
-      random(
-        lockedParts.filter('rightBackUnit', candidates.rightBackUnit),
-        randomizer,
-      ),
+      random(lockedParts.filter(candidates).rightBackUnit, randomizer),
     ),
     leftBackUnit: lockedParts.get('leftBackUnit', () =>
-      random(
-        lockedParts.filter('leftBackUnit', candidates.leftBackUnit),
-        randomizer,
-      ),
+      random(lockedParts.filter(candidates).leftBackUnit, randomizer),
     ),
 
     head: lockedParts.get('head', () =>
-      random(lockedParts.filter('head', candidates.head), randomizer),
+      random(lockedParts.filter(candidates).head, randomizer),
     ),
     core: lockedParts.get('core', () =>
-      random(lockedParts.filter('core', candidates.core), randomizer),
+      random(lockedParts.filter(candidates).core, randomizer),
     ),
     arms: lockedParts.get('arms', () =>
-      random(lockedParts.filter('arms', candidates.arms), randomizer),
+      random(lockedParts.filter(candidates).arms, randomizer),
     ),
 
     fcs: lockedParts.get('fcs', () =>
-      random(lockedParts.filter('fcs', candidates.fcs), randomizer),
+      random(lockedParts.filter(candidates).fcs, randomizer),
     ),
     generator: lockedParts.get('generator', () =>
-      random(lockedParts.filter('generator', candidates.generator), randomizer),
+      random(lockedParts.filter(candidates).generator, randomizer),
     ),
 
     expansion: lockedParts.get('expansion', () =>
-      random(lockedParts.filter('expansion', candidates.expansion), randomizer),
+      random(lockedParts.filter(candidates).expansion, randomizer),
     ),
   }
 
@@ -97,7 +85,7 @@ export function randomBuild(
       return createAssembly({ ...base, legs, booster: boosterNotEquipped })
     default: {
       const booster = lockedParts.get('booster', () =>
-        random(lockedParts.filter('booster', candidates.booster), randomizer),
+        random(lockedParts.filter(candidates).booster, randomizer),
       )
       assertBoosterEquipped(booster)
 

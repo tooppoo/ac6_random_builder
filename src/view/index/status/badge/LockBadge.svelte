@@ -12,7 +12,7 @@
   let classes: string = ''
 
   // state
-  $: classes = ['bi'].concat(locked ? 'bi-file-lock-fill' : 'bi-file-lock').join(' ')
+  $: classes = ['bi'].concat(locked ? 'bi-lock-fill' : 'bi-unlock').join(' ')
   $: title = locked ? titleWhenLocked : titleWhenUnlocked
 
   // handler

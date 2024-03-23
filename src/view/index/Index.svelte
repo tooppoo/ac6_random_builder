@@ -35,10 +35,10 @@
   import CoamRangeSlider from "./command/CoamRangeSlider.svelte";
   import LoadRangeSlider from "./command/LoadRangeSlider.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
+  import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
   import ReportItem from "./report/ReportItem.svelte"
-
-  import type {ReportStatus} from "src/view/index/report/ReportItem.svelte";
+  import type {ReportStatus} from "./report/ReportItem.svelte";
 
   const appVersion = appPackage.version
   const tryLimit = 3000
@@ -133,6 +133,30 @@
 {#await initialize()}
   <div>loading...</div>
 {:then version}
+<Navbar>
+  <button
+    slot="random"
+    class="btn btn-secondary bg-dark-subtle me-3"
+    on:click={onRandom}
+  >
+    <i class="bi bi-tools"></i>
+    <span class="d-none d-sm-inline">
+      {$i18n.t('command.random', { ns: 'pageIndex' })}
+    </span>
+  </button>
+  <button
+    slot="reset-lock"
+    id="reset-lock"
+    on:click={() => lockedParts = LockedParts.empty}
+    class="btn btn-secondary bg-dark-subtle me-3"
+  >
+    <i class="bi bi-unlock"></i>
+    <span class="d-none d-sm-inline">
+      {$i18n.t('resetAllLock', { ns: 'lock' })}
+    </span>
+  </button>
+</Navbar>
+
 <header class="text-center mt-5">
   <h1>
     ARMORED CORE Ⅵ<br class="sp-only">
@@ -163,20 +187,7 @@
   </ToolSection>
 
   <ToolSection id="assembly-command" class="my-4 w-100">
-    <button
-      id="generate-random"
-      on:click={onRandom}
-      class="my-3 w-100 p-2"
-    >
-      {$i18n.t('command.random', { ns: 'pageIndex' })}
-    </button>
-    <button
-      id="reset-lock"
-      on:click={() => lockedParts = LockedParts.empty}
-      class="my-3 w-100 p-2"
-    >
-      {$i18n.t('resetAllLock', { ns: 'lock' })}
-    </button>
+
     <button
       id="exclude-all-not-equipped"
       on:click={() => {

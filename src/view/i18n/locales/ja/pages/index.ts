@@ -1,5 +1,5 @@
 export const jaPageIndex = {
   command: {
-    random: 'ランダムアセンブル',
+    random: 'ランダムアセン',
   },
 }

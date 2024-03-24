@@ -245,7 +245,7 @@
     {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
   </button>
   <button
-    id="exclude-all-not-equipped"
+    id="not-use-hanger"
     on:click={() => {
         filter = enableFilterOnAllParts(notUseHanger.name, filter)
         assembly = assemblyWithHeadParts(candidates)

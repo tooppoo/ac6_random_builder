@@ -213,7 +213,7 @@
     Created by <a href="https://linktr.ee/Philomagi">Philomagi</a>
   </div>
   <div>
-    Source code is <a href="https://github.com/tooppoo/ac6_assemble_tool/">here</a>
+    Source code is managed by <a href="https://github.com/tooppoo/ac6_assemble_tool/">Github</a>
   </div>
   <div>
     App Version v{appVersion}

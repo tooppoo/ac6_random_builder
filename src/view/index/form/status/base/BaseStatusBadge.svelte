@@ -29,7 +29,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
 <span
-  class={$$props.class}
+  class={`${$$props.class} status-badge`}
   data-bs-toggle="tooltip"
   data-bs-placement="left"
   data-bs-title={title}
@@ -43,5 +43,11 @@ const dispatch = createEventDispatcher<{ click: null }>()
 <style>
   span[data-clickable="true"] {
       cursor: pointer;
+  }
+  .status-badge {
+      font-size: 30px;
+      height: 48px;
+      text-align: center;
+      width: 48px;
   }
 </style>

@@ -265,9 +265,9 @@
   <CoamRangeSlider
     class="my-3 w-100"
     candidates={candidates}
-    on:change={(ev) =>
-        randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
-      }
+    on:change={(ev) => {
+      randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
+    }}
   />
   <LoadRangeSlider
     class="my-3 w-100"

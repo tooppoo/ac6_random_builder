@@ -79,7 +79,7 @@
     }
   }
 
-  let openErrorModal: boolean = false
+  let assembleError: Error | null = null
 
   // handler
   const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
@@ -93,7 +93,11 @@
     } catch (e) {
       logger.error(e)
 
-      openErrorModal = true
+      if (e instanceof Error) {
+        assembleError = e
+      } else {
+        assembleError = new Error(`${e}`)
+      }
     }
   }
 
@@ -283,8 +287,8 @@
 {/await }
 <ErrorModal
   id="index-error-modal"
-  open={openErrorModal}
-  on:close={() => openErrorModal = false}
+  open={assembleError !== null}
+  on:close={() => assembleError = null}
 >
   <svelte:fragment slot="title">
     Assemble Error

@@ -170,9 +170,9 @@
     ARMORED CORE Ⅵ<br class="sp-only">
     ASSEMBLY TOOL
   </h1>
-  <h3>
+  <h2>
     for {version}
-  </h3>
+  </h2>
 </header>
 
 <article class="container text-center p-3">

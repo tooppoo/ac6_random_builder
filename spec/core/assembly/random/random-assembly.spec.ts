@@ -54,6 +54,7 @@ describe(RandomAssembly.name, () => {
 
       describe('with inner key', () => {
         const testValidator: Validator = {
+          name: 'test',
           validate: () => {
             throw new Error('this should not be called')
           },
@@ -99,10 +100,14 @@ describe(RandomAssembly.name, () => {
     const limit = 5
 
     beforeEach(() => {
-      mockValidate = vi
-        .fn()
-        .mockImplementation(() => failure([new Error('test')]))
+      let errorCount = 0
+
+      mockValidate = vi.fn().mockImplementation(() => {
+        errorCount += 1
+        return failure([new Error(`test-${errorCount}`)])
+      })
       validator = {
+        name: 'test',
         validate: mockValidate,
       }
     })
@@ -116,6 +121,30 @@ describe(RandomAssembly.name, () => {
 
       expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
       expect(mockValidate).toHaveBeenCalledTimes(limit)
+    })
+    it('should provide error reasons via error object', () => {
+      const sut = RandomAssembly.init({ limit }).addValidator('test', validator)
+
+      try {
+        sut.assemble(candidates)
+        expect.fail('should throw error')
+      } catch (error) {
+        if (error instanceof OverTryLimitError) {
+          expect(error.errors.toSorted()).toEqual(
+            expect.arrayContaining(
+              [
+                new Error('test-1'),
+                new Error('test-2'),
+                new Error('test-3'),
+                new Error('test-4'),
+                new Error('test-5'),
+              ].toSorted(),
+            ),
+          )
+        } else {
+          expect.fail('should throw OverTryLimitError')
+        }
+      }
     })
     it('enable check how many tried', () => {
       const sut = RandomAssembly.init({ limit }).addValidator('test', validator)
@@ -148,18 +177,21 @@ describe(RandomAssembly.name, () => {
 const generateValidator = () =>
   fc.oneof(
     fc.integer({ min: 8480, max: 26740 }).map<Validator>((border) => ({
+      name: 'test',
       validate: (a) =>
         a.arms.weight <= border
           ? success(a)
           : failure([new Error(`not arms.weight <= ${border}`)]),
     })),
     fc.constant<Validator>({
+      name: 'test',
       validate: (a) =>
         a.head.manufacture === 'baws'
           ? success(a)
           : failure([new Error(`not head.manufacture = baws`)]),
     }),
     fc.constant<Validator>({
+      name: 'test',
       validate: (a) =>
         a.core.price > 0
           ? success(a)

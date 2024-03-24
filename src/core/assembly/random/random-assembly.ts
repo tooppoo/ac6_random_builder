@@ -31,6 +31,7 @@ export class RandomAssembly {
   }
 
   private tryCount: number = 0
+  private errors: Error[] = []
 
   private constructor(
     private readonly _validators: Record<string, Validator>,
@@ -64,11 +65,12 @@ export class RandomAssembly {
     try {
       return this.validate(randomBuild(candidates, opt)).fold(
         (errors) => {
+          this.errors = [...this.errors, ...errors]
           logger.warn({ errors })
 
           if (this.tryCount >= this.config.limit) {
             throw new OverTryLimitError(
-              this.config.limit,
+              { limit: this.config.limit, errors: this.errors },
               `over limit of try(${this.config.limit})`,
             )
           }
@@ -78,7 +80,7 @@ export class RandomAssembly {
         (a) => a,
       )
     } finally {
-      this.tryCount = 0
+      this.reset()
     }
   }
 
@@ -88,11 +90,22 @@ export class RandomAssembly {
       success(assembly),
     )
   }
+
+  private reset() {
+    this.tryCount = 0
+    this.errors = []
+  }
 }
 
-export class OverTryLimitError extends BaseCustomError<number> {
+export class OverTryLimitError extends BaseCustomError<{
+  limit: number
+  errors: Error[]
+}> {
   get limit(): number {
-    return this.customArgument
+    return this.customArgument.limit
+  }
+  get errors(): readonly Error[] {
+    return this.customArgument.errors
   }
 }
 export class OverwriteInnerSecretValidatorError extends BaseCustomError<string> {

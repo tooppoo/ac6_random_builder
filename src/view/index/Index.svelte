@@ -22,6 +22,7 @@
   import CoamRangeSlider from "~view/index/filter/range/CoamRangeSlider.svelte";
   import LoadRangeSlider from "~view/index/filter/range/LoadRangeSlider.svelte";
   import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
+  import {assemblyErrorMessage} from "~view/index/interaction/error-message.ts";
   import {
     applyFilter, assemblyWithHeadParts,
     changePartsFilter, enableFilterOnAllParts,
@@ -80,6 +81,8 @@
   }
 
   let assembleError: Error | null = null
+  let assembleErrorMessages: string[]
+  $: assembleErrorMessages = assembleError ? assemblyErrorMessage(assembleError, $i18n) : []
 
   // handler
   const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
@@ -293,10 +296,13 @@
   <svelte:fragment slot="title">
     Assemble Error
   </svelte:fragment>
-  TEST
   <svelte:fragment slot="button">
     OK
   </svelte:fragment>
+
+  {#each assembleErrorMessages as row}
+    {row}<br>
+  {/each}
 </ErrorModal>
 
 <style>

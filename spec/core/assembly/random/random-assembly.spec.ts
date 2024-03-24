@@ -54,7 +54,6 @@ describe(RandomAssembly.name, () => {
 
       describe('with inner key', () => {
         const testValidator: Validator = {
-          name: 'test',
           validate: () => {
             throw new Error('this should not be called')
           },
@@ -107,7 +106,6 @@ describe(RandomAssembly.name, () => {
         return failure([new Error(`test-${errorCount}`)])
       })
       validator = {
-        name: 'test',
         validate: mockValidate,
       }
     })
@@ -177,21 +175,18 @@ describe(RandomAssembly.name, () => {
 const generateValidator = () =>
   fc.oneof(
     fc.integer({ min: 8480, max: 26740 }).map<Validator>((border) => ({
-      name: 'test',
       validate: (a) =>
         a.arms.weight <= border
           ? success(a)
           : failure([new Error(`not arms.weight <= ${border}`)]),
     })),
     fc.constant<Validator>({
-      name: 'test',
       validate: (a) =>
         a.head.manufacture === 'baws'
           ? success(a)
           : failure([new Error(`not head.manufacture = baws`)]),
     }),
     fc.constant<Validator>({
-      name: 'test',
       validate: (a) =>
         a.core.price > 0
           ? success(a)

@@ -15,6 +15,7 @@
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
 
+  import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import i18n from "~view/i18n/define.ts";
   import FilterByPartsOffCanvas from "~view/index/filter/FilterByPartsOffCanvas.svelte";
   import FilterForWholeOffCanvas from "~view/index/filter/FilterForWholeOffCanvas.svelte";
@@ -78,6 +79,8 @@
     }
   }
 
+  let openErrorModal: boolean = false
+
   // handler
   const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
     // @ts-expect-error TS2590
@@ -90,10 +93,7 @@
     } catch (e) {
       logger.error(e)
 
-      alert(`
-        試行上限以内のランダム生成に失敗しました（試行上限: ${tryLimit}）
-        条件を緩めると、成功の可能性が上がります
-      `)
+      openErrorModal = true
     }
   }
 
@@ -281,6 +281,19 @@
   />
 </FilterForWholeOffCanvas>
 {/await }
+<ErrorModal
+  id="index-error-modal"
+  open={openErrorModal}
+  on:close={() => openErrorModal = false}
+>
+  <svelte:fragment slot="title">
+    Assemble Error
+  </svelte:fragment>
+  TEST
+  <svelte:fragment slot="button">
+    OK
+  </svelte:fragment>
+</ErrorModal>
 
 <style>
   article {

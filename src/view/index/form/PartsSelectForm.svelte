@@ -58,7 +58,7 @@
   <div class="row text-start">
     <label
       for={id}
-      class="mb-1 mb-sm-0 p-0 col-12 col-sm-5 fs-5 d-flex justify-content-between"
+      class="mb-1 mb-sm-0 p-0 col-12 col-sm-5 fs-5 d-flex justify-content-between align-items-center"
     >
       {caption}
       <StatusBadgeList>

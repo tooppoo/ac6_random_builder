@@ -170,9 +170,9 @@
     ARMORED CORE Ⅵ<br class="sp-only">
     ASSEMBLY TOOL
   </h1>
-  <h3>
+  <h2>
     for {version}
-  </h3>
+  </h2>
 </header>
 
 <article class="container text-center p-3">
@@ -213,7 +213,7 @@
     Created by <a href="https://linktr.ee/Philomagi">Philomagi</a>
   </div>
   <div>
-    Source code is <a href="https://github.com/tooppoo/ac6_assemble_tool/">here</a>
+    Source code is managed by <a href="https://github.com/tooppoo/ac6_assemble_tool/">Github</a>
   </div>
   <div>
     App Version v{appVersion}
@@ -245,7 +245,7 @@
     {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
   </button>
   <button
-    id="exclude-all-not-equipped"
+    id="not-use-hanger"
     on:click={() => {
         filter = enableFilterOnAllParts(notUseHanger.name, filter)
         assembly = assemblyWithHeadParts(candidates)

@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: ./scripts/ngrok/Node.dockerfile
+    command: "npm run dev -- --port 9000 --host"
+    ports:
+      - "9000:9000"
+    volumes:
+      - ../..:/app
+  ngrok:
+    image: ngrok/ngrok:latest
+    command: "start --all --config /etc/ngrok.yml"
+    ports:
+      - "4040:4040"
+    volumes:
+      - "./ngrok.yml:/etc/ngrok.yml"
+    env_file:
+      - .env

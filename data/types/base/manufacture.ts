@@ -41,3 +41,20 @@ export const takigawa = 'takigawa' as const
 /** ファーロン */
 export const furlong = 'furlong' as const
 export const allmind = 'allmind' as const
+
+export const manufactures: Manufacture[] = [
+  baws,
+  elcano,
+  balam,
+  dafeng,
+  arquebus,
+  arquebus_add,
+  schneider,
+  rad,
+  rubicon_research_institute,
+  melinite,
+  vcpl,
+  takigawa,
+  furlong,
+  allmind,
+]

@@ -3,7 +3,7 @@
   import {roundUpByRealPart} from "~core/utils/number.ts";
 
   import i18n from "~view/i18n/define.ts";
-  import RangeSlider from '~view/index/filter/range/base/RangeSlider.svelte'
+  import RangeSlider from '~view/pages/index/filter/range/base/RangeSlider.svelte'
 
   import type {Candidates} from "~data/types/candidates.ts";
 

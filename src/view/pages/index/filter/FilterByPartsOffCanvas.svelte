@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import i18n from "~view/i18n/define.ts";
-  import type {CurrentFilter} from "~view/index/interaction/filter.ts";
+  import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
 
   export type ToggleFilter = { open: boolean }
   export type CheckFilter = {

@@ -1,13 +1,13 @@
 import type { AssemblyKey } from '~core/assembly/assembly.ts'
 
-import App from '~view/index/Index.svelte'
+import Index from '~view/pages/index/Index.svelte'
 
 import { cleanup, render, screen } from '@testing-library/svelte'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe(`App.svelte`, () => {
   beforeEach(() => {
-    render(App)
+    render(Index)
   })
   afterEach(() => {
     cleanup()

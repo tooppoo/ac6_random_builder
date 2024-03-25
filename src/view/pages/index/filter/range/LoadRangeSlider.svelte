@@ -5,9 +5,9 @@
   import {roundUpByRealPart} from "~core/utils/number.ts";
 
   import i18n from '~view/i18n/define.ts'
-  import RangeSlider from '~view/index/filter/range/base/RangeSlider.svelte'
-  import LockBadge from "~view/index/form/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/index/form/status/StatusBadgeList.svelte";
+  import RangeSlider from '~view/pages/index/filter/range/base/RangeSlider.svelte'
+  import LockBadge from "~view/pages/index/form/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
 
   import type {Candidates} from "~data/types/candidates.ts";
 

@@ -99,9 +99,12 @@ describe(RandomAssembly.name, () => {
     const limit = 5
 
     beforeEach(() => {
-      mockValidate = vi
-        .fn()
-        .mockImplementation(() => failure([new Error('test')]))
+      let errorCount = 0
+
+      mockValidate = vi.fn().mockImplementation(() => {
+        errorCount += 1
+        return failure([new Error(`test-${errorCount}`)])
+      })
       validator = {
         validate: mockValidate,
       }
@@ -116,6 +119,30 @@ describe(RandomAssembly.name, () => {
 
       expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
       expect(mockValidate).toHaveBeenCalledTimes(limit)
+    })
+    it('should provide error reasons via error object', () => {
+      const sut = RandomAssembly.init({ limit }).addValidator('test', validator)
+
+      try {
+        sut.assemble(candidates)
+        expect.fail('should throw error')
+      } catch (error) {
+        if (error instanceof OverTryLimitError) {
+          expect(error.errors.toSorted()).toEqual(
+            expect.arrayContaining(
+              [
+                new Error('test-1'),
+                new Error('test-2'),
+                new Error('test-3'),
+                new Error('test-4'),
+                new Error('test-5'),
+              ].toSorted(),
+            ),
+          )
+        } else {
+          expect.fail('should throw OverTryLimitError')
+        }
+      }
     })
     it('enable check how many tried', () => {
       const sut = RandomAssembly.init({ limit }).addValidator('test', validator)

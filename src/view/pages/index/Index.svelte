@@ -15,20 +15,22 @@
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import { logger } from '~core/utils/logger.ts'
 
+  import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import i18n from "~view/i18n/define.ts";
-  import FilterByPartsOffCanvas from "~view/index/filter/FilterByPartsOffCanvas.svelte";
-  import FilterForWholeOffCanvas from "~view/index/filter/FilterForWholeOffCanvas.svelte";
-  import CoamRangeSlider from "~view/index/filter/range/CoamRangeSlider.svelte";
-  import LoadRangeSlider from "~view/index/filter/range/LoadRangeSlider.svelte";
-  import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
+  import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
+  import FilterForWholeOffCanvas from "~view/pages/index/filter/FilterForWholeOffCanvas.svelte";
+  import CoamRangeSlider from "~view/pages/index/filter/range/CoamRangeSlider.svelte";
+  import LoadRangeSlider from "~view/pages/index/filter/range/LoadRangeSlider.svelte";
+  import type {ChangePartsEvent, ToggleLockEvent} from "~view/pages/index/form/PartsSelectForm.svelte";
+  import {assemblyErrorMessage} from "~view/pages/index/interaction/error-message.ts";
   import {
     applyFilter, assemblyWithHeadParts,
     changePartsFilter, enableFilterOnAllParts,
     type FilterState,
     initialFilterState,
     toggleFilter
-  } from "~view/index/interaction/filter.ts";
-  import NavButton from "~view/index/layout/navbar/NavButton.svelte";
+  } from "~view/pages/index/interaction/filter.ts";
+  import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
 
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
@@ -78,6 +80,10 @@
     }
   }
 
+  let assembleError: Error | null = null
+  let assembleErrorMessages: string[]
+  $: assembleErrorMessages = assembleError ? assemblyErrorMessage(assembleError, $i18n) : []
+
   // handler
   const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
     // @ts-expect-error TS2590
@@ -90,10 +96,11 @@
     } catch (e) {
       logger.error(e)
 
-      alert(`
-        試行上限以内のランダム生成に失敗しました（試行上限: ${tryLimit}）
-        条件を緩めると、成功の可能性が上がります
-      `)
+      if (e instanceof Error) {
+        assembleError = e
+      } else {
+        assembleError = new Error(`${e}`)
+      }
     }
   }
 
@@ -265,9 +272,9 @@
   <CoamRangeSlider
     class="my-3 w-100"
     candidates={candidates}
-    on:change={(ev) =>
-        randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
-      }
+    on:change={(ev) => {
+      randomAssembly = randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value))
+    }}
   />
   <LoadRangeSlider
     class="my-3 w-100"
@@ -281,6 +288,22 @@
   />
 </FilterForWholeOffCanvas>
 {/await }
+<ErrorModal
+  id="index-error-modal"
+  open={assembleError !== null}
+  on:close={() => assembleError = null}
+>
+  <svelte:fragment slot="title">
+    Assemble Error
+  </svelte:fragment>
+  <svelte:fragment slot="button">
+    OK
+  </svelte:fragment>
+
+  {#each assembleErrorMessages as row}
+    {row}<br>
+  {/each}
+</ErrorModal>
 
 <style>
   article {

@@ -17,20 +17,20 @@
 
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import i18n from "~view/i18n/define.ts";
-  import FilterByPartsOffCanvas from "~view/index/filter/FilterByPartsOffCanvas.svelte";
-  import FilterForWholeOffCanvas from "~view/index/filter/FilterForWholeOffCanvas.svelte";
-  import CoamRangeSlider from "~view/index/filter/range/CoamRangeSlider.svelte";
-  import LoadRangeSlider from "~view/index/filter/range/LoadRangeSlider.svelte";
-  import type {ChangePartsEvent, ToggleLockEvent} from "~view/index/form/PartsSelectForm.svelte";
-  import {assemblyErrorMessage} from "~view/index/interaction/error-message.ts";
+  import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
+  import FilterForWholeOffCanvas from "~view/pages/index/filter/FilterForWholeOffCanvas.svelte";
+  import CoamRangeSlider from "~view/pages/index/filter/range/CoamRangeSlider.svelte";
+  import LoadRangeSlider from "~view/pages/index/filter/range/LoadRangeSlider.svelte";
+  import type {ChangePartsEvent, ToggleLockEvent} from "~view/pages/index/form/PartsSelectForm.svelte";
+  import {assemblyErrorMessage} from "~view/pages/index/interaction/error-message.ts";
   import {
     applyFilter, assemblyWithHeadParts,
     changePartsFilter, enableFilterOnAllParts,
     type FilterState,
     initialFilterState,
     toggleFilter
-  } from "~view/index/interaction/filter.ts";
-  import NavButton from "~view/index/layout/navbar/NavButton.svelte";
+  } from "~view/pages/index/interaction/filter.ts";
+  import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
 
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";

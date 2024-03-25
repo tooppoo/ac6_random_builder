@@ -4,19 +4,19 @@
   export type ToggleFilterEvent = Readonly<{ id: AssemblyKey }>
 </script>
 <script lang="ts">
-  import type {AssemblyKey} from "~core/assembly/assembly.ts";
-  import type {LockedParts} from "~core/assembly/random/lock.ts";
-
   import i18n from "~view/i18n/define.ts";
-  import FilterBadge from "~view/index/form/status/badge/FilterBadge.svelte";
-  import LockBadge from "~view/index/form/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "~view/index/form/status/StatusBadgeList.svelte";
-  import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/index/interaction/filter.ts";
+  import FilterBadge from "~view/pages/index/form/status/badge/FilterBadge.svelte";
+  import LockBadge from "~view/pages/index/form/status/badge/LockBadge.svelte";
+  import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
+  import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/pages/index/interaction/filter.ts";
 
   import type {Classification} from "~data/types/base/classification.ts";
   import type {BaseACParts} from "~data/types/base/types.ts";
 
   import {createEventDispatcher} from "svelte";
+
+  import type {AssemblyKey} from "src/core/assembly/assembly.ts";
+  import type {LockedParts} from "src/core/assembly/random/lock.ts";
 
   export let id: AssemblyKey
   export let caption: string

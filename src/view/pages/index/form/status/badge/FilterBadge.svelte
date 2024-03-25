@@ -1,5 +1,5 @@
 <script lang="ts">
-import BaseStatusBadge from "~view/index/form/status/base/BaseStatusBadge.svelte";
+import BaseStatusBadge from "~view/pages/index/form/status/base/BaseStatusBadge.svelte";
 
 import {createEventDispatcher} from "svelte";
 

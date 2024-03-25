@@ -9,7 +9,7 @@ import {
 } from '~core/assembly/random/validator/validators.ts'
 
 import type { I18Next } from '~view/i18n/define.ts'
-import { assemblyErrorMessage } from '~view/index/interaction/error-message'
+import { assemblyErrorMessage } from '~view/pages/index/interaction/error-message'
 
 import { fc, it } from '@fast-check/vitest'
 import type { ArrayConstraints } from 'fast-check'

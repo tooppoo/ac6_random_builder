@@ -10,7 +10,7 @@ import {
   type FilterState,
   initialFilterState,
   toggleFilter,
-} from '~view/index/interaction/filter.ts'
+} from '~view/pages/index/interaction/filter.ts'
 
 import { booster, notEquipped, tank } from '~data/types/base/category.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'

@@ -16,6 +16,7 @@ export type Manufacture =
   | typeof takigawa
   | typeof furlong
   | typeof allmind
+  | NoneManufacture
 
 // ルビコン系
 export const baws = 'baws' as const
@@ -42,6 +43,11 @@ export const takigawa = 'takigawa' as const
 export const furlong = 'furlong' as const
 export const allmind = 'allmind' as const
 
+// N/A
+export const noneManufacture = 'none-manufacture'
+export type NoneManufacture = typeof noneManufacture
+
+// list
 export const manufactures: Manufacture[] = [
   baws,
   elcano,

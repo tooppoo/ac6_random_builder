@@ -18,13 +18,13 @@
   import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
   import FilterForWholeOffCanvas from "~view/pages/index/filter/FilterForWholeOffCanvas.svelte";
   import type {ChangePartsEvent, ToggleLockEvent} from "~view/pages/index/form/PartsSelectForm.svelte";
-  import {assemblyErrorMessage} from "~view/pages/index/interaction/error-message.ts";
+  import {assemblyErrorMessage, filterApplyErrorMessage} from "~view/pages/index/interaction/error-message.ts";
   import {
     applyFilter, assemblyWithHeadParts,
     changePartsFilter,
     type FilterState,
     initialFilterState,
-    toggleFilter
+    toggleFilter, UsableItemNotFoundError
   } from "~view/pages/index/interaction/filter.ts";
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
 
@@ -48,7 +48,13 @@
   let candidates: Candidates
   $: {
     if (initialCandidates && filter && assembly && lockedParts) {
-      candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly }))
+      try {
+        candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly }))
+      } catch (e) {
+        errorMessage = filterApplyErrorMessage(
+          e instanceof UsableItemNotFoundError ? e : new Error(`${e}`), $i18n
+        )
+      }
     }
   }
 
@@ -76,9 +82,7 @@
     }
   }
 
-  let assembleError: Error | null = null
-  let assembleErrorMessages: string[]
-  $: assembleErrorMessages = assembleError ? assemblyErrorMessage(assembleError, $i18n) : []
+  let errorMessage: string[] = []
 
   // handler
   const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
@@ -92,11 +96,10 @@
     } catch (e) {
       logger.error(e)
 
-      if (e instanceof Error) {
-        assembleError = e
-      } else {
-        assembleError = new Error(`${e}`)
-      }
+      errorMessage = assemblyErrorMessage(
+        e instanceof Error ? e : new Error(`${e}`),
+        $i18n
+      )
     }
   }
 
@@ -253,17 +256,17 @@
 {/await }
 <ErrorModal
   id="index-error-modal"
-  open={assembleError !== null}
-  on:close={() => assembleError = null}
+  open={errorMessage.length !== 0}
+  on:close={() => errorMessage = []}
 >
   <svelte:fragment slot="title">
-    Assemble Error
+    ERROR
   </svelte:fragment>
   <svelte:fragment slot="button">
     OK
   </svelte:fragment>
 
-  {#each assembleErrorMessages as row}
+  {#each errorMessage as row}
     {row}<br>
   {/each}
 </ErrorModal>

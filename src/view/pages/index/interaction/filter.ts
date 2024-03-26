@@ -14,11 +14,14 @@ import {
   notUseHanger,
   onlyPropertyIncludedInList,
 } from '~core/assembly/filter/filters.ts'
+import { BaseCustomError } from '~core/utils/error.ts'
 import { logger } from '~core/utils/logger.ts'
 
+import { armNotEquipped } from '~data/arm-units.ts'
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
 import { manufactures } from '~data/types/base/manufacture.ts'
+import type { ACParts } from '~data/types/base/types.ts'
 import { type Candidates } from '~data/types/candidates.ts'
 
 export interface FilterState {
@@ -180,19 +183,56 @@ function setupFilter(
   key: AssemblyKey,
   initialCandidates: Candidates,
 ): PartsFilterSet {
-  const base = PartsFilterSet.empty
-    .add(assumeConstraintLegsAndBooster.build(initialCandidates), {
-      enabled: true,
-      private: true,
-    })
-    .add(
-      onlyPropertyIncludedInList('manufacture').build({
-        key,
-        selected: manufactures,
-        whole: manufactures,
-        onEmpty: ({ candidates }) => candidates,
-      }),
+  const base = (() => {
+    const b = PartsFilterSet.empty.add(
+      assumeConstraintLegsAndBooster.build(initialCandidates),
+      {
+        enabled: true,
+        private: true,
+      },
     )
+
+    switch (key) {
+      case 'expansion':
+        return b
+      case 'rightArmUnit':
+      case 'leftArmUnit':
+      case 'rightBackUnit':
+      case 'leftBackUnit':
+        return b.add(
+          onlyPropertyIncludedInList('manufacture').build({
+            key,
+            selected: manufactures,
+            whole: manufactures,
+            onEmpty: ({ candidates }) => ({
+              ...candidates,
+              [key]: [armNotEquipped],
+            }),
+          }),
+        )
+      default:
+        return b.add(
+          onlyPropertyIncludedInList('manufacture').build({
+            key,
+            selected: manufactures,
+            whole: manufactures,
+            onEmpty: (context): Candidates => {
+              const message = 'any item not found after manufacture filter'
+              logger.error({
+                message,
+                key,
+                context,
+              })
+
+              throw new UsableItemNotFoundError(
+                { key, property: 'manufacture' },
+                message,
+              )
+            },
+          }),
+        )
+    }
+  })()
 
   switch (key) {
     case 'rightArmUnit':
@@ -212,3 +252,8 @@ function setupFilter(
 function getFilter(key: AssemblyKey, state: FilterState): PartsFilterSet {
   return state.map[key]
 }
+
+export class UsableItemNotFoundError extends BaseCustomError<{
+  key: AssemblyKey
+  property: keyof ACParts
+}> {}

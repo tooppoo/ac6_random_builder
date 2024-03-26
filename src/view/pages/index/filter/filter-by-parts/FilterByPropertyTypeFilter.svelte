@@ -60,7 +60,7 @@
     dispatch('change-filter', { target: result })
     selectBox.selectedIndex = -1 // 選択状態解除
   }
-  
+
   // setup
   const dispatch = createEventDispatcher<{
     'change-filter': ChangeFilter
@@ -81,7 +81,10 @@
     bind:this={selectBox}
   >
     {#each state.filter.type.whole as v}
-      <option value={v}>
+      <option
+        value={v}
+        selected={state.enabled && state.filter.type.value.includes(v)}
+      >
         {$i18n.t(`${state.filter.type.property}:${v}`)}
       </option>
     {/each}

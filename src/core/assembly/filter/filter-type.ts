@@ -8,10 +8,12 @@ export const enableOrNot = {
 } as const
 export const filterByProp = <P extends keyof ACParts, T>(
   property: P,
-  xs: T[],
+  selected: T[],
+  whole: T[],
 ) =>
   ({
     id: 'filterByProperty',
     property,
-    value: xs,
+    value: selected,
+    whole,
   }) as const

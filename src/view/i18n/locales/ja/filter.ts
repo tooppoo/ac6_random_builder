@@ -10,7 +10,7 @@ export const jaFilter = {
   maxCoamLimit: '最大$t(assembly:coam)',
   maxLoadLimit: '最大$t(assembly:load)',
   applyCurrentLegsLoadLimit: '$t(assembly:legs)の$t(assembly:load)を適用',
-  [onlyPropertyIncludedInList('manufacture').name]: '指定企業の製品のみ使用',
+  [onlyPropertyIncludedInList('manufacture').name]: '企業を指定',
   filterByParts: {
     description: '選択するパーツの<br>条件を設定する',
   },

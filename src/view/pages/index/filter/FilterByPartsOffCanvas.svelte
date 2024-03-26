@@ -27,10 +27,58 @@
   }
 
   // handle
-  const onChecked = (target: ReadonlyPartsFilterState): ChangeEventHandler<HTMLInputElement> => (_e) => {
-    logger.debug('filter-offcanvas-onChecked', { target, _e })
+  const onChecked = (target: ReadonlyPartsFilterState): ChangeEventHandler<HTMLInputElement> => (e) => {
+    logger.debug('filter-offcanvas-onChecked', { target, e })
 
-    dispatch('check-filter', { target })
+    dispatch('change-filter', {
+      target: {
+        ...target,
+        enabled: !target.enabled,
+      },
+    })
+  }
+  const onSelected = <T extends ReadonlyPartsFilterState>(target: T): ChangeEventHandler<HTMLSelectElement> => (e) => {
+    logger.debug('filter-offcanvas-onSelected', { target, e })
+
+    if (target.filter.type.id !== 'filterByProperty') return
+
+    const options = e.currentTarget.options
+    let selected: typeof target.filter.type.value = []
+    for (let i = 0; i < options.length; i++) {
+      const item = options.item(i)
+      item && item.selected && selected.push(item.value)
+    }
+
+    const t = {
+      ...target,
+      filter: {
+        ...target.filter,
+        type: {
+          ...target.filter.type,
+          value: selected,
+        }
+      },
+      enabled: selected.length > 0,
+    }
+
+    dispatch('change-filter', { target: t })
+  }
+  const resetSelect = (target: ReadonlyPartsFilterState) => () => {
+    if (target.filter.type.id !== 'filterByProperty') return
+
+    const result = {
+      ...target,
+      filter: {
+        ...target.filter,
+        type: {
+          ...target.filter.type,
+          value: target.filter.type.whole,
+        }
+      },
+      enabled: false,
+    }
+
+    dispatch('change-filter', { target: result })
   }
 
   // setup
@@ -50,7 +98,7 @@
 
   const dispatch = createEventDispatcher<{
     toggle: ToggleFilter
-    'check-filter': CheckFilter
+    'change-filter': CheckFilter
   }>()
 </script>
 
@@ -92,11 +140,14 @@
           <label for={formId} class="d-flex align-items-center me-2">
             {$i18n.t(`filter:${f.filter.name}`)}
           </label>
-          <select id={formId} class="form-select" multiple>
-            {#each f.filter.type.value as v}
-              <option value={v}>{$i18n.t(`${f.filter.type.property}:${v}`)}</option>
+          <select id={formId} class="form-select" multiple on:change={onSelected(f)}>
+            {#each f.filter.type.whole as v}
+              <option value={v}>
+                {$i18n.t(`${f.filter.type.property}:${v}`)}
+              </option>
             {/each}
           </select>
+          <button class="ms-2" on:click={resetSelect(f)}>RESET</button>
         </div>
       {/if}
       <Margin space={4} />

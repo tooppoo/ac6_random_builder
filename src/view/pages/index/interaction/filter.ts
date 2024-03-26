@@ -135,9 +135,10 @@ export function changePartsFilter({
 
   if (!state.current.id) return state
 
-  const updated = target.enabled
-    ? state.current.filter.disable(target.filter.name)
-    : state.current.filter.enable(target.filter.name)
+  // const updated = target.enabled
+  //   ? state.current.filter.enable(target.filter.name)
+  //   : state.current.filter.disable(target.filter.name)
+  const updated = state.current.filter.update(target)
 
   state.current.filter = updated
   state.map[state.current.id] = updated

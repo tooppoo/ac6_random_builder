@@ -231,7 +231,7 @@
   open={filter.open}
   current={filter.current}
   on:toggle={(ev) => filter.open = ev.detail.open}
-  on:check-filter={({ detail }) => {
+  on:change-filter={({ detail }) => {
     filter = changePartsFilter({ target: detail.target, state: filter })
 
     assembly = assemblyWithHeadParts(candidates)

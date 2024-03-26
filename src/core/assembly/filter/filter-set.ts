@@ -57,6 +57,15 @@ export class PartsFilterSet {
     )
   }
 
+  update(target: ReadonlyPartsFilterState): PartsFilterSet {
+    if (this.map[target.filter.name].private) return this
+
+    return new PartsFilterSet({
+      ...this.map,
+      [target.filter.name]: target,
+    })
+  }
+
   enable(key: string): PartsFilterSet {
     return this.toggle(key, true)
   }

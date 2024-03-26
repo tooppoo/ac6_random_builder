@@ -87,15 +87,20 @@ export const onlyPropertyIncludedInList = <P extends keyof ACParts>(
     name,
     build: (
       key: AssemblyKey,
-      list: ACParts[P][],
+      selected: ACParts[P][],
       whole: ACParts[P][],
     ): PartsFilter => ({
       name,
-      type: filterByProp(prop, whole),
-      apply: (candidates) => ({
-        ...candidates,
-        [key]: candidates[key].filter((c) => list.includes(c[prop])),
-      }),
+      type: filterByProp(prop, selected, whole),
+      apply(candidates) {
+        console.log(this.type)
+        return {
+          ...candidates,
+          [key]: candidates[key].filter((c) =>
+            this.type.value!.includes(c[prop]),
+          ),
+        }
+      },
     }),
   }
 }

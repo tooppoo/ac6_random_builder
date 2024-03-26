@@ -1,5 +1,6 @@
 import 'i18next'
 import type { jaError } from '~view/i18n/locales/ja/error.ts'
+import type { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
 
 import type { jaAssembly } from './locales/ja/assembly.ts'
 import type { jaFilter } from './locales/ja/filter.ts'
@@ -12,6 +13,7 @@ declare module 'i18next' {
       assembly: typeof jaAssembly
       lock: typeof jaLock
       filter: typeof jaFilter
+      manufacture: typeof jaManufactures
       'page/index': typeof jaPageIndex
       error: typeof jaError
     }

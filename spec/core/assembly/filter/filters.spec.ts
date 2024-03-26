@@ -2,6 +2,7 @@ import {
   assumeConstraintLegsAndBooster,
   excludeNotEquipped,
   notUseHanger,
+  onlyPropertyIncludedInList,
 } from '~core/assembly/filter/filters.ts'
 
 import { armNotEquipped } from '~data/arm-units.ts'
@@ -10,11 +11,14 @@ import { boosterNotEquipped } from '~data/booster.ts'
 import { expansionNotEquipped } from '~data/expansions.ts'
 import { tank } from '~data/types/base/category.ts'
 import { armUnit } from '~data/types/base/classification.ts'
+import { manufactures } from '~data/types/base/manufacture.ts'
 
 import { fc, it } from '@fast-check/vitest'
+import { uniq } from 'lodash-es'
 import { describe, expect } from 'vitest'
 
 import {
+  genAssembly,
   genAssemblyKey,
   genCandidates,
   genFilterApplyContext,
@@ -111,4 +115,33 @@ describe(assumeConstraintLegsAndBooster.name, () => {
       )
     })
   })
+})
+
+describe(onlyPropertyIncludedInList('manufacture').name, () => {
+  it.prop([
+    genAssemblyKey(),
+    genManufactures(),
+    genCandidates(),
+    genAssembly(),
+  ])(
+    'select only item provided by specified manufactures',
+    (key, selected, candidates, assembly) => {
+      const filter = onlyPropertyIncludedInList('manufacture').build(
+        key,
+        selected,
+        manufactures,
+      )
+
+      const filtered = filter.apply(candidates, { assembly })
+
+      // 実際の結果が選択された値のサブセットであること
+      expect(selected).toEqual(
+        expect.arrayContaining(uniq(filtered[key].map((p) => p.manufacture))),
+      )
+    },
+  )
+
+  function genManufactures() {
+    return fc.array(fc.constantFrom(...manufactures))
+  }
 })

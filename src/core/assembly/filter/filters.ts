@@ -93,7 +93,8 @@ export const onlyPropertyIncludedInList = <P extends keyof ACParts>(
       name,
       type: filterByProp(prop, selected, whole),
       apply(candidates) {
-        console.log(this.type)
+        // typeの変更を反映するため、this経由でtypeを参照する必要がある
+        // そのため、この apply は arrow function にしてはならない
         return {
           ...candidates,
           [key]: candidates[key].filter((c) =>

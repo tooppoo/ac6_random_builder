@@ -13,6 +13,7 @@
   export let state: ReadonlyPartsFilterState
 
   const formId = `${current.id}-${state.filter.name}-multi-select`
+  let selectBox: HTMLSelectElement
 
   // handle
   const onSelected = <T extends ReadonlyPartsFilterState>(target: T): ChangeEventHandler<HTMLSelectElement> => (e) => {
@@ -57,6 +58,7 @@
     }
 
     dispatch('change-filter', { target: result })
+    selectBox.selectedIndex = -1 // 選択状態解除
   }
   
   // setup
@@ -71,7 +73,13 @@
   <label for={formId} class="d-flex align-items-center me-2">
     {$i18n.t(`filter:${state.filter.name}`)}
   </label>
-  <select id={formId} class="form-select" multiple on:change={onSelected(state)}>
+  <select
+    id={formId}
+    class="form-select"
+    multiple
+    on:change={onSelected(state)}
+    bind:this={selectBox}
+  >
     {#each state.filter.type.whole as v}
       <option value={v}>
         {$i18n.t(`${state.filter.type.property}:${v}`)}

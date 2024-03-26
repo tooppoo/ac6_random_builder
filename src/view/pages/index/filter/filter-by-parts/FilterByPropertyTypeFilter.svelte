@@ -69,7 +69,7 @@
 
 <!-- for type hint -->
 {#if state.filter.type.id === 'filterByProperty'}
-<div class="d-flex">
+<div class="d-flex align-items-center">
   <label for={formId} class="d-flex align-items-center me-2">
     {$i18n.t(`filter:${state.filter.name}`)}
   </label>
@@ -86,6 +86,6 @@
       </option>
     {/each}
   </select>
-  <button class="ms-2" on:click={resetSelect(state)}>RESET</button>
+  <button class="h-25 ms-2" on:click={resetSelect(state)}>RESET</button>
 </div>
 {/if}

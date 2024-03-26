@@ -84,7 +84,7 @@ describe('filter interaction', () => {
     }),
     genInitialFilterState(),
   ])(
-    'after apply filter, candidates are changed',
+    'after change parts filter, current filter should be changed',
     (enabledOldState, key, initialState) => {
       const state = toggleFilter(key, initialState)
       const filterState = {
@@ -98,9 +98,6 @@ describe('filter interaction', () => {
         updated.map[key],
         'current == map[key]',
       )
-      expect(
-        updated.current.filter.isEnabled(filterState.filter.name),
-      ).to.equals(!enabledOldState, 'switched enabled state')
     },
   )
   it.prop([

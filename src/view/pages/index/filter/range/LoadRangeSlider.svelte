@@ -1,5 +1,10 @@
+<script lang="ts" context="module">
+  import type {AssemblyKey} from "~core/assembly/assembly.ts";
+
+  export type ToggleLock = { id: AssemblyKey, value: boolean }
+</script>
 <script lang="ts">
-  import type {AssemblyKey, Assembly } from "~core/assembly/assembly.ts";
+  import type {Assembly } from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import {sum} from "~core/utils/array.ts";
   import {roundUpByRealPart} from "~core/utils/number.ts";
@@ -66,7 +71,7 @@
   }
   const dispatch = createEventDispatcher<{
     change: { value: number },
-    'toggle-lock': { id: AssemblyKey, value: boolean },
+    'toggle-lock': ToggleLock,
   }>()
 
   const dropdown: Action = (node) => {

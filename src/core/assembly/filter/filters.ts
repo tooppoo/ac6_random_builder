@@ -1,10 +1,11 @@
 import type { AssemblyKey } from '~core/assembly/assembly.ts'
 import type { PartsFilter } from '~core/assembly/filter/base.ts'
+import { enableOrNot, filterByProp } from '~core/assembly/filter/filter-type.ts'
 
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
 import { armUnit, notEquipped } from '~data/types/base/classification.ts'
-import type { Manufacture } from '~data/types/base/manufacture.ts'
+import type { ACParts } from '~data/types/base/types.ts'
 import { type Candidates, type CandidatesKey } from '~data/types/candidates.ts'
 
 export const excludeNotEquipped = (() => {
@@ -14,6 +15,7 @@ export const excludeNotEquipped = (() => {
     name,
     build: (key: CandidatesKey): PartsFilter => ({
       name,
+      type: enableOrNot,
       apply: (candidates: Candidates): Candidates => ({
         ...candidates,
         [key]: candidates[key].filter(
@@ -32,6 +34,7 @@ export const notUseHanger = (() => {
     name,
     build: (key: CandidatesKey): PartsFilter => ({
       name,
+      type: enableOrNot,
       apply: (candidates) => {
         switch (key) {
           case 'rightBackUnit':
@@ -57,6 +60,7 @@ export const assumeConstraintLegsAndBooster = (() => {
     name,
     build: (initialCandidates: Candidates): PartsFilter => ({
       name,
+      type: enableOrNot,
       apply: (candidates, { assembly }): Candidates => {
         if (assembly.legs.category === tank) {
           return {
@@ -74,28 +78,24 @@ export const assumeConstraintLegsAndBooster = (() => {
   }
 })()
 
-export const onlyProvidedBySpecifiedManufactures = (() => {
-  const name = 'onlyProvidedBySpecifiedManufactures'
+export const onlyPropertyIncludedInList = <P extends keyof ACParts>(
+  prop: P,
+) => {
+  const name = `only-${prop}-included-in-list` as const
 
   return {
     name,
-    build: (key: AssemblyKey, manufactures: Manufacture[]): PartsFilter => ({
+    build: (
+      key: AssemblyKey,
+      list: ACParts[P][],
+      whole: ACParts[P][],
+    ): PartsFilter => ({
       name,
-      apply: (candidates): Candidates => {
-        switch (key) {
-          case 'expansion':
-            return candidates
-          default:
-            return {
-              ...candidates,
-              [key]: candidates[key].filter((c) => {
-                if (c.classification === notEquipped) return true
-
-                return manufactures.includes(c.manufacture)
-              }),
-            }
-        }
-      },
+      type: filterByProp(prop, whole),
+      apply: (candidates) => ({
+        ...candidates,
+        [key]: candidates[key].filter((c) => list.includes(c[prop])),
+      }),
     }),
   }
-})()
+}

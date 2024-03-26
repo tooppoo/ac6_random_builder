@@ -1,5 +1,6 @@
 import { type PartsFilter } from '~core/assembly/filter/base.ts'
 import { PartsFilterSet } from '~core/assembly/filter/filter-set.ts'
+import { enableOrNot } from '~core/assembly/filter/filter-type.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import sinon from 'sinon'
@@ -19,6 +20,7 @@ describe(PartsFilterSet.name, () => {
     (candidates, context) => {
       const filters = [...new Array(4)].map<PartsFilter>((_, i) => ({
         name: `${i + 1}`,
+        type: enableOrNot,
         apply: (_) => _,
       }))
       const stubs = filters
@@ -53,6 +55,7 @@ describe(PartsFilterSet.name, () => {
   it('should not change state via enable / disable', () => {
     const filters = [...new Array(4)].map<PartsFilter>((_, i) => ({
       name: `${i + 1}`,
+      type: enableOrNot,
       apply: (_) => _,
     }))
     const sut = filters.reduce(
@@ -75,6 +78,7 @@ describe(PartsFilterSet.name, () => {
           acc.add(
             {
               name: p.name,
+              type: enableOrNot,
               apply: (_) => _,
             },
             { enabled: stat.enabled, private: p.private },

@@ -2,7 +2,6 @@ import {
   assumeConstraintLegsAndBooster,
   excludeNotEquipped,
   notUseHanger,
-  onlyProvidedBySpecifiedManufactures,
 } from '~core/assembly/filter/filters.ts'
 
 import { armNotEquipped } from '~data/arm-units.ts'
@@ -11,14 +10,11 @@ import { boosterNotEquipped } from '~data/booster.ts'
 import { expansionNotEquipped } from '~data/expansions.ts'
 import { tank } from '~data/types/base/category.ts'
 import { armUnit } from '~data/types/base/classification.ts'
-import { manufactures } from '~data/types/base/manufacture.ts'
-import type { ACParts } from '~data/types/base/types.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'
 
 import {
-  genAssembly,
   genAssemblyKey,
   genCandidates,
   genFilterApplyContext,
@@ -115,40 +111,4 @@ describe(assumeConstraintLegsAndBooster.name, () => {
       )
     })
   })
-})
-
-describe(onlyProvidedBySpecifiedManufactures.name, () => {
-  it.prop([
-    genCandidates().chain((c) =>
-      fc.record({ candidates: fc.constant(c), assembly: genAssembly(c) }),
-    ),
-    genAssemblyKey(),
-    genManufactures(),
-  ])(
-    'should contain only products which is provided specified manufacture in candidates',
-    ({ candidates, assembly }, key, manufactures) => {
-      const filter = onlyProvidedBySpecifiedManufactures.build(
-        key,
-        manufactures,
-      )
-
-      const applied = filter.apply(candidates, { assembly })
-
-      const actual = applied[key]
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .map((c) => (c as never as ACParts<any, any, any>).manufacture)
-        .filter((_) => _)
-        .toSorted()
-
-      // フィルタリングされた結果のmanufacturesは、
-      // 指定されたmanufactureのサブセットであること
-      expect(manufactures).toEqual(expect.arrayContaining(actual))
-    },
-  )
-  function genManufactures() {
-    return fc.array(genManufacture())
-  }
-  function genManufacture() {
-    return fc.constantFrom(...manufactures)
-  }
 })

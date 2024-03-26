@@ -11,9 +11,9 @@ import {
 } from './manufacture.ts'
 
 export type ACParts<
-  Cl extends Classification,
-  M extends Manufacture,
-  Ca extends Category,
+  Cl extends Classification = Classification,
+  M extends Manufacture = Manufacture,
+  Ca extends Category = Category,
 > = Readonly<{
   /** 名前 */
   name: string

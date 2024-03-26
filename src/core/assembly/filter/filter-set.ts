@@ -70,10 +70,6 @@ export class PartsFilterSet {
     return this.toggle(key, true)
   }
 
-  disable(key: string): PartsFilterSet {
-    return this.toggle(key, false)
-  }
-
   get list(): ReadonlyPartsFilterState[] {
     return this.listAll.filter((f) => !f.private)
   }

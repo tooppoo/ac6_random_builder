@@ -32,41 +32,28 @@ describe(PartsFilterSet.name, () => {
         })
 
       const sut1 = filters
-        .reduce((acc, f) => acc.add(f, { enabled: true }), PartsFilterSet.empty)
-        .disable('4')
+        .reduce(
+          (acc, f) => acc.add(f, { enabled: false }),
+          PartsFilterSet.empty,
+        )
+        .enable('1')
 
       expect(sut1.apply(candidates, context)).to.deep.equals(candidates, 'sut1')
-      expect(stubs.map((s) => s.callCount)).to.deep.equals([1, 1, 1, 0], 'sut1')
+      expect(stubs.map((s) => s.callCount)).to.deep.equals([1, 0, 0, 0], 'sut1')
 
-      const sut2 = sut1.disable('2')
+      const sut2 = sut1.enable('2')
       expect(sut2.apply(candidates, context)).to.deep.equals(candidates, 'sut2')
-      expect(stubs.map((s) => s.callCount)).to.deep.equals([2, 1, 2, 0], 'sut2')
+      expect(stubs.map((s) => s.callCount)).to.deep.equals([2, 1, 0, 0], 'sut2')
 
-      const sut3 = sut2.disable('3')
+      const sut3 = sut2.enable('3')
       expect(sut3.apply(candidates, context)).to.deep.equals(candidates, 'sut3')
-      expect(stubs.map((s) => s.callCount)).to.deep.equals([3, 1, 2, 0], 'sut3')
+      expect(stubs.map((s) => s.callCount)).to.deep.equals([3, 2, 1, 0], 'sut3')
 
       const sut4 = sut3.enable('4')
       expect(sut4.apply(candidates, context)).to.deep.equals(candidates, 'sut4')
-      expect(stubs.map((s) => s.callCount)).to.deep.equals([4, 1, 2, 1], 'sut4')
+      expect(stubs.map((s) => s.callCount)).to.deep.equals([4, 3, 2, 1], 'sut4')
     },
   )
-
-  it('should not change state via enable / disable', () => {
-    const filters = [...new Array(4)].map<PartsFilter>((_, i) => ({
-      name: `${i + 1}`,
-      type: enableOrNot,
-      apply: (_) => _,
-    }))
-    const sut = filters.reduce(
-      (acc, f) => acc.add(f, { enabled: true }),
-      PartsFilterSet.empty,
-    )
-
-    const updated = sut.disable('1').disable('2').disable('3').disable('4')
-
-    expect(updated).not.toEqual(sut)
-  })
 
   describe('private filter', () => {
     const buildSetFromPair = (
@@ -102,14 +89,6 @@ describe(PartsFilterSet.name, () => {
     ])('ignore enable message for private filter', (pairs) => {
       const set = buildSetFromPair({ enabled: false }, pairs)
       const updated = pairs.reduce((acc, { name }) => acc.enable(name), set)
-
-      expect(updated).toStrictEqual(set)
-    })
-    it.prop([
-      genNameAndPrivatePair().filter((ps) => ps.every((p) => p.private)),
-    ])('ignore disable message for private filter', (pairs) => {
-      const set = buildSetFromPair({ enabled: true }, pairs)
-      const updated = pairs.reduce((acc, { name }) => acc.disable(name), set)
 
       expect(updated).toStrictEqual(set)
     })

@@ -86,6 +86,6 @@
       </option>
     {/each}
   </select>
-  <button class="h-25 ms-2" on:click={resetSelect(state)}>RESET</button>
+  <button class="btn ms-2" on:click={resetSelect(state)}>RESET</button>
 </div>
 {/if}

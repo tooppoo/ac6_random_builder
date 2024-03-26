@@ -5,9 +5,8 @@ import {
 } from '~core/assembly/assembly.ts'
 import { random } from '~core/utils/array.ts'
 
-import { type Booster, boosterNotEquipped } from '~data/booster.ts'
+import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
-import { notEquipped } from '~data/types/base/classification.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 
 import { LockedParts } from './lock.ts'
@@ -95,13 +94,4 @@ export function randomBuild(
       })
     }
   }
-}
-
-export function assertBoosterEquipped(
-  b: RawAssembly['booster'],
-): asserts b is Booster {
-  if (b.classification === notEquipped)
-    throw new Error(`${b.name} is not equipped`)
-
-  return
 }

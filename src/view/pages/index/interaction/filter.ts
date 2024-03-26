@@ -186,11 +186,12 @@ function setupFilter(
       private: true,
     })
     .add(
-      onlyPropertyIncludedInList('manufacture').build(
+      onlyPropertyIncludedInList('manufacture').build({
         key,
-        manufactures,
-        manufactures,
-      ),
+        selected: manufactures,
+        whole: manufactures,
+        onEmpty: ({ candidates }) => candidates,
+      }),
     )
 
   switch (key) {

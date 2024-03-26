@@ -83,24 +83,33 @@ export const onlyPropertyIncludedInList = <P extends keyof ACParts>(
 ) => {
   const name = `only-${prop}-included-in-list` as const
 
+  type List = ACParts[P][]
+  type Params = {
+    key: AssemblyKey
+    selected: List
+    whole: List
+    onEmpty: (
+      context: Omit<Params, 'onEmpty'> & { candidates: Candidates },
+    ) => Candidates
+  }
   return {
     name,
-    build: (
-      key: AssemblyKey,
-      selected: ACParts[P][],
-      whole: ACParts[P][],
-    ): PartsFilter => ({
+    build: ({ key, selected, whole, onEmpty }: Params): PartsFilter => ({
       name,
       type: filterByProp(prop, selected, whole),
       apply(candidates) {
         // typeの変更を反映するため、this経由でtypeを参照する必要がある
         // そのため、この apply は arrow function にしてはならない
-        return {
-          ...candidates,
-          [key]: candidates[key].filter((c) =>
-            this.type.value!.includes(c[prop]),
-          ),
-        }
+        const result = candidates[key].filter((c) =>
+          this.type.value!.includes(c[prop]),
+        )
+
+        return result.length > 0
+          ? {
+              ...candidates,
+              [key]: result,
+            }
+          : onEmpty({ key, selected, whole, candidates })
       },
     }),
   }

@@ -126,11 +126,12 @@ describe(onlyPropertyIncludedInList('manufacture').name, () => {
   ])(
     'select only item provided by specified manufactures',
     (key, selected, candidates, assembly) => {
-      const filter = onlyPropertyIncludedInList('manufacture').build(
+      const filter = onlyPropertyIncludedInList('manufacture').build({
         key,
         selected,
-        manufactures,
-      )
+        whole: manufactures,
+        onEmpty: ({ key, candidates }) => ({ ...candidates, [key]: [] }),
+      })
 
       const filtered = filter.apply(candidates, { assembly })
 
@@ -140,6 +141,22 @@ describe(onlyPropertyIncludedInList('manufacture').name, () => {
       )
     },
   )
+
+  describe('any item not found after apply filter', () => {
+    it.prop([genAssemblyKey(), genCandidates(), genAssembly()])(
+      'onEmpty called and used the result',
+      (key, candidates, assembly) => {
+        const filter = onlyPropertyIncludedInList('manufacture').build({
+          key,
+          selected: [],
+          whole: manufactures,
+          onEmpty: () => candidates,
+        })
+
+        expect(filter.apply(candidates, { assembly })).toBe(candidates)
+      },
+    )
+  })
 
   function genManufactures() {
     return fc.array(fc.constantFrom(...manufactures))

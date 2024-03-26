@@ -1,22 +1,18 @@
 <script lang="ts" context="module">
-  import i18n from "~view/i18n/define.ts";
   import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
 
   export type ToggleFilter = { open: boolean }
-  export type CheckFilter = {
-    target: ReadonlyPartsFilterState
-  }
 </script>
 <script lang="ts">
-
-  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/filter-set.ts";
   import {logger} from "~core/utils/logger.ts";
 
   import Margin from "~view/components/spacing/Margin.svelte";
+  import EnableTypeFilter from "~view/pages/index/filter/filter-by-parts/EnableTypeFilter.svelte";
+  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
+  import FilterByPropertyTypeFilter from "~view/pages/index/filter/filter-by-parts/FilterByPropertyTypeFilter.svelte";
 
   import Offcanvas from "bootstrap/js/dist/offcanvas";
   import {createEventDispatcher} from "svelte";
-  import type {ChangeEventHandler} from "svelte/elements";
 
   export let open: boolean
   export let current: CurrentFilter
@@ -27,58 +23,8 @@
   }
 
   // handle
-  const onChecked = (target: ReadonlyPartsFilterState): ChangeEventHandler<HTMLInputElement> => (e) => {
-    logger.debug('filter-offcanvas-onChecked', { target, e })
-
-    dispatch('change-filter', {
-      target: {
-        ...target,
-        enabled: !target.enabled,
-      },
-    })
-  }
-  const onSelected = <T extends ReadonlyPartsFilterState>(target: T): ChangeEventHandler<HTMLSelectElement> => (e) => {
-    logger.debug('filter-offcanvas-onSelected', { target, e })
-
-    if (target.filter.type.id !== 'filterByProperty') return
-
-    const options = e.currentTarget.options
-    let selected: typeof target.filter.type.value = []
-    for (let i = 0; i < options.length; i++) {
-      const item = options.item(i)
-      item && item.selected && selected.push(item.value)
-    }
-
-    const t = {
-      ...target,
-      filter: {
-        ...target.filter,
-        type: {
-          ...target.filter.type,
-          value: selected,
-        }
-      },
-      enabled: selected.length > 0,
-    }
-
-    dispatch('change-filter', { target: t })
-  }
-  const resetSelect = (target: ReadonlyPartsFilterState) => () => {
-    if (target.filter.type.id !== 'filterByProperty') return
-
-    const result = {
-      ...target,
-      filter: {
-        ...target.filter,
-        type: {
-          ...target.filter.type,
-          value: target.filter.type.whole,
-        }
-      },
-      enabled: false,
-    }
-
-    dispatch('change-filter', { target: result })
+  const onChangeFilter = (e: CustomEvent<ChangeFilter>) => {
+    dispatch('change-filter', e.detail)
   }
 
   // setup
@@ -98,7 +44,7 @@
 
   const dispatch = createEventDispatcher<{
     toggle: ToggleFilter
-    'change-filter': CheckFilter
+    'change-filter': ChangeFilter
   }>()
 </script>
 
@@ -120,35 +66,17 @@
   <div class="offcanvas-body">
     {#each current.filter.list as f}
       {#if f.filter.type.id === 'enable'}
-        <div class="form-check">
-          <input
-            id={f.filter.name}
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            checked={f.enabled}
-            on:change={onChecked(f)}
-          >
-          <label class="form-check-label" for={f.filter.name}>
-            {$i18n.t(`filter:${f.filter.name}`)}
-          </label>
-        </div>
+        <EnableTypeFilter
+          state={f}
+          on:change-filter={onChangeFilter}
+        />
       {/if}
       {#if f.filter.type.id === 'filterByProperty'}
-        {@const formId = `${current.id}-${f.filter.name}-multi-select`}
-        <div class="d-flex">
-          <label for={formId} class="d-flex align-items-center me-2">
-            {$i18n.t(`filter:${f.filter.name}`)}
-          </label>
-          <select id={formId} class="form-select" multiple on:change={onSelected(f)}>
-            {#each f.filter.type.whole as v}
-              <option value={v}>
-                {$i18n.t(`${f.filter.type.property}:${v}`)}
-              </option>
-            {/each}
-          </select>
-          <button class="ms-2" on:click={resetSelect(f)}>RESET</button>
-        </div>
+        <FilterByPropertyTypeFilter
+          current={current}
+          state={f}
+          on:change-filter={onChangeFilter}
+        />
       {/if}
       <Margin space={4} />
     {/each}

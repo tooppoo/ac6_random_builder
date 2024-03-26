@@ -1,4 +1,5 @@
-import { type PartsFilter, PartsFilterSet } from '~core/assembly/filter/base.ts'
+import { type PartsFilter } from '~core/assembly/filter/base.ts'
+import { PartsFilterSet } from '~core/assembly/filter/filter-set.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import sinon from 'sinon'

@@ -3,11 +3,11 @@ import {
   type AssemblyKey,
   createAssembly,
 } from '~core/assembly/assembly.ts'
+import { type FilterApplyContext } from '~core/assembly/filter/base.ts'
 import {
-  type FilterApplyContext,
   PartsFilterSet,
   type ReadonlyPartsFilterState,
-} from '~core/assembly/filter/base.ts'
+} from '~core/assembly/filter/filter-set.ts'
 import {
   assumeConstraintLegsAndBooster,
   excludeNotEquipped,

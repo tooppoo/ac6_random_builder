@@ -8,7 +8,8 @@
   }
 </script>
 <script lang="ts">
-  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/base.ts";
+
+  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/filter-set.ts";
   import {logger} from "~core/utils/logger.ts";
 
   import Offcanvas from "bootstrap/js/dist/offcanvas";

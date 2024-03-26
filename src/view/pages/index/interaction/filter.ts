@@ -12,11 +12,13 @@ import {
   assumeConstraintLegsAndBooster,
   excludeNotEquipped,
   notUseHanger,
+  onlyPropertyIncludedInList,
 } from '~core/assembly/filter/filters.ts'
 import { logger } from '~core/utils/logger.ts'
 
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
+import { manufactures } from '~data/types/base/manufacture.ts'
 import { type Candidates } from '~data/types/candidates.ts'
 
 export interface FilterState {
@@ -180,10 +182,18 @@ function setupFilter(
   key: AssemblyKey,
   initialCandidates: Candidates,
 ): PartsFilterSet {
-  const base = PartsFilterSet.empty.add(
-    assumeConstraintLegsAndBooster.build(initialCandidates),
-    { enabled: true, private: true },
-  )
+  const base = PartsFilterSet.empty
+    .add(assumeConstraintLegsAndBooster.build(initialCandidates), {
+      enabled: true,
+      private: true,
+    })
+    .add(
+      onlyPropertyIncludedInList('manufacture').build(
+        key,
+        manufactures,
+        manufactures,
+      ),
+    )
 
   switch (key) {
     case 'rightArmUnit':

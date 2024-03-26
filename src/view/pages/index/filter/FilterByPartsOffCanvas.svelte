@@ -12,6 +12,8 @@
   import type {ReadonlyPartsFilterState} from "~core/assembly/filter/filter-set.ts";
   import {logger} from "~core/utils/logger.ts";
 
+  import Margin from "~view/components/spacing/Margin.svelte";
+
   import Offcanvas from "bootstrap/js/dist/offcanvas";
   import {createEventDispatcher} from "svelte";
   import type {ChangeEventHandler} from "svelte/elements";
@@ -69,19 +71,35 @@
   </div>
   <div class="offcanvas-body">
     {#each current.filter.list as f}
-      <div class="form-check">
-        <input
-          id={f.filter.name}
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          checked={f.enabled}
-          on:change={onChecked(f)}
-        >
-        <label class="form-check-label" for={f.filter.name}>
-          {$i18n.t(`filter:${f.filter.name}`)}
-        </label>
-      </div>
+      {#if f.filter.type.id === 'enable'}
+        <div class="form-check">
+          <input
+            id={f.filter.name}
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            checked={f.enabled}
+            on:change={onChecked(f)}
+          >
+          <label class="form-check-label" for={f.filter.name}>
+            {$i18n.t(`filter:${f.filter.name}`)}
+          </label>
+        </div>
+      {/if}
+      {#if f.filter.type.id === 'filterByProperty'}
+        {@const formId = `${current.id}-${f.filter.name}-multi-select`}
+        <div class="d-flex">
+          <label for={formId} class="d-flex align-items-center me-2">
+            {$i18n.t(`filter:${f.filter.name}`)}
+          </label>
+          <select id={formId} class="form-select" multiple>
+            {#each f.filter.type.value as v}
+              <option value={v}>{$i18n.t(`${f.filter.type.property}:${v}`)}</option>
+            {/each}
+          </select>
+        </div>
+      {/if}
+      <Margin space={4} />
     {/each}
   </div>
 </div>

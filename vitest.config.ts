@@ -9,9 +9,9 @@ export default defineConfig({
       reporter: ['text', 'json', 'lcov'],
       all: true,
       exclude: [
-        'src/view/pages/index.ts',
+        'src/view/pages/index/index.ts',
         '*.config.*',
-        '*.d.ts',
+        '**/**/*.d.ts',
         'spec/spec-helper/*',
       ],
     },

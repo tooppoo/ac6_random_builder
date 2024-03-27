@@ -179,7 +179,7 @@ export function anyFilterContain(
   return getFilter(key, state).list.length > 0
 }
 
-function setupFilter(
+export function setupFilter(
   key: AssemblyKey,
   initialCandidates: Candidates,
 ): PartsFilterSet {

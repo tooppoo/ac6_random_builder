@@ -9,11 +9,18 @@ import {
 } from '~core/assembly/random/validator/validators.ts'
 
 import type { I18Next } from '~view/i18n/define.ts'
-import { assemblyErrorMessage } from '~view/pages/index/interaction/error-message'
+import {
+  assemblyErrorMessage,
+  filterApplyErrorMessage,
+  type Translator,
+} from '~view/pages/index/interaction/error-message'
+import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import type { ArrayConstraints } from 'fast-check'
-import { afterEach, beforeEach, describe, expect, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, type Mock, vi } from 'vitest'
+
+import { genAssemblyKey } from '~spec/helper.ts'
 
 describe(assemblyErrorMessage.name, () => {
   let i18n: Pick<I18Next, 't'>
@@ -29,21 +36,8 @@ describe(assemblyErrorMessage.name, () => {
     vi.restoreAllMocks()
   })
 
-  describe('unknown error', () => {
-    it.prop([fc.string().map((s) => new Error(s))])(
-      'should provide unknown message',
-      (error) => {
-        assemblyErrorMessage(error, i18n)
+  renderUnknownError(() => ({ mock, i18n }), assemblyErrorMessage)
 
-        expect(mock).toHaveBeenNthCalledWith(1, 'unknown.description', {
-          ns: 'error',
-        })
-        expect(mock).toHaveBeenNthCalledWith(2, 'guideToDevelop', {
-          ns: 'error',
-        })
-      },
-    )
-  })
   describe('over try limit error', () => {
     const genValidationError = ({
       validationName,
@@ -203,3 +197,71 @@ describe(assemblyErrorMessage.name, () => {
     )
   })
 })
+
+describe(filterApplyErrorMessage.name, () => {
+  let i18n: Pick<I18Next, 't'>
+  let mock: ReturnType<typeof vi.fn>
+
+  beforeEach(() => {
+    mock = vi.fn()
+    i18n = {
+      t: mock as never as I18Next['t'],
+    }
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  renderUnknownError(() => ({ mock, i18n }), filterApplyErrorMessage)
+
+  describe(UsableItemNotFoundError.name, () => {
+    it.prop([genAssemblyKey()])(
+      'should show description about the error and guide for next action',
+      (key) => {
+        const error = new UsableItemNotFoundError({
+          key,
+          property: 'manufacture',
+        })
+
+        filterApplyErrorMessage(error, i18n)
+
+        expect(mock).toHaveBeenCalledTimesWith(
+          1,
+          'filter.notFound.description',
+          {
+            ns: 'error',
+          },
+        )
+        expect(mock).toHaveBeenCalledTimesWith(1, 'filter.notFound.guide', {
+          ns: 'error',
+        })
+        // it.prop で実行する場合、
+        // beforeEachの前に次のプロパティが実行される模様
+        vi.restoreAllMocks()
+      },
+    )
+  })
+})
+
+function renderUnknownError(
+  provider: () => { i18n: Translator; mock: Mock },
+  f: (e: Error, i18n: Translator) => unknown,
+) {
+  describe('unknown error', () => {
+    it.prop([fc.string().map((s) => new Error(s))])(
+      'should provide unknown message',
+      (error) => {
+        const { i18n, mock } = provider()
+
+        f(error, i18n)
+
+        expect(mock).toHaveBeenNthCalledWith(1, 'unknown.description', {
+          ns: 'error',
+        })
+        expect(mock).toHaveBeenNthCalledWith(2, 'guideToDevelop', {
+          ns: 'error',
+        })
+      },
+    )
+  })
+}

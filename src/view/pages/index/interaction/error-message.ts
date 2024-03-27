@@ -7,7 +7,7 @@ import {
 import type { I18Next } from '~view/i18n/define.ts'
 import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
 
-type Translator = Pick<I18Next, 't'>
+export type Translator = Pick<I18Next, 't'>
 
 export function assemblyErrorMessage(error: Error, i18n: Translator): string[] {
   if (error instanceof OverTryLimitError) {

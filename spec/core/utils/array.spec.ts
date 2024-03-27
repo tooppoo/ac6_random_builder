@@ -1,5 +1,4 @@
 import { random, sum } from '~core/utils/array'
-import { logger } from '~core/utils/logger.ts'
 
 import { fc, it as fcit } from '@fast-check/vitest'
 import { describe, expect, it } from 'vitest'
@@ -49,17 +48,7 @@ describe('utils/array', () => {
         })
         const per = Math.floor(tryCount / xs.length)
 
-        logger.debug({ result, per })
-
-        expect.extend({
-          between: (received, { begin, end }) => ({
-            message: () => `${received} is not between ${begin} and ${end}`,
-            pass: begin <= received && received <= end,
-          }),
-        })
-
         Object.values(result).forEach((count) => {
-          // @ts-expect-error extension
           expect(count).between({
             begin: per / 1.5,
             end: per * 1.5,

@@ -3,7 +3,7 @@ import type { WithBooster } from '~data/types/inner/booster.ts'
 
 import type * as Classification from '../base/classification'
 import type { Manufacture } from '../base/manufacture'
-import type { ACParts, WithEnLoad } from '../base/types'
+import type { ACParts } from '../base/types'
 
 const defineFrame =
   <
@@ -91,7 +91,6 @@ type Frame<
   M extends Manufacture,
   Ca extends Category.Frame,
 > = ACParts<Cl, M, Ca> &
-  WithEnLoad &
   Readonly<{
     ap: number
 

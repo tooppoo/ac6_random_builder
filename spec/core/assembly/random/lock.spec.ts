@@ -14,7 +14,7 @@ import {
   genAssemblyKeys,
   genCandidates,
   genLockedParts,
-} from '~spec/helper.ts'
+} from '~spec/spec-helper/property-generator.ts'
 
 describe(LockedParts.name, () => {
   it.prop([genLockedParts()])(

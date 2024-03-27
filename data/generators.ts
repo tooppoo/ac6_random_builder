@@ -25,6 +25,7 @@ export const generators = [
 
     weight: 3420,
     en_output: 2600,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'AG-E-013 YABA',
@@ -41,6 +42,7 @@ export const generators = [
 
     weight: 5080,
     en_output: 3000,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'AG-T-005 HOKUSHI',
@@ -57,6 +59,7 @@ export const generators = [
 
     weight: 7080,
     en_output: 3810,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'DF-GN-02 LING-TAI',
@@ -73,6 +76,7 @@ export const generators = [
 
     weight: 3860,
     en_output: 2340,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'DF-GN-06 MING-TANG',
@@ -89,6 +93,7 @@ export const generators = [
 
     weight: 6320,
     en_output: 3160,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'DF-GN-08 SAN-TAI',
@@ -105,6 +110,7 @@ export const generators = [
 
     weight: 10060,
     en_output: 3210,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'VP-20S',
@@ -121,6 +127,7 @@ export const generators = [
 
     weight: 3800,
     en_output: 3200,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'VP-20C',
@@ -137,6 +144,7 @@ export const generators = [
 
     weight: 5320,
     en_output: 3670,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'VP-20D',
@@ -153,6 +161,7 @@ export const generators = [
 
     weight: 11030,
     en_output: 4430,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'VE-20A',
@@ -169,6 +178,7 @@ export const generators = [
 
     weight: 3590,
     en_output: 3120,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'VE-20B',
@@ -185,6 +195,7 @@ export const generators = [
 
     weight: 5860,
     en_output: 2890,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'VE-20C',
@@ -201,6 +212,7 @@ export const generators = [
 
     weight: 10130,
     en_output: 4090,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'IA-C01G: AORTA',
@@ -217,6 +229,7 @@ export const generators = [
 
     weight: 4330,
     en_output: 3500,
+    en_load: 0,
   }),
   defineGenerator({
     name: 'IB-C03G: NGI 000',
@@ -233,6 +246,7 @@ export const generators = [
 
     weight: 8950,
     en_output: 4340,
+    en_load: 0,
   }),
 ] as const
 export type Generator = (typeof generators)[number]

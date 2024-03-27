@@ -5,11 +5,11 @@ import {
 } from '~core/assembly/random/validator/validators.ts'
 
 import type { I18Next } from '~view/i18n/define.ts'
+import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
 
-export function assemblyErrorMessage(
-  error: Error,
-  i18n: Pick<I18Next, 't'>,
-): string[] {
+export type Translator = Pick<I18Next, 't'>
+
+export function assemblyErrorMessage(error: Error, i18n: Translator): string[] {
   if (error instanceof OverTryLimitError) {
     return [
       i18n.t('assembly.overTryLimit.description', { ns: 'error' }),
@@ -38,14 +38,8 @@ export function assemblyErrorMessage(
     ]
   }
 
-  return [
-    i18n.t('unknown.description', { ns: 'error' }),
-    '',
-    i18n.t('guideToDevelop', { ns: 'error' }),
-    'https://github.com/tooppoo/ac6_assemble_tool/issues/new',
-  ]
+  return unknownErrorMessage(i18n)
 }
-
 function groupValidationErrorByValidationName(
   xs: readonly Error[],
 ): Map<ValidationName | 'unknown', number> {
@@ -60,4 +54,28 @@ function groupValidationErrorByValidationName(
 
     return m
   }, new Map<ValidationName | 'unknown', number>())
+}
+
+export function filterApplyErrorMessage(
+  error: Error,
+  i18n: Translator,
+): string[] {
+  if (!(error instanceof UsableItemNotFoundError)) {
+    return unknownErrorMessage(i18n)
+  }
+
+  return [
+    i18n.t('filter.notFound.description', { ns: 'error' }),
+    '',
+    i18n.t('filter.notFound.guide', { ns: 'error' }),
+  ]
+}
+
+function unknownErrorMessage(i18n: Translator): string[] {
+  return [
+    i18n.t('unknown.description', { ns: 'error' }),
+    '',
+    i18n.t('guideToDevelop', { ns: 'error' }),
+    'https://github.com/tooppoo/ac6_assemble_tool/issues/new',
+  ]
 }

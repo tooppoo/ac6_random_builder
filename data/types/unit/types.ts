@@ -6,7 +6,7 @@ import type {
   leftBackUnit,
 } from '~data/types/base/classification.ts'
 import type { Manufacture } from '~data/types/base/manufacture.ts'
-import type { ACParts, WithEnLoad } from '~data/types/base/types.ts'
+import type { ACParts } from '~data/types/base/types.ts'
 
 import type {
   AttackType,
@@ -309,7 +309,6 @@ type Unit<
   A extends AttackType,
   Ca extends Category,
 > = ACParts<Cl, M, Ca> &
-  WithEnLoad &
   Readonly<{
     /** 武器タイプ */
     weapon_type: W

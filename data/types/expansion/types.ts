@@ -1,10 +1,12 @@
-import type { Expansion } from '~data/types/base/classification.ts'
-import type { BaseACParts } from '~data/types/base/types.ts'
+import type { Expansion as ExpansionCategory } from '~data/types/base/category.ts'
+import type { Expansion as ExpansionClass } from '~data/types/base/classification.ts'
+import type { NoneManufacture } from '~data/types/base/manufacture.ts'
+import type { ACParts } from '~data/types/base/types.ts'
 
 import type { AsAttackUnit, WithBlast } from '../unit/types'
 
 export const defineExpansion = <Ex extends object>(
-  d: BaseACParts<Expansion> & Ex,
+  d: ACParts<ExpansionClass, NoneManufacture, ExpansionCategory> & Ex,
 ) => d
 
 export type AsAssaultArmor = Readonly<{

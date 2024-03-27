@@ -1,4 +1,7 @@
-import { excludeNotEquipped } from '~core/assembly/filter/filters.ts'
+import {
+  excludeNotEquipped,
+  onlyPropertyIncludedInList,
+} from '~core/assembly/filter/filters.ts'
 import { random } from '~core/utils/array.ts'
 
 import {
@@ -9,16 +12,24 @@ import {
   enableFilterOnAllParts,
   type FilterState,
   initialFilterState,
+  setupFilter,
   toggleFilter,
+  UsableItemNotFoundError,
 } from '~view/pages/index/interaction/filter.ts'
 
-import { booster, notEquipped, tank } from '~data/types/base/category.ts'
+import { booster, tank } from '~data/types/base/category.ts'
+import { notEquipped } from '~data/types/base/classification.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import { beforeEach, describe, expect } from 'vitest'
 
-import { genAssemblyKey, genAssemblyKeys, genCandidates } from '~spec/helper.ts'
+import {
+  genAssemblyKey,
+  genAssemblyKeys,
+  genCandidates,
+  genFilterApplyContext,
+} from '~spec/spec-helper/property-generator.ts'
 
 describe('filter interaction', () => {
   describe('toggle', () => {
@@ -84,7 +95,7 @@ describe('filter interaction', () => {
     }),
     genInitialFilterState(),
   ])(
-    'after apply filter, candidates are changed',
+    'after change parts filter, current filter should be changed',
     (enabledOldState, key, initialState) => {
       const state = toggleFilter(key, initialState)
       const filterState = {
@@ -98,9 +109,6 @@ describe('filter interaction', () => {
         updated.map[key],
         'current == map[key]',
       )
-      expect(
-        updated.current.filter.isEnabled(filterState.filter.name),
-      ).to.equals(!enabledOldState, 'switched enabled state')
     },
   )
   it.prop([
@@ -188,6 +196,78 @@ describe('filter interaction', () => {
           // expansion
           true,
         ])
+      })
+    })
+  })
+
+  describe(setupFilter.name, () => {
+    describe('when manufacture filter enabled', () => {
+      const filterName = onlyPropertyIncludedInList('manufacture').name
+
+      describe('when any item not left at a property', () => {
+        describe('when the property allows not-equipped', () => {
+          it.prop([
+            genAssemblyKey({
+              only: [
+                'rightArmUnit',
+                'leftArmUnit',
+                'rightBackUnit',
+                'leftBackUnit',
+              ],
+            }),
+            genCandidates(),
+            genFilterApplyContext(),
+          ])(
+            'not-equipped only left as candidates',
+            (key, candidates, context) => {
+              const candidatesForTest = { ...candidates, [key]: [] }
+              const filter = setupFilter(key, candidatesForTest).enable(
+                filterName,
+              )
+
+              const actual = filter.apply(candidatesForTest, context)
+
+              expect(actual[key].map((p) => p.classification)).toEqual([
+                notEquipped,
+              ])
+            },
+          )
+        })
+        describe('when the property not allows not-equipped', () => {
+          it.prop([
+            genAssemblyKey({
+              without: [
+                'rightArmUnit',
+                'leftArmUnit',
+                'rightBackUnit',
+                'leftBackUnit',
+                'expansion',
+              ],
+            }),
+            genCandidates(),
+            genFilterApplyContext(),
+          ])('throw error', (key, candidates, context) => {
+            const candidatesForTest = { ...candidates, [key]: [] }
+            const filter = setupFilter(key, candidatesForTest).enable(
+              filterName,
+            )
+
+            expect(() => filter.apply(candidatesForTest, context)).toThrowError(
+              UsableItemNotFoundError,
+            )
+          })
+        })
+        describe('when expansion specified', () => {
+          it.prop([genCandidates()])(
+            'the filter not be set up for expansion',
+            (candidates) => {
+              const filter = setupFilter('expansion', candidates)
+              const sut = filter.enable(filterName)
+
+              expect(sut.isEnabled(filterName)).toEqual(false)
+            },
+          )
+        })
       })
     })
   })

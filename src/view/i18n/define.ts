@@ -1,4 +1,5 @@
 import { jaError } from '~view/i18n/locales/ja/error.ts'
+import { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
 
 import _i18next from 'i18next'
 import { createI18nStore } from 'svelte-i18next'
@@ -20,6 +21,7 @@ _i18next.init({
       assembly: jaAssembly,
       filter: jaFilter,
       lock: jaLock,
+      manufacture: jaManufactures,
       'page/index': jaPageIndex,
       error: jaError,
     },

@@ -8,7 +8,12 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'lcov'],
       all: true,
-      exclude: ['src/view/pages/index.ts', '*.config.*'],
+      exclude: [
+        'src/view/pages/index/index.ts',
+        '*.config.*',
+        '**/**/*.d.ts',
+        'spec/spec-helper/*',
+      ],
     },
     environment: 'jsdom',
     setupFiles: ['./vitest-setup.ts'],

@@ -5,23 +5,31 @@ import {
 } from '~core/assembly/assembly.ts'
 import {
   type FilterApplyContext,
+  type WholeFilter,
+} from '~core/assembly/filter/base.ts'
+import {
   PartsFilterSet,
   type ReadonlyPartsFilterState,
-} from '~core/assembly/filter/base.ts'
+} from '~core/assembly/filter/filter-set.ts'
 import {
   assumeConstraintLegsAndBooster,
   excludeNotEquipped,
   notUseHanger,
+  onlyPropertyIncludedInList,
 } from '~core/assembly/filter/filters.ts'
+import { BaseCustomError } from '~core/utils/error.ts'
 import { logger } from '~core/utils/logger.ts'
 
+import { armNotEquipped } from '~data/arm-units.ts'
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
+import { manufactures } from '~data/types/base/manufacture.ts'
+import type { ACParts } from '~data/types/base/types.ts'
 import { type Candidates } from '~data/types/candidates.ts'
 
 export interface FilterState {
   open: boolean
-  map: Record<AssemblyKey, PartsFilterSet>
+  map: WholeFilter
   current: CurrentFilter
 }
 export interface CurrentFilter {
@@ -133,9 +141,7 @@ export function changePartsFilter({
 
   if (!state.current.id) return state
 
-  const updated = target.enabled
-    ? state.current.filter.disable(target.filter.name)
-    : state.current.filter.enable(target.filter.name)
+  const updated = state.current.filter.update(target)
 
   state.current.filter = updated
   state.map[state.current.id] = updated
@@ -176,14 +182,60 @@ export function anyFilterContain(
   return getFilter(key, state).list.length > 0
 }
 
-function setupFilter(
+export function setupFilter(
   key: AssemblyKey,
   initialCandidates: Candidates,
 ): PartsFilterSet {
-  const base = PartsFilterSet.empty.add(
-    assumeConstraintLegsAndBooster.build(initialCandidates),
-    { enabled: true, private: true },
-  )
+  const base = (() => {
+    const b = PartsFilterSet.empty.add(
+      assumeConstraintLegsAndBooster.build(initialCandidates),
+      {
+        enabled: true,
+        private: true,
+      },
+    )
+
+    switch (key) {
+      case 'expansion':
+        return b
+      case 'rightArmUnit':
+      case 'leftArmUnit':
+      case 'rightBackUnit':
+      case 'leftBackUnit':
+        return b.add(
+          onlyPropertyIncludedInList('manufacture').build({
+            key,
+            selected: manufactures,
+            whole: manufactures,
+            onEmpty: ({ candidates }) => ({
+              ...candidates,
+              [key]: [armNotEquipped],
+            }),
+          }),
+        )
+      default:
+        return b.add(
+          onlyPropertyIncludedInList('manufacture').build({
+            key,
+            selected: manufactures,
+            whole: manufactures,
+            onEmpty: (context): Candidates => {
+              const message = 'any item not found after manufacture filter'
+              logger.error({
+                message,
+                key,
+                context,
+              })
+
+              throw new UsableItemNotFoundError(
+                { key, property: 'manufacture' },
+                message,
+              )
+            },
+          }),
+        )
+    }
+  })()
 
   switch (key) {
     case 'rightArmUnit':
@@ -203,3 +255,8 @@ function setupFilter(
 function getFilter(key: AssemblyKey, state: FilterState): PartsFilterSet {
   return state.map[key]
 }
+
+export class UsableItemNotFoundError extends BaseCustomError<{
+  key: AssemblyKey
+  property: keyof ACParts
+}> {}

@@ -2,7 +2,6 @@
 export type Category = string
 
 // ARM UNIT
-export type ArmUnitCategory = string
 //// 近接
 export const pile_bunker = 'pile_bunker' as const
 export const explosive_thrower = 'explosive_thrower' as const
@@ -51,7 +50,6 @@ export const siege_hand_missile = 'siege_hand_missile' as const
 export const pulse_hand_missile = 'pulse_hand_missile' as const
 
 // BACK UNIT
-export type BackUnitCategory = string
 //// シールド
 export const pulse_shield = 'pulse_shield' as const
 export const pulse_buckler = 'pulse_buckler' as const
@@ -116,6 +114,9 @@ export type FCS = typeof fcs
 
 export const generator = 'generator' as const
 export type Generator = typeof generator
+
+export const expansion = 'expansion' as const
+export type Expansion = typeof expansion
 
 export const notEquipped = 'not-equipped' as const
 export type NotEquipped = typeof notEquipped

@@ -1,19 +1,18 @@
 <script lang="ts" context="module">
-  import i18n from "~view/i18n/define.ts";
   import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
 
   export type ToggleFilter = { open: boolean }
-  export type CheckFilter = {
-    target: ReadonlyPartsFilterState
-  }
 </script>
 <script lang="ts">
-  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/base.ts";
   import {logger} from "~core/utils/logger.ts";
+
+  import Margin from "~view/components/spacing/Margin.svelte";
+  import EnableTypeFilter from "~view/pages/index/filter/filter-by-parts/EnableTypeFilter.svelte";
+  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
+  import FilterByPropertyTypeFilter from "~view/pages/index/filter/filter-by-parts/FilterByPropertyTypeFilter.svelte";
 
   import Offcanvas from "bootstrap/js/dist/offcanvas";
   import {createEventDispatcher} from "svelte";
-  import type {ChangeEventHandler} from "svelte/elements";
 
   export let open: boolean
   export let current: CurrentFilter
@@ -24,10 +23,8 @@
   }
 
   // handle
-  const onChecked = (target: ReadonlyPartsFilterState): ChangeEventHandler<HTMLInputElement> => (_e) => {
-    logger.debug('filter-offcanvas-onChecked', { target, _e })
-
-    dispatch('check-filter', { target })
+  const onChangeFilter = (e: CustomEvent<ChangeFilter>) => {
+    dispatch('change-filter', e.detail)
   }
 
   // setup
@@ -47,7 +44,7 @@
 
   const dispatch = createEventDispatcher<{
     toggle: ToggleFilter
-    'check-filter': CheckFilter
+    'change-filter': ChangeFilter
   }>()
 </script>
 
@@ -68,19 +65,20 @@
   </div>
   <div class="offcanvas-body">
     {#each current.filter.list as f}
-      <div class="form-check">
-        <input
-          id={f.filter.name}
-          class="form-check-input"
-          type="checkbox"
-          value=""
-          checked={f.enabled}
-          on:change={onChecked(f)}
-        >
-        <label class="form-check-label" for={f.filter.name}>
-          {$i18n.t(`filter:${f.filter.name}`)}
-        </label>
-      </div>
+      {#if f.filter.type.id === 'enable'}
+        <EnableTypeFilter
+          state={f}
+          on:change-filter={onChangeFilter}
+        />
+      {/if}
+      {#if f.filter.type.id === 'filterByProperty'}
+        <FilterByPropertyTypeFilter
+          current={current}
+          state={f}
+          on:change-filter={onChangeFilter}
+        />
+      {/if}
+      <Margin space={4} />
     {/each}
   </div>
 </div>

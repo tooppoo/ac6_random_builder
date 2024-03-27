@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: BaseACParts<Classification> }>
+  export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: ACParts<Classification, Manufacture, Category> }>
   export type ToggleLockEvent = Readonly<{ id: AssemblyKey, value: boolean }>
   export type ToggleFilterEvent = Readonly<{ id: AssemblyKey }>
 </script>
@@ -10,8 +10,10 @@
   import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
   import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/pages/index/interaction/filter.ts";
 
+  import type {Category} from "~data/types/base/category.ts";
   import type {Classification} from "~data/types/base/classification.ts";
-  import type {BaseACParts} from "~data/types/base/types.ts";
+  import type {Manufacture} from "~data/types/base/manufacture.ts";
+  import type {ACParts} from "~data/types/base/types.ts";
 
   import {createEventDispatcher} from "svelte";
 
@@ -20,8 +22,8 @@
 
   export let id: AssemblyKey
   export let caption: string
-  export let parts: readonly BaseACParts<Classification>[]
-  export let selected: BaseACParts<Classification>
+  export let parts: readonly ACParts<Classification, Manufacture, Category>[]
+  export let selected: ACParts<Classification, Manufacture, Category>
   export let tag = 'div'
   export let lock: LockedParts
   export let filter: FilterState

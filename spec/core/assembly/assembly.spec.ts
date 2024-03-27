@@ -21,7 +21,7 @@ import { legs } from '~data/legs.ts'
 import { it as fcit } from '@fast-check/vitest'
 import { beforeEach, describe, expect, it, test } from 'vitest'
 
-import { genAssembly } from '~spec/helper.ts'
+import { genAssembly } from '~spec/spec-helper/property-generator.ts'
 
 describe('assembly', () => {
   let sut: Assembly

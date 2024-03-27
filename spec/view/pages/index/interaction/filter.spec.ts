@@ -29,7 +29,7 @@ import {
   genAssemblyKeys,
   genCandidates,
   genFilterApplyContext,
-} from '~spec/helper.ts'
+} from '~spec/spec-helper/property-generator.ts'
 
 describe('filter interaction', () => {
   describe('toggle', () => {

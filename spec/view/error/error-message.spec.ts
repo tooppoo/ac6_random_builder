@@ -20,7 +20,7 @@ import { fc, it } from '@fast-check/vitest'
 import type { ArrayConstraints } from 'fast-check'
 import { afterEach, beforeEach, describe, expect, type Mock, vi } from 'vitest'
 
-import { genAssemblyKey } from '~spec/helper.ts'
+import { genAssemblyKey } from '~spec/spec-helper/property-generator.ts'
 
 describe(assemblyErrorMessage.name, () => {
   let i18n: Pick<I18Next, 't'>

@@ -22,7 +22,7 @@ import {
   genAssemblyKey,
   genCandidates,
   genFilterApplyContext,
-} from '~spec/helper.ts'
+} from '~spec/spec-helper/property-generator.ts'
 
 describe(excludeNotEquipped.name, () => {
   it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(

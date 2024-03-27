@@ -6,7 +6,10 @@ import { fc, it } from '@fast-check/vitest'
 import sinon from 'sinon'
 import { afterEach, describe, expect } from 'vitest'
 
-import { genCandidates, genFilterApplyContext } from '~spec/helper.ts'
+import {
+  genCandidates,
+  genFilterApplyContext,
+} from '~spec/spec-helper/property-generator.ts'
 
 describe(PartsFilterSet.name, () => {
   const sandbox = sinon.createSandbox()

@@ -1,4 +1,7 @@
-import type { Between, ToHaveBeenCalledTimesWith } from '~spec/vitest-extend.ts'
+import type {
+  Between,
+  ToHaveBeenCalledTimesWith,
+} from '~spec/spec-helper/vitest-extend.ts'
 
 interface CustomMatchers<R = unknown> {
   between: Between<R>

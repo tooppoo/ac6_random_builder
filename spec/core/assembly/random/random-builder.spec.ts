@@ -7,7 +7,10 @@ import { candidates } from '~data/versions/v1.06.1.ts'
 import { fc, it } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'
 
-import { genCandidates, genLockedParts } from '~spec/helper.ts'
+import {
+  genCandidates,
+  genLockedParts,
+} from '~spec/spec-helper/property-generator.ts'
 
 describe(randomBuild.name, () => {
   it.prop([genCandidates()])(

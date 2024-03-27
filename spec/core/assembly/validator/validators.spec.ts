@@ -14,7 +14,7 @@ import { fc, it as fcit } from '@fast-check/vitest'
 import sinon from 'sinon'
 import { afterEach, beforeEach, describe, expect } from 'vitest'
 
-import { genAssembly } from '~spec/helper.ts'
+import { genAssembly } from '~spec/spec-helper/property-generator.ts'
 
 describe('validator', () => {
   describe('not over energy output', () => {

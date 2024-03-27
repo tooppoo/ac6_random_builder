@@ -3,7 +3,10 @@ import {
   type AssemblyKey,
   createAssembly,
 } from '~core/assembly/assembly.ts'
-import { type FilterApplyContext } from '~core/assembly/filter/base.ts'
+import {
+  type FilterApplyContext,
+  type WholeFilter,
+} from '~core/assembly/filter/base.ts'
 import {
   PartsFilterSet,
   type ReadonlyPartsFilterState,
@@ -26,7 +29,7 @@ import { type Candidates } from '~data/types/candidates.ts'
 
 export interface FilterState {
   open: boolean
-  map: Record<AssemblyKey, PartsFilterSet>
+  map: WholeFilter
   current: CurrentFilter
 }
 export interface CurrentFilter {

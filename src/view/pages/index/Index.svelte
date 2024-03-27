@@ -49,7 +49,7 @@
   $: {
     if (initialCandidates && filter && assembly && lockedParts) {
       try {
-        candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly }))
+        candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly, wholeFilter: filter.map }))
       } catch (e) {
         errorMessage = filterApplyErrorMessage(
           e instanceof UsableItemNotFoundError ? e : new Error(`${e}`), $i18n

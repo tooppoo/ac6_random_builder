@@ -3,6 +3,11 @@ import {
   assemblyKeys,
   type RawAssembly,
 } from '~core/assembly/assembly.ts'
+import type {
+  FilterApplyContext,
+  WholeFilter,
+} from '~core/assembly/filter/base.ts'
+import { PartsFilterSet } from '~core/assembly/filter/filter-set.ts'
 import { LockedParts } from '~core/assembly/random/lock.ts'
 import { randomBuild } from '~core/assembly/random/random-builder.ts'
 import { random } from '~core/utils/array.ts'
@@ -87,4 +92,15 @@ export const genCandidates = (() => {
 })()
 
 export const genFilterApplyContext = () =>
-  genAssembly().map((assembly) => ({ assembly }))
+  genAssembly().map(
+    (assembly): FilterApplyContext => ({
+      assembly,
+      wholeFilter: assemblyKeys().reduce(
+        (acc, k) => ({
+          ...acc,
+          [k]: PartsFilterSet.empty,
+        }),
+        {} as WholeFilter,
+      ),
+    }),
+  )

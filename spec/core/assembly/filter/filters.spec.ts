@@ -15,10 +15,10 @@ import { manufactures } from '~data/types/base/manufacture.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import { uniq } from 'lodash-es'
+import sinon from 'sinon'
 import { describe, expect } from 'vitest'
 
 import {
-  genAssembly,
   genAssemblyKey,
   genCandidates,
   genFilterApplyContext,
@@ -115,6 +115,27 @@ describe(assumeConstraintLegsAndBooster.name, () => {
       )
     })
   })
+  describe('when any filter for booster is enabled', () => {
+    it.prop([genCandidates(), genFilterApplyContext()])(
+      'should allow only actual booster',
+      (candidates, context) => {
+        const boosterStub = sinon.stub(
+          context.wholeFilter.booster,
+          'containEnabled',
+        )
+        boosterStub.value(true)
+
+        const applied = assumeConstraintLegsAndBooster
+          .build(candidates)
+          .apply(candidates, context)
+
+        expect(applied.legs.map((l) => l.category)).not.toEqual(
+          expect.arrayContaining([tank]),
+        )
+        boosterStub.restore()
+      },
+    )
+  })
 })
 
 describe(onlyPropertyIncludedInList('manufacture').name, () => {
@@ -122,10 +143,10 @@ describe(onlyPropertyIncludedInList('manufacture').name, () => {
     genAssemblyKey(),
     genManufactures(),
     genCandidates(),
-    genAssembly(),
+    genFilterApplyContext(),
   ])(
     'select only item provided by specified manufactures',
-    (key, selected, candidates, assembly) => {
+    (key, selected, candidates, context) => {
       const filter = onlyPropertyIncludedInList('manufacture').build({
         key,
         selected,
@@ -133,7 +154,7 @@ describe(onlyPropertyIncludedInList('manufacture').name, () => {
         onEmpty: ({ key, candidates }) => ({ ...candidates, [key]: [] }),
       })
 
-      const filtered = filter.apply(candidates, { assembly })
+      const filtered = filter.apply(candidates, context)
 
       // 実際の結果が選択された値のサブセットであること
       expect(selected).toEqual(
@@ -143,9 +164,9 @@ describe(onlyPropertyIncludedInList('manufacture').name, () => {
   )
 
   describe('any item not found after apply filter', () => {
-    it.prop([genAssemblyKey(), genCandidates(), genAssembly()])(
+    it.prop([genAssemblyKey(), genCandidates(), genFilterApplyContext()])(
       'onEmpty called and used the result',
-      (key, candidates, assembly) => {
+      (key, candidates, context) => {
         const filter = onlyPropertyIncludedInList('manufacture').build({
           key,
           selected: [],
@@ -153,7 +174,7 @@ describe(onlyPropertyIncludedInList('manufacture').name, () => {
           onEmpty: () => candidates,
         })
 
-        expect(filter.apply(candidates, { assembly })).toBe(candidates)
+        expect(filter.apply(candidates, context)).toBe(candidates)
       },
     )
   })

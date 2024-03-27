@@ -61,7 +61,15 @@ export const assumeConstraintLegsAndBooster = (() => {
     build: (initialCandidates: Candidates): PartsFilter => ({
       name,
       type: enableOrNot,
-      apply: (candidates, { assembly }): Candidates => {
+      apply: (candidates, { assembly, wholeFilter }): Candidates => {
+        if (wholeFilter.booster.containEnabled) {
+          return {
+            ...candidates,
+            // ブースターになんらかのフィルタが適用されている場合、
+            // その時点でブースター装備が確定しているのでタンクは除外
+            legs: candidates.legs.filter((l) => l.category !== tank),
+          }
+        }
         if (assembly.legs.category === tank) {
           return {
             ...candidates,

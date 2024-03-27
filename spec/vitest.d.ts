@@ -1,7 +1,8 @@
-import type { Between } from '~spec/vitest-extend.ts'
+import type { Between, ToHaveBeenCalledTimesWith } from '~spec/vitest-extend.ts'
 
 interface CustomMatchers<R = unknown> {
   between: Between<R>
+  toHaveBeenCalledTimesWith: ToHaveBeenCalledTimesWith<R>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -133,6 +133,9 @@ describe(assemblyErrorMessage.name, () => {
               }),
             )
 
+        afterEach(() => {
+          vi.restoreAllMocks()
+        })
         it.prop([
           fc.array(genTotalLoadNotOverMax(), load),
           fc.array(genTotalCoamNotOverMax(), coam),
@@ -154,49 +157,46 @@ describe(assemblyErrorMessage.name, () => {
                 ...unknownError,
               ].toSorted(shuffle),
             })
-            const count = {} as Record<string, number>
 
-            mock.mockImplementation((...args) => {
-              // 引数ごとに呼び出し回数を記録
-              count[JSON.stringify(args)] =
-                (count[JSON.stringify(args)] || 0) + 1
-
-              return ''
-            })
+            mock.mockImplementation(() => '')
 
             assemblyErrorMessage(sut, i18n)
 
-            /**
-             * 引数ごとの呼び出し回数が想定通りかのチェック
-             * - sinon.mock -> 同一のmockに複数回withArgsを指定できない
-             * - vi.fn, sinon.stub -> 引数と呼び出しのセットでexpectationを設定できない
-             * 上記の理由から、「引数ごとの呼び出し回数チェック」の仕組みを自作
-             */
-            const expectedCount = {
-              [JSON.stringify([
-                'assembly.overTryLimit.description',
-                {
-                  ns: 'error',
-                },
-              ])]: 1,
-              [JSON.stringify([
-                `assembly.${totalLoadNotOverMaxName}.label`,
-                {
-                  ns: 'error',
-                },
-              ])]: expected.load,
-              [JSON.stringify([
-                `assembly.${totalCoamNotOverMaxName}.label`,
-                {
-                  ns: 'error',
-                },
-              ])]: expected.coam,
-              [JSON.stringify(['assembly.retry.guide', { ns: 'error' }])]: 1,
-              [JSON.stringify(['assembly.unknown.label', { ns: 'error' }])]: 1,
-              [JSON.stringify(['times'])]:
-                expected.load + expected.coam + expected.unknown,
-            }
-            expect(expectedCount).toMatchObject(count)
+            expect(mock).toHaveBeenCalledTimesWith(
+              1,
+              'assembly.overTryLimit.description',
+              {
+                ns: 'error',
+              },
+            )
+            expect(mock).toHaveBeenCalledTimesWith(
+              expected.load,
+              `assembly.${totalLoadNotOverMaxName}.label`,
+              {
+                ns: 'error',
+              },
+            )
+            expect(mock).toHaveBeenCalledTimesWith(
+              expected.coam,
+              `assembly.${totalCoamNotOverMaxName}.label`,
+              {
+                ns: 'error',
+              },
+            )
+            expect(mock).toHaveBeenCalledTimesWith(1, 'assembly.retry.guide', {
+              ns: 'error',
+            })
+            expect(mock).toHaveBeenCalledTimesWith(1, 'assembly.retry.guide', {
+              ns: 'error',
+            })
+            expect(mock).toHaveBeenCalledTimesWith(
+              expected.load + expected.coam + expected.unknown,
+              'times',
+            )
+
+            // it.prop で実行する場合、
+            // beforeEachの前に次のプロパティが実行される模様
+            vi.restoreAllMocks()
           },
         )
       },

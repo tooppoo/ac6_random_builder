@@ -1,4 +1,5 @@
 import 'i18next'
+import { jaAttackType } from '~view/i18n/locales/ja/attackType.ts'
 import type { jaError } from '~view/i18n/locales/ja/error.ts'
 import type { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
 
@@ -14,6 +15,7 @@ declare module 'i18next' {
       lock: typeof jaLock
       filter: typeof jaFilter
       manufacture: typeof jaManufactures
+      attack_ype: typeof jaAttackType
       'page/index': typeof jaPageIndex
       error: typeof jaError
     }

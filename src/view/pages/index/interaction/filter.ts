@@ -26,6 +26,8 @@ import { tank } from '~data/types/base/category.ts'
 import { manufactures } from '~data/types/base/manufacture.ts'
 import type { ACParts } from '~data/types/base/types.ts'
 import { type Candidates } from '~data/types/candidates.ts'
+import { attackType } from '~data/types/unit/attack_type.ts'
+import type { Unit } from '~data/units.ts'
 
 export interface FilterState {
   open: boolean
@@ -202,17 +204,31 @@ export function setupFilter(
       case 'leftArmUnit':
       case 'rightBackUnit':
       case 'leftBackUnit':
-        return b.add(
-          onlyPropertyIncludedInList('manufacture').build({
-            key,
-            selected: manufactures,
-            whole: manufactures,
-            onEmpty: ({ candidates }) => ({
-              ...candidates,
-              [key]: [armNotEquipped],
+        return b
+          .add(
+            onlyPropertyIncludedInList('manufacture').build({
+              key,
+              selected: manufactures,
+              whole: manufactures,
+              onEmpty: ({ candidates }) => ({
+                ...candidates,
+                [key]: [armNotEquipped],
+              }),
             }),
-          }),
-        )
+          )
+          .add(
+            onlyPropertyIncludedInList<'attack_type', Unit>(
+              'attack_type',
+            ).build({
+              key,
+              selected: attackType,
+              whole: attackType,
+              onEmpty: ({ candidates }) => ({
+                ...candidates,
+                [key]: [armNotEquipped],
+              }),
+            }),
+          )
       default:
         return b.add(
           onlyPropertyIncludedInList('manufacture').build({

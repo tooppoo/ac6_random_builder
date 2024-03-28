@@ -17,3 +17,11 @@ export const energy = 'energy' as const
 export const coral = 'coral' as const
 /** 盾など、攻撃手段無し */
 export const none = 'none' as const
+
+export const attackType: AttackType[] = [
+  kinetic,
+  explosive,
+  energy,
+  coral,
+  none,
+] as const

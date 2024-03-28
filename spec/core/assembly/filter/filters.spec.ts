@@ -28,7 +28,12 @@ describe(excludeNotEquipped.name, () => {
   it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
     'not contain not-equipped unit at specified key',
     (candidates, key, context) => {
-      const applied = excludeNotEquipped.build(key).apply(candidates, context)
+      const applied = excludeNotEquipped
+        .build({
+          key,
+          onEmpty: () => ({ ...candidates, [key]: [] }),
+        })
+        .apply(candidates, context)
       const actual = applied[key]
 
       expect(actual).not.toContain(armNotEquipped)
@@ -39,7 +44,12 @@ describe(excludeNotEquipped.name, () => {
   it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
     'not change other candidates',
     (candidates, key, context) => {
-      const applied = excludeNotEquipped.build(key).apply(candidates, context)
+      const applied = excludeNotEquipped
+        .build({
+          key,
+          onEmpty: () => ({ ...candidates, [key]: [] }),
+        })
+        .apply(candidates, context)
 
       expect(applied).toMatchObject({
         head: candidates.head,
@@ -51,6 +61,22 @@ describe(excludeNotEquipped.name, () => {
         fcs: candidates.fcs,
         generator: candidates.generator,
       })
+    },
+  )
+  it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
+    'when no items exist on candidates after filter, onEmpty handle it',
+    (candidates, key, context) => {
+      const withEmpty = { ...candidates, [key]: [] }
+      const filter = excludeNotEquipped.build({
+        key,
+        onEmpty: () => {
+          throw new Error('on empty')
+        },
+      })
+
+      expect(() => filter.apply(withEmpty, context)).toThrowError(
+        new Error('on empty'),
+      )
     },
   )
 })

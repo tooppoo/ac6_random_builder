@@ -19,6 +19,7 @@ import {
 
 import { booster, tank } from '~data/types/base/category.ts'
 import { notEquipped } from '~data/types/base/classification.ts'
+import type { Unit } from '~data/units.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'
 
 import { fc, it } from '@fast-check/vitest'
@@ -268,6 +269,41 @@ describe('filter interaction', () => {
             },
           )
         })
+      })
+    })
+
+    describe('when attack_type filter enabled', () => {
+      const filterName = onlyPropertyIncludedInList<'attack_type', Unit>(
+        'attack_type',
+      ).name
+
+      describe('when any item not left at a property', () => {
+        it.prop([
+          genAssemblyKey({
+            only: [
+              'rightArmUnit',
+              'leftArmUnit',
+              'rightBackUnit',
+              'leftBackUnit',
+            ],
+          }),
+          genCandidates(),
+          genFilterApplyContext(),
+        ])(
+          'not-equipped only left as candidates',
+          (key, candidates, context) => {
+            const candidatesForTest = { ...candidates, [key]: [] }
+            const filter = setupFilter(key, candidatesForTest).enable(
+              filterName,
+            )
+
+            const actual = filter.apply(candidatesForTest, context)
+
+            expect(actual[key].map((p) => p.classification)).toEqual([
+              notEquipped,
+            ])
+          },
+        )
       })
     })
   })

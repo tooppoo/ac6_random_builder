@@ -2,6 +2,7 @@ import type {
   FilterApplyContext,
   PartsFilter,
 } from '~core/assembly/filter/base.ts'
+import type { FilterType } from '~core/assembly/filter/filter-type.ts'
 import { logger } from '~core/utils/logger.ts'
 
 import type { Candidates } from '~data/types/candidates.ts'
@@ -13,7 +14,7 @@ interface PartsFilterMap {
 export type ReadonlyPartsFilterState = Readonly<PartsFilterState>
 
 interface PartsFilterState {
-  readonly filter: PartsFilter
+  readonly filter: PartsFilter<FilterType>
   enabled: boolean
   private: boolean
 }
@@ -39,7 +40,10 @@ export class PartsFilterSet {
     )
   }
 
-  add(filter: PartsFilter, opt: AddFilterOption = {}): PartsFilterSet {
+  add(
+    filter: PartsFilter<FilterType>,
+    opt: AddFilterOption = {},
+  ): PartsFilterSet {
     return new PartsFilterSet({
       ...this.map,
       [filter.name]: {
@@ -104,7 +108,7 @@ export class PartsFilterSet {
     })
   }
 
-  private enableFilters(list: PartsFilterState[]): PartsFilter[] {
+  private enableFilters(list: PartsFilterState[]): PartsFilter<unknown>[] {
     return list.filter(({ enabled }) => enabled).map(({ filter }) => filter)
   }
 

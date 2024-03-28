@@ -13,6 +13,7 @@ import {
 } from '~core/assembly/filter/filter-set.ts'
 import {
   assumeConstraintLegsAndBooster,
+  errorWhenEmpty,
   excludeNotEquipped,
   notUseHanger,
   onlyPropertyIncludedInList,
@@ -24,8 +25,9 @@ import { armNotEquipped } from '~data/arm-units.ts'
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
 import { manufactures } from '~data/types/base/manufacture.ts'
-import type { ACParts } from '~data/types/base/types.ts'
 import { type Candidates } from '~data/types/candidates.ts'
+import { attackType } from '~data/types/unit/attack_type.ts'
+import type { Unit } from '~data/units.ts'
 
 export interface FilterState {
   open: boolean
@@ -94,6 +96,8 @@ export function assemblyWithHeadParts(candidates: Candidates): Assembly {
     expansion: candidates.expansion[0],
   }
   const legs = candidates.legs[0]
+
+  logger.debug(assemblyWithHeadParts.name, candidates, { ...base, legs })
 
   if (legs.category === tank) {
     return createAssembly({
@@ -202,36 +206,41 @@ export function setupFilter(
       case 'leftArmUnit':
       case 'rightBackUnit':
       case 'leftBackUnit':
-        return b.add(
-          onlyPropertyIncludedInList('manufacture').build({
-            key,
-            selected: manufactures,
-            whole: manufactures,
-            onEmpty: ({ candidates }) => ({
-              ...candidates,
-              [key]: [armNotEquipped],
+        return b
+          .add(
+            onlyPropertyIncludedInList('manufacture').build({
+              key,
+              selected: manufactures,
+              whole: manufactures,
+              onEmpty: ({ candidates }) => ({
+                ...candidates,
+                [key]: [armNotEquipped],
+              }),
             }),
-          }),
-        )
+          )
+          .add(
+            onlyPropertyIncludedInList<'attack_type', Unit>(
+              'attack_type',
+            ).build({
+              key,
+              selected: attackType,
+              whole: attackType,
+              onEmpty: ({ candidates }) => ({
+                ...candidates,
+                [key]: [armNotEquipped],
+              }),
+            }),
+          )
       default:
         return b.add(
           onlyPropertyIncludedInList('manufacture').build({
             key,
             selected: manufactures,
             whole: manufactures,
-            onEmpty: (context): Candidates => {
-              const message = 'any item not found after manufacture filter'
-              logger.error({
-                message,
-                key,
-                context,
-              })
-
-              throw new UsableItemNotFoundError(
-                { key, property: 'manufacture' },
-                message,
-              )
-            },
+            onEmpty: errorWhenEmpty(
+              key,
+              'any item not found after manufacture filter',
+            ),
           }),
         )
     }
@@ -241,11 +250,27 @@ export function setupFilter(
     case 'rightArmUnit':
     case 'leftArmUnit':
     case 'expansion':
-      return base.add(excludeNotEquipped.build(key))
+      return base.add(
+        excludeNotEquipped.build({
+          key,
+          onEmpty: errorWhenEmpty(
+            key,
+            'only non-equipped item exist in candidates',
+          ),
+        }),
+      )
     case 'rightBackUnit':
     case 'leftBackUnit':
       return base
-        .add(excludeNotEquipped.build(key))
+        .add(
+          excludeNotEquipped.build({
+            key,
+            onEmpty: errorWhenEmpty(
+              key,
+              'only non-equipped item exist in candidates',
+            ),
+          }),
+        )
         .add(notUseHanger.build(key))
     default:
       return base
@@ -258,5 +283,5 @@ function getFilter(key: AssemblyKey, state: FilterState): PartsFilterSet {
 
 export class UsableItemNotFoundError extends BaseCustomError<{
   key: AssemblyKey
-  property: keyof ACParts
+  [key: string]: unknown
 }> {}

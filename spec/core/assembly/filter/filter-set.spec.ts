@@ -1,6 +1,9 @@
 import { type PartsFilter } from '~core/assembly/filter/base.ts'
 import { PartsFilterSet } from '~core/assembly/filter/filter-set.ts'
-import { enableOrNot } from '~core/assembly/filter/filter-type.ts'
+import {
+  enableOrNot,
+  type FilterType,
+} from '~core/assembly/filter/filter-type.ts'
 
 import { fc, it } from '@fast-check/vitest'
 import sinon from 'sinon'
@@ -21,11 +24,13 @@ describe(PartsFilterSet.name, () => {
   it.prop([genCandidates(), genFilterApplyContext()])(
     'should apply filter, and not apply removed',
     (candidates, context) => {
-      const filters = [...new Array(4)].map<PartsFilter>((_, i) => ({
-        name: `${i + 1}`,
-        type: enableOrNot,
-        apply: (_) => _,
-      }))
+      const filters = [...new Array(4)].map<PartsFilter<FilterType>>(
+        (_, i) => ({
+          name: `${i + 1}`,
+          type: enableOrNot,
+          apply: (_) => _,
+        }),
+      )
       const stubs = filters
         .map((f) => sinon.stub(f, 'apply'))
         .map((s) => {

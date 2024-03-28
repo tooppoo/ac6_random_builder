@@ -1,6 +1,13 @@
 import type { AssemblyKey } from '~core/assembly/assembly.ts'
 import type { PartsFilter } from '~core/assembly/filter/base.ts'
-import { enableOrNot, filterByProp } from '~core/assembly/filter/filter-type.ts'
+import {
+  type EnableOrNot,
+  enableOrNot,
+  type FilterByProp,
+} from '~core/assembly/filter/filter-type.ts'
+import { logger } from '~core/utils/logger.ts'
+
+import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
 
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
@@ -11,18 +18,29 @@ import { type Candidates, type CandidatesKey } from '~data/types/candidates.ts'
 export const excludeNotEquipped = (() => {
   const name = 'excludeNotEquipped'
 
+  type Config = WithEmptyHandle<
+    Readonly<{
+      key: CandidatesKey
+    }>
+  >
+
   return {
     name,
-    build: (key: CandidatesKey): PartsFilter => ({
+    build: ({ key, onEmpty }: Config): PartsFilter<EnableOrNot> => ({
       name,
       type: enableOrNot,
-      apply: (candidates: Candidates): Candidates => ({
-        ...candidates,
-        [key]: candidates[key].filter(
+      apply: (candidates: Candidates): Candidates => {
+        const filtered = candidates[key].filter(
           (p: Candidates[typeof key][number]) =>
             p.classification !== notEquipped,
-        ),
-      }),
+        )
+        return filtered.length > 0
+          ? {
+              ...candidates,
+              [key]: filtered,
+            }
+          : onEmpty({ key, candidates })
+      },
     }),
   } as const
 })()
@@ -32,7 +50,7 @@ export const notUseHanger = (() => {
 
   return {
     name,
-    build: (key: CandidatesKey): PartsFilter => ({
+    build: (key: CandidatesKey): PartsFilter<EnableOrNot> => ({
       name,
       type: enableOrNot,
       apply: (candidates) => {
@@ -58,7 +76,7 @@ export const assumeConstraintLegsAndBooster = (() => {
 
   return {
     name,
-    build: (initialCandidates: Candidates): PartsFilter => ({
+    build: (initialCandidates: Candidates): PartsFilter<EnableOrNot> => ({
       name,
       type: enableOrNot,
       apply: (candidates, { assembly, wholeFilter }): Candidates => {
@@ -86,30 +104,45 @@ export const assumeConstraintLegsAndBooster = (() => {
   }
 })()
 
-export const onlyPropertyIncludedInList = <P extends keyof ACParts>(
-  prop: P,
-) => {
+export function onlyPropertyIncludedInList<
+  P extends string & keyof B,
+  B extends ACParts,
+>(prop: P) {
   const name = `only-${prop}-included-in-list` as const
 
-  type List = ACParts[P][]
   type Params = {
     key: AssemblyKey
-    selected: List
-    whole: List
+    selected: B[P][]
+    whole: B[P][]
     onEmpty: (
-      context: Omit<Params, 'onEmpty'> & { candidates: Candidates },
+      context: Omit<Params, 'onEmpty'> & {
+        candidates: Candidates
+        property: P
+      },
     ) => Candidates
   }
   return {
     name,
-    build: ({ key, selected, whole, onEmpty }: Params): PartsFilter => ({
+    build: ({
+      key,
+      selected,
+      whole,
+      onEmpty,
+    }: Params): PartsFilter<FilterByProp<P, B>> => ({
       name,
-      type: filterByProp(prop, selected, whole),
+      type: {
+        id: 'filterByProperty',
+        property: prop,
+        value: selected,
+        whole,
+      },
       apply(candidates) {
         // typeの変更を反映するため、this経由でtypeを参照する必要がある
         // そのため、この apply は arrow function にしてはならない
-        const result = candidates[key].filter((c) =>
-          this.type.value!.includes(c[prop]),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const result = candidates[key].filter((c: any) =>
+          // 指定の値が含まれているかどうかのチェックのみなので、ここでは厳格さは不要と判断
+          this.type.value.includes(c[prop]),
         )
 
         return result.length > 0
@@ -117,8 +150,27 @@ export const onlyPropertyIncludedInList = <P extends keyof ACParts>(
               ...candidates,
               [key]: result,
             }
-          : onEmpty({ key, selected, whole, candidates })
+          : onEmpty({ key, selected, whole, candidates, property: prop })
       },
     }),
   }
 }
+
+type OnEmpty<Params extends object> = (
+  context: Omit<Params, 'onEmpty'> & { candidates: Candidates },
+) => Candidates
+type WithEmptyHandle<Params extends object> = Params & {
+  onEmpty: OnEmpty<Params>
+}
+
+export const errorWhenEmpty =
+  (key: AssemblyKey, message: string): OnEmpty<object> =>
+  (context) => {
+    logger.error({
+      message,
+      key,
+      context,
+    })
+
+    throw new UsableItemNotFoundError({ key, ...context }, message)
+  }

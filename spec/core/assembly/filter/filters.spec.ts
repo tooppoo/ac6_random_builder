@@ -31,9 +31,7 @@ describe(excludeNotEquipped.name, () => {
       const applied = excludeNotEquipped
         .build({
           key,
-          onEmpty: () => {
-            throw new Error()
-          },
+          onEmpty: ({ candidates: c }) => c,
         })
         .apply(candidates, context)
       const actual = applied[key]
@@ -49,9 +47,7 @@ describe(excludeNotEquipped.name, () => {
       const applied = excludeNotEquipped
         .build({
           key,
-          onEmpty: () => {
-            throw new Error()
-          },
+          onEmpty: ({ candidates: c }) => c,
         })
         .apply(candidates, context)
 

@@ -46,23 +46,27 @@
   // state
   let initialCandidates: Candidates
   let candidates: Candidates
+  let assembly: Assembly
+  let randomAssembly = RandomAssembly.init({ limit: tryLimit })
+  let lockedParts: LockedParts = LockedParts.empty
+  let filter: FilterState
+  let openWholeFilter: boolean
+
   $: {
     if (initialCandidates && filter && assembly && lockedParts) {
       try {
-        candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly, wholeFilter: filter.map }))
+        logger.debug('update candidates')
+
+        updateCandidates()
       } catch (e) {
+        logger.error(e)
+
         errorMessage = filterApplyErrorMessage(
           e instanceof UsableItemNotFoundError ? e : new Error(`${e}`), $i18n
         )
       }
     }
   }
-
-  let assembly: Assembly
-  let randomAssembly = RandomAssembly.init({ limit: tryLimit })
-  let lockedParts: LockedParts = LockedParts.empty
-  let filter: FilterState
-  let openWholeFilter: boolean
 
   let reportItems: readonly {
     key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,
@@ -111,6 +115,10 @@
 
   const openFilter = (ev: CustomEvent<{ id: AssemblyKey }>) => {
     filter = toggleFilter(ev.detail.id, filter)
+  }
+
+  const updateCandidates = () => {
+    candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly, wholeFilter: filter.map }))
   }
 
   // setup
@@ -232,7 +240,7 @@
   on:toggle={(ev) => filter.open = ev.detail.open}
   on:change-filter={({ detail }) => {
     filter = changePartsFilter({ target: detail.target, state: filter })
-
+    updateCandidates()
     assembly = assemblyWithHeadParts(candidates)
   }}
 />

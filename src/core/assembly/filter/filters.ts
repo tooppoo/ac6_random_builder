@@ -5,6 +5,9 @@ import {
   enableOrNot,
   type FilterByProp,
 } from '~core/assembly/filter/filter-type.ts'
+import { logger } from '~core/utils/logger.ts'
+
+import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
 
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
@@ -15,18 +18,29 @@ import { type Candidates, type CandidatesKey } from '~data/types/candidates.ts'
 export const excludeNotEquipped = (() => {
   const name = 'excludeNotEquipped'
 
+  type Config = WithEmptyHandle<
+    Readonly<{
+      key: CandidatesKey
+    }>
+  >
+
   return {
     name,
-    build: (key: CandidatesKey): PartsFilter<EnableOrNot> => ({
+    build: ({ key, onEmpty }: Config): PartsFilter<EnableOrNot> => ({
       name,
       type: enableOrNot,
-      apply: (candidates: Candidates): Candidates => ({
-        ...candidates,
-        [key]: candidates[key].filter(
+      apply: (candidates: Candidates): Candidates => {
+        const filtered = candidates[key].filter(
           (p: Candidates[typeof key][number]) =>
             p.classification !== notEquipped,
-        ),
-      }),
+        )
+        return filtered.length > 0
+          ? {
+              ...candidates,
+              [key]: filtered,
+            }
+          : onEmpty({ key, candidates })
+      },
     }),
   } as const
 })()
@@ -101,7 +115,10 @@ export function onlyPropertyIncludedInList<
     selected: B[P][]
     whole: B[P][]
     onEmpty: (
-      context: Omit<Params, 'onEmpty'> & { candidates: Candidates },
+      context: Omit<Params, 'onEmpty'> & {
+        candidates: Candidates
+        property: P
+      },
     ) => Candidates
   }
   return {
@@ -133,8 +150,27 @@ export function onlyPropertyIncludedInList<
               ...candidates,
               [key]: result,
             }
-          : onEmpty({ key, selected, whole, candidates })
+          : onEmpty({ key, selected, whole, candidates, property: prop })
       },
     }),
   }
 }
+
+type OnEmpty<Params extends object> = (
+  context: Omit<Params, 'onEmpty'> & { candidates: Candidates },
+) => Candidates
+type WithEmptyHandle<Params extends object> = Params & {
+  onEmpty: OnEmpty<Params>
+}
+
+export const errorWhenEmpty =
+  (key: AssemblyKey, message: string): OnEmpty<object> =>
+  (context) => {
+    logger.error({
+      message,
+      key,
+      context,
+    })
+
+    throw new UsableItemNotFoundError({ key, ...context }, message)
+  }

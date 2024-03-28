@@ -31,7 +31,7 @@ describe(excludeNotEquipped.name, () => {
       const applied = excludeNotEquipped
         .build({
           key,
-          onEmpty: ({ candidates: c }) => c,
+          onEmpty: () => ({ ...candidates, [key]: [] }),
         })
         .apply(candidates, context)
       const actual = applied[key]
@@ -47,7 +47,7 @@ describe(excludeNotEquipped.name, () => {
       const applied = excludeNotEquipped
         .build({
           key,
-          onEmpty: ({ candidates: c }) => c,
+          onEmpty: () => ({ ...candidates, [key]: [] }),
         })
         .apply(candidates, context)
 
@@ -61,6 +61,22 @@ describe(excludeNotEquipped.name, () => {
         fcs: candidates.fcs,
         generator: candidates.generator,
       })
+    },
+  )
+  it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
+    'when no items exist on candidates after filter, onEmpty handle it',
+    (candidates, key, context) => {
+      const withEmpty = { ...candidates, [key]: [] }
+      const filter = excludeNotEquipped.build({
+        key,
+        onEmpty: () => {
+          throw new Error('on empty')
+        },
+      })
+
+      expect(() => filter.apply(withEmpty, context)).toThrowError(
+        new Error('on empty'),
+      )
     },
   )
 })

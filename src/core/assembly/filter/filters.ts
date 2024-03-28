@@ -1,6 +1,10 @@
 import type { AssemblyKey } from '~core/assembly/assembly.ts'
 import type { PartsFilter } from '~core/assembly/filter/base.ts'
-import { enableOrNot, filterByProp } from '~core/assembly/filter/filter-type.ts'
+import {
+  type EnableOrNot,
+  enableOrNot,
+  type FilterByProp,
+} from '~core/assembly/filter/filter-type.ts'
 
 import { boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
@@ -13,7 +17,7 @@ export const excludeNotEquipped = (() => {
 
   return {
     name,
-    build: (key: CandidatesKey): PartsFilter => ({
+    build: (key: CandidatesKey): PartsFilter<EnableOrNot> => ({
       name,
       type: enableOrNot,
       apply: (candidates: Candidates): Candidates => ({
@@ -32,7 +36,7 @@ export const notUseHanger = (() => {
 
   return {
     name,
-    build: (key: CandidatesKey): PartsFilter => ({
+    build: (key: CandidatesKey): PartsFilter<EnableOrNot> => ({
       name,
       type: enableOrNot,
       apply: (candidates) => {
@@ -58,7 +62,7 @@ export const assumeConstraintLegsAndBooster = (() => {
 
   return {
     name,
-    build: (initialCandidates: Candidates): PartsFilter => ({
+    build: (initialCandidates: Candidates): PartsFilter<EnableOrNot> => ({
       name,
       type: enableOrNot,
       apply: (candidates, { assembly, wholeFilter }): Candidates => {
@@ -86,30 +90,42 @@ export const assumeConstraintLegsAndBooster = (() => {
   }
 })()
 
-export const onlyPropertyIncludedInList = <P extends keyof ACParts>(
-  prop: P,
-) => {
+export function onlyPropertyIncludedInList<
+  P extends string & keyof B,
+  B extends ACParts,
+>(prop: P) {
   const name = `only-${prop}-included-in-list` as const
 
-  type List = ACParts[P][]
   type Params = {
     key: AssemblyKey
-    selected: List
-    whole: List
+    selected: B[P][]
+    whole: B[P][]
     onEmpty: (
       context: Omit<Params, 'onEmpty'> & { candidates: Candidates },
     ) => Candidates
   }
   return {
     name,
-    build: ({ key, selected, whole, onEmpty }: Params): PartsFilter => ({
+    build: ({
+      key,
+      selected,
+      whole,
+      onEmpty,
+    }: Params): PartsFilter<FilterByProp<P, B>> => ({
       name,
-      type: filterByProp(prop, selected, whole),
+      type: {
+        id: 'filterByProperty',
+        property: prop,
+        value: selected,
+        whole,
+      },
       apply(candidates) {
         // typeの変更を反映するため、this経由でtypeを参照する必要がある
         // そのため、この apply は arrow function にしてはならない
-        const result = candidates[key].filter((c) =>
-          this.type.value!.includes(c[prop]),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const result = candidates[key].filter((c: any) =>
+          // 指定の値が含まれているかどうかのチェックのみなので、ここでは厳格さは不要と判断
+          this.type.value.includes(c[prop]),
         )
 
         return result.length > 0

@@ -28,7 +28,14 @@ describe(excludeNotEquipped.name, () => {
   it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
     'not contain not-equipped unit at specified key',
     (candidates, key, context) => {
-      const applied = excludeNotEquipped.build(key).apply(candidates, context)
+      const applied = excludeNotEquipped
+        .build({
+          key,
+          onEmpty: () => {
+            throw new Error()
+          },
+        })
+        .apply(candidates, context)
       const actual = applied[key]
 
       expect(actual).not.toContain(armNotEquipped)
@@ -39,7 +46,14 @@ describe(excludeNotEquipped.name, () => {
   it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(
     'not change other candidates',
     (candidates, key, context) => {
-      const applied = excludeNotEquipped.build(key).apply(candidates, context)
+      const applied = excludeNotEquipped
+        .build({
+          key,
+          onEmpty: () => {
+            throw new Error()
+          },
+        })
+        .apply(candidates, context)
 
       expect(applied).toMatchObject({
         head: candidates.head,

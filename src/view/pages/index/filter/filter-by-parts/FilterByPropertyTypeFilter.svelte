@@ -67,15 +67,15 @@
   }>()
 </script>
 
-<!-- for type hint -->
+<!-- guard for type hint -->
 {#if state.filter.type.id === 'filterByProperty'}
 <div class="d-flex align-items-center">
-  <label for={formId} class="d-flex align-items-center me-2">
+  <label for={formId} class="d-flex align-items-center me-2 property-filter-label">
     {$i18n.t(`filter:${state.filter.name}`)}
   </label>
   <select
     id={formId}
-    class="form-select"
+    class="form-select property-filter-values"
     multiple
     on:change={onSelected(state)}
     bind:this={selectBox}
@@ -89,6 +89,18 @@
       </option>
     {/each}
   </select>
-  <button class="btn border-secondary ms-2" on:click={resetSelect(state)}>RESET</button>
+  <button class="btn border-secondary ms-2 property-filter-reset" on:click={resetSelect(state)}>RESET</button>
 </div>
 {/if}
+
+<style>
+.property-filter-label {
+    flex-basis: 20%;
+}
+.property-filter-values {
+    flex-basis: 65%;
+}
+.property-filter-reset {
+    flex-basis: 15%;
+}
+</style>

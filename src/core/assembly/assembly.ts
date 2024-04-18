@@ -82,13 +82,13 @@ export function createAssembly(base: RawAssembly): Assembly {
       return sum([this.head, this.core, this.arms, this.legs].map((p) => p.ap))
     },
     get antiKineticDefense(): number {
-      return sum(extractFrames(this).map(p => p.anti_kinetic_defense))
+      return sum(extractFrames(this).map((p) => p.anti_kinetic_defense))
     },
     get antiEnergyDefense(): number {
-      return sum(extractFrames(this).map(p => p.anti_energy_defense))
+      return sum(extractFrames(this).map((p) => p.anti_energy_defense))
     },
     get antiExplosiveDefense(): number {
-      return sum(extractFrames(this).map(p => p.anti_explosive_defense))
+      return sum(extractFrames(this).map((p) => p.anti_explosive_defense))
     },
     get weight(): number {
       return sum(
@@ -174,11 +174,9 @@ export function createAssembly(base: RawAssembly): Assembly {
       )
     },
     get attitudeStability(): number {
-      return sum([
-        this.head,
-        this.core,
-        this.legs,
-      ].map(p => p.attitude_stability))
+      return sum(
+        [this.head, this.core, this.legs].map((p) => p.attitude_stability),
+      )
     },
     get withinLoadLimit(): boolean {
       return this.load <= this.loadLimit

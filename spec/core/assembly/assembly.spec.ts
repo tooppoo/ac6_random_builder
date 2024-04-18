@@ -107,17 +107,20 @@ describe('assembly', () => {
         expectedEnergy: 1073,
         expectedExplosive: 1265,
       },
-    ])('diff is %s', ({ diff, expectedKinetic, expectedEnergy, expectedExplosive }) => {
-      test(`anti kinetic defense should be ${expectedKinetic}`, () => {
-        expect(merge(sut, diff).antiKineticDefense).toBe(expectedKinetic)
-      })
-      test(`anti energy defense should be ${expectedEnergy}`, () => {
-        expect(merge(sut, diff).antiEnergyDefense).toBe(expectedEnergy)
-      })
-      test(`anti explosive defense should be ${expectedExplosive}`, () => {
-        expect(merge(sut, diff).antiExplosiveDefense).toBe(expectedExplosive)
-      })
-    })
+    ])(
+      'diff is %s',
+      ({ diff, expectedKinetic, expectedEnergy, expectedExplosive }) => {
+        test(`anti kinetic defense should be ${expectedKinetic}`, () => {
+          expect(merge(sut, diff).antiKineticDefense).toBe(expectedKinetic)
+        })
+        test(`anti energy defense should be ${expectedEnergy}`, () => {
+          expect(merge(sut, diff).antiEnergyDefense).toBe(expectedEnergy)
+        })
+        test(`anti explosive defense should be ${expectedExplosive}`, () => {
+          expect(merge(sut, diff).antiExplosiveDefense).toBe(expectedExplosive)
+        })
+      },
+    )
   })
 
   describe('weight', () => {

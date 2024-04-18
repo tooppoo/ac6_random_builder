@@ -14,7 +14,12 @@
   let reportItems: ReportItems[]= [
     [
       { key: 'ap', status: 'normal' },
-      { key: 'coam', status: 'normal' },
+      { key: 'attitudeStability', status: 'normal' },
+    ],
+    [
+      { key: 'antiKineticDefense', status: 'normal' },
+      { key: 'antiEnergyDefense', status: 'normal' },
+      { key: 'antiExplosiveDefense', status: 'normal' },
     ],
     [
       { key: 'weight', status: 'normal' },
@@ -28,6 +33,9 @@
       { key: 'enSupplyEfficiency', status: assembly.withinEnOutput ? 'normal' : 'danger' },
       { key: 'enRechargeDelay', status: assembly.withinEnOutput ? 'normal' : 'danger' },
     ],
+    [
+      { key: 'coam', status: 'normal' },
+    ]
   ]
 
 </script>
@@ -41,6 +49,7 @@
       {#each xs as { key, status }}
         <ReportItem
           caption={$i18n.t(key, { ns: 'assembly' })}
+          class="mb-3"
           value={assembly[key]}
           status={status}
         />

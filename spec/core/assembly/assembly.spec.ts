@@ -67,6 +67,62 @@ describe('assembly', () => {
     })
   })
 
+  describe('defense', () => {
+    describe.each([
+      {
+        diff: {},
+        expectedKinetic: 1196,
+        expectedEnergy: 1083,
+        expectedExplosive: 1275,
+      },
+      {
+        diff: {
+          head: heads[1],
+        },
+        expectedKinetic: 1186,
+        expectedEnergy: 1073,
+        expectedExplosive: 1265,
+      },
+      {
+        diff: {
+          core: cores[1],
+        },
+        expectedKinetic: 1166,
+        expectedEnergy: 1053,
+        expectedExplosive: 1235,
+      },
+      {
+        diff: {
+          arms: arms[1],
+        },
+        expectedKinetic: 1168,
+        expectedEnergy: 1082,
+        expectedExplosive: 1265,
+      },
+      {
+        diff: {
+          legs: legs[1],
+        },
+        expectedKinetic: 1185,
+        expectedEnergy: 1073,
+        expectedExplosive: 1265,
+      },
+    ])(
+      'diff is %s',
+      ({ diff, expectedKinetic, expectedEnergy, expectedExplosive }) => {
+        test(`anti kinetic defense should be ${expectedKinetic}`, () => {
+          expect(merge(sut, diff).antiKineticDefense).toBe(expectedKinetic)
+        })
+        test(`anti energy defense should be ${expectedEnergy}`, () => {
+          expect(merge(sut, diff).antiEnergyDefense).toBe(expectedEnergy)
+        })
+        test(`anti explosive defense should be ${expectedExplosive}`, () => {
+          expect(merge(sut, diff).antiExplosiveDefense).toBe(expectedExplosive)
+        })
+      },
+    )
+  })
+
   describe('weight', () => {
     fcit.prop([genAssembly()])(
       'total weight must be larger than minimum',
@@ -290,6 +346,37 @@ describe('assembly', () => {
     ])('diff is %s', ({ diff, expected }) => {
       test(`total coam should be ${expected}`, () => {
         expect(merge(sut, diff).coam).toBe(expected)
+      })
+    })
+  })
+
+  describe('attitude stability', () => {
+    describe.each([
+      {
+        diff: {},
+        expected: 1670,
+      },
+      {
+        diff: {
+          head: heads[1],
+        },
+        expected: 1602,
+      },
+      {
+        diff: {
+          core: cores[1],
+        },
+        expected: 1597,
+      },
+      {
+        diff: {
+          legs: legs[1],
+        },
+        expected: 1504,
+      },
+    ])('diff is %s', ({ diff, expected }) => {
+      test(`attitude stability should be ${expected}`, () => {
+        expect(merge(sut, diff).attitudeStability).toBe(expected)
       })
     })
   })

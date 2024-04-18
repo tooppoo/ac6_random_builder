@@ -1,4 +1,12 @@
 <script lang="ts" context="module">
+  import type {AssemblyKey} from "~core/assembly/assembly.ts";
+  import type {LockedParts} from "~core/assembly/random/lock.ts";
+
+  import type {Category} from "~data/types/base/category.ts";
+  import type {Classification} from "~data/types/base/classification.ts";
+  import type {Manufacture} from "~data/types/base/manufacture.ts";
+  import type {ACParts} from "~data/types/base/types.ts";
+
   export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: ACParts<Classification, Manufacture, Category> }>
   export type ToggleLockEvent = Readonly<{ id: AssemblyKey, value: boolean }>
   export type ToggleFilterEvent = Readonly<{ id: AssemblyKey }>
@@ -10,15 +18,7 @@
   import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
   import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/pages/index/interaction/filter.ts";
 
-  import type {Category} from "~data/types/base/category.ts";
-  import type {Classification} from "~data/types/base/classification.ts";
-  import type {Manufacture} from "~data/types/base/manufacture.ts";
-  import type {ACParts} from "~data/types/base/types.ts";
-
   import {createEventDispatcher} from "svelte";
-
-  import type {AssemblyKey} from "src/core/assembly/assembly.ts";
-  import type {LockedParts} from "src/core/assembly/random/lock.ts";
 
   export let id: AssemblyKey
   export let caption: string

@@ -4,7 +4,6 @@
     type Assembly,
     type AssemblyKey,
     assemblyKeys,
-    type AssemblyProperty,
     createAssembly,
     spaceByWord
   } from "~core/assembly/assembly.ts"
@@ -27,6 +26,7 @@
     toggleFilter, UsableItemNotFoundError
   } from "~view/pages/index/interaction/filter.ts";
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
+  import ReportList from '~view/pages/index/report/ReportList.svelte'
 
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
@@ -37,8 +37,6 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
-  import ReportItem from "./report/ReportItem.svelte"
-  import type {ReportStatus} from "./report/ReportItem.svelte";
 
   const appVersion = appPackage.version
   const tryLimit = 3000
@@ -65,24 +63,6 @@
           e instanceof UsableItemNotFoundError ? e : new Error(`${e}`), $i18n
         )
       }
-    }
-  }
-
-  let reportItems: readonly {
-    key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,
-    status: ReportStatus
-  }[]
-  $: {
-    if (assembly) {
-      reportItems = [
-        { key: 'ap', status: 'normal' },
-        { key: 'weight', status: 'normal' },
-        { key: 'load', status: assembly.withinLoadLimit ? 'normal' : 'danger' },
-        { key: 'loadLimit', status: assembly.withinLoadLimit ? 'normal' : 'danger' },
-        { key: 'enLoad', status: assembly.withinEnOutput ? 'normal' : 'danger' },
-        { key: 'enOutput', status: assembly.withinEnOutput ? 'normal' : 'danger' },
-        { key: 'coam', status: 'normal' },
-      ]
     }
   }
 
@@ -209,16 +189,9 @@
   </ToolSection>
 
   <ToolSection id="assembly-report" class="container mw-100 mx-0 my-4 w-100">
-    <div class="row mb-3">
-      {#each reportItems as { key, status }}
-        <ReportItem
-          caption={$i18n.t(key, { ns: 'assembly' })}
-          class="mb-3"
-          value={assembly[key]}
-          status={status}
-        />
-      {/each}
-    </div>
+    <ReportList
+      assembly={assembly}
+    />
   </ToolSection>
 </article>
 

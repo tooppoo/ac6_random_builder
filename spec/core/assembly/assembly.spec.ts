@@ -172,25 +172,48 @@ describe('assembly', () => {
         generator: generators[0],
         expectedEnLoad: 2466,
         expectedOutput: 2158,
-        within: false,
+        expectedEnSupply: 100,
+        expectedEnRechargeDelay: 1.38,
+        withinEnOutput: false,
       },
       {
         core: cores[0],
         generator: generators[1],
         expectedEnLoad: 2466,
         expectedOutput: 2490,
-        within: true,
+        expectedEnSupply: 1600,
+        expectedEnRechargeDelay: 1.06,
+        withinEnOutput: true,
       },
       {
         core: cores[3],
         generator: generators[0],
         expectedEnLoad: 2488,
         expectedOutput: 2652,
-        within: true,
+        expectedEnSupply: 2183,
+        expectedEnRechargeDelay: 1.26,
+        withinEnOutput: true,
+      },
+      {
+        core: cores[3],
+        generator: generators[8],
+        expectedEnLoad: 2488,
+        expectedOutput: 4518,
+        expectedEnSupply: 10014,
+        expectedEnRechargeDelay: 1.36,
+        withinEnOutput: true,
       },
     ])(
       'when core is %s, generator is %s',
-      ({ core, generator, expectedEnLoad, expectedOutput, within }) => {
+      ({
+        core,
+        generator,
+        expectedEnLoad,
+        expectedOutput,
+        expectedEnSupply,
+        expectedEnRechargeDelay,
+        withinEnOutput,
+      }) => {
         beforeEach(() => {
           sut = merge(sut, { core, generator })
         })
@@ -201,8 +224,14 @@ describe('assembly', () => {
         it(`energy output should be ${expectedOutput}`, () => {
           expect(sut.enOutput).toBe(expectedOutput)
         })
-        it(`within energy output is ${within}`, () => {
-          expect(sut.withinEnOutput).toBe(within)
+        it(`within energy output should be ${withinEnOutput}`, () => {
+          expect(sut.withinEnOutput).toBe(withinEnOutput)
+        })
+        it(`energy supply efficiency should be ${expectedEnSupply}`, () => {
+          expect(sut.enSupplyEfficiency).toBe(expectedEnSupply)
+        })
+        it(`energy recharge delay should be ${expectedEnRechargeDelay}`, () => {
+          expect(sut.enRechargeDelay).toBe(expectedEnRechargeDelay)
         })
       },
     )

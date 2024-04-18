@@ -45,6 +45,12 @@ export type AssemblyProperty = {
   readonly enLoad: number
   /** EN出力 */
   readonly enOutput: number
+  /** EN余剰 */
+  readonly enSurplus: number
+  /** EN供給効率 */
+  readonly enSupplyEfficiency: number
+  /** EN補充遅延 */
+  readonly enRechargeDelay: number
   /** 総COAM */
   readonly coam: number
 
@@ -103,11 +109,32 @@ export function createAssembly(base: RawAssembly): Assembly {
         ].map((p) => p.en_load),
       )
     },
+    get enSurplus(): number {
+      return this.enOutput - this.enLoad
+    },
     get enOutput(): number {
       return Math.floor(
         this.generator.en_output *
           (this.core.generator_output_adjective * 0.01),
       )
+    },
+    get enSupplyEfficiency(): number {
+      if (this.enSurplus >= 1800) {
+        return Math.floor(9000 + ((this.enSurplus - 1800) * 75) / 17)
+      } else if (this.enSurplus >= 0) {
+        return Math.floor(1500 + (this.enSurplus * 25) / 6)
+      } else {
+        return 100
+      }
+    },
+    get enRechargeDelay(): number {
+      const base =
+        1000 /
+        ((this.generator.en_recharge / 100) *
+          this.core.generator_supply_adjective)
+
+      // 小数点第二位で四捨五入
+      return Math.round(base * 100) / 100
     },
     get coam(): number {
       return sum(
@@ -130,7 +157,7 @@ export function createAssembly(base: RawAssembly): Assembly {
       return this.load <= this.loadLimit
     },
     get withinEnOutput(): boolean {
-      return this.enLoad <= this.enOutput
+      return this.enSurplus >= 0
     },
   }
 }

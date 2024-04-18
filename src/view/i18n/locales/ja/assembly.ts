@@ -18,5 +18,7 @@ export const jaAssembly = {
   loadLimit: '積載上限',
   enLoad: 'EN負荷',
   enOutput: 'EN出力',
+  enSurplus: 'EN余剰',
+  enSupplyEfficiency: 'EN供給効率',
   coam: '総COAM',
 }

@@ -68,10 +68,10 @@
     }
   }
 
-  let reportItems: readonly {
+  let reportItems: ReadonlyArray<{
     key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,
     status: ReportStatus
-  }[]
+  }>
   $: {
     if (assembly) {
       reportItems = [
@@ -81,6 +81,8 @@
         { key: 'loadLimit', status: assembly.withinLoadLimit ? 'normal' : 'danger' },
         { key: 'enLoad', status: assembly.withinEnOutput ? 'normal' : 'danger' },
         { key: 'enOutput', status: assembly.withinEnOutput ? 'normal' : 'danger' },
+        { key: 'enSurplus', status: assembly.withinEnOutput ? 'normal' : 'danger' },
+        { key: 'enSupplyEfficiency', status: assembly.withinEnOutput ? 'normal' : 'danger' },
         { key: 'coam', status: 'normal' },
       ]
     }

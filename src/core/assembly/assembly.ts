@@ -121,16 +121,17 @@ export function createAssembly(base: RawAssembly): Assembly {
     get enSupplyEfficiency(): number {
       if (this.enSurplus >= 1800) {
         return Math.floor(9000 + ((this.enSurplus - 1800) * 75) / 17)
-      }
-      else if (this.enSurplus >= 0) {
+      } else if (this.enSurplus >= 0) {
         return Math.floor(1500 + (this.enSurplus * 25) / 6)
-      }
-      else {
+      } else {
         return 100
       }
     },
     get enRechargeDelay(): number {
-      const base = 1000 / ((this.generator.en_recharge / 100) * (this.core.generator_supply_adjective))
+      const base =
+        1000 /
+        ((this.generator.en_recharge / 100) *
+          this.core.generator_supply_adjective)
 
       // 小数点第二位で四捨五入
       return Math.round(base * 100) / 100

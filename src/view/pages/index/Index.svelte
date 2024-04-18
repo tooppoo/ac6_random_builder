@@ -26,6 +26,7 @@
     toggleFilter, UsableItemNotFoundError
   } from "~view/pages/index/interaction/filter.ts";
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
+  import ReportList from '~view/pages/index/report/ReportList.svelte'
 
   import {armNotEquipped} from "~data/arm-units.ts";
   import {backNotEquipped} from "~data/back-units.ts";
@@ -36,7 +37,6 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
-  import ReportList from '~view/pages/index/report/ReportList.svelte'
 
   const appVersion = appPackage.version
   const tryLimit = 3000

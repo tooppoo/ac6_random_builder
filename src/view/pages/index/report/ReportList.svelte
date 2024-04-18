@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Assembly, AssemblyProperty } from '~core/assembly/assembly'
+
   import i18n from "~view/i18n/define.ts";
   import type { ReportStatus } from '~view/pages/index/report/ReportItem.svelte'
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'

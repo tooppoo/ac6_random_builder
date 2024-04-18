@@ -54,6 +54,9 @@ export type AssemblyProperty = {
   /** 総COAM */
   readonly coam: number
 
+  /** 姿勢安定性能 */
+  readonly attitudeStability: number
+
   /**
    * @return {boolean} 積載量が積載上限以内の場合にtrue
    */
@@ -152,6 +155,13 @@ export function createAssembly(base: RawAssembly): Assembly {
           this.generator,
         ].map((p) => p.price),
       )
+    },
+    get attitudeStability(): number {
+      return sum([
+        this.head,
+        this.core,
+        this.legs,
+      ].map(p => p.attitude_stability))
     },
     get withinLoadLimit(): boolean {
       return this.load <= this.loadLimit

@@ -294,6 +294,37 @@ describe('assembly', () => {
     })
   })
 
+  describe('attitude stability', () => {
+    describe.each([
+      {
+        diff: {},
+        expected: 1670,
+      },
+      {
+        diff: {
+          head: heads[1],
+        },
+        expected: 1602,
+      },
+      {
+        diff: {
+          core: cores[1],
+        },
+        expected: 1597,
+      },
+      {
+        diff: {
+          legs: legs[1],
+        },
+        expected: 1504,
+      },
+    ])('diff is %s', ({ diff, expected }) => {
+      test(`attitude stability should be ${expected}`, () => {
+        expect(merge(sut, diff).attitudeStability).toBe(expected)
+      })
+    })
+  })
+
   describe('keys', () => {
     describe('space by word', () => {
       describe.each([

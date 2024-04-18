@@ -15,6 +15,7 @@
     [
       { key: 'ap', status: 'normal' },
       { key: 'coam', status: 'normal' },
+      { key: 'attitudeStability', status: 'normal' },
     ],
     [
       { key: 'weight', status: 'normal' },
@@ -41,6 +42,7 @@
       {#each xs as { key, status }}
         <ReportItem
           caption={$i18n.t(key, { ns: 'assembly' })}
+          class="mb-3"
           value={assembly[key]}
           status={status}
         />

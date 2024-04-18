@@ -13,14 +13,16 @@ export const jaAssembly = {
   expansion: 'コア拡張',
 
   ap: 'AP',
+  coam: '総COAM',
+  attitudeStability: '姿勢安定性能',
+
   weight: '総重量',
   load: '積載量',
   loadLimit: '積載上限',
+
   enLoad: 'EN負荷',
   enOutput: 'EN出力',
   enSurplus: 'EN余剰',
   enSupplyEfficiency: 'EN供給効率',
   enRechargeDelay: 'EN補充遅延',
-  attitudeStability: '姿勢安定性能',
-  coam: '総COAM',
 }

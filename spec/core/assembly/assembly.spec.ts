@@ -173,6 +173,7 @@ describe('assembly', () => {
         expectedEnLoad: 2466,
         expectedOutput: 2158,
         expectedEnSupply: 100,
+        expectedEnRechargeDelay: 1.38,
         withinEnOutput: false,
       },
       {
@@ -181,6 +182,7 @@ describe('assembly', () => {
         expectedEnLoad: 2466,
         expectedOutput: 2490,
         expectedEnSupply: 1600,
+        expectedEnRechargeDelay: 1.06,
         withinEnOutput: true,
       },
       {
@@ -189,6 +191,7 @@ describe('assembly', () => {
         expectedEnLoad: 2488,
         expectedOutput: 2652,
         expectedEnSupply: 2183,
+        expectedEnRechargeDelay: 1.26,
         withinEnOutput: true,
       },
       {
@@ -197,6 +200,7 @@ describe('assembly', () => {
         expectedEnLoad: 2488,
         expectedOutput: 4518,
         expectedEnSupply: 10014,
+        expectedEnRechargeDelay: 1.36,
         withinEnOutput: true,
       },
     ])(
@@ -207,6 +211,7 @@ describe('assembly', () => {
         expectedEnLoad,
         expectedOutput,
         expectedEnSupply,
+        expectedEnRechargeDelay,
         withinEnOutput,
       }) => {
         beforeEach(() => {
@@ -224,6 +229,9 @@ describe('assembly', () => {
         })
         it(`energy supply efficiency should be ${expectedEnSupply}`, () => {
           expect(sut.enSupplyEfficiency).toBe(expectedEnSupply)
+        })
+        it(`energy recharge delay should be ${expectedEnRechargeDelay}`, () => {
+          expect(sut.enRechargeDelay).toBe(expectedEnRechargeDelay)
         })
       },
     )

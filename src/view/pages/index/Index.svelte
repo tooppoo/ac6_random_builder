@@ -83,6 +83,7 @@
         { key: 'enOutput', status: assembly.withinEnOutput ? 'normal' : 'danger' },
         { key: 'enSurplus', status: assembly.withinEnOutput ? 'normal' : 'danger' },
         { key: 'enSupplyEfficiency', status: assembly.withinEnOutput ? 'normal' : 'danger' },
+        { key: 'enRechargeDelay', status: assembly.withinEnOutput ? 'normal' : 'danger' },
         { key: 'coam', status: 'normal' },
       ]
     }

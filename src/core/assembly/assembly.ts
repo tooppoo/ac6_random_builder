@@ -49,6 +49,8 @@ export type AssemblyProperty = {
   readonly enSurplus: number
   /** EN供給効率 */
   readonly enSupplyEfficiency: number
+  /** EN補充遅延 */
+  readonly enRechargeDelay: number
   /** 総COAM */
   readonly coam: number
 
@@ -126,6 +128,12 @@ export function createAssembly(base: RawAssembly): Assembly {
       else {
         return 100
       }
+    },
+    get enRechargeDelay(): number {
+      const base = 1000 / ((this.generator.en_recharge / 100) * (this.core.generator_supply_adjective))
+
+      // 小数点第二位で四捨五入
+      return Math.round(base * 100) / 100
     },
     get coam(): number {
       return sum(

@@ -35,12 +35,22 @@ export function assemblyKeys(): AssemblyKey[] {
 export type Assembly = RawAssembly & AssemblyProperty
 export type AssemblyProperty = {
   readonly ap: number
+  /** 耐弾防御 */
+  readonly antiKineticDefense: number
+  /** 耐EN防御 */
+  readonly antiEnergyDefense: number
+  /** 耐爆防御 */
+  readonly antiExplosiveDefense: number
+  /** 姿勢安定性能 */
+  readonly attitudeStability: number
+
   /** 総重量 */
   readonly weight: number
   /** 総積載量 */
   readonly load: number
   /** 積載上限 */
   readonly loadLimit: number
+
   /** EN負荷 */
   readonly enLoad: number
   /** EN出力 */
@@ -51,11 +61,9 @@ export type AssemblyProperty = {
   readonly enSupplyEfficiency: number
   /** EN補充遅延 */
   readonly enRechargeDelay: number
+
   /** 総COAM */
   readonly coam: number
-
-  /** 姿勢安定性能 */
-  readonly attitudeStability: number
 
   /**
    * @return {boolean} 積載量が積載上限以内の場合にtrue
@@ -72,6 +80,15 @@ export function createAssembly(base: RawAssembly): Assembly {
     ...base,
     get ap(): number {
       return sum([this.head, this.core, this.arms, this.legs].map((p) => p.ap))
+    },
+    get antiKineticDefense(): number {
+      return sum(extractFrames(this).map(p => p.anti_kinetic_defense))
+    },
+    get antiEnergyDefense(): number {
+      return sum(extractFrames(this).map(p => p.anti_energy_defense))
+    },
+    get antiExplosiveDefense(): number {
+      return sum(extractFrames(this).map(p => p.anti_explosive_defense))
     },
     get weight(): number {
       return sum(
@@ -204,4 +221,8 @@ type BaseAssembly = {
   fcs: FCS
   generator: Generator
   expansion: Expansion.Expansion | Expansion.ExpansionNotEquipped
+}
+
+function extractFrames(assembly: Assembly) {
+  return [assembly.head, assembly.core, assembly.arms, assembly.legs]
 }

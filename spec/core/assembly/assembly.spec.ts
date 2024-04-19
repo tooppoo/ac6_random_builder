@@ -274,7 +274,7 @@ describe('assembly', () => {
         expectedEnLoad: 2496,
         expectedOutput: 3339,
         expectedEnSupply: 5012,
-        expectedEnRechargeDelay: 1.00,
+        expectedEnRechargeDelay: 1.0,
         withinEnOutput: true,
       },
     ])(

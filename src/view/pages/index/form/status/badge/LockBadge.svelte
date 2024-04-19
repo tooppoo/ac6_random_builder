@@ -25,6 +25,7 @@
 </script>
 
 <BaseStatusBadge
+  id={$$props.id}
   class={`${$$props.class || ''} ${classes}`}
   data-clickable={clickable}
   title={title}

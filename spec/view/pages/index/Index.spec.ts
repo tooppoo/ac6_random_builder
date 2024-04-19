@@ -1,5 +1,3 @@
-import type { AssemblyKey } from '~core/assembly/assembly.ts'
-
 import Index from '~view/pages/index/Index.svelte'
 
 import { cleanup, render, screen } from '@testing-library/svelte'
@@ -25,19 +23,19 @@ describe(`App.svelte`, () => {
 
     const selectBoxes = screen.getAllByRole('combobox')
 
-    const expected: AssemblyKey[] = [
-      'rightArmUnit',
-      'leftArmUnit',
-      'rightBackUnit',
-      'leftBackUnit',
-      'head',
-      'core',
-      'arms',
-      'legs',
-      'booster',
-      'fcs',
-      'generator',
-      'expansion',
+    const expected = [
+      'select-rightArmUnit',
+      'select-leftArmUnit',
+      'select-rightBackUnit',
+      'select-leftBackUnit',
+      'select-head',
+      'select-core',
+      'select-arms',
+      'select-legs',
+      'select-booster',
+      'select-fcs',
+      'select-generator',
+      'select-expansion',
     ]
 
     expect(selectBoxes.map((e) => e.id)).toEqual(expected)

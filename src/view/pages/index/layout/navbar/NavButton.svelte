@@ -20,6 +20,7 @@
 </script>
 
 <button
+  id={$$props.id || ''}
   class={`${$$props.class || ''} btn btn-secondary bg-dark-subtle me-3}`}
   data-bs-toggle="tooltip"
   data-bs-title={title}

@@ -89,7 +89,13 @@
       </option>
     {/each}
   </select>
-  <button class="btn border-secondary ms-2 property-filter-reset" on:click={resetSelect(state)}>RESET</button>
+  <button
+    id={`reset-${formId}`}
+    class="btn border-secondary ms-2 property-filter-reset"
+    on:click={resetSelect(state)}
+  >
+    RESET
+  </button>
 </div>
 {/if}
 

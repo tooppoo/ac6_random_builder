@@ -1,5 +1,3 @@
-import type { AssemblyKey } from '~core/assembly/assembly.ts'
-
 import Index from '~view/pages/index/Index.svelte'
 
 import { cleanup, render, screen } from '@testing-library/svelte'

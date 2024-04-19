@@ -242,6 +242,15 @@ describe('assembly', () => {
         withinEnOutput: true,
       },
       {
+        core: cores[2],
+        generator: generators[0],
+        expectedEnLoad: 2470,
+        expectedOutput: 2729,
+        expectedEnSupply: 2579,
+        expectedEnRechargeDelay: 1.34,
+        withinEnOutput: true,
+      },
+      {
         core: cores[3],
         generator: generators[0],
         expectedEnLoad: 2488,
@@ -257,6 +266,15 @@ describe('assembly', () => {
         expectedOutput: 4518,
         expectedEnSupply: 10014,
         expectedEnRechargeDelay: 1.36,
+        withinEnOutput: true,
+      },
+      {
+        core: cores[6],
+        generator: generators[7],
+        expectedEnLoad: 2496,
+        expectedOutput: 3339,
+        expectedEnSupply: 5012,
+        expectedEnRechargeDelay: 1.0,
         withinEnOutput: true,
       },
     ])(

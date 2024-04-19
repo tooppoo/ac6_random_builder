@@ -153,8 +153,11 @@ export function createAssembly(base: RawAssembly): Assembly {
         ((this.generator.en_recharge / 100) *
           this.core.generator_supply_adjective)
 
-      // 小数点第二位で四捨五入
-      return Math.round(base * 100) / 100
+      // 小数点第四位で四捨五入した後、小数点第三位で切り捨て？
+      // 単に第三位で切り捨てるとMELANDER C3 + VP-20Dで
+      // 第三位で切り上げ or 四捨五入するとNACHTREIHER + VP-20Cで
+      // 計算が一致しなくなる
+      return Math.floor(Math.round(base * 1000) / 10) / 100
     },
     get coam(): number {
       return sum(

@@ -59,12 +59,13 @@
 <svelte:element this={tag} class={($$props.class || '') + ' container'}>
   <div class="row text-start">
     <label
-      for={id}
+      for={`select-${id}`}
       class="mb-1 mb-sm-0 p-0 col-12 col-sm-5 fs-5 d-flex justify-content-between align-items-center"
     >
       {caption}
       <StatusBadgeList>
         <LockBadge
+          id={`lock-parts-${id}`}
           class="me-sm-2"
           titleWhenLocked={$i18n.t('locked', { ns: 'lock' })}
           titleWhenUnlocked={$i18n.t('unlocked', { ns: 'lock' })}
@@ -74,6 +75,7 @@
         />
         {#if anyFilterContain(id, filter)}
           <FilterBadge
+            id={`filter-parts-${id}`}
             class="ms-2 ms-sm-0 me-sm-2"
             title={$i18n.t('filterByParts.description', { ns: 'filter' })}
             applied={anyFilterEnabled(id, filter)}
@@ -83,7 +85,7 @@
       </StatusBadgeList>
     </label>
     <select
-      id={id}
+      id={`select-${id}`}
       class="col-12 col-sm-7 fs-4"
       disabled={lock.isLocking(id)}
       bind:value={selected}

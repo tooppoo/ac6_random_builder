@@ -132,6 +132,7 @@
 {:then version}
 <Navbar>
   <NavButton
+    id="random-assemble"
     slot="random"
     class="me-3"
     title={$i18n.t('command.random.description', { ns: 'page/index' })}
@@ -141,6 +142,7 @@
     {$i18n.t('command.random.label', { ns: 'page/index' })}
   </NavButton>
   <NavButton
+    id="reset-lock"
     slot="reset-lock"
     class="me-3"
     title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
@@ -150,6 +152,7 @@
     {$i18n.t('resetAllLock', { ns: 'lock' })}
   </NavButton>
   <NavButton
+    id="open-whole-filter"
     slot="filter"
     title={$i18n.t('command.filterForWhole.description', { ns: 'page/index' })}
     on:click={() => openWholeFilter = true}
@@ -165,7 +168,7 @@
     ASSEMBLY TOOL
   </h1>
   <h2>
-    for {version}
+    for Reg {version}
   </h2>
 </header>
 
@@ -197,10 +200,10 @@
 
 <footer class="text-center mb-3">
   <div>
-    Created by <a href="https://linktr.ee/Philomagi">Philomagi</a>
+    Created by <a id="link-to-linktr" href="https://linktr.ee/Philomagi">Philomagi</a>
   </div>
   <div>
-    Source code is managed by <a href="https://github.com/tooppoo/ac6_assemble_tool/">Github</a>
+    Source code is managed by <a id="link-to-src" href="https://github.com/tooppoo/ac6_assemble_tool/">Github</a>
   </div>
   <div>
     App Version v{appVersion}
@@ -208,6 +211,7 @@
 </footer>
 
 <FilterByPartsOffCanvas
+  id="filter-by-parts"
   open={filter.open}
   current={filter.current}
   on:toggle={(ev) => filter.open = ev.detail.open}

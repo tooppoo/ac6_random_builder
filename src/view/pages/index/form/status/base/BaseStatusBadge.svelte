@@ -29,6 +29,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
 <span
+  id={$$props.id}
   class={`${$$props.class} status-badge`}
   data-bs-toggle="tooltip"
   data-bs-placement="left"

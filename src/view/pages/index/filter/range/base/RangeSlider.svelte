@@ -36,6 +36,7 @@
         <span id={`${id}-current-max-value`} class="input-group-text">{label}</span>
       </slot>
       <input
+        id={`${id}-current-max-value-form`}
         type="number"
         class="form-control form-control-sm"
         aria-label={label}

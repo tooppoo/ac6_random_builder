@@ -72,7 +72,9 @@ export const cores = [
 
     attitude_stability: 458,
     booster_efficiency_adjective: 98,
-    generator_output_adjective: 105,
+    // ゲーム上は105だが、計算上105だとどうしても一致しない
+    // 実際は小数点以下が設定されていて、表示上切り上げられている？
+    generator_output_adjective: 104.99,
     generator_supply_adjective: 97,
 
     weight: 15800,

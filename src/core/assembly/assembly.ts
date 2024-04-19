@@ -82,13 +82,13 @@ export function createAssembly(base: RawAssembly): Assembly {
       return sum([this.head, this.core, this.arms, this.legs].map((p) => p.ap))
     },
     get antiKineticDefense(): number {
-      return sum(extractFrames(this).map((p) => p.anti_kinetic_defense))
+      return sum(extractFrames(this).map(p => p.anti_kinetic_defense))
     },
     get antiEnergyDefense(): number {
-      return sum(extractFrames(this).map((p) => p.anti_energy_defense))
+      return sum(extractFrames(this).map(p => p.anti_energy_defense))
     },
     get antiExplosiveDefense(): number {
-      return sum(extractFrames(this).map((p) => p.anti_explosive_defense))
+      return sum(extractFrames(this).map(p => p.anti_explosive_defense))
     },
     get weight(): number {
       return sum(
@@ -153,8 +153,11 @@ export function createAssembly(base: RawAssembly): Assembly {
         ((this.generator.en_recharge / 100) *
           this.core.generator_supply_adjective)
 
-      // 小数点第二位で四捨五入
-      return Math.round(base * 100) / 100
+      // 小数点第四位で四捨五入した後、小数点第三位で切り捨て？
+      // 単に第三位で切り捨てるとMELANDER C3 + VP-20Dで
+      // 第三位で切り上げ or 四捨五入するとNACHTREIHER + VP-20Cで
+      // 計算が一致しなくなる
+      return Math.floor(Math.round(base * 1000) / 10) / 100
     },
     get coam(): number {
       return sum(
@@ -174,9 +177,11 @@ export function createAssembly(base: RawAssembly): Assembly {
       )
     },
     get attitudeStability(): number {
-      return sum(
-        [this.head, this.core, this.legs].map((p) => p.attitude_stability),
-      )
+      return sum([
+        this.head,
+        this.core,
+        this.legs,
+      ].map(p => p.attitude_stability))
     },
     get withinLoadLimit(): boolean {
       return this.load <= this.loadLimit

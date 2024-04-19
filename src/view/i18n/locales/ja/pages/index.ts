@@ -10,5 +10,10 @@ export const jaPageIndex = {
     filterForWhole: {
       description: 'アセンブルの<br>条件を設定する',
     },
+    report: {
+      edit: 'ステータス表示を編集する',
+      save: 'ステータス表示を保存する',
+      reset: '元に戻す',
+    },
   },
 }

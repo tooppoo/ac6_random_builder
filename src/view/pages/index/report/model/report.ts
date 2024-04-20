@@ -78,7 +78,10 @@ interface ReportAggregationDto {
 }
 
 export type ReportBlockId = string
-type ReadonlyReportBlock = Pick<ReportBlock, 'reports' | 'indexOf' | 'id'>
+type ReadonlyReportBlock = Pick<
+  ReportBlock,
+  'reports' | 'indexOf' | 'id' | 'someReportsShown'
+>
 export class ReportBlock {
   static create(reports: Report[]): ReportBlock {
     return new ReportBlock(crypto.randomUUID(), reports)

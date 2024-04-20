@@ -324,7 +324,14 @@ export const boosters = [
     en_load: 342,
   }),
 ] as const
-export type Booster = (typeof boosters)[number] | BoosterNotEquipped
-
+export type Booster = (typeof boosters)[number]
 export const boosterNotEquipped = defineNotEquipped()
 export type BoosterNotEquipped = typeof boosterNotEquipped
+
+export function boosterMustBeEquipped(
+  b: Booster | BoosterNotEquipped,
+): asserts b is Booster {
+  if (b.category === boosterNotEquipped.category) {
+    throw new Error('booster must be equipped')
+  }
+}

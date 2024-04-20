@@ -1,7 +1,7 @@
 import * as ArmUnits from '~data/arm-units.ts'
 import type { Arms } from '~data/arms.ts'
 import * as BackUnits from '~data/back-units.ts'
-import type { Booster } from '~data/booster.ts'
+import type { Booster, BoosterNotEquipped } from '~data/booster.ts'
 import type { Core } from '~data/cores.ts'
 import * as Expansion from '~data/expansions.ts'
 import type { FCS } from '~data/fces.ts'
@@ -36,7 +36,7 @@ export type Candidates = Readonly<{
   arms: readonly Arms[]
   legs: readonly Legs[]
 
-  booster: readonly Booster[]
+  booster: readonly (Booster | BoosterNotEquipped)[]
   fcs: readonly FCS[]
   generator: readonly Generator[]
 

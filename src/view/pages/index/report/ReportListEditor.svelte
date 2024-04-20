@@ -7,7 +7,7 @@
   import type { EmptyObject } from '~core/utils/type'
 
   import IconButton from '~view/components/button/IconButton.svelte'
-  import i18n from "~view/i18n/define.ts";
+  import i18n, { i18next } from "~view/i18n/define.ts";
   import { ReportAggregation, Report } from '~view/pages/index/report/model/report'
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'
 
@@ -22,8 +22,8 @@
 
   function visibleStatus(report: Report): { class: string, title: string } {
     return report.show
-      ? { title: '表示しない', class: 'bi-eye' }
-      : { title: '表示する', class: 'bi-eye-slash' }
+      ? { title: i18next.t('command.report.hide', { ns: 'page/index' }), class: 'bi-eye' }
+      : { title: i18next.t('command.report.show', { ns: 'page/index' }), class: 'bi-eye-slash' }
   }
 
   // handler

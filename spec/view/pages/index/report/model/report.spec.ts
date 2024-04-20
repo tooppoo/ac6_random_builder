@@ -65,6 +65,8 @@ describe(ReportAggregation, () => {
             new Report('weight', false),
             new Report('load', true),
             new Report('loadLimit', true),
+            new Report('armsLoad', true),
+            new Report('armsLoadLimit', true),
           ]),
         },
       ])(
@@ -285,8 +287,15 @@ describe(Report, () => {
     })
   })
   describe(Report.prototype.statusFor, () => {
+    type AssemblyLike = Parameters<Report['statusFor']>[0]
+    const baseAssemblyLike: AssemblyLike = {
+      withinEnOutput: true,
+      withinArmsLoadLimit: true,
+      withinLoadLimit: true,
+    }
+
     describe('en load with in energy output', () => {
-      const assemblyLike = { withinEnOutput: true }
+      const assemblyLike = { ...baseAssemblyLike, withinEnOutput: true }
 
       it.prop([genReportKey()])('always be normal', (key) => {
         const report = Report.create(key)
@@ -295,7 +304,7 @@ describe(Report, () => {
       })
     })
     describe('en load over energy output', () => {
-      const assemblyLike = { withinEnOutput: false }
+      const assemblyLike = { ...baseAssemblyLike, withinEnOutput: false }
 
       describe('key is about energy', () => {
         it.prop([genReportKey().filter((k) => k.startsWith('en'))])(
@@ -309,6 +318,74 @@ describe(Report, () => {
       })
       describe('key is not about energy', () => {
         it.prop([genReportKey().filter((k) => !k.startsWith('en'))])(
+          'always be normal',
+          (key) => {
+            const report = Report.create(key)
+
+            expect(report.statusFor(assemblyLike)).toBe('normal')
+          },
+        )
+      })
+    })
+
+    describe('weight within load limit', () => {
+      const assemblyLike = { ...baseAssemblyLike, withinLoadLimit: true }
+
+      it.prop([genReportKey()])('always be normal', (key) => {
+        const report = Report.create(key)
+
+        expect(report.statusFor(assemblyLike)).toBe('normal')
+      })
+    })
+    describe('weight over load limit', () => {
+      const assemblyLike = { ...baseAssemblyLike, withinLoadLimit: false }
+
+      describe('key is about load', () => {
+        it.prop([genReportKey().filter((k) => k.startsWith('load'))])(
+          'always be danger',
+          (key) => {
+            const report = Report.create(key)
+
+            expect(report.statusFor(assemblyLike)).toBe('danger')
+          },
+        )
+      })
+      describe('key is not about load', () => {
+        it.prop([genReportKey().filter((k) => !k.startsWith('load'))])(
+          'always be normal',
+          (key) => {
+            const report = Report.create(key)
+
+            expect(report.statusFor(assemblyLike)).toBe('normal')
+          },
+        )
+      })
+    })
+
+    describe('arms load within arms load limit', () => {
+      const assemblyLike = { ...baseAssemblyLike, withinArmsLoadLimit: true }
+
+      it.prop([genReportKey()])('always be normal', (key) => {
+        const report = Report.create(key)
+
+        expect(report.statusFor(assemblyLike)).toBe('normal')
+      })
+    })
+    describe('weight over load limit', () => {
+      const assemblyLike = { ...baseAssemblyLike, withinArmsLoadLimit: false }
+
+      describe('key is about arms load', () => {
+        it.prop([genReportKey().filter((k) => k.startsWith('armsLoad'))])(
+          'always be danger',
+          (key) => {
+            const report = Report.create(key)
+
+            expect(report.statusFor(assemblyLike)).toBe('danger')
+          },
+        )
+      })
+      describe('key is not about arms load', () => {
+        it.prop([genReportKey().filter((k) => !k.startsWith('armsLoad'))])(
           'always be normal',
           (key) => {
             const report = Report.create(key)
@@ -360,6 +437,8 @@ function genReportKey(): fc.Arbitrary<ReportKey> {
     'weight',
     'load',
     'loadLimit',
+    'armsLoad',
+    'armsLoadLimit',
     'enLoad',
     'enOutput',
     'enSurplus',

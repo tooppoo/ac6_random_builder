@@ -22,7 +22,7 @@ import { BaseCustomError } from '~core/utils/error.ts'
 import { logger } from '~core/utils/logger.ts'
 
 import { armNotEquipped } from '~data/arm-units.ts'
-import { boosterNotEquipped } from '~data/booster.ts'
+import { boosterMustBeEquipped, boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
 import { manufactures } from '~data/types/base/manufacture.ts'
 import { type Candidates } from '~data/types/candidates.ts'
@@ -106,10 +106,13 @@ export function assemblyWithHeadParts(candidates: Candidates): Assembly {
       booster: boosterNotEquipped,
     })
   } else {
+    const booster = candidates.booster[0]
+    boosterMustBeEquipped(booster)
+
     return createAssembly({
       ...base,
       legs,
-      booster: candidates.booster[0],
+      booster,
     })
   }
 }

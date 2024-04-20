@@ -21,12 +21,18 @@ export const jaAssembly = {
   weight: '総重量',
   load: '積載量',
   loadLimit: '積載上限',
+  armsLoad: '腕部積載量',
+  armsLoadLimit: '腕部積載上限',
 
   enLoad: 'EN負荷',
   enOutput: 'EN出力',
+  enCapacity: 'EN容量',
   enSurplus: 'EN余剰',
   enSupplyEfficiency: 'EN供給効率',
   enRechargeDelay: 'EN補充遅延',
+  enRecoveryDelay: 'EN復元遅延',
+
+  qbEnConsumption: 'QB消費EN',
 
   coam: '総COAM',
 }

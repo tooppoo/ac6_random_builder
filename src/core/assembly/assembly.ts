@@ -10,6 +10,7 @@ import type { FCS } from '~data/fces.ts'
 import type { Generator } from '~data/generators.ts'
 import type { Head } from '~data/heads.ts'
 import type { LegsNotTank, LegsTank } from '~data/legs.ts'
+import { tank } from '~data/types/base/category'
 
 export function spaceByWord(key: AssemblyKey): string {
   return key.replaceAll(/([A-Z])/g, ' $1')
@@ -51,16 +52,28 @@ export type AssemblyProperty = {
   /** 積載上限 */
   readonly loadLimit: number
 
+  /** 腕部積載量 */
+  readonly armsLoad: number
+  /** 腕部積載上限 */
+  readonly armsLoadLimit: number
+
   /** EN負荷 */
   readonly enLoad: number
   /** EN出力 */
   readonly enOutput: number
+  /** EN容量 */
+  readonly enCapacity: number
   /** EN余剰 */
   readonly enSurplus: number
   /** EN供給効率 */
   readonly enSupplyEfficiency: number
   /** EN補充遅延 */
   readonly enRechargeDelay: number
+  /** EN復元遅延 */
+  readonly enRecoveryDelay: number
+
+  /** QB消費EN */
+  readonly qbEnConsumption: number
 
   /** 総COAM */
   readonly coam: number
@@ -69,6 +82,10 @@ export type AssemblyProperty = {
    * @return {boolean} 積載量が積載上限以内の場合にtrue
    */
   readonly withinLoadLimit: boolean
+  /**
+   * @return {boolean} 腕部積載量が腕部積載上限以内の場合にtrue
+   */
+  readonly withinArmsLoadLimit: boolean
   /**
    * @return {boolean} EN出力がEN負荷以上の場合にtrue
    */
@@ -113,6 +130,12 @@ export function createAssembly(base: RawAssembly): Assembly {
     get loadLimit(): number {
       return this.legs.load_limit
     },
+    get armsLoad(): number {
+      return sum([this.rightArmUnit, this.leftArmUnit].map((p) => p.weight))
+    },
+    get armsLoadLimit(): number {
+      return this.arms.arms_load_limit
+    },
     get enLoad(): number {
       return sum(
         [
@@ -128,6 +151,9 @@ export function createAssembly(base: RawAssembly): Assembly {
           this.fcs,
         ].map((p) => p.en_load),
       )
+    },
+    get enCapacity(): number {
+      return this.generator.en_capacity
     },
     get enSurplus(): number {
       return this.enOutput - this.enLoad
@@ -159,6 +185,23 @@ export function createAssembly(base: RawAssembly): Assembly {
       // 計算が一致しなくなる
       return Math.floor(Math.round(base * 1000) / 10) / 100
     },
+    get enRecoveryDelay(): number {
+      const base =
+        1000 /
+        (this.generator.supply_recovery *
+          (this.core.generator_supply_adjective * 0.01))
+
+      return Math.floor(base * 100) * 0.01
+    },
+    get qbEnConsumption(): number {
+      const qbEnConsumption = isTank(this)
+        ? this.legs.qb_en_consumption
+        : this.booster.qb_en_consumption
+
+      return Math.floor(
+        qbEnConsumption * (200 - this.core.booster_efficiency_adjective) * 0.01,
+      )
+    },
     get coam(): number {
       return sum(
         [
@@ -184,6 +227,9 @@ export function createAssembly(base: RawAssembly): Assembly {
     get withinLoadLimit(): boolean {
       return this.load <= this.loadLimit
     },
+    get withinArmsLoadLimit(): boolean {
+      return this.armsLoad <= this.armsLoadLimit
+    },
     get withinEnOutput(): boolean {
       return this.enSurplus >= 0
     },
@@ -192,6 +238,12 @@ export function createAssembly(base: RawAssembly): Assembly {
 
 export type RawAssembly = AssemblyNotTank | AssemblyWithTank
 export type AssemblyKey = keyof RawAssembly
+
+function isTank(
+  assembly: Assembly | RawAssembly,
+): assembly is AssemblyWithTank {
+  return assembly.legs.category === tank
+}
 
 type AssemblyNotTank = BaseAssembly & {
   legs: LegsNotTank

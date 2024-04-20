@@ -21,6 +21,8 @@ export const jaAssembly = {
   weight: '総重量',
   load: '積載量',
   loadLimit: '積載上限',
+  armsLoad: '腕部積載量',
+  armsLoadLimit: '腕部積載上限',
 
   enLoad: 'EN負荷',
   enOutput: 'EN出力',

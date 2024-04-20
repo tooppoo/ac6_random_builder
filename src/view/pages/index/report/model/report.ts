@@ -15,6 +15,8 @@ export function defaultReportAggregation(): ReportAggregation {
       Report.create('weight'),
       Report.create('load'),
       Report.create('loadLimit'),
+      Report.create('armsLoad'),
+      Report.create('armsLoadLimit'),
     ]),
     ReportBlock.create([
       Report.create('enLoad'),
@@ -147,7 +149,7 @@ export class Report {
     readonly show: boolean,
   ) {}
 
-  statusFor(assembly: Pick<Assembly, 'withinEnOutput'>): ReportStatus {
+  statusFor(assembly: Pick<Assembly, 'withinEnOutput' | 'withinLoadLimit' | 'withinArmsLoadLimit'>): ReportStatus {
     switch (this.key) {
       case 'enLoad':
       case 'enOutput':
@@ -155,6 +157,12 @@ export class Report {
       case 'enSupplyEfficiency':
       case 'enRechargeDelay':
         return assembly.withinEnOutput ? 'normal' : 'danger'
+      case 'load':
+      case 'loadLimit':
+        return assembly.withinLoadLimit ? 'normal' : 'danger'
+      case 'armsLoad':
+      case 'armsLoadLimit':
+        return assembly.withinArmsLoadLimit ? 'normal' : 'danger'
       default:
         return 'normal'
     }
@@ -178,5 +186,5 @@ interface ReportDto {
 
 export type ReportKey = Exclude<
   keyof AssemblyProperty,
-  'withinEnOutput' | 'withinLoadLimit'
+  'withinEnOutput' | 'withinLoadLimit' | 'withinArmsLoadLimit'
 >

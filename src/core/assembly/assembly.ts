@@ -51,6 +51,11 @@ export type AssemblyProperty = {
   /** 積載上限 */
   readonly loadLimit: number
 
+  /** 腕部積載量 */
+  readonly armsLoad: number
+  /** 腕部積載上限 */
+  readonly armsLoadLimit: number
+
   /** EN負荷 */
   readonly enLoad: number
   /** EN出力 */
@@ -69,6 +74,10 @@ export type AssemblyProperty = {
    * @return {boolean} 積載量が積載上限以内の場合にtrue
    */
   readonly withinLoadLimit: boolean
+  /**
+   * @return {boolean} 腕部積載量が腕部積載上限以内の場合にtrue
+   */
+  readonly withinArmsLoadLimit: boolean
   /**
    * @return {boolean} EN出力がEN負荷以上の場合にtrue
    */
@@ -112,6 +121,12 @@ export function createAssembly(base: RawAssembly): Assembly {
     },
     get loadLimit(): number {
       return this.legs.load_limit
+    },
+    get armsLoad(): number {
+      return sum([this.rightArmUnit, this.leftArmUnit].map((p) => p.weight))
+    },
+    get armsLoadLimit(): number {
+      return this.arms.arms_load_limit
     },
     get enLoad(): number {
       return sum(
@@ -183,6 +198,9 @@ export function createAssembly(base: RawAssembly): Assembly {
     },
     get withinLoadLimit(): boolean {
       return this.load <= this.loadLimit
+    },
+    get withinArmsLoadLimit(): boolean {
+      return this.armsLoad <= this.armsLoadLimit
     },
     get withinEnOutput(): boolean {
       return this.enSurplus >= 0

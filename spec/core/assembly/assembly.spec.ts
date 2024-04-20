@@ -219,6 +219,61 @@ describe('assembly', () => {
         expect(sut.withinLoadLimit).toBe(within)
       })
     })
+
+    describe('arms', () => {
+      describe.each([
+        {
+          diff: {},
+          expectedArmsLoad: 8390,
+          expectedArmsLoadLimit: 10520,
+          within: true,
+        },
+        {
+          diff: { rightArmUnit: armUnits[1] },
+          expectedArmsLoad: 8330,
+          expectedArmsLoadLimit: 10520,
+          within: true,
+        },
+        {
+          diff: { leftArmUnit: leftArmUnits[1] },
+          expectedArmsLoad: 8000,
+          expectedArmsLoadLimit: 10520,
+          within: true,
+        },
+        {
+          diff: { rightArmUnit: armUnits[10], leftArmUnit: leftArmUnits[2] },
+          expectedArmsLoad: 10890,
+          expectedArmsLoadLimit: 10520,
+          within: false,
+        },
+        {
+          diff: {
+            rightArmUnit: armUnits[10],
+            leftArmUnit: leftArmUnits[2],
+            arms: arms[2],
+          },
+          expectedArmsLoad: 10890,
+          expectedArmsLoadLimit: 15100,
+          within: true,
+        },
+      ])(
+        'diff is %s',
+        ({ diff, expectedArmsLoad, expectedArmsLoadLimit, within }) => {
+          beforeEach(() => {
+            sut = merge(sut, diff)
+          })
+          it(`arms weight should be ${expectedArmsLoad}`, () => {
+            expect(sut.armsLoad).toBe(expectedArmsLoad)
+          })
+          it(`arms load should be ${expectedArmsLoadLimit}`, () => {
+            expect(sut.armsLoadLimit).toBe(expectedArmsLoadLimit)
+          })
+          it(`within energy output is ${within}`, () => {
+            expect(sut.withinArmsLoadLimit).toBe(within)
+          })
+        },
+      )
+    })
   })
 
   describe('energy', () => {

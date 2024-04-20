@@ -1,7 +1,6 @@
-<script lang="ts" context="module">
-  export type ReportStatus = 'danger' | 'warning' | 'normal'
-</script>
 <script lang="ts">
+  import type { ReportStatus } from '~view/pages/index/report/model/report'
+
   export let status: ReportStatus = 'normal'
 
   const textClass = (base: string, stat: ReportStatus) => {

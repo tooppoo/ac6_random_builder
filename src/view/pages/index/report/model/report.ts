@@ -34,41 +34,82 @@ export class ReportAggregation {
 
   constructor(private readonly _blocks: readonly ReportBlock[]) {}
 
-  get blocks(): readonly ReadonlyReportBlock[] {
+  get allBlocks(): readonly ReportBlock[] {
     return this._blocks
+  }
+  get blocks(): readonly ReadonlyReportBlock[] {
+    return this.allBlocks.filter(b => b.someRecordsVisible)
+  }
+
+  updateReport(blockId: ReportBlockId, report: ReadonlyReport): ReportAggregation {
+    const indexOfBlock = this._blocks.findIndex(b => b.id === blockId)
+    if (indexOfBlock === -1) return this
+
+    const block = this._blocks[indexOfBlock]
+    const indexOfReport = block.indexOf(report)
+    if (indexOfReport === -1) return this
+
+    return new ReportAggregation(this._blocks.toSpliced(indexOfBlock, 1, block.replaceAt(indexOfReport, report)))
+  }
+
+  showAll(): ReportAggregation {
+    return new ReportAggregation(
+      this.allBlocks.map(b => b.showAll())
+    )
   }
 }
 
 export type ReportStatus = 'danger' | 'warning' | 'normal'
+export type ReportBlockId = string
 
 type ReadonlyReportBlock = ReportBlock
 type ReadonlyReport = Report
 
-class ReportBlock {
+export class ReportBlock {
   static create(reports: Report[]): ReportBlock {
-    return new ReportBlock(crypto.randomUUID(), reports, true)
+    return new ReportBlock(crypto.randomUUID(), reports)
   }
   static fromDto(dto: ReportBlockDto): ReportBlock {
-    return new ReportBlock(dto.id, dto.reports.map(Report.fromDto), dto.show)
+    return new ReportBlock(dto.id, dto.reports.map(Report.fromDto))
   }
 
   private constructor(
-    readonly id: string,
+    readonly id: ReportBlockId,
     private readonly _reports: readonly Report[],
-    readonly show: boolean,
   ) {}
 
-  get reports(): readonly ReadonlyReport[] {
+  get allReports(): readonly Report[] {
     return this._reports
+  }
+  get reports(): readonly ReadonlyReport[] {
+    return this.allReports.filter(r => r.show)
+  }
+  get someRecordsVisible(): boolean {
+    return this.allReports.some(r => r.show)
+  }
+
+  indexOf(target: Report): number {
+    return this._reports.findIndex(r => r.key === target.key)
+  }
+  replaceAt(index: number, target: Report): ReportBlock {
+    return new ReportBlock(
+      this.id,
+      this._reports.toSpliced(index, 1, target),
+    )
+  }
+  showAll(): ReportBlock {
+    return new ReportBlock(
+      this.id,
+      this._reports.map(r => r.forceShow())
+    )
   }
 }
 interface ReportBlockDto {
-  readonly id: string
+  readonly id: ReportBlockId
   readonly reports: readonly ReportDto[]
-  readonly show: boolean
 }
 
-class Report {
+export class Report {
   static fromDto(dto: ReportDto): Report {
     return new Report(dto.key, dto.show)
   }
@@ -92,6 +133,19 @@ class Report {
       default:
         return 'normal'
     }
+  }
+
+  toggleShow(): Report {
+    return new Report(
+      this.key,
+      !this.show
+    )
+  }
+  forceShow(): Report {
+    return new Report(
+      this.key,
+      true
+    )
   }
 }
 interface ReportDto {

@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte'
   import type { Assembly } from '~core/assembly/assembly'
+  import IconButton from '~view/components/button/IconButton.svelte'
 
   import i18n from "~view/i18n/define.ts";
   import { ReportAggregation } from '~view/pages/index/report/model/report'
@@ -7,8 +9,25 @@
 
   export let assembly: Assembly
   export let reportAggregation: ReportAggregation
+
+  function onEdit() {
+    dispatch('edit', {})
+  }
+  const dispatch = createEventDispatcher<{
+    edit: {}
+  }>()
 </script>
 
+  <div class="d-flex justify-content-end">
+    <IconButton
+      id="edit-report"
+      class="bi bi-pencil-square fs-2 me-3"
+      title={$i18n.t('command.report.edit', { ns: 'page/index' })}
+      clickable={true}
+      on:click={onEdit}
+    />
+  </div>
+  <hr>
 {#each reportAggregation.blocks as block, i}
   {#if (i !== 0)}
     <hr>

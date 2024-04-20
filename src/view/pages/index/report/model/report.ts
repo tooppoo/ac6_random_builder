@@ -21,9 +21,13 @@ export function defaultReportAggregation(): ReportAggregation {
     ReportBlock.create([
       Report.create('enLoad'),
       Report.create('enOutput'),
+      Report.create('enCapacity'),
       Report.create('enSurplus'),
       Report.create('enSupplyEfficiency'),
       Report.create('enRechargeDelay'),
+    ]),
+    ReportBlock.create([
+      Report.create('qbEnConsumption'),
     ]),
     ReportBlock.create([Report.create('coam')]),
   ])

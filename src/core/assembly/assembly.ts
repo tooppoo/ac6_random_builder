@@ -10,6 +10,7 @@ import type { FCS } from '~data/fces.ts'
 import type { Generator } from '~data/generators.ts'
 import type { Head } from '~data/heads.ts'
 import type { LegsNotTank, LegsTank } from '~data/legs.ts'
+import { tank } from '~data/types/base/category'
 
 export function spaceByWord(key: AssemblyKey): string {
   return key.replaceAll(/([A-Z])/g, ' $1')
@@ -60,12 +61,17 @@ export type AssemblyProperty = {
   readonly enLoad: number
   /** EN出力 */
   readonly enOutput: number
+  /** EN容量 */
+  readonly enCapacity: number
   /** EN余剰 */
   readonly enSurplus: number
   /** EN供給効率 */
   readonly enSupplyEfficiency: number
   /** EN補充遅延 */
   readonly enRechargeDelay: number
+
+  /** QB消費EN */
+  readonly qbEnConsumption: number
 
   /** 総COAM */
   readonly coam: number
@@ -144,6 +150,9 @@ export function createAssembly(base: RawAssembly): Assembly {
         ].map((p) => p.en_load),
       )
     },
+    get enCapacity(): number {
+      return this.generator.en_capacity
+    },
     get enSurplus(): number {
       return this.enOutput - this.enLoad
     },
@@ -173,6 +182,11 @@ export function createAssembly(base: RawAssembly): Assembly {
       // 第三位で切り上げ or 四捨五入するとNACHTREIHER + VP-20Cで
       // 計算が一致しなくなる
       return Math.floor(Math.round(base * 1000) / 10) / 100
+    },
+    get qbEnConsumption(): number {
+      const qbEnConsumption = isTank(this) ? this.legs.qb_en_consumption : this.booster.qb_en_consumption
+
+      return Math.floor(qbEnConsumption * (200 - this.core.booster_efficiency_adjective) * 0.01)
     },
     get coam(): number {
       return sum(
@@ -211,9 +225,13 @@ export function createAssembly(base: RawAssembly): Assembly {
 export type RawAssembly = AssemblyNotTank | AssemblyWithTank
 export type AssemblyKey = keyof RawAssembly
 
+function isTank(assembly: Assembly | RawAssembly): assembly is AssemblyWithTank {
+  return assembly.legs.category === tank
+}
+
 type AssemblyNotTank = BaseAssembly & {
   legs: LegsNotTank
-  booster: Boosters.Booster
+  booster: Exclude<Boosters.Booster, Boosters.BoosterNotEquipped>
 }
 type AssemblyWithTank = BaseAssembly & {
   legs: LegsTank

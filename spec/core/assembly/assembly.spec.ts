@@ -10,7 +10,7 @@ import {
 import { armUnits, leftArmUnits } from '~data/arm-units.ts'
 import { arms } from '~data/arms.ts'
 import { backUnits, leftBackUnits } from '~data/back-units'
-import { boosters } from '~data/booster.ts'
+import { boosterNotEquipped, boosters } from '~data/booster.ts'
 import { cores } from '~data/cores.ts'
 import { expansions } from '~data/expansions.ts'
 import { fcses } from '~data/fces.ts'
@@ -364,6 +364,40 @@ describe('assembly', () => {
         })
       },
     )
+  })
+
+  describe('booster', () => {
+    describe('qb energy load', () => {
+      describe.each([
+        {
+          diff: {},
+          expected: 445,
+        },
+        {
+          diff: { core: cores[2] },
+          expected: 561,
+        },
+        {
+          diff: { booster: boosters[1] },
+          expected: 388,
+        },
+        {
+          diff: { core: cores[2], booster: boosters[1] },
+          expected: 489,
+        },
+        {
+          diff: { booster: boosterNotEquipped, legs: legs[22] },
+          expected: 656,
+        },
+      ])('diff = $diff', ({ diff, expected }) => {
+        beforeEach(() => {
+          sut = merge(sut, diff)
+        })
+        it(`should be ${expected}`, () => {
+          expect(sut.qbEnConsumption).toBe(expected)
+        })
+      })
+    })
   })
 
   describe('coam', () => {

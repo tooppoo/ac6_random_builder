@@ -26,9 +26,12 @@ export const jaAssembly = {
 
   enLoad: 'EN負荷',
   enOutput: 'EN出力',
+  enCapacity: 'EN容量',
   enSurplus: 'EN余剰',
   enSupplyEfficiency: 'EN供給効率',
   enRechargeDelay: 'EN補充遅延',
+
+  qbEnConsumption: 'QB消費EN',
 
   coam: '総COAM',
 }

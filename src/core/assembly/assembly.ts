@@ -69,6 +69,8 @@ export type AssemblyProperty = {
   readonly enSupplyEfficiency: number
   /** EN補充遅延 */
   readonly enRechargeDelay: number
+  /** EN復元遅延 */
+  readonly enRecoveryDelay: number
 
   /** QB消費EN */
   readonly qbEnConsumption: number
@@ -183,10 +185,22 @@ export function createAssembly(base: RawAssembly): Assembly {
       // 計算が一致しなくなる
       return Math.floor(Math.round(base * 1000) / 10) / 100
     },
-    get qbEnConsumption(): number {
-      const qbEnConsumption = isTank(this) ? this.legs.qb_en_consumption : this.booster.qb_en_consumption
+    get enRecoveryDelay(): number {
+      const base =
+        1000 /
+        (this.generator.supply_recovery *
+          (this.core.generator_supply_adjective * 0.01))
 
-      return Math.floor(qbEnConsumption * (200 - this.core.booster_efficiency_adjective) * 0.01)
+      return Math.floor(base * 100) * 0.01
+    },
+    get qbEnConsumption(): number {
+      const qbEnConsumption = isTank(this)
+        ? this.legs.qb_en_consumption
+        : this.booster.qb_en_consumption
+
+      return Math.floor(
+        qbEnConsumption * (200 - this.core.booster_efficiency_adjective) * 0.01,
+      )
     },
     get coam(): number {
       return sum(
@@ -225,7 +239,9 @@ export function createAssembly(base: RawAssembly): Assembly {
 export type RawAssembly = AssemblyNotTank | AssemblyWithTank
 export type AssemblyKey = keyof RawAssembly
 
-function isTank(assembly: Assembly | RawAssembly): assembly is AssemblyWithTank {
+function isTank(
+  assembly: Assembly | RawAssembly,
+): assembly is AssemblyWithTank {
   return assembly.legs.category === tank
 }
 

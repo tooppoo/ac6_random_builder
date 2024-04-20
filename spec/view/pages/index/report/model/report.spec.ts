@@ -288,7 +288,11 @@ describe(Report, () => {
   })
   describe(Report.prototype.statusFor, () => {
     type AssemblyLike = Parameters<Report['statusFor']>[0]
-    const baseAssemblyLike: AssemblyLike = { withinEnOutput: true, withinArmsLoadLimit: true, withinLoadLimit: true }
+    const baseAssemblyLike: AssemblyLike = {
+      withinEnOutput: true,
+      withinArmsLoadLimit: true,
+      withinLoadLimit: true,
+    }
 
     describe('en load with in energy output', () => {
       const assemblyLike = { ...baseAssemblyLike, withinEnOutput: true }

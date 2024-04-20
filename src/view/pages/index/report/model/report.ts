@@ -25,10 +25,9 @@ export function defaultReportAggregation(): ReportAggregation {
       Report.create('enSurplus'),
       Report.create('enSupplyEfficiency'),
       Report.create('enRechargeDelay'),
+      Report.create('enRecoveryDelay'),
     ]),
-    ReportBlock.create([
-      Report.create('qbEnConsumption'),
-    ]),
+    ReportBlock.create([Report.create('qbEnConsumption')]),
     ReportBlock.create([Report.create('coam')]),
   ])
 }
@@ -153,7 +152,12 @@ export class Report {
     readonly show: boolean,
   ) {}
 
-  statusFor(assembly: Pick<Assembly, 'withinEnOutput' | 'withinLoadLimit' | 'withinArmsLoadLimit'>): ReportStatus {
+  statusFor(
+    assembly: Pick<
+      Assembly,
+      'withinEnOutput' | 'withinLoadLimit' | 'withinArmsLoadLimit'
+    >,
+  ): ReportStatus {
     switch (this.key) {
       case 'enLoad':
       case 'enOutput':

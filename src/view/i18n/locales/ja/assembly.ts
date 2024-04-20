@@ -30,6 +30,7 @@ export const jaAssembly = {
   enSurplus: 'EN余剰',
   enSupplyEfficiency: 'EN供給効率',
   enRechargeDelay: 'EN補充遅延',
+  enRecoveryDelay: 'EN復元遅延',
 
   qbEnConsumption: 'QB消費EN',
 

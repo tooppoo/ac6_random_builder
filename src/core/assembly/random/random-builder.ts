@@ -5,7 +5,7 @@ import {
 } from '~core/assembly/assembly.ts'
 import { random } from '~core/utils/array.ts'
 
-import { boosterNotEquipped } from '~data/booster.ts'
+import { boosterMustBeEquipped, boosterNotEquipped } from '~data/booster.ts'
 import { tank } from '~data/types/base/category.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 
@@ -86,6 +86,7 @@ export function randomBuild(
       const booster = lockedParts.get('booster', () =>
         random(lockedParts.filter(candidates).booster, randomizer),
       )
+      boosterMustBeEquipped(booster)
 
       return createAssembly({
         ...base,

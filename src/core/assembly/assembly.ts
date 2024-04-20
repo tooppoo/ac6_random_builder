@@ -247,7 +247,7 @@ function isTank(
 
 type AssemblyNotTank = BaseAssembly & {
   legs: LegsNotTank
-  booster: Exclude<Boosters.Booster, Boosters.BoosterNotEquipped>
+  booster: Boosters.Booster
 }
 type AssemblyWithTank = BaseAssembly & {
   legs: LegsTank

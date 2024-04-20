@@ -15,6 +15,8 @@ export const jaPageIndex = {
       save: 'ステータス表示を保存する',
       reset: '元に戻す',
       showAll: '全て表示する',
+      show: '表示する',
+      hide: '表示しない',
     },
   },
 }

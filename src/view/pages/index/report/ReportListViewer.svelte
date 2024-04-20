@@ -1,11 +1,13 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
   import type { Assembly } from '~core/assembly/assembly'
-  import IconButton from '~view/components/button/IconButton.svelte'
+  import type { EmptyObject } from '~core/utils/type'
 
+  import IconButton from '~view/components/button/IconButton.svelte'
   import i18n from "~view/i18n/define.ts";
   import { ReportAggregation } from '~view/pages/index/report/model/report'
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'
+
+  import { createEventDispatcher } from 'svelte'
 
   export let assembly: Assembly
   export let reportAggregation: ReportAggregation
@@ -14,7 +16,7 @@
     dispatch('edit', {})
   }
   const dispatch = createEventDispatcher<{
-    edit: {}
+    edit: EmptyObject
   }>()
 </script>
 

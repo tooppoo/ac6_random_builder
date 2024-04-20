@@ -1,6 +1,7 @@
 <script lang="ts">
-import {createEventDispatcher} from "svelte";
 import IconButton from '~view/components/button/IconButton.svelte'
+
+import {createEventDispatcher} from "svelte";
 
 export let title: string
 export let clickable: boolean = false

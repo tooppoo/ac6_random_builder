@@ -28,8 +28,8 @@ export function defaultReportAggregation(): ReportAggregation {
 }
 
 export class ReportAggregation {
-  static fromDto(blockDtoList: readonly ReportBlockDto[]): ReportAggregation {
-    return new ReportAggregation(blockDtoList.map(ReportBlock.fromDto))
+  static fromDto(dto: ReportAggregationDto): ReportAggregation {
+    return new ReportAggregation(dto.blocks.map(ReportBlock.fromDto))
   }
 
   constructor(private readonly _blocks: readonly ReportBlock[]) {}
@@ -38,25 +38,45 @@ export class ReportAggregation {
     return this._blocks
   }
   get blocks(): readonly ReadonlyReportBlock[] {
-    return this.allBlocks.filter(b => b.someRecordsVisible)
+    return this.allBlocks.filter((b) => b.someReportsShown)
   }
 
-  updateReport(blockId: ReportBlockId, report: ReadonlyReport): ReportAggregation {
-    const indexOfBlock = this._blocks.findIndex(b => b.id === blockId)
+  get allReports(): readonly Report[] {
+    return this.allBlocks.flatMap((b) => b.allReports)
+  }
+
+  updateReport(
+    blockId: ReportBlockId,
+    report: ReadonlyReport,
+  ): ReportAggregation {
+    const indexOfBlock = this._blocks.findIndex((b) => b.id === blockId)
     if (indexOfBlock === -1) return this
 
     const block = this._blocks[indexOfBlock]
     const indexOfReport = block.indexOf(report)
-    if (indexOfReport === -1) return this
+    if (indexOfReport === null) return this
 
-    return new ReportAggregation(this._blocks.toSpliced(indexOfBlock, 1, block.replaceAt(indexOfReport, report)))
+    return new ReportAggregation(
+      this._blocks.toSpliced(
+        indexOfBlock,
+        1,
+        block.replaceAt(indexOfReport, report),
+      ),
+    )
   }
 
   showAll(): ReportAggregation {
-    return new ReportAggregation(
-      this.allBlocks.map(b => b.showAll())
-    )
+    return new ReportAggregation(this.allBlocks.map((b) => b.showAll()))
   }
+
+  toDto(): ReportAggregationDto {
+    return {
+      blocks: this.allBlocks.map((b) => b.toDto()),
+    }
+  }
+}
+interface ReportAggregationDto {
+  blocks: ReportBlockDto[]
 }
 
 export type ReportStatus = 'danger' | 'warning' | 'normal'
@@ -82,26 +102,32 @@ export class ReportBlock {
     return this._reports
   }
   get reports(): readonly ReadonlyReport[] {
-    return this.allReports.filter(r => r.show)
+    return this.allReports.filter((r) => r.show)
   }
-  get someRecordsVisible(): boolean {
-    return this.allReports.some(r => r.show)
+  get someReportsShown(): boolean {
+    return this.allReports.some((r) => r.show)
   }
 
-  indexOf(target: Report): number {
-    return this._reports.findIndex(r => r.key === target.key)
+  indexOf(target: Report): number | null {
+    const i = this._reports.findIndex((r) => r.key === target.key)
+
+    return i >= 0 ? i : null
   }
   replaceAt(index: number, target: Report): ReportBlock {
-    return new ReportBlock(
-      this.id,
-      this._reports.toSpliced(index, 1, target),
-    )
+    return new ReportBlock(this.id, this._reports.toSpliced(index, 1, target))
   }
   showAll(): ReportBlock {
     return new ReportBlock(
       this.id,
-      this._reports.map(r => r.forceShow())
+      this._reports.map((r) => r.forceShow()),
     )
+  }
+
+  toDto(): ReportBlockDto {
+    return {
+      id: this.id,
+      reports: this.allReports.map((r) => r.toDto()),
+    }
   }
 }
 interface ReportBlockDto {
@@ -122,7 +148,7 @@ export class Report {
     readonly show: boolean,
   ) {}
 
-  statusFor(assembly: Assembly): ReportStatus {
+  statusFor(assembly: Pick<Assembly, 'withinEnOutput'>): ReportStatus {
     switch (this.key) {
       case 'enLoad':
       case 'enOutput':
@@ -136,16 +162,14 @@ export class Report {
   }
 
   toggleShow(): Report {
-    return new Report(
-      this.key,
-      !this.show
-    )
+    return new Report(this.key, !this.show)
   }
   forceShow(): Report {
-    return new Report(
-      this.key,
-      true
-    )
+    return new Report(this.key, true)
+  }
+
+  toDto(): ReportDto {
+    return { key: this.key, show: this.show }
   }
 }
 interface ReportDto {
@@ -153,7 +177,7 @@ interface ReportDto {
   readonly show: boolean
 }
 
-type ReportKey = Exclude<
+export type ReportKey = Exclude<
   keyof AssemblyProperty,
   'withinEnOutput' | 'withinLoadLimit'
 >

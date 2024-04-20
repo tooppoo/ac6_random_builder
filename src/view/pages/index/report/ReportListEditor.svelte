@@ -2,14 +2,16 @@
   export type SaveAggregation = Readonly<{ target: ReportAggregation }>
 </script>
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
 
   import type { Assembly } from '~core/assembly/assembly'
-  import IconButton from '~view/components/button/IconButton.svelte'
+  import type { EmptyObject } from '~core/utils/type'
 
+  import IconButton from '~view/components/button/IconButton.svelte'
   import i18n from "~view/i18n/define.ts";
   import { ReportAggregation, Report } from '~view/pages/index/report/model/report'
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'
+
+  import { createEventDispatcher } from 'svelte'
 
   // state
   export let assembly: Assembly
@@ -41,7 +43,7 @@
 
   const dispatch = createEventDispatcher<{
     save: SaveAggregation,
-    reset: {},
+    reset: EmptyObject,
     showAll: SaveAggregation,
   }>()
 </script>

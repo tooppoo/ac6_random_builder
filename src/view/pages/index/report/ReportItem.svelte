@@ -16,7 +16,7 @@
   $: valueClass = textClass('fs-5', status)
 </script>
 
-<div class={$$props.class + ' col-6 col-sm-4 col-md-3'}>
+<div class={$$props.class}>
   <div class={captionClass}>{$$props.caption}</div>
   <div class={valueClass}>{$$props.value}</div>
 </div>

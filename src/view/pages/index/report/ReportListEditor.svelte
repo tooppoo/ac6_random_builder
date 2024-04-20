@@ -16,13 +16,26 @@
   <div>
     <div class="row mb-3">
       {#each block.reports as report}
-        <ReportItem
-          caption={$i18n.t(report.key, { ns: 'assembly' })}
-          class="mb-3"
-          value={assembly[report.key]}
-          status={report.statusFor(assembly)}
-        />
+        <div
+          class="editable-report-item mb-3 col-6 col-sm-4 col-md-3"
+          draggable="true"
+        >
+          <ReportItem
+            caption={$i18n.t(report.key, { ns: 'assembly' })}
+            value={assembly[report.key]}
+            status={report.statusFor(assembly)}
+          />
+        </div>
       {/each}
     </div>
   </div>
 {/each}
+
+<style scoped>
+  .editable-report-item {
+    cursor: grab;
+  }
+  .editable-report-item:hover {
+    background-color: rgba(100, 100, 100, 0.5);
+  }
+</style>

@@ -18,7 +18,7 @@
       {#each block.reports as report}
         <ReportItem
           caption={$i18n.t(report.key, { ns: 'assembly' })}
-          class="mb-3"
+          class="mb-3 col-6 col-sm-4 col-md-3"
           value={assembly[report.key]}
           status={report.statusFor(assembly)}
         />

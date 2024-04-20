@@ -1,59 +1,41 @@
 <script lang="ts">
-  import type { Assembly, AssemblyProperty } from '~core/assembly/assembly'
+  import type { Assembly } from '~core/assembly/assembly'
 
-  import i18n from "~view/i18n/define.ts";
-  import type { ReportStatus } from '~view/pages/index/report/ReportItem.svelte'
-  import ReportItem from '~view/pages/index/report/ReportItem.svelte'
+  import { defaultReportAggregation } from '~view/pages/index/report/model/report'
+  import ReportListEditor, { type SaveAggregation } from '~view/pages/index/report/ReportListEditor.svelte'
+  import ReportListViewer from '~view/pages/index/report/ReportListViewer.svelte'
 
+  // state
   export let assembly: Assembly
 
-  type ReportItems = ReadonlyArray<{
-    key: Exclude<keyof AssemblyProperty, 'withinEnOutput' | 'withinLoadLimit'>,
-    status: ReportStatus
-  }> 
-  let reportItems: ReportItems[]= [
-    [
-      { key: 'ap', status: 'normal' },
-      { key: 'attitudeStability', status: 'normal' },
-    ],
-    [
-      { key: 'antiKineticDefense', status: 'normal' },
-      { key: 'antiEnergyDefense', status: 'normal' },
-      { key: 'antiExplosiveDefense', status: 'normal' },
-    ],
-    [
-      { key: 'weight', status: 'normal' },
-      { key: 'load', status: assembly.withinLoadLimit ? 'normal' : 'danger' },
-      { key: 'loadLimit', status: assembly.withinLoadLimit ? 'normal' : 'danger' },
-    ],
-    [
-      { key: 'enLoad', status: assembly.withinEnOutput ? 'normal' : 'danger' },
-      { key: 'enOutput', status: assembly.withinEnOutput ? 'normal' : 'danger' },
-      { key: 'enSurplus', status: assembly.withinEnOutput ? 'normal' : 'danger' },
-      { key: 'enSupplyEfficiency', status: assembly.withinEnOutput ? 'normal' : 'danger' },
-      { key: 'enRechargeDelay', status: assembly.withinEnOutput ? 'normal' : 'danger' },
-    ],
-    [
-      { key: 'coam', status: 'normal' },
-    ]
-  ]
+  let reportAggregation = defaultReportAggregation()
+  let editing: boolean = false
 
+  // handler
+  function startEdit() {
+    editing = true
+  }
+  function onSave({ detail }: CustomEvent<SaveAggregation>) {
+    reportAggregation = detail.target
+    editing = false
+  }
+  function onReset() {
+    reportAggregation = reportAggregation
+  }
 </script>
 
-{#each reportItems as xs, i}
-  {#if (i !== 0)}
-    <hr>
-  {/if}
-  <div>
-    <div class="row mb-3">
-      {#each xs as { key, status }}
-        <ReportItem
-          caption={$i18n.t(key, { ns: 'assembly' })}
-          class="mb-3"
-          value={assembly[key]}
-          status={status}
-        />
-      {/each}
-    </div>
-  </div>
-{/each}
+{#if (editing)}
+  <ReportListEditor
+    assembly={assembly}
+    reportAggregation={reportAggregation}
+    on:save={onSave}
+    on:reset={onReset}
+  />
+{:else}
+
+  <ReportListViewer
+    assembly={assembly}
+    reportAggregation={reportAggregation}
+    on:edit={startEdit}
+  />
+{/if}

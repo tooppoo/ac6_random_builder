@@ -1,54 +1,26 @@
 <script lang="ts">
-import Tooltip from "bootstrap/js/dist/tooltip";
+import IconButton from '~view/components/button/IconButton.svelte'
+
 import {createEventDispatcher} from "svelte";
 
 export let title: string
 export let clickable: boolean = false
 export let withTooltip: boolean = true
 
-let tooltip: Tooltip | null = null
-$: {
-  tooltip && tooltip.setContent({ '.tooltip-inner': title })
-}
-
 // handler
 function onClick() {
-  if (clickable) {
-    tooltip && tooltip.hide()
-    dispatch('click')
-  }
+  dispatch('click')
 }
 
 // setup
-function bindTooltip(el: HTMLElement) {
-  if (withTooltip) {
-    tooltip = new Tooltip(el)
-  }
-}
 const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
-<span
+<IconButton
   id={$$props.id}
   class={`${$$props.class} status-badge`}
-  data-bs-toggle="tooltip"
-  data-bs-placement="left"
-  data-bs-title={title}
-  data-bs-html="true"
-  data-clickable={clickable}
-  use:bindTooltip
+  title={title}
+  clickable={clickable}
+  withTooltip={withTooltip}
   on:click={onClick}
-  role={clickable ? 'button' : 'img'}
 />
-
-<style>
-  span[data-clickable="true"] {
-      cursor: pointer;
-  }
-  .status-badge {
-      font-size: 30px;
-      height: 48px;
-      text-align: center;
-      width: 48px;
-  }
-</style>

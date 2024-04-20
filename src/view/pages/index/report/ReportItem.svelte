@@ -1,7 +1,6 @@
-<script lang="ts" context="module">
-  export type ReportStatus = 'danger' | 'warning' | 'normal'
-</script>
 <script lang="ts">
+  import type { ReportStatus } from '~view/pages/index/report/model/report'
+
   export let status: ReportStatus = 'normal'
 
   const textClass = (base: string, stat: ReportStatus) => {
@@ -16,7 +15,7 @@
   $: valueClass = textClass('fs-5', status)
 </script>
 
-<div class={$$props.class + ' col-6 col-sm-4 col-md-3'}>
+<div class={$$props.class}>
   <div class={captionClass}>{$$props.caption}</div>
   <div class={valueClass}>{$$props.value}</div>
 </div>

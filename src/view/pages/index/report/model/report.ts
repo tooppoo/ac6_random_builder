@@ -27,6 +27,7 @@ export function defaultReportAggregation(): ReportAggregation {
   ])
 }
 
+export type ReadonlyReportAggregation = Pick<ReportAggregation, 'blocks'>
 export class ReportAggregation {
   static fromDto(dto: ReportAggregationDto): ReportAggregation {
     return new ReportAggregation(dto.blocks.map(ReportBlock.fromDto))
@@ -45,10 +46,7 @@ export class ReportAggregation {
     return this.allBlocks.flatMap((b) => b.allReports)
   }
 
-  updateReport(
-    blockId: ReportBlockId,
-    report: ReadonlyReport,
-  ): ReportAggregation {
+  updateReport(blockId: ReportBlockId, report: Report): ReportAggregation {
     const indexOfBlock = this._blocks.findIndex((b) => b.id === blockId)
     if (indexOfBlock === -1) return this
 
@@ -79,12 +77,8 @@ interface ReportAggregationDto {
   blocks: ReportBlockDto[]
 }
 
-export type ReportStatus = 'danger' | 'warning' | 'normal'
 export type ReportBlockId = string
-
-type ReadonlyReportBlock = ReportBlock
-type ReadonlyReport = Report
-
+type ReadonlyReportBlock = Pick<ReportBlock, 'reports' | 'indexOf' | 'id'>
 export class ReportBlock {
   static create(reports: Report[]): ReportBlock {
     return new ReportBlock(crypto.randomUUID(), reports)
@@ -108,7 +102,7 @@ export class ReportBlock {
     return this.allReports.some((r) => r.show)
   }
 
-  indexOf(target: Report): number | null {
+  indexOf(target: ReadonlyReport): number | null {
     const i = this._reports.findIndex((r) => r.key === target.key)
 
     return i >= 0 ? i : null
@@ -135,6 +129,8 @@ interface ReportBlockDto {
   readonly reports: readonly ReportDto[]
 }
 
+export type ReportStatus = 'danger' | 'warning' | 'normal'
+type ReadonlyReport = Pick<Report, 'statusFor' | 'key' | 'show'>
 export class Report {
   static fromDto(dto: ReportDto): Report {
     return new Report(dto.key, dto.show)

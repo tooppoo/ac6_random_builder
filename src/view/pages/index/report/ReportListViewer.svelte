@@ -4,13 +4,13 @@
 
   import IconButton from '~view/components/button/IconButton.svelte'
   import i18n from "~view/i18n/define.ts";
-  import { ReportAggregation } from '~view/pages/index/report/model/report'
+  import type { ReadonlyReportAggregation } from '~view/pages/index/report/model/report'
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'
 
   import { createEventDispatcher } from 'svelte'
 
   export let assembly: Assembly
-  export let reportAggregation: ReportAggregation
+  export let reportAggregation: ReadonlyReportAggregation
 
   function onEdit() {
     dispatch('edit', {})

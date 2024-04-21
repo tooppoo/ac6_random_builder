@@ -14,7 +14,7 @@ export const jaPageIndex = {
       text: {
         label: 'コピー',
         description: '現在のアセンブルをコピー',
-      }
+      },
     },
     report: {
       edit: 'ステータス表示を編集する',

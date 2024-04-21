@@ -1,4 +1,4 @@
-import type { Assembly } from '~core/assembly/assembly';
+import type { Assembly } from '~core/assembly/assembly'
 
 export function stringifyAssembly(assembly: Assembly): string {
   return `RIGHT ARM UNIT: ${assembly.rightArmUnit.name}

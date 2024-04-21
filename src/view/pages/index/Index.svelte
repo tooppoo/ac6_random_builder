@@ -25,6 +25,7 @@
     initialFilterState,
     toggleFilter, UsableItemNotFoundError
   } from "~view/pages/index/interaction/filter.ts";
+  import { stringifyAssembly } from '~view/pages/index/interaction/share'
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
 
@@ -37,7 +38,6 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
-  import { stringifyAssembly } from '~view/pages/index/interaction/share'
 
   const appVersion = appPackage.version
   const tryLimit = 3000

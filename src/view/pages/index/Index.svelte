@@ -38,6 +38,8 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
+  import { boosterNotEquipped } from '~data/booster'
+  import isEqual from 'lodash-es/isEqual'
 
   const appVersion = appPackage.version
   const tryLimit = 3000
@@ -77,7 +79,15 @@
   }
   const onRandom = () => {
     try {
-      assembly = randomAssembly.assemble(candidates, { lockedParts })
+      logger.debug('on random', lockedParts, candidates.booster)
+      const actualCandidates = (!lockedParts.isLocking('legs') && isEqual(candidates.booster, [boosterNotEquipped]))
+        // 脚部がロックされていないのに候補が未装備のみなら、たまたまタンク脚が選択されているだけなので
+        // ランダムアセン時にブースターを制限する必要は無い
+        // この処置が必要になるのはランダムアセン時のみなので、filterの処理には含めない
+        ? { ...candidates, booster: initialCandidates.booster }
+        : candidates
+
+      assembly = randomAssembly.assemble(actualCandidates, { lockedParts })
     } catch (e) {
       logger.error(e)
 

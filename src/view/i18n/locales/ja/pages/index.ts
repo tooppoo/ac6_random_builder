@@ -10,6 +10,12 @@ export const jaPageIndex = {
     filterForWhole: {
       description: 'アセンブルの<br>条件を設定する',
     },
+    share: {
+      text: {
+        label: 'コピー',
+        description: '現在のアセンブルをコピー',
+      },
+    },
     report: {
       edit: 'ステータス表示を編集する',
       save: 'ステータス表示を保存する',

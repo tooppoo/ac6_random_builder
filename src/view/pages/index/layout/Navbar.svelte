@@ -5,9 +5,7 @@
       Ⅵ
     </a>
     <div class="navbar-nav ms-auto d-flex flex-row">
-      <slot name="random"></slot>
-      <slot name="reset-lock"></slot>
-      <slot name="filter"></slot>
+      <slot></slot>
     </div>
   </div>
 </nav>

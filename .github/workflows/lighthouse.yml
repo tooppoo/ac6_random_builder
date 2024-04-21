@@ -1,0 +1,13 @@
+name: Lighthouse
+on: [push]
+jobs:
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+      - run: npm install && npm install -g @lhci/cli@latest
+      - run: npm run build
+      - run: lhci autorun

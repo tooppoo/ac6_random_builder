@@ -4,9 +4,9 @@ import {
   type AssemblyKey,
   type RawAssembly,
 } from '~core/assembly/assembly'
+
 import { armNotEquipped } from '~data/arm-units'
 import { backNotEquipped } from '~data/back-units'
-
 import { boosterNotEquipped } from '~data/booster'
 import { expansionNotEquipped } from '~data/expansions'
 import type { Candidates } from '~data/types/candidates'
@@ -89,14 +89,11 @@ export function assemblyToSearch(
     e: toIndex('expansion'),
   }
 
-  return Object.entries(query).reduce(
-    (search, [key, value]) => {
-      search.set(key, value)
+  return Object.entries(query).reduce((search, [key, value]) => {
+    search.set(key, value)
 
-      return search
-    },
-    new URLSearchParams()
-  )
+    return search
+  }, new URLSearchParams())
 }
 
 export function searchToAssembly(
@@ -110,10 +107,11 @@ export function searchToAssembly(
       q[k] = v
     }
 
-  return q as AssemblyQuery
+    return q as AssemblyQuery
   })()
 
-  const i = (key: keyof AssemblyQuery, fallback: number = -1): number => query[key] ? parseInt(query[key], 10) : fallback
+  const i = (key: keyof AssemblyQuery, fallback: number = -1): number =>
+    query[key] ? parseInt(query[key], 10) : fallback
   return createAssembly({
     rightArmUnit: candidates.rightArmUnit[i('rau')] || armNotEquipped,
     leftArmUnit: candidates.leftArmUnit[i('lau')] || armNotEquipped,

@@ -28,15 +28,16 @@
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
 
+  import { boosterNotEquipped } from '~data/booster'
   import type {Candidates} from "~data/types/candidates.ts";
+
+  import isEqual from 'lodash-es/isEqual'
 
   import appPackage from '~root/package.json'
 
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
-  import { boosterNotEquipped } from '~data/booster'
-  import isEqual from 'lodash-es/isEqual'
 
   const appVersion = appPackage.version
   const tryLimit = 3000

@@ -37,6 +37,7 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
+  import { stringifyAssembly } from '~view/pages/index/interaction/share'
 
   const appVersion = appPackage.version
   const tryLimit = 3000
@@ -133,7 +134,6 @@
 <Navbar>
   <NavButton
     id="random-assemble"
-    slot="random"
     class="me-3"
     title={$i18n.t('command.random.description', { ns: 'page/index' })}
     on:click={onRandom}
@@ -143,7 +143,6 @@
   </NavButton>
   <NavButton
     id="reset-lock"
-    slot="reset-lock"
     class="me-3"
     title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
     on:click={() => lockedParts = LockedParts.empty}
@@ -153,12 +152,20 @@
   </NavButton>
   <NavButton
     id="open-whole-filter"
-    slot="filter"
+    class="me-3"
     title={$i18n.t('command.filterForWhole.description', { ns: 'page/index' })}
     on:click={() => openWholeFilter = true}
   >
     <i slot="icon" class="bi bi-filter-square"></i>
     {$i18n.t('filter', { ns: 'filter' })}
+  </NavButton>
+  <NavButton
+    id="copy-assembly-to-clipboard"
+    title={$i18n.t('command.share.text.description', { ns: 'page/index' })}
+    on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
+  >
+    <i slot="icon" class="bi bi-clipboard"></i>
+    {$i18n.t('command.share.text.label', { ns: 'page/index' })}
   </NavButton>
 </Navbar>
 

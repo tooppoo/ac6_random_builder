@@ -4,7 +4,6 @@
     type Assembly,
     type AssemblyKey,
     assemblyKeys,
-    createAssembly,
     spaceByWord
   } from "~core/assembly/assembly.ts"
   import { getCandidates } from "~core/assembly/candidates.ts"
@@ -25,13 +24,14 @@
     initialFilterState,
     toggleFilter, UsableItemNotFoundError
   } from "~view/pages/index/interaction/filter.ts";
-  import { stringifyAssembly } from '~view/pages/index/interaction/share'
+  import { assemblyToSearch, searchToAssembly, stringifyAssembly } from '~view/pages/index/interaction/share'
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
 
-  import {armNotEquipped} from "~data/arm-units.ts";
-  import {backNotEquipped} from "~data/back-units.ts";
+  import { boosterNotEquipped } from '~data/booster'
   import type {Candidates} from "~data/types/candidates.ts";
+
+  import isEqual from 'lodash-es/isEqual'
 
   import appPackage from '~root/package.json'
 
@@ -50,11 +50,13 @@
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState
   let openWholeFilter: boolean
+  let errorMessage: string[] = []
+  let browserBacking: boolean = false
 
   $: {
     if (initialCandidates && filter && assembly && lockedParts) {
       try {
-        logger.debug('update candidates')
+        logger.debug('update candidates', filter, lockedParts)
 
         updateCandidates()
       } catch (e) {
@@ -66,8 +68,17 @@
       }
     }
   }
+  $: {
+    if (assembly && initialCandidates && !browserBacking) {
+      logger.debug('replace state', assemblyToSearch(assembly, initialCandidates))
+      const url = new URL(location.href)
+      url.search = assemblyToSearch(assembly, initialCandidates).toString()
 
-  let errorMessage: string[] = []
+      history.pushState({}, '', url)
+    }
+
+    browserBacking = false
+  }
 
   // handler
   const onChangeParts = ({ detail }: CustomEvent<ChangePartsEvent>) => {
@@ -77,7 +88,15 @@
   }
   const onRandom = () => {
     try {
-      assembly = randomAssembly.assemble(candidates, { lockedParts })
+      logger.debug('on random', lockedParts, candidates.booster)
+      const actualCandidates = (!lockedParts.isLocking('legs') && isEqual(candidates.booster, [boosterNotEquipped]))
+        // 脚部がロックされていないのに候補が未装備のみなら、たまたまタンク脚が選択されているだけなので
+        // ランダムアセン時にブースターを制限する必要は無い
+        // この処置が必要になるのはランダムアセン時のみなので、filterの処理には含めない
+        ? { ...candidates, booster: initialCandidates.booster }
+        : candidates
+
+      assembly = randomAssembly.assemble(actualCandidates, { lockedParts })
     } catch (e) {
       logger.error(e)
 
@@ -102,6 +121,10 @@
     candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly, wholeFilter: filter.map }))
   }
 
+  const buildAssemblyFromQuery = () => {
+    assembly = searchToAssembly(new URL(location.href).searchParams, initialCandidates)
+  }
+
   // setup
   const initialize = async () => {
     const version = await getCandidates('v1.06.1')
@@ -109,23 +132,16 @@
     initialCandidates = candidates = version.candidates
     filter = initialFilterState(initialCandidates)
 
-    assembly = createAssembly({
-      rightArmUnit: armNotEquipped,
-      leftArmUnit: armNotEquipped,
-      rightBackUnit: backNotEquipped,
-      leftBackUnit: backNotEquipped,
-      head: version.heads[0],
-      core: version.cores[0],
-      arms: version.arms[0],
-      legs: version.legs[0],
-      booster: version.boosters[0],
-      fcs: version.fcses[0],
-      generator: version.generators[0],
-      expansion: version.expansions[0],
-    })
+    buildAssemblyFromQuery()
+
+    logger.debug('initialized', assembly)
 
     return version.version
   }
+  window.addEventListener('popstate', () => {
+    browserBacking = true
+    buildAssemblyFromQuery()
+  })
 </script>
 
 {#await initialize()}

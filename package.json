@@ -41,7 +41,7 @@
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-svelte": "2.38.0",
     "fast-check": "3.18.0",
-    "globals": "15.0.0",
+    "globals": "15.1.0",
     "jsdom": "24.0.0",
     "prettier": "3.2.5",
     "sass": "1.75.0",

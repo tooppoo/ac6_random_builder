@@ -179,11 +179,11 @@
   </NavButton>
   <NavButton
     id="open-share"
-    title={$i18n.t('caption', { ns: 'share' })}
+    title={$i18n.t('share:caption')}
     on:click={() => openShare = true}
   >
     <i slot="icon" class="bi bi-share"></i>
-    {$i18n.t('caption', { ns: 'share' })}
+    {$i18n.t('share:caption')}
   </NavButton>
 </Navbar>
 

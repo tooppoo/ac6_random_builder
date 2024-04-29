@@ -46,30 +46,21 @@ ${stringifyStatus(assembly)}`
   on:toggle={(e) => dispatch('toggle', e.detail)}
 >
   <svelte:fragment slot="title">
-    {$i18n.t('caption', { ns: 'share' })}
+    {$i18n.t('share:caption')}
   </svelte:fragment>
   <svelte:fragment slot="body">
     <div id="share-by-text" class="d-flex justify-content-begin align-items-center mb-3">
       <div class="share-label me-3">
-        {$i18n.t('command.text.caption', { ns: 'share' })}
+        {$i18n.t('share:command.text.caption')}
         <div class="form-check form-switch">
           <input
             class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
             on:change={onChangeTextCopyWay}
           >
           <label class="form-check-label" for="flexSwitchCheckDefault">
-            {$i18n.t('command.text.withStatus', { ns: 'share' })}
+            {$i18n.t('share:command.text.withStatus')}
           </label>
         </div>
-
-        <!-- <select class="fs-4" on:change={onChangeTextCopyWay}>
-          <option value="only-assembly" selected>
-            {$i18n.t('command.text.onlyAssembly', { ns: 'share' })}
-          </option>
-          <option value="with-status">
-            {$i18n.t('command.text.withStatus', { ns: 'share' })}
-          </option>
-        </select> -->
       </div>
       <div class="share-button">
         <button
@@ -83,7 +74,7 @@ ${stringifyStatus(assembly)}`
     </div>
     <div id="share-by-url" class="d-flex justify-content-begin align-items-center">
       <div class="share-label me-3">
-        {$i18n.t('command.url.caption', { ns: 'share' })}
+        {$i18n.t('share:command.url.caption')}
       </div>
       <div class="share-button">
         <button

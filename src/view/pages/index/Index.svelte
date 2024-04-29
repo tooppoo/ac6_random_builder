@@ -38,6 +38,7 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
+  import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
 
   const appVersion = appPackage.version
   const tryLimit = 3000
@@ -50,6 +51,7 @@
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState
   let openWholeFilter: boolean
+  let openShare: boolean
   let errorMessage: string[] = []
   let browserBacking: boolean = false
 
@@ -177,11 +179,11 @@
   </NavButton>
   <NavButton
     id="copy-assembly-to-clipboard"
-    title={$i18n.t('command.share.text.description', { ns: 'page/index' })}
-    on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
+    title={$i18n.t('caption', { ns: 'share' })}
+    on:click={() => openShare = true}
   >
-    <i slot="icon" class="bi bi-clipboard"></i>
-    {$i18n.t('command.share.text.label', { ns: 'page/index' })}
+    <i slot="icon" class="bi bi-share"></i>
+    {$i18n.t('caption', { ns: 'share' })}
   </NavButton>
 </Navbar>
 
@@ -261,7 +263,14 @@
     if (detail.randomAssembly) randomAssembly = detail.randomAssembly
   }}
 />
+<ShareAssembly
+  id="share-assembly"
+  open={openShare}
+  assembly={assembly}
+  on:toggle={(e) => openShare = e.detail.open}
+/>
 {/await }
+
 <ErrorModal
   id="index-error-modal"
   open={errorMessage.length !== 0}

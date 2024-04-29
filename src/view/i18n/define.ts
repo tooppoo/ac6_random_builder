@@ -9,6 +9,7 @@ import { jaAssembly } from './locales/ja/assembly.ts'
 import { jaFilter } from './locales/ja/filter.ts'
 import { jaLock } from './locales/ja/lock.ts'
 import { jaPageIndex } from './locales/ja/pages'
+import { jaShare } from '~view/i18n/locales/ja/share.ts'
 
 _i18next.init({
   lng: 'ja',
@@ -26,6 +27,7 @@ _i18next.init({
       attack_type: jaAttackType,
       'page/index': jaPageIndex,
       error: jaError,
+      share: jaShare,
     },
   },
   interpolation: {

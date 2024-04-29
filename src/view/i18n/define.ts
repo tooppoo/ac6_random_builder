@@ -1,6 +1,7 @@
 import { jaAttackType } from '~view/i18n/locales/ja/attackType.ts'
 import { jaError } from '~view/i18n/locales/ja/error.ts'
 import { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
+import { jaShare } from '~view/i18n/locales/ja/share.ts'
 
 import _i18next from 'i18next'
 import { createI18nStore } from 'svelte-i18next'
@@ -9,7 +10,6 @@ import { jaAssembly } from './locales/ja/assembly.ts'
 import { jaFilter } from './locales/ja/filter.ts'
 import { jaLock } from './locales/ja/lock.ts'
 import { jaPageIndex } from './locales/ja/pages'
-import { jaShare } from '~view/i18n/locales/ja/share.ts'
 
 _i18next.init({
   lng: 'ja',

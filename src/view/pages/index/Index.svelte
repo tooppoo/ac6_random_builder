@@ -27,6 +27,7 @@
   import { assemblyToSearch, searchToAssembly } from '~view/pages/index/interaction/share'
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
+  import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
 
   import { boosterNotEquipped } from '~data/booster'
   import type {Candidates} from "~data/types/candidates.ts";
@@ -38,7 +39,6 @@
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
-  import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
 
   const appVersion = appPackage.version
   const tryLimit = 3000

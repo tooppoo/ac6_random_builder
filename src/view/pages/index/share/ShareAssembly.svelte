@@ -2,12 +2,13 @@
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
 </script>
 <script lang="ts">
+  import type { Assembly } from '~core/assembly/assembly'
+
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n from "~view/i18n/define.ts";
+  import { stringifyAssembly, stringifyStatus } from '~view/pages/index/interaction/share'
 
   import { createEventDispatcher } from 'svelte'
-  import { stringifyAssembly, stringifyStatus } from '~view/pages/index/interaction/share'
-  import type { Assembly } from '~core/assembly/assembly'
   import type { ChangeEventHandler } from 'svelte/elements'
 
   export let assembly: Assembly

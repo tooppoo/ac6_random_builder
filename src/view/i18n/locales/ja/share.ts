@@ -7,7 +7,7 @@ export const jaShare = {
       withStatus: '性能を含める',
     },
     url: {
-      caption: 'URLで共有する'
+      caption: 'URLで共有する',
     },
   },
 }

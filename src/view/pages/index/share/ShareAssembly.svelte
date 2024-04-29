@@ -27,12 +27,15 @@
     {$i18n.t('caption', { ns: 'share' })}
   </svelte:fragment>
   <svelte:fragment slot="body">
-    <button
-      class="btn btn-dark border-secondary"
-      on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
-    >
-      {$i18n.t('command.clipboard.caption', { ns: 'share' })}
-      <i class="bi bi-clipboard"></i>
-    </button>
+    <div>
+      {$i18n.t('command.text.caption', { ns: 'share' })}
+      <button
+        id="copy-assembly-to-clipboard"
+        class="btn btn-dark border-secondary"
+        on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
+      >
+        <i class="bi bi-clipboard"></i>
+      </button>
+    </div>
   </svelte:fragment>
 </OffCanvas>

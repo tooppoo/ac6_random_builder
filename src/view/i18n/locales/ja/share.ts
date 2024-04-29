@@ -1,8 +1,8 @@
 export const jaShare = {
   caption: '共有する',
   command: {
-    clipboard: {
-      caption: 'クリップボードにコピー'
+    text: {
+      caption: 'テキストで共有する'
     },
   },
 }

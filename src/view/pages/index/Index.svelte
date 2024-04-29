@@ -24,7 +24,7 @@
     initialFilterState,
     toggleFilter, UsableItemNotFoundError
   } from "~view/pages/index/interaction/filter.ts";
-  import { assemblyToSearch, searchToAssembly, stringifyAssembly } from '~view/pages/index/interaction/share'
+  import { assemblyToSearch, searchToAssembly } from '~view/pages/index/interaction/share'
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
 
@@ -178,7 +178,7 @@
     {$i18n.t('filter', { ns: 'filter' })}
   </NavButton>
   <NavButton
-    id="copy-assembly-to-clipboard"
+    id="open-share"
     title={$i18n.t('caption', { ns: 'share' })}
     on:click={() => openShare = true}
   >

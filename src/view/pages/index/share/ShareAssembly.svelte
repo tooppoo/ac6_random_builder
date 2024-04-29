@@ -27,15 +27,33 @@
     {$i18n.t('caption', { ns: 'share' })}
   </svelte:fragment>
   <svelte:fragment slot="body">
-    <div>
-      {$i18n.t('command.text.caption', { ns: 'share' })}
-      <button
-        id="copy-assembly-to-clipboard"
-        class="btn btn-dark border-secondary"
-        on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
-      >
-        <i class="bi bi-clipboard"></i>
-      </button>
+    <div id="share-by-text" class="d-flex justify-content-begin align-items-center mb-3">
+      <div class="share-label me-3">
+        {$i18n.t('command.text.caption', { ns: 'share' })}
+      </div>
+      <div class="share-button">
+        <button
+          id="share-assembly-as-text"
+          class="btn btn-dark border-secondary"
+          on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
+        >
+          <i class="bi bi-clipboard"></i>
+        </button>
+      </div>
+    </div>
+    <div id="share-by-url" class="d-flex justify-content-begin align-items-center">
+      <div class="share-label me-3">
+        {$i18n.t('command.url.caption', { ns: 'share' })}
+      </div>
+      <div class="share-button">
+        <button
+          id="share-assembly-as-link"
+          class="btn btn-dark border-secondary"
+          on:click={() => navigator.clipboard.writeText(location.href)}
+        >
+          <i class="bi bi-link"></i>
+        </button>
+      </div>
     </div>
   </svelte:fragment>
 </OffCanvas>

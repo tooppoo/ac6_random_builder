@@ -4,5 +4,8 @@ export const jaShare = {
     text: {
       caption: 'テキストで共有する'
     },
+    url: {
+      caption: 'URLで共有する'
+    },
   },
 }

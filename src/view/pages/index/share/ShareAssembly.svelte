@@ -6,16 +6,38 @@
   import i18n from "~view/i18n/define.ts";
 
   import { createEventDispatcher } from 'svelte'
-  import { stringifyAssembly } from '~view/pages/index/interaction/share'
+  import { stringifyAssembly, stringifyStatus } from '~view/pages/index/interaction/share'
   import type { Assembly } from '~core/assembly/assembly'
+  import type { ChangeEventHandler } from 'svelte/elements'
 
   export let assembly: Assembly
   export let open: boolean
+
+  let copy: () => void = defaultCopyWay
+
+  // handler
+  const onChangeTextCopyWay: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const withStatus = e.currentTarget.checked
+
+    copy = withStatus
+      ? () => {
+          const text = `${stringifyAssembly(assembly)}
+          
+${stringifyStatus(assembly)}`
+
+          navigator.clipboard.writeText(text)
+        }
+      : defaultCopyWay
+  }
 
   // setup
   const dispatch = createEventDispatcher<{
     toggle: ToggleOffCanvas
   }>()
+
+  function defaultCopyWay() {
+    navigator.clipboard.writeText(stringifyAssembly(assembly))
+  }
 </script>
 
 <OffCanvas
@@ -30,12 +52,30 @@
     <div id="share-by-text" class="d-flex justify-content-begin align-items-center mb-3">
       <div class="share-label me-3">
         {$i18n.t('command.text.caption', { ns: 'share' })}
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+            on:change={onChangeTextCopyWay}
+          >
+          <label class="form-check-label" for="flexSwitchCheckDefault">
+            {$i18n.t('command.text.withStatus', { ns: 'share' })}
+          </label>
+        </div>
+
+        <!-- <select class="fs-4" on:change={onChangeTextCopyWay}>
+          <option value="only-assembly" selected>
+            {$i18n.t('command.text.onlyAssembly', { ns: 'share' })}
+          </option>
+          <option value="with-status">
+            {$i18n.t('command.text.withStatus', { ns: 'share' })}
+          </option>
+        </select> -->
       </div>
       <div class="share-button">
         <button
           id="share-assembly-as-text"
           class="btn btn-dark border-secondary"
-          on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
+          on:click={copy}
         >
           <i class="bi bi-clipboard"></i>
         </button>

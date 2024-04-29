@@ -24,9 +24,10 @@
     initialFilterState,
     toggleFilter, UsableItemNotFoundError
   } from "~view/pages/index/interaction/filter.ts";
-  import { assemblyToSearch, searchToAssembly, stringifyAssembly } from '~view/pages/index/interaction/share'
+  import { assemblyToSearch, searchToAssembly } from '~view/pages/index/interaction/share'
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
+  import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
 
   import { boosterNotEquipped } from '~data/booster'
   import type {Candidates} from "~data/types/candidates.ts";
@@ -50,6 +51,7 @@
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState
   let openWholeFilter: boolean
+  let openShare: boolean
   let errorMessage: string[] = []
   let browserBacking: boolean = false
 
@@ -176,12 +178,12 @@
     {$i18n.t('filter', { ns: 'filter' })}
   </NavButton>
   <NavButton
-    id="copy-assembly-to-clipboard"
-    title={$i18n.t('command.share.text.description', { ns: 'page/index' })}
-    on:click={() => navigator.clipboard.writeText(stringifyAssembly(assembly))}
+    id="open-share"
+    title={$i18n.t('share:caption')}
+    on:click={() => openShare = true}
   >
-    <i slot="icon" class="bi bi-clipboard"></i>
-    {$i18n.t('command.share.text.label', { ns: 'page/index' })}
+    <i slot="icon" class="bi bi-share"></i>
+    {$i18n.t('share:caption')}
   </NavButton>
 </Navbar>
 
@@ -261,7 +263,14 @@
     if (detail.randomAssembly) randomAssembly = detail.randomAssembly
   }}
 />
+<ShareAssembly
+  id="share-assembly"
+  open={openShare}
+  assembly={assembly}
+  on:toggle={(e) => openShare = e.detail.open}
+/>
 {/await }
+
 <ErrorModal
   id="index-error-modal"
   open={errorMessage.length !== 0}

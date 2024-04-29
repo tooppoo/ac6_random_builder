@@ -1,17 +1,16 @@
 <script lang="ts" context="module">
+  import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
   import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
 
-  export type ToggleFilter = { open: boolean }
+  export type ToggleFilter = ToggleOffCanvas
 </script>
 <script lang="ts">
-  import {logger} from "~core/utils/logger.ts";
-
+  import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import Margin from "~view/components/spacing/Margin.svelte";
   import EnableTypeFilter from "~view/pages/index/filter/filter-by-parts/EnableTypeFilter.svelte";
   import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
   import FilterByPropertyTypeFilter from "~view/pages/index/filter/filter-by-parts/FilterByPropertyTypeFilter.svelte";
 
-  import Offcanvas from "bootstrap/js/dist/offcanvas";
   import {createEventDispatcher} from "svelte";
 
   export let open: boolean
@@ -28,42 +27,21 @@
   }
 
   // setup
-  function setOffcanvas(el: HTMLElement) {
-    const offcanvas = new Offcanvas(el)
-
-    el.addEventListener('hide.bs.offcanvas', () => {
-      dispatch('toggle', { open: false })
-    })
-
-    toggle = (op: boolean) => {
-      logger.debug({ current, open })
-
-      op ? offcanvas.show() : offcanvas.hide()
-    }
-  }
-
   const dispatch = createEventDispatcher<{
     toggle: ToggleFilter
     'change-filter': ChangeFilter
   }>()
 </script>
 
-<div
+<OffCanvas
   id={$$props.id || ''}
-  class="offcanvas offcanvas-end"
-  tabindex="-1"
-  data-bs-scroll="true"
-  data-bs-backdrop="false"
-  aria-labelledby="offcanvasRightLabel"
-  use:setOffcanvas
+  open={open}
+  on:toggle={(e) => dispatch('toggle', e.detail)}
 >
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">
-      {`${current.name || ''} FILTER`}
-    </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
+  <svelte:fragment slot="title">
+    {`${current.name || ''} FILTER`}
+  </svelte:fragment>
+  <svelte:fragment slot="body">
     {#each current.filter.list as f}
       {#if f.filter.type.id === 'enable'}
         <EnableTypeFilter
@@ -80,11 +58,5 @@
       {/if}
       <Margin space={4} />
     {/each}
-  </div>
-</div>
-
-<style>
-  #offcanvasRightLabel {
-      text-transform: uppercase;
-  }
-</style>
+  </svelte:fragment>
+</OffCanvas>

@@ -3,11 +3,12 @@
   import type {LockedParts} from "~core/assembly/random/lock.ts";
   import type {RandomAssembly} from "~core/assembly/random/random-assembly.ts";
   
+  import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
   import type {FilterState} from "~view/pages/index/interaction/filter.ts";
 
   import type {Candidates} from "~data/types/candidates.ts";
 
-  export type ToggleFilter = { open: boolean }
+  export type ToggleFilter = ToggleOffCanvas
   export type ApplyWhole = Partial<Readonly<{
     assembly: Assembly
     randomAssembly: RandomAssembly
@@ -20,6 +21,7 @@
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import {logger} from "~core/utils/logger.ts";
 
+  import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n from "~view/i18n/define.ts";
   import CoamRangeSlider from "~view/pages/index/filter/range/CoamRangeSlider.svelte";
   import type {ToggleLock} from "~view/pages/index/filter/range/LoadRangeSlider.svelte";
@@ -29,7 +31,6 @@
     enableFilterOnAllParts, initialFilterState,
   } from "~view/pages/index/interaction/filter.ts";
 
-  import Offcanvas from "bootstrap/js/dist/offcanvas";
   import {createEventDispatcher} from "svelte";
 
   export let open: boolean
@@ -39,11 +40,6 @@
   export let candidates: Candidates
   export let randomAssembly: RandomAssembly
   export let lockedParts: LockedParts
-
-  let toggle: (op: boolean) => void = () => {}
-  $: {
-    toggle(open)
-  }
 
   // handler
   const onApply = (param: Partial<ApplyWhole>) => {
@@ -60,18 +56,6 @@
   }
 
   // setup
-  function setOffcanvas(el: HTMLElement) {
-    const offcanvas = new Offcanvas(el)
-
-    el.addEventListener('hide.bs.offcanvas', () => {
-      dispatch('toggle', { open: false })
-    })
-
-    toggle = (op: boolean) => {
-      op ? offcanvas.show() : offcanvas.hide()
-    }
-  }
-
   const dispatch = createEventDispatcher<{
     toggle: ToggleFilter
     apply: ApplyWhole
@@ -79,22 +63,15 @@
   }>()
 </script>
 
-<div
+<OffCanvas
   id={$$props.id || ''}
-  class="offcanvas offcanvas-end"
-  tabindex="-1"
-  data-bs-scroll="true"
-  data-bs-backdrop="true"
-  aria-labelledby="offcanvasRightLabel"
-  use:setOffcanvas
+  open={open}
+  on:toggle={(e) => dispatch('toggle', e.detail)}
 >
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">
-      {$i18n.t('filter', { ns: 'filter' })}
-    </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
+  <svelte:fragment slot="title">
+    {$i18n.t('filter', { ns: 'filter' })}
+  </svelte:fragment>
+  <svelte:fragment slot="body">
     <button
       id="exclude-all-not-equipped"
       on:click={() => onApply({
@@ -140,8 +117,8 @@
       })}
       on:toggle-lock={(ev) => dispatch('lock-legs', ev.detail)}
     />
-  </div>
-</div>
+  </svelte:fragment>
+</OffCanvas>
 
 <style>
 </style>

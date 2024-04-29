@@ -1,6 +1,7 @@
 import { jaAttackType } from '~view/i18n/locales/ja/attackType.ts'
 import { jaError } from '~view/i18n/locales/ja/error.ts'
 import { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
+import { jaShare } from '~view/i18n/locales/ja/share.ts'
 
 import _i18next from 'i18next'
 import { createI18nStore } from 'svelte-i18next'
@@ -26,6 +27,7 @@ _i18next.init({
       attack_type: jaAttackType,
       'page/index': jaPageIndex,
       error: jaError,
+      share: jaShare,
     },
   },
   interpolation: {

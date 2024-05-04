@@ -1,3 +1,4 @@
+import { jaAssemblyStore } from '~view/i18n/locales/ja/assemblyStore.ts'
 import { jaAttackType } from '~view/i18n/locales/ja/attackType.ts'
 import { jaError } from '~view/i18n/locales/ja/error.ts'
 import { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
@@ -28,6 +29,7 @@ _i18next.init({
       'page/index': jaPageIndex,
       error: jaError,
       share: jaShare,
+      assemblyStore: jaAssemblyStore,
     },
   },
   interpolation: {

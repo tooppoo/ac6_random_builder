@@ -26,6 +26,6 @@ export const jaPageIndex = {
     },
     store: {
       caption: 'アセンデータ管理',
-    }
+    },
   },
 }

@@ -28,6 +28,7 @@
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
   import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
+  import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
 
   import { boosterNotEquipped } from '~data/booster'
   import type {Candidates} from "~data/types/candidates.ts";
@@ -50,8 +51,10 @@
   let randomAssembly = RandomAssembly.init({ limit: tryLimit })
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState
-  let openWholeFilter: boolean
-  let openShare: boolean
+
+  let openWholeFilter: boolean = false
+  let openShare: boolean = false
+  let openAssemblyStore: boolean = false
   let errorMessage: string[] = []
   let browserBacking: boolean = false
 
@@ -188,6 +191,7 @@
   <NavButton
     id="open-assembly-store"
     title={$i18n.t('command.store.caption', { ns: 'page/index'})}
+    on:click={() => openAssemblyStore = true}
   >
     <i slot="icon" class="bi bi-database"></i>
     {$i18n.t('command.store.caption', { ns: 'page/index'})}
@@ -275,6 +279,11 @@
   open={openShare}
   assembly={assembly}
   on:toggle={(e) => openShare = e.detail.open}
+/>
+<StoreAssembly
+  id="store-assembly"
+  open="{openAssemblyStore}"
+  on:toggle={(e) => openAssemblyStore = e.detail.open}
 />
 {/await }
 

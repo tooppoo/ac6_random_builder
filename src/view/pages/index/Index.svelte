@@ -185,6 +185,13 @@
     <i slot="icon" class="bi bi-share"></i>
     {$i18n.t('share:caption')}
   </NavButton>
+  <NavButton
+    id="open-assembly-store"
+    title={$i18n.t('command.store.caption', { ns: 'page/index'})}
+  >
+    <i slot="icon" class="bi bi-database"></i>
+    {$i18n.t('command.store.caption', { ns: 'page/index'})}
+  </NavButton>
 </Navbar>
 
 <header class="text-center mt-5">

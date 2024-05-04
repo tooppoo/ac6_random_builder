@@ -24,5 +24,8 @@ export const jaPageIndex = {
       show: '表示する',
       hide: '表示しない',
     },
+    store: {
+      caption: 'アセンデータ管理',
+    }
   },
 }

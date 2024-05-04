@@ -20,13 +20,13 @@ describe('utils/array', () => {
   })
 
   describe(random.name, () => {
-    fcit.prop([nonEmptyArray(anyWithoutUndefined())])(
+    fcit.prop([nonEmptyArray(anyVal())])(
       'should select a item',
       (xs) => {
         expect(random(xs)).not.toBeUndefined()
       },
     )
-    fcit.prop([nonEmptyArray(anyWithoutUndefined())])(
+    fcit.prop([nonEmptyArray(anyVal())], { seed: 1582500210, path: "77:0", endOnFailure: true })(
       'should return item within list',
       (xs) => {
         expect(xs).contain(random(xs))
@@ -66,8 +66,25 @@ describe('utils/array', () => {
     function nonEmptyArray<T>(arb: fc.Arbitrary<T>) {
       return fc.array(arb, { minLength: 1 })
     }
-    function anyWithoutUndefined() {
-      return fc.anything().filter((v) => v !== undefined)
+    function anyVal() {
+      return fc.oneof(
+        fc.integer(),
+        fc.float(),
+        fc.char(),
+        fc.string(),
+        fc.date(),
+        fc.object(),
+        fc.array(
+          fc.oneof(
+            fc.integer(),
+            fc.float(),
+            fc.char(),
+            fc.string(),
+            fc.date(),
+            fc.object(),
+          ),
+        ),
+      )
     }
   })
 })

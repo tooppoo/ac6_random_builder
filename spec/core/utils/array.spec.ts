@@ -26,7 +26,7 @@ describe('utils/array', () => {
         expect(random(xs)).not.toBeUndefined()
       },
     )
-    fcit.prop([nonEmptyArray(anyVal())], { seed: 1582500210, path: "77:0", endOnFailure: true })(
+    fcit.prop([nonEmptyArray(anyVal())])(
       'should return item within list',
       (xs) => {
         expect(xs).contain(random(xs))

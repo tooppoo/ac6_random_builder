@@ -20,12 +20,9 @@ describe('utils/array', () => {
   })
 
   describe(random.name, () => {
-    fcit.prop([nonEmptyArray(anyVal())])(
-      'should select a item',
-      (xs) => {
-        expect(random(xs)).not.toBeUndefined()
-      },
-    )
+    fcit.prop([nonEmptyArray(anyVal())])('should select a item', (xs) => {
+      expect(random(xs)).not.toBeUndefined()
+    })
     fcit.prop([nonEmptyArray(anyVal())])(
       'should return item within list',
       (xs) => {

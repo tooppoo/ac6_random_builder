@@ -182,6 +182,7 @@
   </NavButton>
   <NavButton
     id="open-share"
+    class="me-3"
     title={$i18n.t('share:caption')}
     on:click={() => openShare = true}
   >

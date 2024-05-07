@@ -1,4 +1,6 @@
 <script lang="ts">
+  import TextButton from "~view/components/button/TextButton.svelte";
+
   import Tooltip from "bootstrap/js/dist/tooltip";
   import {createEventDispatcher} from "svelte";
 
@@ -19,18 +21,18 @@
   const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
-<button
+<TextButton
   id={$$props.id || ''}
-  class={`${$$props.class || ''} btn btn-secondary bg-dark-subtle me-3}`}
+  class={`${$$props.class || ''} me-3`}
   data-bs-toggle="tooltip"
   data-bs-title={title}
   data-bs-placement="left"
   data-bs-html="true"
   on:click={onClick}
-  use:setupTooltip
+  action={setupTooltip}
 >
   <slot name="icon"></slot>
   <span class="d-none d-sm-inline">
     <slot></slot>
   </span>
-</button>
+</TextButton>

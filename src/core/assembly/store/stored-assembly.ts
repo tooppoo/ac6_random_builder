@@ -1,27 +1,49 @@
-import type {Assembly} from "~core/assembly/assembly.ts";
+import type { Assembly } from '~core/assembly/assembly.ts'
 
-import {ulid} from "ulid";
+import { ulid } from 'ulid'
+import type {Candidates} from "~data/types/candidates.ts";
 
 export function createAggregation(
   param: {
-    name: string,
-    description: string,
+    name: string
+    description: string
     assembly: Assembly
   },
-  genId: () => string = () => ulid()
-): StoredAssemblyAggregation {
+  genId: () => string = () => ulid(),
+): NewAssemblyAggregation {
   return {
     id: genId(),
     ...param,
   }
 }
+export type NewAssemblyAggregation = Omit<
+  StoredAssemblyAggregation,
+  'createdAt' | 'updatedAt'
+>
+export type UpdatedAssemblyAggregation = Omit<
+  StoredAssemblyAggregation,
+  'updatedAt'
+>
 export type StoredAssemblyAggregation = Readonly<{
   id: string
   name: string
   description: string
   assembly: Assembly
+  createdAt: Date
+  updatedAt: Date
 }>
 
 export interface StoredAssemblyRepository {
-  storeNew(aggregation: StoredAssemblyAggregation): Promise<void>
+  storeNew(aggregation: NewAssemblyAggregation, candidates: Candidates, current: Date): Promise<void>
+  storeNew(aggregation: NewAssemblyAggregation, candidates: Candidates): Promise<void>
+
+  update(aggregation: UpdatedAssemblyAggregation, candidates: Candidates, current: Date): Promise<void>
+  update(aggregation: UpdatedAssemblyAggregation, candidates: Candidates): Promise<void>
+
+  all(candidates: Candidates): Promise<StoredAssemblyAggregation[]>
+
+  delete(aggregation: StoredAssemblyAggregation): Promise<void>
+}
+export interface ClearableStoredAssemblyRepository {
+  clear(): Promise<void>
 }

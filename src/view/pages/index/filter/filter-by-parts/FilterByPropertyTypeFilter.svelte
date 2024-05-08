@@ -107,7 +107,4 @@
 .property-filter-values {
     flex-basis: 65%;
 }
-.property-filter-reset {
-    flex-basis: 15%;
-}
 </style>

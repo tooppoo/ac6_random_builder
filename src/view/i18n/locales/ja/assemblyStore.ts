@@ -23,6 +23,6 @@ export const jaAssemblyStore = {
         name: 'アセン名',
         apply: ' ',
       },
-    }
+    },
   },
 }

@@ -1,8 +1,8 @@
 <script lang="ts">
   import type {ReadonlyPartsFilterState} from "~core/assembly/filter/filter-set.ts";
   import {logger} from "~core/utils/logger.ts";
-  import TextButton from "~view/components/button/TextButton.svelte";
 
+  import TextButton from "~view/components/button/TextButton.svelte";
   import i18n from "~view/i18n/define.ts";
   import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
   import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";

@@ -20,8 +20,8 @@
   import {excludeNotEquipped, notUseHanger} from "~core/assembly/filter/filters.ts";
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import {logger} from "~core/utils/logger.ts";
-  import TextButton from "~view/components/button/TextButton.svelte";
 
+  import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n from "~view/i18n/define.ts";
   import CoamRangeSlider from "~view/pages/index/filter/range/CoamRangeSlider.svelte";

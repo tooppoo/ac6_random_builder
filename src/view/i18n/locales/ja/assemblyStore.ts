@@ -6,6 +6,9 @@ export const jaAssemblyStore = {
     name: {
       caption: 'アセン名',
     },
+    description: {
+      caption: '説明',
+    },
     add: {
       caption: '追加',
     },
@@ -18,10 +21,13 @@ export const jaAssemblyStore = {
     apply: {
       caption: '反映する',
     },
+    delete: {
+      caption: '削除する',
+    },
     table: {
       col: {
         name: 'アセン名',
-        apply: ' ',
+        description: '説明',
       },
     },
   },

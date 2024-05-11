@@ -1,4 +1,4 @@
-import {createAssembly} from "~core/assembly/assembly.ts";
+import { createAssembly } from '~core/assembly/assembly.ts'
 import { IndexedDbRepository } from '~core/assembly/store/repository/indexed-db/indexed-db-repository.ts'
 import type {
   ClearableStoredAssemblyRepository,
@@ -35,45 +35,57 @@ describe('repository', () => {
 
           await expect(repository.all(candidates)).resolves.toHaveLength(0)
 
-          await repository.storeNew({
-            id: id1,
-            name: 'test-1-name',
-            description: 'test-1-desc',
-            assembly: a1,
-          }, candidates)
+          await repository.storeNew(
+            {
+              id: id1,
+              name: 'test-1-name',
+              description: 'test-1-desc',
+              assembly: a1,
+            },
+            candidates,
+          )
 
           await expect(repository.all(candidates)).resolves.toHaveLength(1)
 
-          await repository.storeNew({
-            id: id2,
-            name: 'test-2-name',
-            description: 'test-2-desc',
-            assembly: a2,
-          }, candidates)
-          await repository.storeNew({
-            id: id3,
-            name: 'test-3-name',
-            description: 'test-3-desc',
-            assembly: a3,
-          }, candidates)
+          await repository.storeNew(
+            {
+              id: id2,
+              name: 'test-2-name',
+              description: 'test-2-desc',
+              assembly: a2,
+            },
+            candidates,
+          )
+          await repository.storeNew(
+            {
+              id: id3,
+              name: 'test-3-name',
+              description: 'test-3-desc',
+              assembly: a3,
+            },
+            candidates,
+          )
 
           const records1 = await repository.all(candidates)
           expect(records1).toHaveLength(3)
 
-          await repository.update({
-            id: id2,
-            name: 'test-2-new-name',
-            description: 'test-2-new-desc',
-            assembly: createAssembly({
-              ...a2,
-              arms: a1.arms,
-              rightArmUnit: a3.rightArmUnit,
-            }),
-            createdAt: records1[1].createdAt,
-        }, candidates)
+          await repository.update(
+            {
+              id: id2,
+              name: 'test-2-new-name',
+              description: 'test-2-new-desc',
+              assembly: createAssembly({
+                ...a2,
+                arms: a1.arms,
+                rightArmUnit: a3.rightArmUnit,
+              }),
+              createdAt: records1[1].createdAt,
+            },
+            candidates,
+          )
 
-          const records2 = (await repository.all(candidates)).toSorted((a, b) =>
-            a.id < b.id ? -1 : 1,
+          const records2 = (await repository.all(candidates)).toSorted(
+            (a, b) => (a.id < b.id ? -1 : 1),
           )
 
           expect(records1).toHaveLength(3)
@@ -94,8 +106,8 @@ describe('repository', () => {
 
           await repository.delete(records2[2])
 
-          const records3 = (await repository.all(candidates)).toSorted((a, b) =>
-            a.id < b.id ? -1 : 1,
+          const records3 = (await repository.all(candidates)).toSorted(
+            (a, b) => (a.id < b.id ? -1 : 1),
           )
 
           expect(records3).toHaveLength(2)

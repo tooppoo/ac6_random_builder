@@ -57,10 +57,7 @@ export class IndexedDbRepository
     return this.database.stored_assembly.toArray().then((xs) =>
       xs.map((x) => ({
         ...x,
-        assembly: searchToAssembly(
-          new URLSearchParams(x.assembly),
-          candidates,
-        ),
+        assembly: searchToAssembly(new URLSearchParams(x.assembly), candidates),
       })),
     )
   }

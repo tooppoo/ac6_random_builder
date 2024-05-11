@@ -1,7 +1,8 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
 
+import type { Candidates } from '~data/types/candidates.ts'
+
 import { ulid } from 'ulid'
-import type {Candidates} from "~data/types/candidates.ts";
 
 export function createAggregation(
   param: {
@@ -34,11 +35,25 @@ export type StoredAssemblyAggregation = Readonly<{
 }>
 
 export interface StoredAssemblyRepository {
-  storeNew(aggregation: NewAssemblyAggregation, candidates: Candidates, current: Date): Promise<void>
-  storeNew(aggregation: NewAssemblyAggregation, candidates: Candidates): Promise<void>
+  storeNew(
+    aggregation: NewAssemblyAggregation,
+    candidates: Candidates,
+    current: Date,
+  ): Promise<void>
+  storeNew(
+    aggregation: NewAssemblyAggregation,
+    candidates: Candidates,
+  ): Promise<void>
 
-  update(aggregation: UpdatedAssemblyAggregation, candidates: Candidates, current: Date): Promise<void>
-  update(aggregation: UpdatedAssemblyAggregation, candidates: Candidates): Promise<void>
+  update(
+    aggregation: UpdatedAssemblyAggregation,
+    candidates: Candidates,
+    current: Date,
+  ): Promise<void>
+  update(
+    aggregation: UpdatedAssemblyAggregation,
+    candidates: Candidates,
+  ): Promise<void>
 
   all(candidates: Candidates): Promise<StoredAssemblyAggregation[]>
 

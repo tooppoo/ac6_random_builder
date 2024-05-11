@@ -283,8 +283,11 @@
 />
 <StoreAssembly
   id="store-assembly"
-  open="{openAssemblyStore}"
+  open={openAssemblyStore}
+  candidates={initialCandidates}
+  assembly={assembly}
   on:toggle={(e) => openAssemblyStore = e.detail.open}
+  on:apply={(e) => assembly = e.detail.assembly}
 />
 {/await }
 

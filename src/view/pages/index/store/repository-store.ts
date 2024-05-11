@@ -22,6 +22,11 @@ export const storedRepositoryStore = (() => {
 
       wrapper.set(this)
     },
+    async insert(aggregation, candidates) {
+      await repository.insert(aggregation, candidates)
+
+      wrapper.set(this)
+    },
     async all(candidates) {
       return repository.all(candidates)
     },

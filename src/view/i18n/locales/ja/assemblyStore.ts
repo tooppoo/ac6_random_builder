@@ -24,10 +24,18 @@ export const jaAssemblyStore = {
     delete: {
       caption: '削除する',
     },
+    restore: {
+      caption: '元に戻す',
+    },
     table: {
       col: {
         name: 'アセン名',
         description: '説明',
+      },
+      state: {
+        deleted: {
+          caption: '削除済み',
+        },
       },
     },
   },

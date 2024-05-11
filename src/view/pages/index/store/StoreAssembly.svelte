@@ -22,14 +22,9 @@
 
   let newName: string = ''
   let newDescription: string = ''
-  let dataList: StoredAssemblyAggregation[] = []
+  let dataList: StoredAssemblyMaybeDeleted[] = []
 
   // handler
-  storedRepositoryStore.subscribe((repo) => {
-    repo.all(candidates).then((list) => {
-      dataList = list
-    })
-  })
   function onSubmitNewAssembly() {
     $storedRepositoryStore.storeNew(
       createAggregation({
@@ -45,13 +40,32 @@
   }
   function onDelete(target: StoredAssemblyAggregation) {
     $storedRepositoryStore.delete(target)
+
+    dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id }))
+  }
+  function onRestore(target: StoredAssemblyAggregation) {
+    $storedRepositoryStore.insert(target, candidates)
+
+    dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id ? false : d.deleted }))
   }
 
   // setup
+  function initialize() {
+    $storedRepositoryStore.all(candidates).then((xs) => {
+      dataList = xs.map(x => ({ ...x, deleted: false }))
+    })
+  }
+
   const dispatch = createEventDispatcher<{
     toggle: ToggleOffCanvas,
     apply: StoredAssemblyAggregation,
   }>()
+
+  type StoredAssemblyMaybeDeleted = StoredAssemblyAggregation & {
+    deleted: boolean
+  }
+
+  initialize()
 </script>
 
 <OffCanvas
@@ -119,6 +133,25 @@
           </thead>
           <tbody>
           {#each dataList as d}
+            {#if (d.deleted)}
+            <tr>
+              <th scope="row" class="deleted">
+                <del>{d.name}</del><br>
+                {$i18n.t('storedList.table.state.deleted.caption', { ns: 'assemblyStore' })}
+              </th>
+              <td class="deleted">
+                <del>{d.description}</del>
+              </td>
+              <td>
+                <IconButton
+                  title={$i18n.t('storedList.restore.caption', { ns: 'assemblyStore' })}
+                  class="bi bi-recycle"
+                  clickable={true}
+                  on:click={() => onRestore(d)}
+                />
+              </td>
+            </tr>
+            {:else}
             <tr>
               <th scope="row">{d.name}</th>
               <td>{d.description}</td>
@@ -137,6 +170,7 @@
                 />
               </td>
             </tr>
+            {/if}
           {/each}
           </tbody>
         </table>
@@ -144,3 +178,9 @@
     </div>
   </svelte:fragment>
 </OffCanvas>
+
+<style>
+  .deleted {
+    color: gray;
+  }
+</style>

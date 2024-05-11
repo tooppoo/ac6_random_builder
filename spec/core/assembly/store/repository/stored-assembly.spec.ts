@@ -84,9 +84,7 @@ describe('repository', () => {
             candidates,
           )
 
-          const records2 = (await repository.all(candidates)).toSorted(
-            (a, b) => (a.id < b.id ? -1 : 1),
-          )
+          const records2 = await repository.all(candidates)
 
           expect(records1).toHaveLength(3)
           expect(records2[0]).toStrictEqual(records1[0])
@@ -106,14 +104,17 @@ describe('repository', () => {
 
           await repository.delete(records2[2])
 
-          const records3 = (await repository.all(candidates)).toSorted(
-            (a, b) => (a.id < b.id ? -1 : 1),
-          )
+          const records3 = await repository.all(candidates)
 
           expect(records3).toHaveLength(2)
           expect(records3[0]).toStrictEqual(records2[0])
           expect(records3[1]).toStrictEqual(records2[1])
           expect(records3[2]).toBeUndefined()
+
+          await repository.insert(records2[2], candidates)
+
+          const records4 = await repository.all(candidates)
+          expect(records4).toStrictEqual(records2)
         },
       )
     },

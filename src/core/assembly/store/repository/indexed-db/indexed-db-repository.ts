@@ -55,10 +55,15 @@ export class IndexedDbRepository
 
   async all(candidates: Candidates): Promise<StoredAssemblyAggregation[]> {
     return this.database.stored_assembly.toArray().then((xs) =>
-      xs.map((x) => ({
-        ...x,
-        assembly: searchToAssembly(new URLSearchParams(x.assembly), candidates),
-      })).toSorted((a, b) => a.id <= b.id ? -1 : 1),
+      xs
+        .map((x) => ({
+          ...x,
+          assembly: searchToAssembly(
+            new URLSearchParams(x.assembly),
+            candidates,
+          ),
+        }))
+        .toSorted((a, b) => (a.id <= b.id ? -1 : 1)),
     )
   }
 
@@ -84,7 +89,10 @@ export class IndexedDbRepository
 
     await this.database.stored_assembly.put(dto)
   }
-  async insert(aggregation: StoredAssemblyAggregation, candidates: Candidates): Promise<void> {
+  async insert(
+    aggregation: StoredAssemblyAggregation,
+    candidates: Candidates,
+  ): Promise<void> {
     const { dto, error } = aggregationToDto(aggregation, candidates)
     if (error) {
       return Promise.reject(error)

@@ -58,7 +58,10 @@ export interface StoredAssemblyRepository {
   all(candidates: Candidates): Promise<StoredAssemblyAggregation[]>
 
   delete(aggregation: StoredAssemblyAggregation): Promise<void>
-  insert(aggregation: StoredAssemblyAggregation, candidates: Candidates): Promise<void>
+  insert(
+    aggregation: StoredAssemblyAggregation,
+    candidates: Candidates,
+  ): Promise<void>
 }
 export interface ClearableStoredAssemblyRepository {
   clear(): Promise<void>

@@ -74,33 +74,33 @@
   on:toggle={(e) => dispatch('toggle', e.detail)}
 >
   <svelte:fragment slot="title">
-    {$i18n.t('caption', { ns: 'assemblyStore' })}
+    {$i18n.t('assembly_store:caption')}
   </svelte:fragment>
   <svelte:fragment slot="body">
     <div class="mb-3">
       <form class="mb-3" on:submit|preventDefault={onSubmitNewAssembly}>
         <div class="form-label">
-          {$i18n.t('addNewData.title', { ns: 'assemblyStore' })}
+          {$i18n.t('assembly_store:addNewData.title')}
         </div>
         <input
           type="text"
           class="form-control mb-2"
           id="new-assembly-name"
-          placeholder={$i18n.t('addNewData.name.caption', { ns: 'assemblyStore' })}
+          placeholder={$i18n.t('assembly_store:addNewData.name.caption')}
           bind:value={newName}
           required
         >
         <textarea
           class="form-control mb-2"
           id="new-assembly-description"
-          placeholder={$i18n.t('addNewData.description.caption', { ns: 'assemblyStore' })}
+          placeholder={$i18n.t('assembly_store:addNewData.description.caption')}
           bind:value={newDescription}
         />
         <TextButton
           id="store-new-assembly"
           type="submit"
         >
-          {$i18n.t('addNewData.add.caption', { ns: 'assemblyStore' })}
+          {$i18n.t('assembly_store:addNewData.add.caption')}
         </TextButton>
       </form>
     </div>
@@ -108,13 +108,13 @@
     <div class="mb-3">
       <div class="mb-3">
         <div class="form-label">
-          {$i18n.t('storedList.title', { ns: 'assemblyStore' })}
+          {$i18n.t('assembly_store:storedList.title')}
         </div>
         <input
           id="search-stored-assembly-by-name"
           type="text"
           class="form-control"
-          placeholder={$i18n.t('storedList.search.caption', { ns: 'assemblyStore' })}
+          placeholder={$i18n.t('assembly_store:storedList.search.caption')}
         >
       </div>
       <div>
@@ -122,10 +122,10 @@
           <thead>
             <tr>
               <th scope="col">
-                {$i18n.t('storedList.table.col.name', { ns: 'assemblyStore' })}
+                {$i18n.t('assembly_store:storedList.table.col.name')}
               </th>
               <th scope="col">
-                {$i18n.t('storedList.table.col.description', { ns: 'assemblyStore' })}
+                {$i18n.t('assembly_store:storedList.table.col.description')}
               </th>
               <th scope="col">
               </th>
@@ -137,14 +137,14 @@
             <tr>
               <th scope="row" class="deleted">
                 <del>{d.name}</del><br>
-                {$i18n.t('storedList.table.state.deleted.caption', { ns: 'assemblyStore' })}
+                {$i18n.t('assembly_store:storedList.table.state.deleted.caption')}
               </th>
               <td class="deleted">
                 <del>{d.description}</del>
               </td>
               <td>
                 <IconButton
-                  title={$i18n.t('storedList.restore.caption', { ns: 'assemblyStore' })}
+                  title={$i18n.t('assembly_store:storedList.restore.caption')}
                   class="bi bi-recycle"
                   clickable={true}
                   on:click={() => onRestore(d)}
@@ -157,13 +157,13 @@
               <td>{d.description}</td>
               <td>
                 <IconButton
-                  title={$i18n.t('storedList.apply.caption', { ns: 'assemblyStore' })}
+                  title={$i18n.t('assembly_store:storedList.apply.caption')}
                   class="bi bi-download"
                   clickable={true}
                   on:click={() => onApply(d)}
                 />
                 <IconButton
-                  title={$i18n.t('storedList.delete.caption', { ns: 'assemblyStore' })}
+                  title={$i18n.t('assembly_store:storedList.delete.caption')}
                   class="bi bi-trash"
                   clickable={true}
                   on:click={() => onDelete(d)}

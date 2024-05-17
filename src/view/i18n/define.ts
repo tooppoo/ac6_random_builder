@@ -29,7 +29,7 @@ _i18next.init({
       'page/index': jaPageIndex,
       error: jaError,
       share: jaShare,
-      assemblyStore: jaAssemblyStore,
+      assembly_store: jaAssemblyStore,
     },
   },
   interpolation: {

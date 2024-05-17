@@ -9,7 +9,10 @@ export default defineConfig({
   plugins: [
     svelte(),
     dynamicImport(),
-    Sitemap({ hostname: `https://tooppoo.github.io${process.env.BASE_URL}` }),
+    Sitemap({
+      hostname: `https://tooppoo.github.io/`,
+      basePath: '/ac6_assemble_tool',
+    }),
   ],
   resolve: {
     alias: {

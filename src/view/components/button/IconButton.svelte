@@ -29,6 +29,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
 <span
+  {...$$restProps}
   id={$$props.id}
   class={$$props.class + ` icon-button`}
   data-bs-toggle="tooltip"

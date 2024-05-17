@@ -6,7 +6,11 @@ import dynamicImport from 'vite-plugin-dynamic-import'
 import Sitemap from 'vite-plugin-sitemap'
 
 export default defineConfig({
-  plugins: [svelte(), dynamicImport(), Sitemap({ hostname: `https://tooppoo.github.io${process.env.BASE_URL}` })],
+  plugins: [
+    svelte(),
+    dynamicImport(),
+    Sitemap({ hostname: `https://tooppoo.github.io${process.env.BASE_URL}` }),
+  ],
   resolve: {
     alias: {
       '~data/': join(__dirname, 'data/'),

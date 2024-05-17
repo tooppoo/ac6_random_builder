@@ -29,38 +29,53 @@ describe('filter for stored assembly', () => {
               }),
               genStoredAssembly({
                 name: fc.string({ minLength: 1 }),
-                description: fc.constantFrom('TEST DDD', 'FIZZ EEE', 'BUZZ FFF'),
+                description: fc.constantFrom(
+                  'TEST DDD',
+                  'FIZZ EEE',
+                  'BUZZ FFF',
+                ),
               }),
               genStoredAssembly({
                 name: fc.constantFrom('TEST AAA', 'FIZZ BBB', 'BUZZ CCC'),
-                description: fc.constantFrom('TEST DDD', 'FIZZ EEE', 'BUZZ FFF'),
+                description: fc.constantFrom(
+                  'TEST DDD',
+                  'FIZZ EEE',
+                  'BUZZ FFF',
+                ),
               }),
-            )
+            ),
           ),
         ])('return all assemblies', (keywords, list) => {
           const filtered = filterByKeywords(keywords, list)
 
           filtered.forEach((x) => {
-            expect(x.name + x.description).toEqual(expect.stringMatching(/(TEST|FIZZ|BUZZ)/))
+            expect(x.name + x.description).toEqual(
+              expect.stringMatching(/(TEST|FIZZ|BUZZ)/),
+            )
           })
         })
 
-        it.prop([genKeywords(), fc.array(genStoredAssembly())])('length of filtered <= original list', (keywords, list) => {
-          expect(filterByKeywords(keywords, list).length).toBeLessThanOrEqual(list.length)
-        })
+        it.prop([genKeywords(), fc.array(genStoredAssembly())])(
+          'length of filtered <= original list',
+          (keywords, list) => {
+            expect(filterByKeywords(keywords, list).length).toBeLessThanOrEqual(
+              list.length,
+            )
+          },
+        )
       })
     })
   })
 })
 
-function genKeywords(opt: { contain?: string[]} = {}): fc.Arbitrary<string[]> {
-  return fc.array(
-    opt.contain
-      ? fc.constantFrom(...opt.contain)
-      : fc.string({ minLength: 1 })
-  ).chain((xs) =>
-    fc.array(fc.string()).map(xs2 => [...xs, ...xs2])
-  )
+function genKeywords(opt: { contain?: string[] } = {}): fc.Arbitrary<string[]> {
+  return fc
+    .array(
+      opt.contain
+        ? fc.constantFrom(...opt.contain)
+        : fc.string({ minLength: 1 }),
+    )
+    .chain((xs) => fc.array(fc.string()).map((xs2) => [...xs, ...xs2]))
 }
 function genStoredAssembly(
   opt: { name?: fc.Arbitrary<string>; description?: fc.Arbitrary<string> } = {},

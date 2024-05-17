@@ -16,7 +16,7 @@ export const jaAssemblyStore = {
   storedList: {
     title: '保存済みアセン',
     search: {
-      caption: 'アセン名で検索',
+      caption: 'キーワード検索（例: 近接,レザスラ）',
     },
     apply: {
       caption: '反映する',

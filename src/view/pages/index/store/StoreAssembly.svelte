@@ -3,6 +3,7 @@
 </script>
 <script lang="ts">
   import type {Assembly} from "~core/assembly/assembly.ts";
+  import {filterByKeywords} from "~core/assembly/store/filter.ts";
   import {createAggregation, type StoredAssemblyAggregation} from "~core/assembly/store/stored-assembly.ts";
 
   import IconButton from "~view/components/button/IconButton.svelte";
@@ -23,6 +24,9 @@
   let newName: string = ''
   let newDescription: string = ''
   let dataList: StoredAssemblyMaybeDeleted[] = []
+  let keywords: string[] = []
+  let showDataList: StoredAssemblyMaybeDeleted[]
+  $: showDataList = filterByKeywords(keywords, dataList)
 
   // handler
   function onSubmitNewAssembly() {
@@ -47,6 +51,11 @@
     $storedRepositoryStore.insert(target, candidates)
 
     dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id ? false : d.deleted }))
+  }
+  function onUpdateKeywords(target: Event) {
+    const form = target.currentTarget as HTMLInputElement
+
+    keywords = form.value.split(',').map(k => k.trim())
   }
 
   // setup
@@ -115,6 +124,7 @@
           type="text"
           class="form-control"
           placeholder={$i18n.t('assembly_store:storedList.search.caption')}
+          on:input={onUpdateKeywords}
         >
       </div>
       <div>
@@ -132,7 +142,7 @@
             </tr>
           </thead>
           <tbody>
-          {#each dataList as d}
+          {#each showDataList as d}
             {#if (d.deleted)}
             <tr>
               <th scope="row" class="deleted">

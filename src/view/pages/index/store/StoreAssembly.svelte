@@ -89,6 +89,12 @@
 >
   <svelte:fragment slot="title">
     {$i18n.t('assembly_store:caption')}
+    <IconButton
+      id="notice-for-store-assembly"
+      title={$i18n.t('assembly_store:notice')}
+      class="bi bi-info-circle"
+      style="font-size: 18px;"
+    />
   </svelte:fragment>
   <svelte:fragment slot="body">
     <div class="mb-3">

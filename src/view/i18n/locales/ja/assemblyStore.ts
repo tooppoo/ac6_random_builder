@@ -1,6 +1,8 @@
 export const jaAssemblyStore = {
   // TODO: キャプションをどこで管理するか整理
   caption: 'アセンデータ管理',
+  notice: `<p>アセンブルはブラウザ単位で保存されます。</p>
+<p>このブラウザで保存したデータは別ブラウザで利用できません。</p>`,
   addNewData: {
     title: '新規追加',
     name: {

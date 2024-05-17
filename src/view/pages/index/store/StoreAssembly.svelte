@@ -4,7 +4,12 @@
 <script lang="ts">
   import type {Assembly} from "~core/assembly/assembly.ts";
   import {filterByKeywords} from "~core/assembly/store/filter.ts";
-  import {createAggregation, type StoredAssemblyAggregation} from "~core/assembly/store/stored-assembly.ts";
+  import {IndexedDbRepository} from "~core/assembly/store/repository/indexed-db/indexed-db-repository.ts";
+  import {
+    createAggregation,
+    type StoredAssemblyAggregation,
+    type StoredAssemblyRepository
+  } from "~core/assembly/store/stored-assembly.ts";
 
   import IconButton from "~view/components/button/IconButton.svelte";
   import TextButton from "~view/components/button/TextButton.svelte";
@@ -15,11 +20,11 @@
 
   import { createEventDispatcher } from 'svelte'
 
-  import {storedRepositoryStore} from "./repository-store.ts";
-
   export let open: boolean
   export let candidates: Candidates
   export let assembly: Assembly
+
+  const repository: StoredAssemblyRepository = new IndexedDbRepository()
 
   let newName: string = ''
   let newDescription: string = ''
@@ -30,7 +35,7 @@
 
   // handler
   function onSubmitNewAssembly() {
-    $storedRepositoryStore.storeNew(
+    repository.storeNew(
       createAggregation({
         name: newName,
         description: newDescription,
@@ -43,12 +48,12 @@
     dispatch('apply', target)
   }
   function onDelete(target: StoredAssemblyAggregation) {
-    $storedRepositoryStore.delete(target)
+    repository.delete(target)
 
     dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id }))
   }
   function onRestore(target: StoredAssemblyAggregation) {
-    $storedRepositoryStore.insert(target, candidates)
+    repository.insert(target, candidates)
 
     dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id ? false : d.deleted }))
   }
@@ -60,7 +65,7 @@
 
   // setup
   function initialize() {
-    $storedRepositoryStore.all(candidates).then((xs) => {
+    repository.all(candidates).then((xs) => {
       dataList = xs.map(x => ({ ...x, deleted: false }))
     })
   }

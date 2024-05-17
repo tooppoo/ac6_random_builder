@@ -2,6 +2,7 @@
   import type {ReadonlyPartsFilterState} from "~core/assembly/filter/filter-set.ts";
   import {logger} from "~core/utils/logger.ts";
 
+  import TextButton from "~view/components/button/TextButton.svelte";
   import i18n from "~view/i18n/define.ts";
   import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
   import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
@@ -89,13 +90,13 @@
       </option>
     {/each}
   </select>
-  <button
+  <TextButton
     id={`reset-${formId}`}
-    class="btn border-secondary ms-2 property-filter-reset"
+    class="ms-2 property-filter-reset"
     on:click={resetSelect(state)}
   >
     RESET
-  </button>
+  </TextButton>
 </div>
 {/if}
 
@@ -105,8 +106,5 @@
 }
 .property-filter-values {
     flex-basis: 65%;
-}
-.property-filter-reset {
-    flex-basis: 15%;
 }
 </style>

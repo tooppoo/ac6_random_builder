@@ -21,6 +21,7 @@
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
   import {logger} from "~core/utils/logger.ts";
 
+  import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n from "~view/i18n/define.ts";
   import CoamRangeSlider from "~view/pages/index/filter/range/CoamRangeSlider.svelte";
@@ -72,7 +73,7 @@
     {$i18n.t('filter', { ns: 'filter' })}
   </svelte:fragment>
   <svelte:fragment slot="body">
-    <button
+    <TextButton
       id="exclude-all-not-equipped"
       on:click={() => onApply({
         filter: enableFilterOnAllParts(excludeNotEquipped.name, filter),
@@ -81,8 +82,8 @@
       class="my-3 w-100 p-2"
     >
       {$i18n.t('excludeAllNotEquipped', { ns: 'filter' })}
-    </button>
-    <button
+    </TextButton>
+    <TextButton
       id="not-use-hanger"
       on:click={() => onApply({
         filter: enableFilterOnAllParts(notUseHanger.name, filter),
@@ -91,14 +92,14 @@
       class="my-3 w-100 p-2"
     >
       {$i18n.t('notUseAllHanger', { ns: 'filter' })}
-    </button>
-    <button
+    </TextButton>
+    <TextButton
       id="reset-filter"
       on:click={() => onApply({ filter: initialFilterState(initialCandidates)})}
       class="my-3 w-100 p-2"
     >
       {$i18n.t('resetAllFilter', { ns: 'filter' })}
-    </button>
+    </TextButton>
 
     <CoamRangeSlider
       class="my-3 w-100"

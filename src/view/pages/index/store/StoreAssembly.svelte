@@ -232,10 +232,21 @@ ${target.description}
 
 <ShareAssembly
   open={shareMode.open}
-  assembly={() => shareMode.target.assembly}
-  prefix={() => prefixForTextCopy(shareMode.target)}
+  assembly={() => {
+    if(!shareMode.open) {
+      throw new Error('canvas must be opened')
+    }
+
+    return shareMode.target.assembly
+  }}
+  prefix={() => {
+    if (shareMode.target === null) {
+      throw new Error('target must exist')
+    }
+    return prefixForTextCopy(shareMode.target)}
+  }
   on:toggle={(e) => {
-    if (!e.open) {
+    if (!e.detail.open) {
       shareMode = { open: false, target: null }
     }
   }}

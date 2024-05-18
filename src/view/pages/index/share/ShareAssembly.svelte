@@ -12,6 +12,7 @@
   import type { ChangeEventHandler } from 'svelte/elements'
 
   export let assembly: () => Assembly
+  export let prefix: () => string = () => ''
   export let open: boolean
 
   let copy: () => void = defaultCopyWay
@@ -26,7 +27,7 @@
           
 ${stringifyStatus(assembly())}`
 
-          navigator.clipboard.writeText(text)
+          navigator.clipboard.writeText(prefix() + text)
         }
       : defaultCopyWay
   }
@@ -37,7 +38,7 @@ ${stringifyStatus(assembly())}`
   }>()
 
   function defaultCopyWay() {
-    navigator.clipboard.writeText(stringifyAssembly(assembly()))
+    navigator.clipboard.writeText(prefix() + stringifyAssembly(assembly()))
   }
 </script>
 

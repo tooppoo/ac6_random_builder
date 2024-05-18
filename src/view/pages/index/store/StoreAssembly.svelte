@@ -45,6 +45,15 @@
       }
   let shareMode: ShareMode = { open: false, target: null }
 
+  const prefixForTextCopy = (target: StoredAssemblyAggregation) => `
+${target.name}
+
+${target.description}
+
+-----
+
+`
+
   // handler
   function onSubmitNewAssembly() {
     repository.storeNew(
@@ -224,6 +233,7 @@
 <ShareAssembly
   open={shareMode.open}
   assembly={() => shareMode.target.assembly}
+  prefix={() => prefixForTextCopy(shareMode.target)}
   on:toggle={(e) => {
     if (!e.open) {
       shareMode = { open: false, target: null }

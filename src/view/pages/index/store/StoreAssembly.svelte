@@ -81,7 +81,7 @@ ${target.description}
   function onDelete(target: StoredAssemblyAggregation) {
     repository.delete(target)
 
-    dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id }))
+    dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id || d.deleted }))
   }
   function onRestore(target: StoredAssemblyAggregation) {
     repository.insert(target, candidates)

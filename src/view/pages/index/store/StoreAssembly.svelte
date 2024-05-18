@@ -15,6 +15,7 @@
   import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n from "~view/i18n/define.ts";
+  import ShareAssembly from "~view/pages/index/share/ShareAssembly.svelte";
 
   import type {Candidates} from "~data/types/candidates.ts";
 
@@ -32,6 +33,26 @@
   let keywords: string[] = []
   let showDataList: StoredAssemblyMaybeDeleted[]
   $: showDataList = filterByKeywords(keywords, dataList)
+
+  type ShareMode =
+    | {
+        open: true
+        target: StoredAssemblyAggregation
+      }
+    | {
+        open: false
+        target: null
+      }
+  let shareMode: ShareMode = { open: false, target: null }
+
+  const prefixForTextCopy = (target: StoredAssemblyAggregation) => `
+${target.name}
+
+${target.description}
+
+-----
+
+`
 
   // handler
   function onSubmitNewAssembly() {
@@ -61,6 +82,9 @@
     const form = target.currentTarget as HTMLInputElement
 
     keywords = form.value.split(',').map(k => k.trim())
+  }
+  function onShare(target: StoredAssemblyAggregation) {
+    shareMode = { open: true, target }
   }
 
   // setup
@@ -189,6 +213,12 @@
                   clickable={true}
                   on:click={() => onDelete(d)}
                 />
+                <IconButton
+                  title={$i18n.t('assembly_store:storedList.share.caption')}
+                  class="bi bi-share"
+                  clickable={true}
+                  on:click={() => onShare(d)}
+                />
               </td>
             </tr>
             {/if}
@@ -199,6 +229,32 @@
     </div>
   </svelte:fragment>
 </OffCanvas>
+
+<ShareAssembly
+  open={shareMode.open}
+  assembly={() => {
+    if(!shareMode.open) {
+      throw new Error('canvas must be opened')
+    }
+
+    return shareMode.target.assembly
+  }}
+  prefix={() => {
+    if (shareMode.target === null) {
+      throw new Error('target must exist')
+    }
+    return prefixForTextCopy(shareMode.target)}
+  }
+  on:toggle={(e) => {
+    if (!e.detail.open) {
+      shareMode = { open: false, target: null }
+    }
+  }}
+>
+  <svelte:fragment slot="title">
+    {$i18n.t('share:command.target.caption', { what: shareMode.target?.name })}
+  </svelte:fragment>
+</ShareAssembly>
 
 <style>
   .deleted {

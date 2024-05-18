@@ -11,6 +11,7 @@ export const jaPageIndex = {
       description: 'アセンブルの<br>条件を設定する',
     },
     share: {
+      caption: "$t(share:command.target.caption, {'what': '現在のアセン'})",
       text: {
         label: 'コピー',
         description: '現在のアセンブルをコピー',

@@ -11,7 +11,8 @@
   import { createEventDispatcher } from 'svelte'
   import type { ChangeEventHandler } from 'svelte/elements'
 
-  export let assembly: Assembly
+  export let assembly: () => Assembly
+  export let prefix: () => string = () => ''
   export let open: boolean
 
   let copy: () => void = defaultCopyWay
@@ -22,11 +23,11 @@
 
     copy = withStatus
       ? () => {
-          const text = `${stringifyAssembly(assembly)}
+          const text = `${stringifyAssembly(assembly())}
           
-${stringifyStatus(assembly)}`
+${stringifyStatus(assembly())}`
 
-          navigator.clipboard.writeText(text)
+          navigator.clipboard.writeText(prefix() + text)
         }
       : defaultCopyWay
   }
@@ -37,7 +38,7 @@ ${stringifyStatus(assembly)}`
   }>()
 
   function defaultCopyWay() {
-    navigator.clipboard.writeText(stringifyAssembly(assembly))
+    navigator.clipboard.writeText(prefix() + stringifyAssembly(assembly()))
   }
 </script>
 
@@ -47,7 +48,7 @@ ${stringifyStatus(assembly)}`
   on:toggle={(e) => dispatch('toggle', e.detail)}
 >
   <svelte:fragment slot="title">
-    {$i18n.t('share:caption')}
+    <slot name="title" />
   </svelte:fragment>
   <svelte:fragment slot="body">
     <div id="share-by-text" class="d-flex justify-content-begin align-items-center mb-3">

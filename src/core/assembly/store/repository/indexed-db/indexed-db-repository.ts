@@ -67,6 +67,19 @@ export class IndexedDbRepository
     )
   }
 
+  async findById(id: string, candidates: Candidates): Promise<StoredAssemblyAggregation | null> {
+    return this.database.stored_assembly.get(id).then((result) => result
+      ? {
+      ...result,
+        assembly: searchToAssembly(
+          new URLSearchParams(result.assembly),
+          candidates,
+        ),
+      }
+      : null
+    )
+  }
+
   async delete(aggregation: StoredAssemblyAggregation): Promise<void> {
     await this.database.stored_assembly.delete(aggregation.id)
   }

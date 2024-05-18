@@ -56,6 +56,7 @@ export interface StoredAssemblyRepository {
   ): Promise<void>
 
   all(candidates: Candidates): Promise<StoredAssemblyAggregation[]>
+  findById(id: string, candidates: Candidates): Promise<StoredAssemblyAggregation | null>
 
   delete(aggregation: StoredAssemblyAggregation): Promise<void>
   insert(

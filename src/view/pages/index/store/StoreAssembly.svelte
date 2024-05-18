@@ -69,6 +69,8 @@ ${target.description}
 
       if (inserted) {
         dataList = dataList.concat({ ...inserted, deleted: false })
+        newName = ''
+        newDescription = ''
       }
       else {
         throw new Error('inserted item not found')

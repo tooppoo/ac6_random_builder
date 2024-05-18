@@ -221,10 +221,9 @@
   </svelte:fragment>
 </OffCanvas>
 
-{#if shareMode.open}
 <ShareAssembly
-  open={true}
-  assembly={shareMode.target.assembly}
+  open={shareMode.open}
+  assembly={() => shareMode.target.assembly}
   on:toggle={(e) => {
     if (!e.open) {
       shareMode = { open: false, target: null }
@@ -232,10 +231,9 @@
   }}
 >
   <svelte:fragment slot="title">
-    {$i18n.t('share:command.target.caption', { what: shareMode.target.name })}
+    {$i18n.t('share:command.target.caption', { what: shareMode.target?.name })}
   </svelte:fragment>
 </ShareAssembly>
-{/if}
 
 <style>
   .deleted {

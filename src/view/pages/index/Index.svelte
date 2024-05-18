@@ -278,7 +278,7 @@
 <ShareAssembly
   id="share-assembly"
   open={openShare}
-  assembly={assembly}
+  assembly={() => assembly}
   on:toggle={(e) => openShare = e.detail.open}
 >
   <svelte:fragment slot="title">

@@ -56,14 +56,24 @@ ${target.description}
 
   // handler
   function onSubmitNewAssembly() {
+    const aggregation = createAggregation({
+      name: newName,
+      description: newDescription,
+      assembly,
+    })
     repository.storeNew(
-      createAggregation({
-        name: newName,
-        description: newDescription,
-        assembly,
-      }),
+      aggregation,
       candidates
-    )
+    ).then(async () => {
+      const inserted = await repository.findById(aggregation.id, candidates)
+
+      if (inserted) {
+        dataList = dataList.concat({ ...inserted, deleted: false })
+      }
+      else {
+        throw new Error('inserted item not found')
+      }
+    })
   }
   function onApply(target: StoredAssemblyAggregation) {
     dispatch('apply', target)
@@ -71,7 +81,7 @@ ${target.description}
   function onDelete(target: StoredAssemblyAggregation) {
     repository.delete(target)
 
-    dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id }))
+    dataList = dataList.map(d => ({ ...d, deleted: target.id === d.id || d.deleted }))
   }
   function onRestore(target: StoredAssemblyAggregation) {
     repository.insert(target, candidates)

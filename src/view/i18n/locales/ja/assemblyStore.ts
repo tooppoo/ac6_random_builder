@@ -26,6 +26,9 @@ export const jaAssemblyStore = {
     delete: {
       caption: '削除する',
     },
+    share: {
+      caption: '共有する',
+    },
     restore: {
       caption: '元に戻す',
     },

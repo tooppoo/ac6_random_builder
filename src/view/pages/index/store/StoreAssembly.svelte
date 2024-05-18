@@ -19,6 +19,7 @@
   import type {Candidates} from "~data/types/candidates.ts";
 
   import { createEventDispatcher } from 'svelte'
+  import ShareAssembly from "~view/pages/index/share/ShareAssembly.svelte";
 
   export let open: boolean
   export let candidates: Candidates
@@ -32,6 +33,17 @@
   let keywords: string[] = []
   let showDataList: StoredAssemblyMaybeDeleted[]
   $: showDataList = filterByKeywords(keywords, dataList)
+
+  type ShareMode =
+    | {
+        open: true
+        target: StoredAssemblyAggregation
+      }
+    | {
+        open: false
+        target: null
+      }
+  let shareMode: ShareMode = { open: false, target: null }
 
   // handler
   function onSubmitNewAssembly() {
@@ -61,6 +73,9 @@
     const form = target.currentTarget as HTMLInputElement
 
     keywords = form.value.split(',').map(k => k.trim())
+  }
+  function onShare(target: StoredAssemblyAggregation) {
+    shareMode = { open: true, target }
   }
 
   // setup
@@ -189,6 +204,12 @@
                   clickable={true}
                   on:click={() => onDelete(d)}
                 />
+                <IconButton
+                  title={$i18n.t('assembly_store:storedList.share.caption')}
+                  class="bi bi-share"
+                  clickable={true}
+                  on:click={() => onShare(d)}
+                />
               </td>
             </tr>
             {/if}
@@ -199,6 +220,22 @@
     </div>
   </svelte:fragment>
 </OffCanvas>
+
+{#if shareMode.open}
+<ShareAssembly
+  open={true}
+  assembly={shareMode.target.assembly}
+  on:toggle={(e) => {
+    if (!e.open) {
+      shareMode = { open: false, target: null }
+    }
+  }}
+>
+  <svelte:fragment slot="title">
+    {$i18n.t('share:command.target.caption', { what: shareMode.target.name })}
+  </svelte:fragment>
+</ShareAssembly>
+{/if}
 
 <style>
   .deleted {

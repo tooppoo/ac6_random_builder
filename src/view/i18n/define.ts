@@ -1,3 +1,12 @@
+import { enAssembly } from '~view/i18n/locales/en/assembly.ts'
+import { enAssemblyStore } from '~view/i18n/locales/en/assemblyStore.ts'
+import { enAttackType } from '~view/i18n/locales/en/attackType.ts'
+import { enError } from '~view/i18n/locales/en/error.ts'
+import { enFilter } from '~view/i18n/locales/en/filter.ts'
+import { enLock } from '~view/i18n/locales/en/lock.ts'
+import { enManufactures } from '~view/i18n/locales/en/manufactures.ts'
+import { enPageIndex } from '~view/i18n/locales/en/pages'
+import { enShare } from '~view/i18n/locales/en/share.ts'
 import { jaAssemblyStore } from '~view/i18n/locales/ja/assemblyStore.ts'
 import { jaAttackType } from '~view/i18n/locales/ja/attackType.ts'
 import { jaError } from '~view/i18n/locales/ja/error.ts'
@@ -30,6 +39,20 @@ _i18next.init({
       error: jaError,
       share: jaShare,
       assembly_store: jaAssemblyStore,
+    },
+    en: {
+      translation: {
+        times: 'times',
+      },
+      assembly: enAssembly,
+      filter: enFilter,
+      lock: enLock,
+      manufacture: enManufactures,
+      attack_type: enAttackType,
+      'page/index': enPageIndex,
+      error: enError,
+      share: enShare,
+      assembly_store: enAssemblyStore,
     },
   },
   interpolation: {

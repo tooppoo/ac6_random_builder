@@ -47,7 +47,7 @@ ${stringifyStatus(assembly)}`
   on:toggle={(e) => dispatch('toggle', e.detail)}
 >
   <svelte:fragment slot="title">
-    {$i18n.t('share:caption')}
+    <slot name="title" />
   </svelte:fragment>
   <svelte:fragment slot="body">
     <div id="share-by-text" class="d-flex justify-content-begin align-items-center mb-3">

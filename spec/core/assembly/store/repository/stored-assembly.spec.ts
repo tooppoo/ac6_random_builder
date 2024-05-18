@@ -66,6 +66,9 @@ describe('repository', () => {
             candidates,
           )
 
+          const find1 = await repository.findById(id3, candidates)
+          expect(find1).not.toBeNull()
+
           const records1 = await repository.all(candidates)
           expect(records1).toHaveLength(3)
 
@@ -103,6 +106,9 @@ describe('repository', () => {
           expect(records2[2]).toStrictEqual(records1[2])
 
           await repository.delete(records2[2])
+
+          const find2 = await repository.findById(id3, candidates)
+          expect(find2).toBeNull()
 
           const records3 = await repository.all(candidates)
 

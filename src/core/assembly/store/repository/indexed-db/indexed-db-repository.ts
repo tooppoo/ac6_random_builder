@@ -38,7 +38,7 @@ export class IndexedDbRepository
     candidates: Candidates,
     current: Date = new Date(),
   ): Promise<void> {
-    const { dto, error } = aggregationToDto(
+    const { data, error } = aggregationToDto(
       {
         ...aggregation,
         createdAt: current,
@@ -50,19 +50,21 @@ export class IndexedDbRepository
       return Promise.reject(error)
     }
 
-    await this.database.stored_assembly.add(dto)
+    await this.database.stored_assembly.add(data)
   }
 
   async all(candidates: Candidates): Promise<StoredAssemblyAggregation[]> {
     return this.database.stored_assembly.toArray().then((xs) =>
       xs
-        .map((x) => ({
-          ...x,
-          assembly: searchToAssembly(
-            new URLSearchParams(x.assembly),
-            candidates,
-          ),
-        }))
+        .map((x) => {
+          const { data, error } = dtoToAggregation(x, candidates)
+
+          if (data) {
+            return data
+          } else {
+            throw new Error(`invalid data exist: ${error}`)
+          }
+        })
         .toSorted((a, b) => (a.id <= b.id ? -1 : 1)),
     )
   }
@@ -71,17 +73,19 @@ export class IndexedDbRepository
     id: string,
     candidates: Candidates,
   ): Promise<StoredAssemblyAggregation | null> {
-    return this.database.stored_assembly.get(id).then((result) =>
-      result
-        ? {
-            ...result,
-            assembly: searchToAssembly(
-              new URLSearchParams(result.assembly),
-              candidates,
-            ),
-          }
-        : null,
-    )
+    return this.database.stored_assembly.get(id).then((result) => {
+      if (!result) {
+        return null
+      }
+
+      const { data, error } = dtoToAggregation(result, candidates)
+
+      if (data) {
+        return data
+      } else {
+        throw new Error(`${id} is invalid data: ${error}`)
+      }
+    })
   }
 
   async delete(aggregation: StoredAssemblyAggregation): Promise<void> {
@@ -93,7 +97,7 @@ export class IndexedDbRepository
     candidates: Candidates,
     current: Date = new Date(),
   ): Promise<void> {
-    const { dto, error } = aggregationToDto(
+    const { data, error } = aggregationToDto(
       {
         ...aggregation,
         updatedAt: current,
@@ -104,18 +108,18 @@ export class IndexedDbRepository
       return Promise.reject(error)
     }
 
-    await this.database.stored_assembly.put(dto)
+    await this.database.stored_assembly.put(data)
   }
   async insert(
     aggregation: StoredAssemblyAggregation,
     candidates: Candidates,
   ): Promise<void> {
-    const { dto, error } = aggregationToDto(aggregation, candidates)
+    const { data, error } = aggregationToDto(aggregation, candidates)
     if (error) {
       return Promise.reject(error)
     }
 
-    await this.database.stored_assembly.add(dto)
+    await this.database.stored_assembly.add(data)
   }
 
   async clear(): Promise<void> {
@@ -123,13 +127,13 @@ export class IndexedDbRepository
   }
 }
 
-type TransformResult =
-  | { dto: StoredAssemblyDto; error: null }
-  | { dto: null; error: Error }
+type TransformResult<T> =
+  | { data: T; error: null }
+  | { data: null; error: Error }
 function aggregationToDto(
   aggregation: StoredAssemblyAggregation,
   candidates: Candidates,
-): TransformResult {
+): TransformResult<StoredAssemblyDto> {
   const dto = {
     id: aggregation.id,
     name: aggregation.name,
@@ -142,6 +146,26 @@ function aggregationToDto(
   const result = storedAssemblyDtoScheme.safeParse(dto)
 
   return result.success
-    ? { dto, error: null }
-    : { dto: null, error: result.error }
+    ? { data: dto, error: null }
+    : { data: null, error: result.error }
+}
+
+function dtoToAggregation(
+  dto: StoredAssemblyDto,
+  candidates: Candidates,
+): TransformResult<StoredAssemblyAggregation> {
+  const result = storedAssemblyDtoScheme.safeParse(dto)
+
+  return result.success
+    ? {
+        data: {
+          ...result.data,
+          assembly: searchToAssembly(
+            new URLSearchParams(result.data.assembly),
+            candidates,
+          ),
+        },
+        error: null,
+      }
+    : { data: null, error: result.error }
 }

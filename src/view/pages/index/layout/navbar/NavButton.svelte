@@ -23,7 +23,7 @@
 
 <TextButton
   id={$$props.id || ''}
-  class={`${$$props.class || ''} me-3`}
+  class={`${$$props.class || ''}`}
   data-bs-toggle="tooltip"
   data-bs-title={title}
   data-bs-placement="left"

@@ -15,11 +15,11 @@
   import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n from "~view/i18n/define.ts";
+  import ShareAssembly from "~view/pages/index/share/ShareAssembly.svelte";
 
   import type {Candidates} from "~data/types/candidates.ts";
 
   import { createEventDispatcher } from 'svelte'
-  import ShareAssembly from "~view/pages/index/share/ShareAssembly.svelte";
 
   export let open: boolean
   export let candidates: Candidates

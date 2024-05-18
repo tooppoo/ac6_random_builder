@@ -2,7 +2,7 @@ export const jaShare = {
   caption: '共有する',
   command: {
     target: {
-      caption: '{{what}}を共有する'
+      caption: '{{what}}を共有する',
     },
     text: {
       caption: 'テキストで共有する',

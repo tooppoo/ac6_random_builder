@@ -205,7 +205,7 @@
     ASSEMBLY TOOL
   </h1>
   <h2>
-    for Reg {version}
+    for Regulation {version}
   </h2>
 </header>
 

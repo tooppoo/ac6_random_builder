@@ -6,7 +6,7 @@
 
   let onClick: () => void = () => dispatch('click')
 
-  export let title: string = ''
+  export let title: string
 
   // setup
   function setupTooltip(ev: HTMLElement) {

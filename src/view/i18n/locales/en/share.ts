@@ -2,7 +2,7 @@ export const enShare = {
   caption: 'Share',
   command: {
     target: {
-      caption: 'share {{what}}',
+      caption: 'Share {{what}}',
     },
     text: {
       caption: 'share by text',

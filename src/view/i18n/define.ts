@@ -1,25 +1,24 @@
-import { enAssembly } from '~view/i18n/locales/en/assembly.ts'
-import { enAssemblyStore } from '~view/i18n/locales/en/assemblyStore.ts'
-import { enAttackType } from '~view/i18n/locales/en/attackType.ts'
-import { enError } from '~view/i18n/locales/en/error.ts'
-import { enFilter } from '~view/i18n/locales/en/filter.ts'
-import { enLock } from '~view/i18n/locales/en/lock.ts'
-import { enManufactures } from '~view/i18n/locales/en/manufactures.ts'
-import { enPageIndex } from '~view/i18n/locales/en/pages'
-import { enShare } from '~view/i18n/locales/en/share.ts'
-import { jaAssemblyStore } from '~view/i18n/locales/ja/assemblyStore.ts'
-import { jaAttackType } from '~view/i18n/locales/ja/attackType.ts'
-import { jaError } from '~view/i18n/locales/ja/error.ts'
-import { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
-import { jaShare } from '~view/i18n/locales/ja/share.ts'
-
 import _i18next from 'i18next'
 import { createI18nStore } from 'svelte-i18next'
 
+import { enAssembly } from './locales/en/assembly.ts'
+import { enAssemblyStore } from './locales/en/assemblyStore.ts'
+import { enAttackType } from './locales/en/attackType.ts'
+import { enError } from './locales/en/error.ts'
+import { enFilter } from './locales/en/filter.ts'
+import { enLock } from './locales/en/lock.ts'
+import { enManufactures } from './locales/en/manufactures.ts'
+import { enPageIndex } from './locales/en/pages'
+import { enShare } from './locales/en/share.ts'
 import { jaAssembly } from './locales/ja/assembly.ts'
+import { jaAssemblyStore } from './locales/ja/assemblyStore.ts'
+import { jaAttackType } from './locales/ja/attackType.ts'
+import { jaError } from './locales/ja/error.ts'
 import { jaFilter } from './locales/ja/filter.ts'
 import { jaLock } from './locales/ja/lock.ts'
+import { jaManufactures } from './locales/ja/manufactures.ts'
 import { jaPageIndex } from './locales/ja/pages'
+import { jaShare } from './locales/ja/share.ts'
 
 _i18next.init({
   lng: 'ja',
@@ -63,5 +62,4 @@ _i18next.init({
 const i18n = createI18nStore(_i18next)
 
 export default i18n
-export const i18next = _i18next
-export type I18Next = typeof i18next
+export type I18Next = typeof _i18next

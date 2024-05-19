@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+  import { ReportAggregation, Report } from '~view/pages/index/report/model/report'
   export type SaveAggregation = Readonly<{ target: ReportAggregation }>
 </script>
 <script lang="ts">
@@ -7,8 +8,7 @@
   import type { EmptyObject } from '~core/utils/type'
 
   import IconButton from '~view/components/button/IconButton.svelte'
-  import i18n, { i18next } from "~view/i18n/define.ts";
-  import { ReportAggregation, Report } from '~view/pages/index/report/model/report'
+  import i18n, {type I18Next} from "~view/i18n/define.ts";
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'
 
   import { createEventDispatcher } from 'svelte'
@@ -20,10 +20,10 @@
   let editingReportAggregation: ReportAggregation
   $: editingReportAggregation = reportAggregation
 
-  function visibleStatus(report: Report): { class: string, title: string } {
+  function visibleStatus(report: Report, i: I18Next): { class: string, title: string } {
     return report.show
-      ? { title: i18next.t('command.report.hide', { ns: 'page/index' }), class: 'bi-eye' }
-      : { title: i18next.t('command.report.show', { ns: 'page/index' }), class: 'bi-eye-slash' }
+      ? { title: i.t('command.report.hide', { ns: 'page/index' }), class: 'bi-eye' }
+      : { title: i.t('command.report.show', { ns: 'page/index' }), class: 'bi-eye-slash' }
   }
 
   // handler
@@ -85,8 +85,8 @@
         >
           <IconButton
             id={`toggle-visible-${report.key}`}
-            class={`toggle-visible bi ${visibleStatus(report).class}`}
-            title={visibleStatus(report).title}
+            class={`toggle-visible bi ${visibleStatus(report, $i18n).class}`}
+            title={visibleStatus(report, $i18n).title}
             clickable={true}
             on:click={() => editReport(block.id, report.toggleShow())}
           />

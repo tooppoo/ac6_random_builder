@@ -11,6 +11,7 @@
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import { logger } from '~core/utils/logger.ts'
 
+  import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import i18n from "~view/i18n/define.ts";
   import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
@@ -207,6 +208,9 @@
   <h2>
     for Regulation {version}
   </h2>
+  <div>
+    <LanguageForm />
+  </div>
 </header>
 
 <article class="container text-center p-3">

@@ -4,16 +4,20 @@
   import Tooltip from "bootstrap/js/dist/tooltip";
   import {createEventDispatcher} from "svelte";
 
+  let tooltip: Tooltip = null
   let onClick: () => void = () => dispatch('click')
 
   export let title: string
+  $: {
+    tooltip && tooltip.setContent({ '.tooltip-inner': title })
+  }
 
   // setup
   function setupTooltip(ev: HTMLElement) {
-    const tooltip = new Tooltip(ev)
+    tooltip = new Tooltip(ev)
 
     onClick = () => {
-      tooltip.hide()
+      tooltip && tooltip.hide()
 
       dispatch('click')
     }

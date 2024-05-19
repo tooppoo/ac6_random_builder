@@ -22,7 +22,6 @@
 
   // handler
   $: {
-    console.log(language)
     $i18n.changeLanguage(language)
 
     setLanguageQuery()

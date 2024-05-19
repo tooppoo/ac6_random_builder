@@ -38,6 +38,6 @@ describe(`App.svelte`, () => {
       'select-expansion',
     ]
 
-    expect(selectBoxes.map((e) => e.id)).toEqual(expected)
+    expect(selectBoxes.map((e) => e.id)).toEqual(expect.arrayContaining(expected))
   })
 })

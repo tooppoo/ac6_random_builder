@@ -42,7 +42,7 @@
     "eslint-plugin-svelte": "2.39.0",
     "fake-indexeddb": "5.0.2",
     "fast-check": "3.18.0",
-    "globals": "15.2.0",
+    "globals": "15.3.0",
     "jsdom": "24.0.0",
     "prettier": "3.2.5",
     "sass": "1.77.2",

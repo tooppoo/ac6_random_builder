@@ -4,7 +4,7 @@
   import Tooltip from "bootstrap/js/dist/tooltip";
   import {createEventDispatcher} from "svelte";
 
-  let tooltip: Tooltip = null
+  let tooltip: (Tooltip | null) = null
   let onClick: () => void = () => dispatch('click')
 
   export let title: string

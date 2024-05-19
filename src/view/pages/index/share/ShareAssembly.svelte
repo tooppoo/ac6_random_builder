@@ -17,12 +17,14 @@
   let copy: () => void = defaultCopyWay
 
   // handler
-  const onChangeTextCopyWay = (arg: { withStatus: boolean, i18n: I18Next }) => {
-    copy = arg.withStatus
+  const onChangeTextCopyWay = (i18n: I18Next) => (e: Event) => {
+    const withStatus = (e.target as HTMLInputElement).checked
+
+    copy = withStatus
       ? () => {
           const text = `${stringifyAssembly(assembly())}
           
-${stringifyStatus(assembly(), arg.i18n)}`
+${stringifyStatus(assembly(), i18n)}`
 
           navigator.clipboard.writeText(prefix() + text)
         }
@@ -54,9 +56,7 @@ ${stringifyStatus(assembly(), arg.i18n)}`
         <div class="form-check form-switch">
           <input
             class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-            on:change={(event) => {
-              onChangeTextCopyWay({ withStatus: event.target.value, i18n: $i18n })
-            }}
+            on:change={onChangeTextCopyWay($i18n)}
           >
           <label class="form-check-label" for="flexSwitchCheckDefault">
             {$i18n.t('share:command.text.withStatus')}

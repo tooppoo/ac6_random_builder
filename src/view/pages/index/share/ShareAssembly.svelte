@@ -5,11 +5,10 @@
   import type { Assembly } from '~core/assembly/assembly'
 
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
-  import i18n from "~view/i18n/define.ts";
+  import i18n, {type I18Next} from "~view/i18n/define.ts";
   import { stringifyAssembly, stringifyStatus } from '~view/pages/index/interaction/share'
 
   import { createEventDispatcher } from 'svelte'
-  import type { ChangeEventHandler } from 'svelte/elements'
 
   export let assembly: () => Assembly
   export let prefix: () => string = () => ''
@@ -18,14 +17,14 @@
   let copy: () => void = defaultCopyWay
 
   // handler
-  const onChangeTextCopyWay: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const withStatus = e.currentTarget.checked
+  const onChangeTextCopyWay = (i18n: I18Next) => (e: Event) => {
+    const withStatus = (e.target as HTMLInputElement).checked
 
     copy = withStatus
       ? () => {
           const text = `${stringifyAssembly(assembly())}
           
-${stringifyStatus(assembly())}`
+${stringifyStatus(assembly(), i18n)}`
 
           navigator.clipboard.writeText(prefix() + text)
         }
@@ -57,7 +56,7 @@ ${stringifyStatus(assembly())}`
         <div class="form-check form-switch">
           <input
             class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-            on:change={onChangeTextCopyWay}
+            on:change={onChangeTextCopyWay($i18n)}
           >
           <label class="form-check-label" for="flexSwitchCheckDefault">
             {$i18n.t('share:command.text.withStatus')}

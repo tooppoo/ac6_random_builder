@@ -11,6 +11,7 @@
   import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
   import { logger } from '~core/utils/logger.ts'
 
+  import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import i18n from "~view/i18n/define.ts";
   import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
@@ -77,7 +78,13 @@
     if (assembly && initialCandidates && !browserBacking) {
       logger.debug('replace state', assemblyToSearch(assembly, initialCandidates))
       const url = new URL(location.href)
-      url.search = assemblyToSearch(assembly, initialCandidates).toString()
+      const query = url.searchParams
+      const assemblyQuery = assemblyToSearch(assembly, initialCandidates)
+
+      assemblyQuery.forEach((v, k) => {
+        query.set(k, v)
+      })
+      url.search = query.toString()
 
       history.pushState({}, '', url)
     }
@@ -205,8 +212,11 @@
     ASSEMBLY TOOL
   </h1>
   <h2>
-    for Reg {version}
+    for Regulation {version}
   </h2>
+  <div>
+    <LanguageForm />
+  </div>
 </header>
 
 <article class="container text-center p-3">

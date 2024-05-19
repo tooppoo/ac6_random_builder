@@ -5,7 +5,7 @@ import {
   type RawAssembly,
 } from '~core/assembly/assembly'
 
-import { i18next, type I18Next } from '~view/i18n/define'
+import { type I18Next } from '~view/i18n/define'
 
 import { armNotEquipped } from '~data/arm-units'
 import { backNotEquipped } from '~data/back-units'
@@ -31,10 +31,7 @@ GENERATOR: ${assembly.generator.name}
 EXPANSION: ${assembly.expansion.name}`
 }
 
-export function stringifyStatus(
-  assembly: Assembly,
-  i18n: I18Next = i18next,
-): string {
+export function stringifyStatus(assembly: Assembly, i18n: I18Next): string {
   return `${i18n.t('ap', { ns: 'assembly' })}: ${assembly.ap}
 ${i18n.t('attitudeStability', { ns: 'assembly' })}: ${assembly.attitudeStability}
 

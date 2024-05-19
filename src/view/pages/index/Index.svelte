@@ -78,7 +78,13 @@
     if (assembly && initialCandidates && !browserBacking) {
       logger.debug('replace state', assemblyToSearch(assembly, initialCandidates))
       const url = new URL(location.href)
-      url.search = assemblyToSearch(assembly, initialCandidates).toString()
+      const query = url.searchParams
+      const assemblyQuery = assemblyToSearch(assembly, initialCandidates)
+
+      assemblyQuery.forEach((v, k) => {
+        query.set(k, v)
+      })
+      url.search = query.toString()
 
       history.pushState({}, '', url)
     }

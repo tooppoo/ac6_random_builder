@@ -31,10 +31,7 @@ GENERATOR: ${assembly.generator.name}
 EXPANSION: ${assembly.expansion.name}`
 }
 
-export function stringifyStatus(
-  assembly: Assembly,
-  i18n: I18Next,
-): string {
+export function stringifyStatus(assembly: Assembly, i18n: I18Next): string {
   return `${i18n.t('ap', { ns: 'assembly' })}: ${assembly.ap}
 ${i18n.t('attitudeStability', { ns: 'assembly' })}: ${assembly.attitudeStability}
 

@@ -23,6 +23,8 @@ export const jaAssembly = {
   loadLimit: '積載上限',
   armsLoad: '腕部積載量',
   armsLoadLimit: '腕部積載上限',
+  melesSpecialization: ' 近接適正',
+  melesRatio: ' 近接倍率',
 
   enLoad: 'EN負荷',
   enOutput: 'EN出力',
@@ -31,6 +33,9 @@ export const jaAssembly = {
   enSupplyEfficiency: 'EN供給効率',
   enRechargeDelay: 'EN補充遅延',
   enRecoveryDelay: 'EN復元遅延',
+  postRecoveryEnSupply: '復元時補充EN',
+  enFirearmSpec: 'EN射撃武器適正',
+  enFirearmRatio: 'EN射撃武器倍率',
 
   qbEnConsumption: 'QB消費EN',
 

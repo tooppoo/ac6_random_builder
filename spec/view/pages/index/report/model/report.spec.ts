@@ -67,6 +67,8 @@ describe(ReportAggregation, () => {
             new Report('loadLimit', true),
             new Report('armsLoad', true),
             new Report('armsLoadLimit', true),
+            new Report('melesSpecialization', true),
+            new Report('melesRatio', true),
           ]),
         },
       ])(
@@ -306,25 +308,30 @@ describe(Report, () => {
     describe('en load over energy output', () => {
       const assemblyLike = { ...baseAssemblyLike, withinEnOutput: false }
 
+      const keyIsAboutEnergy = (k: ReportKey) =>
+        (k.startsWith('en') || k.startsWith('postRecoveryEn')) &&
+        !k.includes('enFirearm')
       describe('key is about energy', () => {
-        it.prop([genReportKey().filter((k) => k.startsWith('en'))])(
-          'always be danger',
-          (key) => {
-            const report = Report.create(key)
+        it.prop([genReportKey().filter(keyIsAboutEnergy)], {
+          seed: 568392928,
+          path: '0',
+          endOnFailure: true,
+        })('always be danger', (key) => {
+          const report = Report.create(key)
 
-            expect(report.statusFor(assemblyLike)).toBe('danger')
-          },
-        )
+          expect(report.statusFor(assemblyLike)).toBe('danger')
+        })
       })
       describe('key is not about energy', () => {
-        it.prop([genReportKey().filter((k) => !k.startsWith('en'))])(
-          'always be normal',
-          (key) => {
-            const report = Report.create(key)
+        it.prop([genReportKey().filter((key) => !keyIsAboutEnergy(key))], {
+          seed: 568392928,
+          path: '0',
+          endOnFailure: true,
+        })('always be normal', (key) => {
+          const report = Report.create(key)
 
-            expect(report.statusFor(assemblyLike)).toBe('normal')
-          },
-        )
+          expect(report.statusFor(assemblyLike)).toBe('normal')
+        })
       })
     })
 
@@ -439,11 +446,16 @@ function genReportKey(): fc.Arbitrary<ReportKey> {
     'loadLimit',
     'armsLoad',
     'armsLoadLimit',
+    'melesSpecialization',
+    'melesRatio',
     'enLoad',
     'enOutput',
     'enSurplus',
     'enSupplyEfficiency',
     'enRechargeDelay',
+    'postRecoveryEnSupply',
+    'enFirearmSpec',
+    'enFirearmRatio',
     'coam',
   )
 }

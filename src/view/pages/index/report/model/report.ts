@@ -17,6 +17,8 @@ export function defaultReportAggregation(): ReportAggregation {
       Report.create('loadLimit'),
       Report.create('armsLoad'),
       Report.create('armsLoadLimit'),
+      Report.create('melesSpecialization'),
+      Report.create('melesRatio'),
     ]),
     ReportBlock.create([
       Report.create('enLoad'),
@@ -26,6 +28,9 @@ export function defaultReportAggregation(): ReportAggregation {
       Report.create('enSupplyEfficiency'),
       Report.create('enRechargeDelay'),
       Report.create('enRecoveryDelay'),
+      Report.create('postRecoveryEnSupply'),
+      Report.create('enFirearmSpec'),
+      Report.create('enFirearmRatio'),
     ]),
     ReportBlock.create([Report.create('qbEnConsumption')]),
     ReportBlock.create([Report.create('coam')]),
@@ -164,6 +169,7 @@ export class Report {
       case 'enSurplus':
       case 'enSupplyEfficiency':
       case 'enRechargeDelay':
+      case 'postRecoveryEnSupply':
         return assembly.withinEnOutput ? 'normal' : 'danger'
       case 'load':
       case 'loadLimit':

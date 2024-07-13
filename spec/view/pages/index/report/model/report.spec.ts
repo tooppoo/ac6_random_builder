@@ -441,7 +441,7 @@ function genReportKey(): fc.Arbitrary<ReportKey> {
     'loadLimit',
     'armsLoad',
     'armsLoadLimit',
-    'melesSpecification',
+    'melesSpecialization',
     'melesRatio',
     'enLoad',
     'enOutput',
@@ -449,8 +449,8 @@ function genReportKey(): fc.Arbitrary<ReportKey> {
     'enSupplyEfficiency',
     'enRechargeDelay',
     'postRecoveryEnSupply',
-    'enFirearmsSpec',
-    'enFirearmsRatio',
+    'enFirearmSpec',
+    'enFirearmRatio',
     'coam',
   )
 }

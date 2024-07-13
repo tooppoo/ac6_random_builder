@@ -67,6 +67,8 @@ describe(ReportAggregation, () => {
             new Report('loadLimit', true),
             new Report('armsLoad', true),
             new Report('armsLoadLimit', true),
+            new Report('melesSpecialization', true),
+            new Report('melesRatio', true),
           ]),
         },
       ])(
@@ -439,11 +441,16 @@ function genReportKey(): fc.Arbitrary<ReportKey> {
     'loadLimit',
     'armsLoad',
     'armsLoadLimit',
+    'melesSpecification',
+    'melesRatio',
     'enLoad',
     'enOutput',
     'enSurplus',
     'enSupplyEfficiency',
     'enRechargeDelay',
+    'postRecoveryEnSupply',
+    'enFirearmsSpec',
+    'enFirearmsRatio',
     'coam',
   )
 }

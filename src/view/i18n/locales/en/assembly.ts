@@ -23,6 +23,8 @@ export const enAssembly = {
   loadLimit: 'LOAD LIMIT',
   armsLoad: 'ARMS LOAD',
   armsLoadLimit: 'ARMS LOAD LIMIT',
+  melesSpecialization: ' MELES SPECIALIZATION',
+  melesRatio: ' MELES RATIO',
 
   enLoad: 'EN LOAD',
   enOutput: 'EN OUTPUT',
@@ -31,6 +33,9 @@ export const enAssembly = {
   enSupplyEfficiency: 'EN SUPPLY',
   enRechargeDelay: 'EN RECHARGE',
   enRecoveryDelay: 'EN RECOVERY',
+  postRecoveryEnSupply: 'RECOVERY EN SUPPLY',
+  enFirearmSpec: 'EN FIREARM SPECIALIZATION',
+  enFirearmRatio: 'EN FIREARM RATIO',
 
   qbEnConsumption: 'QB EN CONSUMPTION',
 

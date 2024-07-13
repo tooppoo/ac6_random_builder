@@ -56,6 +56,10 @@ export type AssemblyProperty = {
   readonly armsLoad: number
   /** 腕部積載上限 */
   readonly armsLoadLimit: number
+  /** 近接武器適正 */
+  readonly melesSpecialization: number
+  /** 近接武器適正 */
+  readonly melesRatio: number
 
   /** EN負荷 */
   readonly enLoad: number
@@ -71,6 +75,12 @@ export type AssemblyProperty = {
   readonly enRechargeDelay: number
   /** EN復元遅延 */
   readonly enRecoveryDelay: number
+  /** 復元時補充EN */
+  readonly postRecoveryEnSupply: number
+  /** EN射撃武器適正 */
+  readonly enFirearmSpec: number
+  /** EN射撃武器倍率 */
+  readonly enFirearmRatio: number
 
   /** QB消費EN */
   readonly qbEnConsumption: number
@@ -136,6 +146,12 @@ export function createAssembly(base: RawAssembly): Assembly {
     get armsLoadLimit(): number {
       return this.arms.arms_load_limit
     },
+    get melesSpecialization(): number {
+      return this.arms.melee_specialization
+    },
+    get melesRatio(): number {
+      return Math.floor((this.melesSpecialization + 100) / 2)
+    },
     get enLoad(): number {
       return sum(
         [
@@ -192,6 +208,15 @@ export function createAssembly(base: RawAssembly): Assembly {
           (this.core.generator_supply_adjective * 0.01))
 
       return Math.floor(base * 100) * 0.01
+    },
+    get postRecoveryEnSupply(): number {
+      return this.generator.post_recovery_en_supply
+    },
+    get enFirearmSpec(): number {
+      return this.generator.energy_firearm_spec
+    },
+    get enFirearmRatio(): number {
+      return Math.floor((this.enFirearmSpec + 100) / 2)
     },
     get qbEnConsumption(): number {
       const qbEnConsumption = isTank(this)

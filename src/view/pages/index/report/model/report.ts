@@ -169,6 +169,7 @@ export class Report {
       case 'enSurplus':
       case 'enSupplyEfficiency':
       case 'enRechargeDelay':
+      case 'postRecoveryEnSupply':
         return assembly.withinEnOutput ? 'normal' : 'danger'
       case 'load':
       case 'loadLimit':

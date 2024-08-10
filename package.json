@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
-    "@eslint/js": "9.8.0",
+    "@eslint/js": "9.9.0",
     "@fast-check/vitest": "0.1.2",
     "@popperjs/core": "2.11.8",
     "@sveltejs/vite-plugin-svelte": "3.1.1",

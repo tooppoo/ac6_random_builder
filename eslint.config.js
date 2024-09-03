@@ -21,6 +21,7 @@ export default tsConfig(
         extraFileExtensions: ['.svelte'],
       },
       globals: {
+        ...globals.node,
         ...globals.browser,
         ...globals.es2021,
       },

@@ -2,13 +2,17 @@
   "name": "google-app-scripts",
   "version": "1.0.0",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "vite build",
     "login": "clasp login",
     "create": "clasp create",
+    "setup": "node build/setup.js",
+    "bug-report:push": "npm run setup bug-report && clasp push",
+    "request:push": "npm run setup request && clasp push",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "philomagi <tooppoo56@gmail.com>",
   "license": "ISC",
   "description": "",
   "devDependencies": {

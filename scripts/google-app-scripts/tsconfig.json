@@ -1,3 +1,35 @@
 {
-  "extends": "../../tsconfig.json"
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Projects */
+
+    /* Language and Environment */
+    "target": "esnext",
+
+    /* Modules */
+    "module": "nodenext",
+
+    /* JavaScript Support */
+
+    /* Emit */
+     "noEmit": true,
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "include": [
+    "libs/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

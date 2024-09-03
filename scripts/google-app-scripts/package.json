@@ -3,20 +3,23 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "tsc && vite build",
     "login": "clasp login",
     "create": "clasp create",
     "setup": "node build/setup.js",
-    "bug-report:push": "npm run setup bug-report && clasp push",
-    "request:push": "npm run setup request && clasp push",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bug-report:push": "npm run setup -- bug-report && clasp push",
+    "request:push": "npm run setup -- request && clasp push",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
   },
   "author": "philomagi <tooppoo56@gmail.com>",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@google/clasp": "^2.4.2",
+    "typescript": "^5.5.4",
     "vite": "^5.4.2"
   }
 }

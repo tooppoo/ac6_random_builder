@@ -7,8 +7,7 @@ function main() {
         'REPLACE_BY_ISSUE_POST_TOKEN',
         assume(process.env.ISSUE_POST_TOKEN),
       )
-      .replace('REPLACE_BY_REPO_NAME', assume(process.env.REPO_NAME))
-      .replace('REPLACE_BY_REPO_OWNER', assume(process.env.REPO_OWNER)),
+      .replace('REPLACE_BY_REPO_NAME', assume(process.env.REPO_NAME)),
   )
 }
 

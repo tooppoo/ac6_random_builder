@@ -26,7 +26,6 @@ jobs:
         run: npm run build
         env:
           ISSUE_POST_TOKEN: ${{ secrets.ISSUE_POST_TOKEN }}
-          REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.repository }}
 
       - name: setup

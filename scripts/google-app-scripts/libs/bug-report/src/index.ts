@@ -30,7 +30,7 @@ ${detail.getResponse()}
 ${mediaLinks.map((l) => `- ${l}`).join('\n')}
 `
   // https://docs.github.com/ja/rest/issues/issues?apiVersion=2022-11-28#create-an-issue
-  await createIssue({ title, text })
+  await createIssue({ title, text, labels: ['bug'] })
 }
 
 ScriptApp.newTrigger(onFormSubmit.name)

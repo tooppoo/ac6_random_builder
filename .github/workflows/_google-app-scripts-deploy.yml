@@ -8,13 +8,6 @@ on:
       environment:
         type: string
         required: true
-    secrets:
-      issuePostToken:
-        required: true
-      scriptId:
-        required: true
-      parentId:
-        required: true
 
 jobs:
   deploy:
@@ -34,14 +27,20 @@ jobs:
           npm run build
         working-directory: scripts/google-app-scripts
         env:
-          ISSUE_POST_TOKEN: ${{ secrets.issuePostToken }}
+          ISSUE_POST_TOKEN: ${{ secrets.ISSUE_POST_TOKEN }}
 
       - name: setup
         run: npm run ${{ inputs.target }}:setup
         working-directory: scripts/google-app-scripts
         env:
-          SCRIPT_ID: ${{ secrets.scriptId }}
-          PARENT_ID: ${{ secrets.scriptId }}
+          GAS_ACCESS_TOKEN: ${{ secrets.GAS_ACCESS_TOKEN }}
+          GAS_SCOPE: ${{ secrets.GAS_SCOPE }}
+          GAS_ID_TOKEN: ${{ secrets.GAS_ID_TOKEN }}
+          GAS_REFRESH_TOKEN: ${{ secrets.GAS_REFRESH_TOKEN }}
+          GAS_CLIENT_ID: ${{ secrets.GAS_CLIENT_ID }}
+          GAS_CLIENT_SECRET: ${{ secrets.GAS_CLIENT_SECRET }}
+          SCRIPT_ID: ${{ secrets.SCRIPT_ID }}
+          PARENT_ID: ${{ secrets.PARENT_ID }}
 
       - name: push
         run: npm run push

@@ -10,7 +10,4 @@ jobs:
     with:
       environment: google-app-scripts/request
       target: bug-report
-    secrets:
-      issuePostToken: ${{ secrets.ISSUE_POST_TOKEN }}
-      scriptId: ${{ secrets.SCRIPT_ID }}
-      parentId: ${{ secrets.PARENT_ID }}
+    secrets: inherit

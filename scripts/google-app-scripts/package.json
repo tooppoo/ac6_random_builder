@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "login": "clasp login",
     "create": "clasp create",
-    "setup": "node build/setup.js",
+    "setup": "node build/generate-rc.js && node build/setup.js",
     "push": "clasp push",
     "bug-report:setup": "npm run setup -- bug-report",
     "request:setup": "npm run setup -- request",

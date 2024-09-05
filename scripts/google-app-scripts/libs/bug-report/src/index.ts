@@ -1,10 +1,4 @@
-import { Octokit } from 'octokit'
-
-import {
-  githubToken,
-  githubOwner,
-  githubRepository,
-} from '../../../share/github.ts'
+import { createIssue } from 'share/github'
 
 type FormsOnFormSubmit = GoogleAppsScript.Events.FormsOnFormSubmit
 
@@ -12,7 +6,7 @@ async function onFormSubmit(e: FormsOnFormSubmit): Promise<void> {
   const [feature, summary, detail] = e.response.getItemResponses()
 
   const title = `[BUG] ${summary.getResponse()}`
-  const body = `
+  const text = `
 # 機能
 ${feature.getResponse()}
 
@@ -20,20 +14,7 @@ ${feature.getResponse()}
 ${detail.getResponse()}
 `
   // https://docs.github.com/ja/rest/issues/issues?apiVersion=2022-11-28#create-an-issue
-  const octokit = new Octokit({
-    auth: githubToken,
-  })
-
-  await octokit.request(
-    `POST /repos/${githubOwner}/${githubRepository}/issues`,
-    {
-      owner: githubOwner,
-      repo: githubRepository,
-      title,
-      body,
-      labels: ['bug'],
-    },
-  )
+  await createIssue({ title, text })
 }
 
 ScriptApp.newTrigger(onFormSubmit.name)

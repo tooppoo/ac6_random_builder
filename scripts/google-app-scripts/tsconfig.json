@@ -6,13 +6,14 @@
     "types": ["vite/client", "@types/google-apps-script"],
 
     /* Language and Environment */
-    "target": "es2015",
+    "target": "es2023",
+    "paths": {
+      "share/*": ["./share/*"]
+    },
 
     /* Modules */
-    // https://github.com/octokit/octokit.js?tab=readme-ov-file#usage
-    // for octokit
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "esnext",
+    "moduleResolution": "bundler",
 
     /* JavaScript Support */
 
@@ -27,7 +28,7 @@
     "strict": true,
 
     /* Completeness */
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "include": ["libs/**/*", "share/**/*"],
   "exclude": ["dist", "node_modules"]

@@ -23,8 +23,5 @@
     "@types/google-apps-script": "^1.0.83",
     "typescript": "^5.5.4",
     "vite": "^5.4.2"
-  },
-  "dependencies": {
-    "octokit": "^4.0.2"
   }
 }

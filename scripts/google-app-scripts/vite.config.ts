@@ -19,4 +19,9 @@ export default defineConfig({
     },
     minify: false,
   },
+  resolve: {
+    alias: {
+      share: resolve(__dirname, 'share'),
+    },
+  },
 })

@@ -5,6 +5,9 @@ on:
       target:
         type: string
         required: true
+      environment:
+        type: string
+        required: true
     secrets:
       issuePostToken:
         required: true
@@ -16,6 +19,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v4
@@ -33,7 +37,7 @@ jobs:
           ISSUE_POST_TOKEN: ${{ secrets.issuePostToken }}
 
       - name: setup
-        run: npm run {{ inputs.target }}:setup
+        run: npm run ${{ inputs.target }}:setup
         working-directory: scripts/google-app-scripts
         env:
           SCRIPT_ID: ${{ secrets.scriptId }}

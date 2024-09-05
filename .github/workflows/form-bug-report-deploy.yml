@@ -7,8 +7,8 @@ on:
 jobs:
   deploy-bug-report:
     uses: ./.github/workflows/_google-app-scripts-deploy.yml
-    environment: google-app-scripts/bug-report
     with:
+      environment: google-app-scripts/request
       target: bug-report
     secrets:
       issuePostToken: ${{ secrets.ISSUE_POST_TOKEN }}

@@ -1,5 +1,9 @@
 name: Lighthouse
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
+
 jobs:
   lighthouseci:
     runs-on: ubuntu-latest

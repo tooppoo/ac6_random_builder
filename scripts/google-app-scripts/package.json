@@ -5,11 +5,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc && node build/generate-env.js && vite build",
     "login": "clasp login",
     "create": "clasp create",
-    "setup": "node build/generate-rc.js && node build/setup.js",
     "push": "clasp push",
+    "setup": "node build/generate-rc.js && node build/setup.js",
     "bug-report:setup": "npm run setup -- bug-report",
     "request:setup": "npm run setup -- request",
     "test": "echo \"Error: no test specified\" && exit 1",

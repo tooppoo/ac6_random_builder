@@ -1,6 +1,6 @@
-const githubToken = import.meta.env.ISSUE_POST_TOKEN ?? ''
-const githubOwner = import.meta.env.REPO_OWNER ?? ''
-const githubRepository = import.meta.env.REPO_NAME ?? ''
+const githubToken = import.meta.env.VITE_ISSUE_POST_TOKEN ?? ''
+const githubOwner = import.meta.env.VITE_REPO_OWNER ?? ''
+const githubRepository = import.meta.env.VITE_REPO_NAME ?? ''
 
 type CreateIssueArgs = Readonly<{
   title: string

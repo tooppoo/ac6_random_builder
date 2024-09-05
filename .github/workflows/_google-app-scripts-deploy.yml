@@ -22,16 +22,16 @@ jobs:
         working-directory: scripts/google-app-scripts
 
       - name: build
-        run: |
-          echo "ISSUE_POST_TOKEN=${{ secrets.ISSUE_POST_TOKEN }}" >> .env
-          echo "REPO_OWNER=${{ github.repository_owner }}" >> .env
-          echo "REPO_NAME=${{ github.repository }}" >> .env
-          npm run build
         working-directory: scripts/google-app-scripts
+        run: npm run build
+        env:
+          ISSUE_POST_TOKEN: ${{ secrets.ISSUE_POST_TOKEN }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.repository }}
 
       - name: setup
-        run: npm run ${{ inputs.target }}:setup
         working-directory: scripts/google-app-scripts
+        run: npm run ${{ inputs.target }}:setup
         env:
           HOME: ${{ github.workspace }}
           GAS_ACCESS_TOKEN: ${{ secrets.GAS_ACCESS_TOKEN }}
@@ -44,7 +44,7 @@ jobs:
           PARENT_ID: ${{ secrets.PARENT_ID }}
 
       - name: push
-        run: npm run push -- -f
         working-directory: scripts/google-app-scripts
+        run: npm run push -- -f
         env:
           clasp_config_auth: ${{ github.workspace }}/scripts/google-app-scripts/.clasprc.json

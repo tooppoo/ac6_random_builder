@@ -17,5 +17,6 @@ export default defineConfig({
       formats: ['es'],
       fileName: (fmt, entry) => `${entry}/index.js`,
     },
+    minify: false,
   },
 })

@@ -1,0 +1,16 @@
+name: bug-report-deploy.yml
+on:
+  push:
+    tags:
+      - google-app-scripts/request/v*.*.*
+
+jobs:
+  deploy-bug-report:
+    uses: .github/workflows/google-app-scripts/_deploy.yml
+    environment: google-app-scripts/request
+    with:
+      target: bug-report
+    secrets:
+      issuePostToken: {{ secrets.ISSUE_POST_TOKEN }}
+      scriptId: {{ secrets.SCRIPT_ID }}
+      parentId: {{ secrets.PARENT_ID }}

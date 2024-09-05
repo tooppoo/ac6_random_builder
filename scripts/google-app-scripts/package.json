@@ -9,8 +9,9 @@
     "login": "clasp login",
     "create": "clasp create",
     "setup": "node build/setup.js",
-    "bug-report:push": "npm run setup -- bug-report && clasp push",
-    "request:push": "npm run setup -- request && clasp push",
+    "push": "clasp push",
+    "bug-report:setup": "npm run setup -- bug-report",
+    "request:setup": "npm run setup -- request",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"
   },
@@ -19,7 +20,11 @@
   "description": "",
   "devDependencies": {
     "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.83",
     "typescript": "^5.5.4",
     "vite": "^5.4.2"
+  },
+  "dependencies": {
+    "octokit": "^4.0.2"
   }
 }

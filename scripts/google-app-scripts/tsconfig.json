@@ -5,10 +5,13 @@
     /* Projects */
 
     /* Language and Environment */
-    "target": "esnext",
+    "target": "es2015",
 
     /* Modules */
-    "module": "nodenext",
+    // https://github.com/octokit/octokit.js?tab=readme-ov-file#usage
+    // for octokit
+    "module": "node16",
+    "moduleResolution": "node16",
 
     /* JavaScript Support */
 
@@ -26,7 +29,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "libs/**/*"
+    "libs/**/*",
+    "share/**/*"
   ],
   "exclude": [
     "dist",

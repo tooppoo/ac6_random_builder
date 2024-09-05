@@ -1,0 +1,44 @@
+name: _google-app-script-deploy
+on:
+  workflow_call:
+    inputs:
+      target:
+        type: string
+        required: true
+    secrets:
+      issuePostToken:
+        required: true
+      scriptId:
+        required: true
+      parentId:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+      - run: npm ci
+        working-directory: scripts/google-app-scripts
+
+      - name: build
+        run: |
+          echo "ISSUE_POST_TOKEN=$ISSUE_POST_TOKEN" > .env
+          npm run build
+        working-directory: scripts/google-app-scripts
+        env:
+          ISSUE_POST_TOKEN: { { secrets.issuePostToken } }
+
+      - name: setup
+        run: npm run {{ inputs.target }}:setup
+        working-directory: scripts/google-app-scripts
+        env:
+          SCRIPT_ID: { { secrets.scriptId } }
+          PARENT_ID: { { secrets.scriptId } }
+
+      - name: push
+        run: npm run push
+        working-directory: scripts/google-app-scripts

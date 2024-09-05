@@ -9,25 +9,39 @@ function main() {
     throw new Error(`target is required as 1st argument`)
   }
 
-  cp({
-    src: resolveLib(target, '.clasp.json'),
-    dest: resolveRoot('.clasp.json'),
-  })
+  cp(
+    resolveLib(target, '.clasp.json.example'),
+    resolveRoot('.clasp.json'),
+    (body) =>
+      body
+        .replace('REPLACE_BY_REAL_SCRIPT_ID', process.env.SCRIPT_ID)
+        .replace('REPLACE_BY_REAL_PARENT_ID', process.env.PARENT_ID),
+  )
 
-  cp({
-    src: resolveLib(target, 'appsscript.json'),
-    dest: resolveRoot('dist', target, 'appsscript.json'),
-  })
+  cp(
+    resolveLib(target, 'appsscript.json'),
+    resolveRoot('dist', target, 'appsscript.json'),
+  )
 }
 
 /**
  *
- * @param config { src: string, dest: string }
+ * @param src {string}
+ * @param dest {string}
+ * @param decorate {(string) => string | null}
  * @returns {void}
  */
-function cp({ src, dest }) {
+function cp(src, dest, decorate = null) {
   console.log(`cp ${src} ${dest}`)
-  fs.copyFileSync(src, dest)
+
+  if (!decorate) {
+    fs.copyFileSync(src, dest)
+  } else {
+    const before = fs.readFileSync(src)
+    const after = decorate(before.toString('utf-8'))
+
+    fs.writeFileSync(dest, after)
+  }
 }
 
 /**

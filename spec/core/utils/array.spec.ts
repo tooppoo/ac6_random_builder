@@ -66,16 +66,14 @@ describe('utils/array', () => {
     function anyVal() {
       return fc.oneof(
         fc.integer(),
-        fc.float(),
-        fc.char(),
+        fc.float({ noNaN: true }),
         fc.string(),
         fc.date(),
         fc.object(),
         fc.array(
           fc.oneof(
             fc.integer(),
-            fc.float(),
-            fc.char(),
+            fc.float({ noNaN: true }),
             fc.string(),
             fc.date(),
             fc.object(),

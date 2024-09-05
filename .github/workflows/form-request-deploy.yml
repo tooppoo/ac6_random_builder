@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy-bug-report:
-    uses: ./.github/workflows/google-app-scripts/_deploy.yml
+    uses: ./.github/workflows/_google-app-scripts-deploy.yml
     environment: google-app-scripts/request
     with:
       target: request

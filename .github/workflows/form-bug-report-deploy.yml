@@ -8,6 +8,6 @@ jobs:
   deploy-bug-report:
     uses: ./.github/workflows/_google-app-scripts-deploy.yml
     with:
-      environment: google-app-scripts/request
+      environment: google-app-scripts/bug-report
       target: bug-report
     secrets: inherit

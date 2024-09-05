@@ -39,3 +39,9 @@ export function cp(src, dest, decorate = null) {
     fs.writeFileSync(dest, after)
   }
 }
+
+export function assume(value) {
+  if (!value) throw new Error('empty value not allowed')
+
+  return value
+}

@@ -33,6 +33,7 @@ jobs:
         run: npm run ${{ inputs.target }}:setup
         working-directory: scripts/google-app-scripts
         env:
+          HOME: ${{ github.workspace }}
           GAS_ACCESS_TOKEN: ${{ secrets.GAS_ACCESS_TOKEN }}
           GAS_SCOPE: ${{ secrets.GAS_SCOPE }}
           GAS_ID_TOKEN: ${{ secrets.GAS_ID_TOKEN }}
@@ -43,5 +44,7 @@ jobs:
           PARENT_ID: ${{ secrets.PARENT_ID }}
 
       - name: push
-        run: npm run push
+        run: npm run push -- -f
         working-directory: scripts/google-app-scripts
+        env:
+          clasp_config_auth: ${{ github.workspace }}/scripts/google-app-scripts/.clasprc.json

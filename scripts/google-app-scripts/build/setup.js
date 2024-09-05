@@ -1,4 +1,4 @@
-import { cp, resolveLib, resolveRoot } from './_common.js'
+import { assume, cp, resolveLib, resolveRoot } from './_common.js'
 
 function main() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -12,8 +12,8 @@ function main() {
     resolveRoot('.clasp.json'),
     (body) =>
       body
-        .replace('REPLACE_BY_REAL_SCRIPT_ID', process.env.SCRIPT_ID)
-        .replace('REPLACE_BY_REAL_PARENT_ID', process.env.PARENT_ID),
+        .replace('REPLACE_BY_REAL_SCRIPT_ID', assume(process.env.SCRIPT_ID))
+        .replace('REPLACE_BY_REAL_PARENT_ID', assume(process.env.PARENT_ID)),
   )
 
   cp(

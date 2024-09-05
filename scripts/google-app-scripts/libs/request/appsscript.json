@@ -4,8 +4,7 @@
     "https://www.googleapis.com/auth/forms",
     "https://www.googleapis.com/auth/script.external_request"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8"
 }

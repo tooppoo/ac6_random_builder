@@ -10,7 +10,7 @@ const compat = new FlatCompat()
 
 export default tsConfig(
   {
-    ignores: ['dist/**/*', 'coverage/**/*'],
+    ignores: ['dist/**/*', 'coverage/**/*', 'scripts/*/dist/**/*'],
   },
   {
     languageOptions: {

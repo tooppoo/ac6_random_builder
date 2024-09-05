@@ -16,7 +16,7 @@
     /* JavaScript Support */
 
     /* Emit */
-     "noEmit": true,
+    "noEmit": true,
 
     /* Interop Constraints */
     "esModuleInterop": true,
@@ -28,12 +28,6 @@
     /* Completeness */
     "skipLibCheck": true
   },
-  "include": [
-    "libs/**/*",
-    "share/**/*"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "include": ["libs/**/*", "share/**/*"],
+  "exclude": ["dist", "node_modules"]
 }

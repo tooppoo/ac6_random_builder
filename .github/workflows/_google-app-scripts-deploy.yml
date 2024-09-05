@@ -23,11 +23,11 @@ jobs:
 
       - name: build
         run: |
-          echo "ISSUE_POST_TOKEN=$ISSUE_POST_TOKEN" > .env
+          echo "ISSUE_POST_TOKEN=${{ secrets.ISSUE_POST_TOKEN }}" >> .env
+          echo "REPO_OWNER=${{ github.repository_owner }}" >> .env
+          echo "REPO_NAME=${{ github.repository }}" >> .env
           npm run build
         working-directory: scripts/google-app-scripts
-        env:
-          ISSUE_POST_TOKEN: ${{ secrets.ISSUE_POST_TOKEN }}
 
       - name: setup
         run: npm run ${{ inputs.target }}:setup

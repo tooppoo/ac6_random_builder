@@ -10,7 +10,9 @@
     "create": "clasp create",
     "push": "clasp push",
     "setup": "node build/generate-rc.js && node build/setup.js",
+    "bug-report:release": "./release/release-gas.sh bug-report",
     "bug-report:setup": "npm run setup -- bug-report",
+    "request:release": "./release/release-gas.sh request",
     "request:setup": "npm run setup -- request",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"

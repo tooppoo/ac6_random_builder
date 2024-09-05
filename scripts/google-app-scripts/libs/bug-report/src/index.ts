@@ -22,7 +22,7 @@ async function onFormSubmit(e: FormsOnFormSubmit): Promise<void> {
   //   title: `[BUG]`,
   //   labels: ['bug'],
   // })
-  console.log(answers)
+  alert(JSON.stringify(answers))
 }
 
 ScriptApp.newTrigger(onFormSubmit.name)

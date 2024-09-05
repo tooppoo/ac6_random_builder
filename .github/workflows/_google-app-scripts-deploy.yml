@@ -30,14 +30,14 @@ jobs:
           npm run build
         working-directory: scripts/google-app-scripts
         env:
-          ISSUE_POST_TOKEN: { { secrets.issuePostToken } }
+          ISSUE_POST_TOKEN: ${{ secrets.issuePostToken }}
 
       - name: setup
         run: npm run {{ inputs.target }}:setup
         working-directory: scripts/google-app-scripts
         env:
-          SCRIPT_ID: { { secrets.scriptId } }
-          PARENT_ID: { { secrets.scriptId } }
+          SCRIPT_ID: ${{ secrets.scriptId }}
+          PARENT_ID: ${{ secrets.scriptId }}
 
       - name: push
         run: npm run push

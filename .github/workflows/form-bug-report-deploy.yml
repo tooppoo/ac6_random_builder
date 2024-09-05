@@ -11,6 +11,6 @@ jobs:
     with:
       target: bug-report
     secrets:
-      issuePostToken: { { secrets.ISSUE_POST_TOKEN } }
-      scriptId: { { secrets.SCRIPT_ID } }
-      parentId: { { secrets.PARENT_ID } }
+      issuePostToken: ${{ secrets.ISSUE_POST_TOKEN }}
+      scriptId: ${{ secrets.SCRIPT_ID }}
+      parentId: ${{ secrets.PARENT_ID }}

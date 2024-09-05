@@ -9,7 +9,7 @@ jobs:
     uses: ./.github/workflows/google-app-scripts/_deploy.yml
     environment: google-app-scripts/request
     with:
-      target: bug-report
+      target: request
     secrets:
       issuePostToken: { { secrets.ISSUE_POST_TOKEN } }
       scriptId: { { secrets.SCRIPT_ID } }

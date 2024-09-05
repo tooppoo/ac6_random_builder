@@ -1,4 +1,4 @@
-name: bug-report-deploy.yml
+name: deploy bug-report
 on:
   push:
     tags:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy-bug-report:
-    uses: .github/workflows/google-app-scripts/_deploy.yml
+    uses: ./.github/workflows/google-app-scripts/_deploy.yml
     environment: google-app-scripts/bug-report
     with:
       target: bug-report

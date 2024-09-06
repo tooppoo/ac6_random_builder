@@ -10,7 +10,7 @@ const compat = new FlatCompat()
 
 export default tsConfig(
   {
-    ignores: ['dist/**/*', 'coverage/**/*'],
+    ignores: ['dist/**/*', 'coverage/**/*', 'scripts/*/dist/**/*'],
   },
   {
     languageOptions: {
@@ -21,6 +21,7 @@ export default tsConfig(
         extraFileExtensions: ['.svelte'],
       },
       globals: {
+        ...globals.node,
         ...globals.browser,
         ...globals.es2021,
       },

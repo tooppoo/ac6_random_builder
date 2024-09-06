@@ -18,7 +18,6 @@ export default defineConfig({
        * GASの場合は単体で全て完結する形式になってほしいので単体でのビルドとしている
        */
       entry: `./libs/${target}/src/index.ts`,
-      name: 'BugReport',
       formats: ['es'],
       fileName: `${target}/index.js`,
     },

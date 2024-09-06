@@ -55,10 +55,10 @@ ${stringifyStatus(assembly(), i18n)}`
         {$i18n.t('share:command.text.caption')}
         <div class="form-check form-switch">
           <input
-            class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+            class="form-check-input" type="checkbox" role="switch" id={`${$$props.id}-flexSwitchCheckDefault`}
             on:change={onChangeTextCopyWay($i18n)}
           >
-          <label class="form-check-label" for="flexSwitchCheckDefault">
+          <label class="form-check-label" for={`${$$props.id}-flexSwitchCheckDefault`}>
             {$i18n.t('share:command.text.withStatus')}
           </label>
         </div>

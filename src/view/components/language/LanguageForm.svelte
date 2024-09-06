@@ -52,6 +52,10 @@
 
 {#if language !== undefined}
 <div>
+  <label for="change-language">
+    {$i18n.t('language.label', { ns: 'page/index' })}
+  </label>
+  :
   <select
     id="change-language"
     on:change={onChange}

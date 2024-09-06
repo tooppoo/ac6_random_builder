@@ -29,4 +29,8 @@ export const enPageIndex = {
       caption: 'Assembly Store',
     },
   },
+  report: {
+    bug: 'Report Bug',
+    request: 'Request Change',
+  },
 }

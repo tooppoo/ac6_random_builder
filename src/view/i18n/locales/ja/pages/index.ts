@@ -29,4 +29,8 @@ export const jaPageIndex = {
       caption: 'アセンデータ管理',
     },
   },
+  report: {
+    bug: '不具合を報告する',
+    request: '改修を依頼する',
+  },
 }

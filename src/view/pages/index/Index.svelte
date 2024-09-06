@@ -13,6 +13,7 @@
 
   import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
+  import Margin from "~view/components/spacing/Margin.svelte";
   import i18n from "~view/i18n/define.ts";
   import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
   import FilterForWholeOffCanvas from "~view/pages/index/filter/FilterForWholeOffCanvas.svelte";
@@ -219,7 +220,7 @@
   </div>
 </header>
 
-<article class="container text-center p-3">
+<article class="container text-center px-3">
   <ToolSection id="candidates-form" class="my-4 w-100">
     {#each assemblyKeys() as key}
       <PartsSelectForm
@@ -243,7 +244,34 @@
       assembly={assembly}
     />
   </ToolSection>
+
+  <ToolSection
+    id="development-report"
+    class="container mw-100 mx-0 my-4 w-100 text-center d-flex flex-column align-items-center"
+  >
+    <a
+      class="d-block ms-1"
+      href={import.meta.env.VITE_REPORT_REQUEST_URL}
+      target="_blank"
+    >
+      {$i18n.t('report.request', { ns: 'page/index' })}
+      <i class="bi bi-send" />
+    </a>
+
+    <Margin space={2} />
+
+    <a
+      class="d-block ms-1"
+      href={import.meta.env.VITE_REPORT_BUG_URL}
+      target="_blank"
+    >
+      {$i18n.t('report.bug', { ns: 'page/index' })}
+      <i class="bi bi-send" />
+    </a>
+  </ToolSection>
 </article>
+
+<hr class="my-3" />
 
 <footer class="text-center mb-3">
   <div>

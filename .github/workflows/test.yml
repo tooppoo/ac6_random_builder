@@ -33,8 +33,6 @@ jobs:
           echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> .env.local
           echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> .env.local
 
-          cat .env.local
-
           npm run build:ci -- --base=${{ inputs.base_url || '/' }}
           npm run check
       - name: test with coverage

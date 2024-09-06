@@ -7,9 +7,6 @@
 
     /* Language and Environment */
     "target": "es2023",
-    "paths": {
-      "share/*": ["./share/*"]
-    },
 
     /* Modules */
     "module": "esnext",
@@ -28,7 +25,7 @@
     "strict": true,
 
     /* Completeness */
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["libs/**/*", "share/**/*"],
   "exclude": ["dist", "node_modules"]

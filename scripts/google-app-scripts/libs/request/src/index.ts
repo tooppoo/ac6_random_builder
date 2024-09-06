@@ -1,4 +1,4 @@
-import { createIssue } from 'share/github'
+import { createIssue } from '../../../share/github'
 
 type FormsOnFormSubmit = GoogleAppsScript.Events.FormsOnFormSubmit
 

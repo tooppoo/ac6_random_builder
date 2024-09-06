@@ -1,5 +1,3 @@
-import { resolve } from 'path'
-
 import { defineConfig } from 'vite'
 
 const target = (() => {
@@ -22,10 +20,5 @@ export default defineConfig({
       fileName: `${target}/index`,
     },
     minify: false,
-  },
-  resolve: {
-    alias: {
-      share: resolve(__dirname, 'share'),
-    },
   },
 })

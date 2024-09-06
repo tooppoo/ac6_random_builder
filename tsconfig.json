@@ -29,5 +29,6 @@
     }
   },
   "include": ["./src/**/*", "./data**/*", "./spec/**/*"],
+  "exclude": ["node_modules", "scripts/**/*"],
   "extends": "@tsconfig/svelte/tsconfig.json"
 }

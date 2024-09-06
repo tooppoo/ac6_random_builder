@@ -20,7 +20,7 @@ export default defineConfig({
       entry: `./libs/${target}/src/index.ts`,
       name: 'BugReport',
       formats: ['es'],
-      fileName: (fmt) => `${target}/index.${fmt}.js`,
+      fileName: `${target}/index.js`,
     },
     minify: false,
   },

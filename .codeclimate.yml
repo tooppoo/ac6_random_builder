@@ -1,0 +1,10 @@
+# https://docs.codeclimate.com/docs/advanced-configuration
+version: "2"
+exclude_patterns:
+  - "dist/"
+  - "**/spec/"
+  - "**/*.d.ts"
+  - "**/i18n/"
+  - "data/"
+  - "node_modules"
+  - "scripts"

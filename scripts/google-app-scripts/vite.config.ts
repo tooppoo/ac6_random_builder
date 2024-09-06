@@ -2,20 +2,25 @@ import { resolve } from 'path'
 
 import { defineConfig } from 'vite'
 
+const target = (() => {
+  const v = process.env.TARGET
+  if (!v) throw new Error(`process.env.TARGET must be defined`)
+
+  return v
+})()
+
 export default defineConfig({
   build: {
-    outDir: 'dist',
-    target: 'es2015',
+    target: 'es2023',
     lib: {
-      entry: ['bug-report', 'request'].reduce(
-        (acc, entry) => ({
-          ...acc,
-          [entry]: resolve(__dirname, 'libs', entry, 'src', 'index.ts'),
-        }),
-        {} as Record<string, string>,
-      ),
+      /*
+       * multiple entriesにするとimport分のファイルが分割される.
+       * GASの場合は単体で全て完結する形式になってほしいので単体でのビルドとしている
+       */
+      entry: `./libs/${target}/src/index.ts`,
+      name: 'BugReport',
       formats: ['es'],
-      fileName: (fmt, entry) => `${entry}/index.js`,
+      fileName: (fmt) => `${target}/index.${fmt}.js`,
     },
     minify: false,
   },

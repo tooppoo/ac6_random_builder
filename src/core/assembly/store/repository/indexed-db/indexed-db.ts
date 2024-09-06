@@ -1,6 +1,6 @@
 import type { StoredAssemblyDto } from '~core/assembly/store/repository/data-transfer-object.ts'
 
-import Dexie, { type EntityTable } from 'dexie'
+import { Dexie, type EntityTable } from 'dexie'
 
 export type DataBase = Dexie & {
   stored_assembly: EntityTable<StoredAssemblyDto, 'id'>

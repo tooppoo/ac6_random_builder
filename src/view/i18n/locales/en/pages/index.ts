@@ -34,6 +34,6 @@ export const enPageIndex = {
     request: 'Request Change',
   },
   language: {
-    toggle: 'Language',
+    label: 'Language',
   },
 }

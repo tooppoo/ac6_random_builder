@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-target=$1
-version=$2
+target="$1"
+version="$2"
 
 if [ -z "$target" ]; then
   ehco "target is required as 1st argument"

@@ -19,7 +19,7 @@ export default defineConfig({
        */
       entry: `./libs/${target}/src/index.ts`,
       formats: ['es'],
-      fileName: `${target}/index.js`,
+      fileName: `${target}/index`,
     },
     minify: false,
   },

@@ -243,6 +243,7 @@ ${target.description}
 </OffCanvas>
 
 <ShareAssembly
+  id="share-stored-assembly"
   open={shareMode.open}
   assembly={() => {
     if(!shareMode.open) {

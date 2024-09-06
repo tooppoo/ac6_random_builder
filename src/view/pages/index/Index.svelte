@@ -297,6 +297,7 @@
   }}
 />
 <FilterForWholeOffCanvas
+  id="filter-for-whole"
   open={openWholeFilter}
   initialCandidates={initialCandidates}
   candidates={candidates}

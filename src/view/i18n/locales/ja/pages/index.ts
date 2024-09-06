@@ -33,4 +33,7 @@ export const jaPageIndex = {
     bug: '不具合を報告する',
     request: '改修を依頼する',
   },
+  language: {
+    label: '言語',
+  },
 }

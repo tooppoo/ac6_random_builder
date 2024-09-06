@@ -5,10 +5,10 @@ export const enPageIndex = {
       description: 'Generate an assembly randomly',
     },
     resetLock: {
-      description: 'reset all locks',
+      description: 'Reset all locks',
     },
     filterForWhole: {
-      description: 'set conditions to assemble',
+      description: 'Set conditions to assemble',
     },
     share: {
       caption: "$t(share:command.target.caption, {'what': 'Current Assembly'})",
@@ -18,19 +18,22 @@ export const enPageIndex = {
       },
     },
     report: {
-      edit: 'edit status view',
-      save: 'apply status view',
-      reset: 'rollback',
-      showAll: 'show all',
-      show: 'show',
-      hide: 'hide',
+      edit: 'Edit status view',
+      save: 'Apply status view',
+      reset: 'Rollback',
+      showAll: 'Show all',
+      show: 'Show',
+      hide: 'Hide',
     },
     store: {
-      caption: 'Assembly Store',
+      caption: 'Store Assembly',
     },
   },
   report: {
     bug: 'Report Bug',
     request: 'Request Change',
+  },
+  language: {
+    toggle: 'Language',
   },
 }

@@ -32,6 +32,7 @@
   data-bs-title={title}
   data-bs-placement="left"
   data-bs-html="true"
+  aria-label={title}
   on:click={onClick}
   action={setupTooltip}
 >

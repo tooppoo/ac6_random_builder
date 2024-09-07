@@ -1,6 +1,4 @@
 // ARM UNIT
-import { defineNotEquipped } from '~data/types/base/types.ts'
-
 import {
   assault_rifle,
   bazooka,
@@ -1794,6 +1792,3 @@ export const armUnits = [
   }),
 ] as const
 export type ArmUnit = (typeof armUnits)[number]
-
-export const armNotEquipped = defineNotEquipped()
-export type ArmNotEquipped = typeof armNotEquipped

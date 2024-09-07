@@ -7,10 +7,12 @@ import {
 
 import { type I18Next } from '~view/i18n/define'
 
-import { armNotEquipped } from '~data/arm-units'
-import { backNotEquipped } from '~data/back-units'
-import { boosterNotEquipped } from '~data/booster'
-import { expansionNotEquipped } from '~data/expansions'
+import {
+  armNotEquipped,
+  backNotEquipped,
+  boosterNotEquipped,
+  expansionNotEquipped,
+} from '~data/not-equipped.ts'
 import type { Candidates } from '~data/types/candidates'
 
 export function stringifyAssembly(assembly: Assembly): string {

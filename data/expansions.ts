@@ -2,7 +2,6 @@ import { expansion as expansionCategory } from '~data/types/base/category.ts'
 import { expansion as expansionClass } from '~data/types/base/classification.ts'
 import { noneManufacture } from '~data/types/base/manufacture.ts'
 
-import { defineNotEquipped } from './types/base/types'
 import {
   type AsAssaultArmor,
   type AsProtect,
@@ -69,7 +68,5 @@ export const expansions = [
     en_load: 0,
   }),
 ] as const
-export const expansionNotEquipped = defineNotEquipped()
-export type ExpansionNotEquipped = typeof expansionNotEquipped
 
 export type Expansion = (typeof expansions)[number]

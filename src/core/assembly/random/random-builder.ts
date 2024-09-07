@@ -5,7 +5,8 @@ import {
 } from '~core/assembly/assembly.ts'
 import { random } from '~core/utils/array.ts'
 
-import { boosterMustBeEquipped, boosterNotEquipped } from '~data/booster.ts'
+import { boosterMustBeEquipped } from '~data/booster.ts'
+import { boosterNotEquipped } from '~data/not-equipped.ts'
 import { tank } from '~data/types/base/category.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 

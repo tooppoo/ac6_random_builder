@@ -1,13 +1,18 @@
-import { armUnits, leftArmUnits, armNotEquipped } from '~data/arm-units.ts'
+import { armUnits, leftArmUnits } from '~data/arm-units.ts'
 import { arms } from '~data/arms.ts'
-import { backUnits, leftBackUnits, backNotEquipped } from '~data/back-units.ts'
+import { backUnits, leftBackUnits } from '~data/back-units.ts'
 import { boosters } from '~data/booster.ts'
 import { cores } from '~data/cores.ts'
-import { expansions, expansionNotEquipped } from '~data/expansions.ts'
+import { expansions } from '~data/expansions.ts'
 import { fcses } from '~data/fces.ts'
 import { generators } from '~data/generators.ts'
 import { heads } from '~data/heads.ts'
 import { legs } from '~data/legs.ts'
+import {
+  armNotEquipped,
+  backNotEquipped,
+  expansionNotEquipped,
+} from '~data/not-equipped.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 
 export const version = 'v1.06.1' as const

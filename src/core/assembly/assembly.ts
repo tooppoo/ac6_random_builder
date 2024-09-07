@@ -10,6 +10,12 @@ import type { FCS } from '~data/fces.ts'
 import type { Generator } from '~data/generators.ts'
 import type { Head } from '~data/heads.ts'
 import type { LegsNotTank, LegsTank } from '~data/legs.ts'
+import type {
+  ArmNotEquipped,
+  BackNotEquipped,
+  BoosterNotEquipped,
+  ExpansionNotEquipped,
+} from '~data/not-equipped.ts'
 import { tank } from '~data/types/base/category'
 
 export function spaceByWord(key: AssemblyKey): string {
@@ -276,21 +282,18 @@ type AssemblyNotTank = BaseAssembly & {
 }
 type AssemblyWithTank = BaseAssembly & {
   legs: LegsTank
-  booster: Boosters.BoosterNotEquipped
+  booster: BoosterNotEquipped
 }
 type BaseAssembly = {
-  rightArmUnit: ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped
-  leftArmUnit: ArmUnits.ArmUnit | ArmUnits.LeftArmUnit | ArmUnits.ArmNotEquipped
-  rightBackUnit:
-    | ArmUnits.ArmUnit
-    | BackUnits.BackUnit
-    | BackUnits.BackNotEquipped
+  rightArmUnit: ArmUnits.ArmUnit | ArmNotEquipped
+  leftArmUnit: ArmUnits.ArmUnit | ArmUnits.LeftArmUnit | ArmNotEquipped
+  rightBackUnit: ArmUnits.ArmUnit | BackUnits.BackUnit | BackNotEquipped
   leftBackUnit:
     | ArmUnits.ArmUnit
     | ArmUnits.LeftArmUnit
     | BackUnits.BackUnit
     | BackUnits.LeftBackUnit
-    | BackUnits.BackNotEquipped
+    | BackNotEquipped
 
   head: Head
   core: Core
@@ -298,7 +301,7 @@ type BaseAssembly = {
 
   fcs: FCS
   generator: Generator
-  expansion: Expansion.Expansion | Expansion.ExpansionNotEquipped
+  expansion: Expansion.Expansion | ExpansionNotEquipped
 }
 
 function extractFrames(assembly: Assembly) {

@@ -5,10 +5,12 @@ import {
   onlyPropertyIncludedInList,
 } from '~core/assembly/filter/filters.ts'
 
-import { armNotEquipped } from '~data/arm-units.ts'
-import { backNotEquipped } from '~data/back-units.ts'
-import { boosterNotEquipped } from '~data/booster.ts'
-import { expansionNotEquipped } from '~data/expansions.ts'
+import {
+  armNotEquipped,
+  backNotEquipped,
+  boosterNotEquipped,
+  expansionNotEquipped,
+} from '~data/not-equipped.ts'
 import { tank } from '~data/types/base/category.ts'
 import { armUnit } from '~data/types/base/classification.ts'
 import { manufactures } from '~data/types/base/manufacture.ts'

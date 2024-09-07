@@ -1,3 +1,6 @@
+import type { BoosterNotEquipped } from '~data/not-equipped.ts'
+import { boosterNotEquipped } from '~data/not-equipped.ts'
+
 import { booster as boosterCategory } from './types/base/category'
 import { booster as boosterClass } from './types/base/classification'
 import {
@@ -7,7 +10,6 @@ import {
   rubicon_research_institute,
   schneider,
 } from './types/base/manufacture'
-import { defineNotEquipped } from './types/base/types'
 import { defineBooster } from './types/inner/booster'
 
 export const boosters = [
@@ -325,8 +327,6 @@ export const boosters = [
   }),
 ] as const
 export type Booster = (typeof boosters)[number]
-export const boosterNotEquipped = defineNotEquipped()
-export type BoosterNotEquipped = typeof boosterNotEquipped
 
 export function boosterMustBeEquipped(
   b: Booster | BoosterNotEquipped,

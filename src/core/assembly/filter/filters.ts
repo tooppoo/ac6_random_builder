@@ -9,7 +9,7 @@ import { logger } from '~core/utils/logger.ts'
 
 import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
 
-import { boosterNotEquipped } from '~data/booster.ts'
+import { boosterNotEquipped } from '~data/not-equipped.ts'
 import { tank } from '~data/types/base/category.ts'
 import { armUnit, notEquipped } from '~data/types/base/classification.ts'
 import type { ACParts } from '~data/types/base/types.ts'

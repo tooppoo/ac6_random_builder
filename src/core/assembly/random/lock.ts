@@ -1,11 +1,9 @@
 import type { AssemblyKey, RawAssembly } from '~core/assembly/assembly.ts'
 
-import {
-  type Booster,
-  boosterNotEquipped,
-  type BoosterNotEquipped,
-} from '~data/booster.ts'
+import { type Booster } from '~data/booster.ts'
 import type { Legs } from '~data/legs.ts'
+import { boosterNotEquipped } from '~data/not-equipped.ts'
+import type { BoosterNotEquipped } from '~data/not-equipped.ts'
 import { tank } from '~data/types/base/category.ts'
 import { booster, notEquipped } from '~data/types/base/classification.ts'
 import {

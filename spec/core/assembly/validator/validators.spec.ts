@@ -5,7 +5,7 @@ import {
   totalLoadNotOverMax,
 } from '~core/assembly/random/validator/validators'
 
-import { armNotEquipped } from '~data/arm-units'
+import { armNotEquipped } from '~data/not-equipped.ts'
 import { notEquipped as notEquippedClass } from '~data/types/base/classification.ts'
 import type { Candidates } from '~data/types/candidates.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'

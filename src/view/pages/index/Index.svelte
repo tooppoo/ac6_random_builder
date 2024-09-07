@@ -32,10 +32,8 @@
   import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
   import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
 
-  import { boosterNotEquipped } from '~data/booster'
+  import {notEquipped} from "~data/types/base/category.ts";
   import type {Candidates} from "~data/types/candidates.ts";
-
-  import isEqual from 'lodash-es/isEqual'
 
   import appPackage from '~root/package.json'
 
@@ -102,7 +100,11 @@
   const onRandom = () => {
     try {
       logger.debug('on random', lockedParts, candidates.booster)
-      const actualCandidates = (!lockedParts.isLocking('legs') && isEqual(candidates.booster, [boosterNotEquipped]))
+      const actualCandidates = (
+        !lockedParts.isLocking('legs')
+        && candidates.booster.length === 1
+        && candidates.booster[0].category === notEquipped
+      )
         // 脚部がロックされていないのに候補が未装備のみなら、たまたまタンク脚が選択されているだけなので
         // ランダムアセン時にブースターを制限する必要は無い
         // この処置が必要になるのはランダムアセン時のみなので、filterの処理には含めない

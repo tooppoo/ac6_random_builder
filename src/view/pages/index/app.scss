@@ -1,9 +1,9 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sawarabi+Gothic&display=swap');
 
 :root {
-  --bs-font-monospace: 'DM Mono', 'Shippori+Mincho', monospace;
+  --bs-font-monospace: 'DM Mono', 'Sawarabi Gothic', monospace;
 }
 
 @include media-breakpoint-up(md) {

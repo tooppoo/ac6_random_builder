@@ -45,6 +45,7 @@ jobs:
 
           npm run build -- --base=${{ inputs.base_url || '/' }}
         env:
+          WITH_ANALYZE: true
           NODE_ENV: production
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.5.0
@@ -64,3 +65,8 @@ jobs:
           name: ${{ inputs.package_name }}
           path: dist
         if: ${{ inputs.package_name != '' }}
+      - name: archive analyze
+        uses: actions/upload-artifact@v4
+        with:
+          name: analyze
+          path: analyze.html

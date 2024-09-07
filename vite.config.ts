@@ -4,6 +4,8 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vite'
 import dynamicImport from 'vite-plugin-dynamic-import'
 import Sitemap from 'vite-plugin-sitemap'
+import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
+
 
 export default defineConfig({
   plugins: [
@@ -12,6 +14,9 @@ export default defineConfig({
     Sitemap({
       hostname: `https://tooppoo.github.io/`,
       basePath: '/ac6_assemble_tool',
+    }),
+    pluginPurgeCss({
+      variables: true,
     }),
   ],
   resolve: {

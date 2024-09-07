@@ -1,5 +1,3 @@
-import { defineNotEquipped } from '~data/types/base/types.ts'
-
 import {
   active_homing_missile,
   bullet_orbit,
@@ -1335,6 +1333,3 @@ export const backUnits = [
   }),
 ] as const
 export type BackUnit = (typeof backUnits)[number]
-
-export const backNotEquipped = defineNotEquipped()
-export type BackNotEquipped = typeof backNotEquipped

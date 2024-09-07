@@ -1,13 +1,19 @@
 import * as ArmUnits from '~data/arm-units.ts'
 import type { Arms } from '~data/arms.ts'
 import * as BackUnits from '~data/back-units.ts'
-import type { Booster, BoosterNotEquipped } from '~data/booster.ts'
+import type { Booster } from '~data/booster.ts'
 import type { Core } from '~data/cores.ts'
 import * as Expansion from '~data/expansions.ts'
 import type { FCS } from '~data/fces.ts'
 import type { Generator } from '~data/generators.ts'
 import type { Head } from '~data/heads.ts'
 import type { Legs } from '~data/legs.ts'
+import type {
+  ArmNotEquipped,
+  BackNotEquipped,
+  BoosterNotEquipped,
+  ExpansionNotEquipped,
+} from '~data/not-equipped.ts'
 import { tank } from '~data/types/base/category.ts'
 import {
   type Classification,
@@ -16,19 +22,19 @@ import {
 
 export type CandidatesKey = keyof Candidates
 export type Candidates = Readonly<{
-  rightArmUnit: ReadonlyArray<ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped>
+  rightArmUnit: ReadonlyArray<ArmUnits.ArmUnit | ArmNotEquipped>
   leftArmUnit: ReadonlyArray<
-    ArmUnits.LeftArmUnit | ArmUnits.ArmUnit | ArmUnits.ArmNotEquipped
+    ArmUnits.LeftArmUnit | ArmUnits.ArmUnit | ArmNotEquipped
   >
   rightBackUnit: ReadonlyArray<
-    BackUnits.BackUnit | ArmUnits.ArmUnit | BackUnits.BackNotEquipped
+    BackUnits.BackUnit | ArmUnits.ArmUnit | BackNotEquipped
   >
   leftBackUnit: ReadonlyArray<
     | BackUnits.LeftBackUnit
     | BackUnits.BackUnit
     | ArmUnits.LeftArmUnit
     | ArmUnits.ArmUnit
-    | BackUnits.BackNotEquipped
+    | BackNotEquipped
   >
 
   head: readonly Head[]
@@ -40,7 +46,7 @@ export type Candidates = Readonly<{
   fcs: readonly FCS[]
   generator: readonly Generator[]
 
-  expansion: ReadonlyArray<Expansion.Expansion | Expansion.ExpansionNotEquipped>
+  expansion: ReadonlyArray<Expansion.Expansion | ExpansionNotEquipped>
 }>
 
 export function onlyTank(xs: readonly Legs[]): Legs[] {

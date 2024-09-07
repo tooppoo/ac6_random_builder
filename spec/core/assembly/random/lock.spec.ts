@@ -1,7 +1,7 @@
 import { LockedParts } from '~core/assembly/random/lock.ts'
 import { random } from '~core/utils/array.ts'
 
-import { boosterNotEquipped } from '~data/booster.ts'
+import { boosterNotEquipped } from '~data/not-equipped.ts'
 import { tank } from '~data/types/base/category.ts'
 import { notEquipped } from '~data/types/base/classification.ts'
 import { candidates } from '~data/versions/v1.06.1.ts'

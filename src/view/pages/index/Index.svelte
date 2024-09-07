@@ -32,7 +32,7 @@
   import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
   import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
 
-  import { boosterNotEquipped } from '~data/booster'
+  import {boosterNotEquipped} from "~data/not-equipped.ts";
   import type {Candidates} from "~data/types/candidates.ts";
 
   import isEqual from 'lodash-es/isEqual'

@@ -2,7 +2,7 @@ import { join } from 'path'
 
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vite'
-import { analyzer } from "vite-bundle-analyzer";
+import { analyzer } from 'vite-bundle-analyzer'
 import dynamicImport from 'vite-plugin-dynamic-import'
 import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import Sitemap from 'vite-plugin-sitemap'
@@ -19,9 +19,8 @@ export default defineConfig({
       variables: true,
     }),
     (() => {
-      if (process.env.WITH_ANALYZE !== 'true') return null
-
-      switch (process.env.ANALIZE_MODE) {
+      console.log(process.env.ANALYZE_MODE)
+      switch (process.env.ANALYZE_MODE) {
         case 'server':
           return analyzer({
             analyzerMode: 'server',
@@ -31,13 +30,13 @@ export default defineConfig({
         case 'static':
         case 'json':
           return analyzer({
-            analyzerMode: process.env.ANALIZE_MODE || 'static',
+            analyzerMode: process.env.ANALYZE_MODE,
             fileName: '../analyze',
           })
         default:
           return null
       }
-    })()
+    })(),
   ],
   resolve: {
     alias: {

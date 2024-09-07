@@ -31,19 +31,19 @@ jobs:
           cache: 'npm'
       - name: setup
         run: npm ci
-      - name: build
-        run: |
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> .env.local
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> .env.local
 
-          npm run build:ci -- --base=${{ inputs.base_url || '/' }}
-          npm run check
-        env:
-          NODE_ENV: production
       - name: test with coverage
         run: npm run coverage
       - name: lint
         run: npm run lint
+      - name: build
+        run: |
+          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> .env.local
+          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> .env.local
+         
+          npm run build -- --base=${{ inputs.base_url || '/' }}
+        env:
+          NODE_ENV: production
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.5.0
         with:

@@ -36,10 +36,12 @@ jobs:
         run: npm run coverage
       - name: lint
         run: npm run lint
+
       - name: build
         run: |
           echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> .env.local
           echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> .env.local
+          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> .env.local
 
           npm run build -- --base=${{ inputs.base_url || '/' }}
         env:

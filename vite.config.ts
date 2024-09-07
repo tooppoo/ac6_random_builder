@@ -3,9 +3,8 @@ import { join } from 'path'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vite'
 import dynamicImport from 'vite-plugin-dynamic-import'
-import Sitemap from 'vite-plugin-sitemap'
 import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
-
+import Sitemap from 'vite-plugin-sitemap'
 
 export default defineConfig({
   plugins: [

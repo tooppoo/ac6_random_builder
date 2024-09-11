@@ -62,7 +62,7 @@
     "vite-plugin-purgecss-updated-v5": "1.2.1",
     "vite-plugin-sitemap": "^0.7.0",
     "vitest": "2.0.5",
-    "zx": "8.1.5"
+    "zx": "8.1.6"
   },
   "dependencies": {
     "bootstrap": "5.3.3",

@@ -15,7 +15,7 @@ changelog:
     - title: Dependencies Update
       labels:
         - dependencies
-        - "major dependencies"
+        - 'major dependencies'
     - title: Documentation
       labels:
         - documentation

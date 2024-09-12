@@ -1,9 +1,4 @@
 changelog:
-  exclude:
-    labels:
-      - not_contain_release_note
-    authors:
-      - octocat
   categories:
     - title: Breaking Changes 🛠
       labels:
@@ -17,6 +12,10 @@ changelog:
     - title: Bug Fix 🤕
       labels:
         - bug
-    - title: Other Changes
+    - title: Dependencies Update
       labels:
-        - '*'
+        - dependencies
+        - "major dependencies"
+    - title: Documentation
+      labels:
+        - documentation

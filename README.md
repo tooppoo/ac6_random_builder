@@ -8,6 +8,7 @@
 This application can be used [here](https://tooppoo.github.io/ac6_assemble_tool/)
 
 ## Release
+
 ```shell
 # i.e. minor
 npm version minor

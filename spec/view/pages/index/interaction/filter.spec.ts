@@ -44,7 +44,7 @@ describe('filter interaction', () => {
       keys.forEach((key, i) => {
         state = toggleFilter(key, state)
 
-        expect(state.map[key], `${key} ${i}`).not.undefined
+        expect(state.map[key], `${key} ${i}`).not.toBeUndefined()
       })
     })
     it.prop([genAssemblyKey(), genInitialFilterState()])(

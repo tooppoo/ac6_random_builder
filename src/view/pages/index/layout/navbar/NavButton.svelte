@@ -9,7 +9,9 @@
 
   export let title: string
   $: {
-    tooltip && tooltip.setContent({ '.tooltip-inner': title })
+    if (tooltip) {
+      tooltip.setContent({ '.tooltip-inner': title })
+    }
   }
 
   // setup
@@ -17,7 +19,9 @@
     tooltip = new Tooltip(ev)
 
     onClick = () => {
-      tooltip && tooltip.hide()
+      if (tooltip) {
+        tooltip.hide()
+      }
 
       dispatch('click')
     }

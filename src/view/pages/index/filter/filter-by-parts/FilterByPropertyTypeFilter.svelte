@@ -26,7 +26,10 @@
     let selected: typeof target.filter.type.value = []
     for (let i = 0; i < options.length; i++) {
       const item = options.item(i)
-      item && item.selected && selected.push(item.value)
+
+      if (item && item.selected) {
+        selected.push(item.value)
+      }
     }
 
     const t = {

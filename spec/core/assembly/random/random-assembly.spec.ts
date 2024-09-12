@@ -161,11 +161,8 @@ describe(RandomAssembly.name, () => {
     it('can reuse same object after limit', () => {
       const sut = RandomAssembly.init({ limit }).addValidator('test', validator)
 
-      try {
-        sut.assemble(candidates)
-      } catch (_e) {
-        expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
-      }
+      expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
+      expect(() => sut.assemble(candidates)).toThrowError(OverTryLimitError)
 
       expect(mockValidate).toHaveBeenCalledTimes(limit * 2)
     })

@@ -11,7 +11,12 @@
   let openModal: () => void = () => {}
   let closeModal: () => void = () => {}
   $: {
-    open ? openModal() : closeModal()
+    if (open) {
+      openModal()
+    }
+    else {
+      closeModal()
+    }
   }
 
   function onClick() {

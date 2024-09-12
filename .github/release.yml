@@ -19,3 +19,6 @@ changelog:
     - title: Documentation
       labels:
         - documentation
+    - title: Build & Deployment
+      labels:
+        - build

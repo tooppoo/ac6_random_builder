@@ -8,13 +8,16 @@ export let withTooltip: boolean = true
 
 let tooltip: Tooltip | null = null
 $: {
-  tooltip && tooltip.setContent({ '.tooltip-inner': title })
+  if (tooltip) {
+    tooltip.setContent({ '.tooltip-inner': title })
+  }
 }
 
 // handler
 function onClick() {
   if (clickable) {
-    tooltip && tooltip.hide()
+    if (tooltip) tooltip.hide()
+
     dispatch('click')
   }
 }
@@ -25,6 +28,7 @@ function bindTooltip(el: HTMLElement) {
     tooltip = new Tooltip(el)
   }
 }
+
 const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 

@@ -21,7 +21,12 @@
     })
 
     toggle = (op: boolean) => {
-      op ? offcanvas.show() : offcanvas.hide()
+      if (op) {
+        offcanvas.show()
+      }
+      else {
+        offcanvas.hide()
+      }
     }
   }
 

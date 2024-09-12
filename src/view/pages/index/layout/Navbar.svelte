@@ -1,3 +1,4 @@
+<script lang="ts"></script>
 
 <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary border-bottom border-secondary">
   <div class="container-fluid">

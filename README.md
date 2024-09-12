@@ -6,3 +6,15 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/59607212664e3f32e592/test_coverage)](https://codeclimate.com/github/tooppoo/ac6-assemble-tool/test_coverage)
 
 This application can be used [here](https://tooppoo.github.io/ac6_assemble_tool/)
+
+## Release
+
+```shell
+# i.e. minor
+npm version minor
+
+# i.e. release as v1.2.3
+git push origin v1.2.3
+
+# publish release v1.2.3 on GitHub UI
+```

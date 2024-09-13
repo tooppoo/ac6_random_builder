@@ -4,8 +4,8 @@ import type { Manufacture } from '~data/types/base/manufacture'
 
 import type { ACParts } from '../base/types'
 
-export const defineGenerator = <M extends Manufacture>(d: Generator<M>) => d
-export type Generator<M extends Manufacture> = Readonly<{
+export const defineGenerator = (d: Generator) => d
+export type Generator = Readonly<{
   /** EN容量 */
   en_capacity: number
   /** EN補充性能 */
@@ -19,4 +19,4 @@ export type Generator<M extends Manufacture> = Readonly<{
   /** EN出力 */
   en_output: number
 }> &
-  ACParts<Classification.Generator, M, Category.Generator>
+  ACParts<Classification.Generator, Manufacture, Category.Generator>

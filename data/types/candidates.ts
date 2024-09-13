@@ -60,3 +60,33 @@ export function excludeNotEquipped<
 >(xs: readonly T[]): T[] {
   return xs.filter((x) => x.classification !== notEquipped)
 }
+
+/**
+ * UI上でのパーツの表示順序
+ */
+export type Order = Record<keyof Candidates, readonly string[]>
+export type OrderParts = <K extends keyof Candidates>(
+  key: K,
+  parts: Candidates[K],
+) => Candidates[K]
+export function defineOrder(order: Order): OrderParts {
+  return <K extends keyof Candidates>(
+    key: K,
+    parts: Candidates[K],
+  ): Candidates[K] => {
+    type NamePartsMap = Record<string, Candidates[K][number]>
+    const namePartsMap = parts.reduce(
+      (acc: NamePartsMap, p: Candidates[K][number]): NamePartsMap => ({
+        ...acc,
+        [p.name]: p,
+      }),
+      {} as NamePartsMap,
+    )
+
+    return order[key].reduce(
+      (acc: Candidates[K], name): Candidates[K] =>
+        [...acc, namePartsMap[name]] as Candidates[K],
+      [] as Candidates[K],
+    )
+  }
+}

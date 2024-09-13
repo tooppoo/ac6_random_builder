@@ -2,12 +2,9 @@
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
 
-  import type {Category} from "~data/types/base/category.ts";
-  import type {Classification} from "~data/types/base/classification.ts";
-  import type {Manufacture} from "~data/types/base/manufacture.ts";
   import type {ACParts} from "~data/types/base/types.ts";
 
-  export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: ACParts<Classification, Manufacture, Category> }>
+  export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: ACParts }>
   export type ToggleLockEvent = Readonly<{ id: AssemblyKey, value: boolean }>
   export type ToggleFilterEvent = Readonly<{ id: AssemblyKey }>
 </script>
@@ -22,8 +19,8 @@
 
   export let id: AssemblyKey
   export let caption: string
-  export let parts: readonly ACParts<Classification, Manufacture, Category>[]
-  export let selected: ACParts<Classification, Manufacture, Category>
+  export let parts: readonly ACParts[]
+  export let selected: ACParts
   export let tag = 'div'
   export let lock: LockedParts
   export let filter: FilterState

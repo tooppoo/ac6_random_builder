@@ -1,4 +1,4 @@
-import type {Order} from "~data/types/candidates.ts";
+import type { Order } from '~data/types/candidates.ts'
 import { apply } from '~data/versions/patches.ts'
 
 import { candidates as v1_06_1, orders as order_v1_06_1 } from './v1.06.1.ts'

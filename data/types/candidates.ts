@@ -64,21 +64,27 @@ export function excludeNotEquipped<
 /**
  * UI上でのパーツの表示順序
  */
-export type Order = Record<
-  keyof Candidates,
-  readonly string[]
->
-export type OrderParts = <K extends keyof Candidates, P extends Candidates[K][number]>(key: K, parts: P[]) => readonly P[]
+export type Order = Record<keyof Candidates, readonly string[]>
+export type OrderParts = <
+  K extends keyof Candidates,
+  P extends Candidates[K][number],
+>(
+  key: K,
+  parts: P[],
+) => readonly P[]
 export function defineOrder(order: Order): OrderParts {
-  return <K extends keyof Candidates, P extends Candidates[K][number]>(key: K, parts: P[]): readonly P[] => {
+  return <K extends keyof Candidates, P extends Candidates[K][number]>(
+    key: K,
+    parts: P[],
+  ): readonly P[] => {
     const namePartsMap = parts.reduce(
       (acc, p) => ({ ...acc, [p.name]: p }),
-      {} as Record<string, P>
+      {} as Record<string, P>,
     )
 
     return order[key].reduce(
       (acc, name) => [...acc, namePartsMap[name]],
-      [] as P[]
+      [] as P[],
     )
   }
 }

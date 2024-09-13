@@ -13,8 +13,8 @@ import {
   backNotEquipped,
   expansionNotEquipped,
 } from '~data/not-equipped.ts'
-import type {ACParts} from "~data/types/base/types.ts";
-import type {Candidates, Order} from '~data/types/candidates.ts'
+import type { ACParts } from '~data/types/base/types.ts'
+import type { Candidates, Order } from '~data/types/candidates.ts'
 
 export const version = 'v1.06.1' as const
 export type VERSION = typeof version
@@ -57,7 +57,8 @@ export const candidates: Candidates = {
   expansion: [...expansions, expansionNotEquipped],
 } as const
 
-const toName = <T extends ACParts>(xs: readonly T[]): readonly T['name'][] => xs.map(x => x.name)
+const toName = <T extends ACParts>(xs: readonly T[]): readonly T['name'][] =>
+  xs.map((x) => x.name)
 export const orders: Order = {
   rightArmUnit: toName(candidates.rightArmUnit),
   leftArmUnit: toName(candidates.leftArmUnit),

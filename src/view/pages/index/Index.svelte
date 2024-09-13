@@ -42,6 +42,7 @@
   import ToolSection from "./layout/ToolSection.svelte"
 
   const appVersion = appPackage.version
+  const regulation = 'v1.06.1'
   const tryLimit = 3000
 
   // state
@@ -144,7 +145,7 @@
 
   // setup
   const initialize = async () => {
-    const version = await getCandidates('v1.06.1')
+    const version = await getCandidates(regulation)
 
     initialCandidates = candidates = version.candidates
     orderParts = defineOrder(version.orders)

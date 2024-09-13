@@ -33,7 +33,7 @@
   import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
 
   import {notEquipped} from "~data/types/base/category.ts";
-  import type {Candidates} from "~data/types/candidates.ts";
+  import {type Candidates, defineOrder, type OrderParts} from "~data/types/candidates.ts";
 
   import appPackage from '~root/package.json'
 
@@ -57,6 +57,8 @@
   let openAssemblyStore: boolean = false
   let errorMessage: string[] = []
   let browserBacking: boolean = false
+
+  let orderParts: OrderParts
 
   $: {
     if (initialCandidates && filter && assembly && lockedParts) {
@@ -145,6 +147,7 @@
     const version = await getCandidates('v1.06.1')
 
     initialCandidates = candidates = version.candidates
+    orderParts = defineOrder(version.orders)
     filter = initialFilterState(initialCandidates)
 
     buildAssemblyFromQuery()
@@ -230,7 +233,7 @@
         class="mb-3 mb-sm-4"
         caption={spaceByWord(key).toUpperCase()}
         tag="section"
-        parts={candidates[key]}
+        parts={orderParts(key, candidates[key])}
         selected={assembly[key]}
         lock={lockedParts}
         filter={filter}

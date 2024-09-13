@@ -51,7 +51,7 @@
     "sass": "1.78.0",
     "sinon": "18.0.1",
     "svelte-check": "4.0.2",
-    "svelte-eslint-parser": "0.41.0",
+    "svelte-eslint-parser": "0.41.1",
     "tslib": "2.7.0",
     "tsx": "4.19.1",
     "typescript": "5.6.2",

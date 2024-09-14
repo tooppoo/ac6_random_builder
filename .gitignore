@@ -29,3 +29,6 @@ dist-ssr
 
 # analyze
 analyze.html
+
+# turbo
+.turbo

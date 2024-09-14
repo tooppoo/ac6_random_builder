@@ -1,6 +1,6 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
 
-import type { Candidates } from '~data/types/candidates.ts'
+import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
 import { ulid } from 'ulid'
 

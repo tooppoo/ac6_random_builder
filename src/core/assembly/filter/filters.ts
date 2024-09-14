@@ -9,11 +9,11 @@ import { logger } from '~core/utils/logger.ts'
 
 import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
 
-import { boosterNotEquipped } from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category.ts'
-import { armUnit, notEquipped } from '~data/types/base/classification.ts'
-import type { ACParts } from '~data/types/base/types.ts'
-import { type Candidates, type CandidatesKey } from '~data/types/candidates.ts'
+import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
+import { tank } from '@ac6_assemble_tool/parts/types/base/category'
+import { armUnit, notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
+import type { ACParts } from '@ac6_assemble_tool/parts/types/base/types'
+import { type Candidates, type CandidatesKey } from '@ac6_assemble_tool/parts/types/candidates'
 
 export const excludeNotEquipped = (() => {
   const name = 'excludeNotEquipped'

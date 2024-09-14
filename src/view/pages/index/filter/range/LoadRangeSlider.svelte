@@ -14,7 +14,7 @@
   import LockBadge from "~view/pages/index/form/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
 
-  import type {Candidates} from "~data/types/candidates.ts";
+  import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
 
   import Dropdown from "bootstrap/js/dist/dropdown";
   import {createEventDispatcher} from "svelte";

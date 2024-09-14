@@ -5,10 +5,10 @@ import {
 } from '~core/assembly/assembly.ts'
 import { random } from '~core/utils/array.ts'
 
-import { boosterMustBeEquipped } from '~data/booster.ts'
-import { boosterNotEquipped } from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category.ts'
-import type { Candidates } from '~data/types/candidates.ts'
+import { boosterMustBeEquipped } from '@ac6_assemble_tool/parts/booster'
+import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
+import { tank } from '@ac6_assemble_tool/parts/types/base/category'
+import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
 import { LockedParts } from './lock.ts'
 

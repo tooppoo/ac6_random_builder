@@ -4,7 +4,7 @@ import {
   explosive,
   kinetic,
   none,
-} from '~data/types/unit/attack_type.ts'
+} from '@ac6_assemble_tool/parts/types/unit/attack_type'
 
 export const enAttackType = {
   [kinetic]: 'kinetic',

@@ -32,8 +32,8 @@
   import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
   import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
 
-  import {notEquipped} from "~data/types/base/category.ts";
-  import {type Candidates, defineOrder, type OrderParts} from "~data/types/candidates.ts";
+  import {notEquipped} from "@ac6_assemble_tool/parts/types/base/category.ts";
+  import {type Candidates, defineOrder, type OrderParts} from "@ac6_assemble_tool/parts/types/candidates.ts";
 
   import appPackage from '~root/package.json'
 

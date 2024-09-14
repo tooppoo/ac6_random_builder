@@ -1,7 +1,7 @@
 import type { Assembly } from '~core/assembly/assembly.ts'
 import { BaseCustomError } from '~core/utils/error.ts'
 
-import { notEquipped } from '~data/types/base/classification.ts'
+import { notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
 
 import type { Validator } from './base.ts'
 import { failure, success, type ValidationResult } from './result.ts'

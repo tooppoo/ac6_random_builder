@@ -13,7 +13,7 @@ import {
   schneider,
   takigawa,
   vcpl,
-} from '~data/types/base/manufacture.ts'
+} from '@ac6_assemble_tool/parts/types/base/manufacture'
 
 export const enManufactures = {
   [baws]: 'BAWS',

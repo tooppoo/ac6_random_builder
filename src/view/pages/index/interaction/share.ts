@@ -12,8 +12,8 @@ import {
   backNotEquipped,
   boosterNotEquipped,
   expansionNotEquipped,
-} from '~data/not-equipped.ts'
-import type { Candidates } from '~data/types/candidates'
+} from '@ac6_assemble_tool/parts/not-equipped'
+import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
 export function stringifyAssembly(assembly: Assembly): string {
   return `RIGHT ARM UNIT: ${assembly.rightArmUnit.name}

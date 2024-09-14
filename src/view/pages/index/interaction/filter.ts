@@ -21,13 +21,13 @@ import {
 import { BaseCustomError } from '~core/utils/error.ts'
 import { logger } from '~core/utils/logger.ts'
 
-import { boosterMustBeEquipped } from '~data/booster.ts'
-import { armNotEquipped, boosterNotEquipped } from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category.ts'
-import { manufactures } from '~data/types/base/manufacture.ts'
-import { type Candidates } from '~data/types/candidates.ts'
-import { attackType } from '~data/types/unit/attack_type.ts'
-import type { Unit } from '~data/units.ts'
+import { boosterMustBeEquipped } from '@ac6_assemble_tool/parts/booster'
+import { armNotEquipped, boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
+import { tank } from '@ac6_assemble_tool/parts/types/base/category'
+import { manufactures } from '@ac6_assemble_tool/parts/types/base/manufacture'
+import { type Candidates } from '@ac6_assemble_tool/parts/types/candidates'
+import { attackType } from '@ac6_assemble_tool/parts/types/unit/attack_type'
+import type { Unit } from '@ac6_assemble_tool/parts/units'
 
 export interface FilterState {
   open: boolean

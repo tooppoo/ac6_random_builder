@@ -1,6 +1,6 @@
 import { onlyPropertyIncludedInList } from '~core/assembly/filter/filters.ts'
 
-import type { Unit } from '~data/units.ts'
+import type { Unit } from '@ac6_assemble_tool/parts/units'
 
 export const jaFilter = {
   filter: '絞り込み',

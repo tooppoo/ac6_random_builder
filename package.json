@@ -10,7 +10,7 @@
   "packageManager": "npm@10.8.2",
   "scripts": {
     "dev": "vite",
-    "build": "npm run check && vite build",
+    "build": "npm run check-types && vite build",
     "build-only": "vite build",
     "analyze": "ANALIZE_MODE=static vite build",
     "analyze:open": "ANALYZE_MODE=server vite build",
@@ -67,6 +67,7 @@
     "zx": "8.1.6"
   },
   "dependencies": {
+    "@ac6_assemble_tool/parts": "1.6.1",
     "bootstrap": "5.3.3",
     "bootstrap-icons": "1.11.3",
     "dexie": "4.0.8",

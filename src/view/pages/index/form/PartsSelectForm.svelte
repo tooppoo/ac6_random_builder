@@ -2,7 +2,7 @@
   import type {AssemblyKey} from "~core/assembly/assembly.ts";
   import type {LockedParts} from "~core/assembly/random/lock.ts";
 
-  import type {ACParts} from "~data/types/base/types.ts";
+  import type {ACParts} from "@ac6_assemble_tool/parts/types/base/types.ts";
 
   export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: ACParts }>
   export type ToggleLockEvent = Readonly<{ id: AssemblyKey, value: boolean }>

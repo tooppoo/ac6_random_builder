@@ -5,7 +5,7 @@
   import i18n from "~view/i18n/define.ts";
   import RangeSlider from '~view/pages/index/filter/range/base/RangeSlider.svelte'
 
-  import type {Candidates} from "~data/types/candidates.ts";
+  import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
 
   import {createEventDispatcher} from "svelte";
 

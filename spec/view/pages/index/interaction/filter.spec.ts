@@ -17,10 +17,10 @@ import {
   UsableItemNotFoundError,
 } from '~view/pages/index/interaction/filter.ts'
 
-import { booster, tank } from '~data/types/base/category.ts'
-import { notEquipped } from '~data/types/base/classification.ts'
-import type { Unit } from '~data/units.ts'
-import { candidates } from '~data/versions/v1.06.1.ts'
+import { booster, tank } from '@ac6_assemble_tool/parts/types/base/category'
+import { notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
+import type { Unit } from '@ac6_assemble_tool/parts/units'
+import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
 
 import { fc, it } from '@fast-check/vitest'
 import { beforeEach, describe, expect } from 'vitest'

@@ -1,4 +1,4 @@
-import type { ACParts } from '~data/types/base/types.ts'
+import type { ACParts } from '@ac6_assemble_tool/parts/types/base/types'
 
 export type FilterType =
   | EnableOrNot

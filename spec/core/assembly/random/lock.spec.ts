@@ -1,10 +1,10 @@
 import { LockedParts } from '~core/assembly/random/lock.ts'
 import { random } from '~core/utils/array.ts'
 
-import { boosterNotEquipped } from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category.ts'
-import { notEquipped } from '~data/types/base/classification.ts'
-import { candidates } from '~data/versions/v1.06.1.ts'
+import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
+import { tank } from '@ac6_assemble_tool/parts/types/base/category'
+import { notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
+import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
 
 import { it, fc, test } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'

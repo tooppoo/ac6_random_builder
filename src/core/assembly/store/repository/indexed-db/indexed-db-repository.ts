@@ -19,7 +19,7 @@ import {
   searchToAssembly,
 } from '~view/pages/index/interaction/share.ts'
 
-import type { Candidates } from '~data/types/candidates.ts'
+import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
 export class IndexedDbRepository
   implements StoredAssemblyRepository, ClearableStoredAssemblyRepository

@@ -12,8 +12,8 @@ import { LockedParts } from '~core/assembly/random/lock.ts'
 import { randomBuild } from '~core/assembly/random/random-builder.ts'
 import { random } from '~core/utils/array.ts'
 
-import type { Candidates } from '~data/types/candidates.ts'
-import { candidates } from '~data/versions/v1.06.1.ts'
+import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
+import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
 
 import fc, { Arbitrary, type ArrayConstraints } from 'fast-check'
 

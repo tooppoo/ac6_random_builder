@@ -7,8 +7,10 @@
   },
   "exports": {
     "./*": {
-      "types": "./src/**/*.ts",
-      "default": "./dist/**/*.js"
+      "import": {
+        "types": "./src/*.ts",
+        "default": "./dist/*.js"
+      }
     }
   },
   "scripts": {

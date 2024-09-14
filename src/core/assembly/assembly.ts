@@ -1,22 +1,22 @@
 import { sum } from '~core/utils/array.ts'
 
-import type * as ArmUnits from '~data/arm-units.ts'
-import type { Arms } from '~data/arms.ts'
-import type * as BackUnits from '~data/back-units.ts'
-import type * as Boosters from '~data/booster.ts'
-import type { Core } from '~data/cores.ts'
-import type * as Expansion from '~data/expansions.ts'
-import type { FCS } from '~data/fces.ts'
-import type { Generator } from '~data/generators.ts'
-import type { Head } from '~data/heads.ts'
-import type { LegsNotTank, LegsTank } from '~data/legs.ts'
+import type * as ArmUnits from '@ac6_assemble_tool/parts/arm-units'
+import type { Arms } from '@ac6_assemble_tool/parts/arms'
+import type * as BackUnits from '@ac6_assemble_tool/parts/back-units'
+import type * as Boosters from '@ac6_assemble_tool/parts/booster'
+import type { Core } from '@ac6_assemble_tool/parts/cores'
+import type * as Expansion from '@ac6_assemble_tool/parts/expansions'
+import type { FCS } from '@ac6_assemble_tool/parts/fces'
+import type { Generator } from '@ac6_assemble_tool/parts/generators'
+import type { Head } from '@ac6_assemble_tool/parts/heads'
+import type { LegsNotTank, LegsTank } from '@ac6_assemble_tool/parts/legs'
 import type {
   ArmNotEquipped,
   BackNotEquipped,
   BoosterNotEquipped,
   ExpansionNotEquipped,
-} from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category'
+} from '@ac6_assemble_tool/parts/not-equipped'
+import { tank } from '@ac6_assemble_tool/parts/types/base/category'
 
 export function spaceByWord(key: AssemblyKey): string {
   return key.replaceAll(/([A-Z])/g, ' $1')

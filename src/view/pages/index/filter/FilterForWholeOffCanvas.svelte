@@ -6,7 +6,7 @@
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
   import type {FilterState} from "~view/pages/index/interaction/filter.ts";
 
-  import type {Candidates} from "~data/types/candidates.ts";
+  import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
 
   export type ToggleFilter = ToggleOffCanvas
   export type ApplyWhole = Partial<Readonly<{

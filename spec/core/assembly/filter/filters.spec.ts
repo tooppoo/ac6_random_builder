@@ -10,10 +10,10 @@ import {
   backNotEquipped,
   boosterNotEquipped,
   expansionNotEquipped,
-} from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category.ts'
-import { armUnit } from '~data/types/base/classification.ts'
-import { manufactures } from '~data/types/base/manufacture.ts'
+} from '@ac6_assemble_tool/parts/not-equipped'
+import { tank } from '@ac6_assemble_tool/parts/types/base/category'
+import { armUnit } from '@ac6_assemble_tool/parts/types/base/classification'
+import { manufactures } from '@ac6_assemble_tool/parts/types/base/manufacture'
 
 import { fc, it } from '@fast-check/vitest'
 import { uniq } from 'lodash-es'

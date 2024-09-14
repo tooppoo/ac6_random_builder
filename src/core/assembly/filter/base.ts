@@ -1,7 +1,7 @@
 import type { Assembly, AssemblyKey } from '~core/assembly/assembly.ts'
 import type { PartsFilterSet } from '~core/assembly/filter/filter-set.ts'
 
-import type { Candidates } from '~data/types/candidates.ts'
+import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
 export interface PartsFilter<T> {
   readonly name: string

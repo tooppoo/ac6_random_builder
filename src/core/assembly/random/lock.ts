@@ -1,17 +1,17 @@
 import type { AssemblyKey, RawAssembly } from '~core/assembly/assembly.ts'
 
-import { type Booster } from '~data/booster.ts'
-import type { Legs } from '~data/legs.ts'
-import { boosterNotEquipped } from '~data/not-equipped.ts'
-import type { BoosterNotEquipped } from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category.ts'
-import { booster, notEquipped } from '~data/types/base/classification.ts'
+import { type Booster } from '@ac6_assemble_tool/parts/booster'
+import type { Legs } from '@ac6_assemble_tool/parts/legs'
+import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
+import type { BoosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
+import { tank } from '@ac6_assemble_tool/parts/types/base/category'
+import { booster, notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
 import {
   type Candidates,
   excludeNotEquipped,
   notTank,
   onlyTank,
-} from '~data/types/candidates.ts'
+} from '@ac6_assemble_tool/parts/types/candidates'
 
 type LockedPartsMap = {
   [P in AssemblyKey]?: RawAssembly[P]

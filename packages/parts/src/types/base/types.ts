@@ -1,6 +1,6 @@
-import { type Category } from './category.ts'
-import { type Classification } from './classification.ts'
-import { type Manufacture } from './manufacture.ts'
+import { type Category } from './category'
+import { type Classification } from './classification'
+import { type Manufacture } from './manufacture'
 
 export type ACParts<
   Cl extends Classification = Classification,

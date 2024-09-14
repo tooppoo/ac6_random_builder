@@ -43,8 +43,8 @@ import {
   stun_baton,
   stun_bomb_launcher,
   stun_gun,
-} from './types/base/category.ts'
-import { armUnit, leftArmUnit } from './types/base/classification.ts'
+} from './types/base/category'
+import { armUnit, leftArmUnit } from './types/base/classification'
 import {
   allmind,
   arquebus,
@@ -60,8 +60,8 @@ import {
   schneider,
   takigawa,
   vcpl,
-} from './types/base/manufacture.ts'
-import { coral, energy, explosive, kinetic } from './types/unit/attack_type.ts'
+} from './types/base/manufacture'
+import { coral, energy, explosive, kinetic } from './types/unit/attack_type'
 import type {
   AsAssaultRifle,
   AsBlastShooting,
@@ -93,8 +93,8 @@ import type {
   WithRapidFire,
   WithReload,
   WithTotalRounds,
-} from './types/unit/types.ts'
-import { defineArmUnit } from './types/unit/types.ts'
+} from './types/unit/types'
+import { defineArmUnit } from './types/unit/types'
 import {
   burst,
   charge,
@@ -102,7 +102,7 @@ import {
   homing,
   melee,
   semi_auto,
-} from './types/unit/weapon_type.ts'
+} from './types/unit/weapon_type'
 
 export const leftArmUnits = [
   defineArmUnit<AsMelee>()({

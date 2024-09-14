@@ -1,12 +1,12 @@
-import type { Category } from '~data/types/base/category.ts'
+import type { Category } from '~data/types/base/category'
 import type {
   ArmUnit,
   BackUnit,
   Classification,
   leftBackUnit,
-} from '~data/types/base/classification.ts'
-import type { Manufacture } from '~data/types/base/manufacture.ts'
-import type { ACParts } from '~data/types/base/types.ts'
+} from '~data/types/base/classification'
+import type { Manufacture } from '~data/types/base/manufacture'
+import type { ACParts } from '~data/types/base/types'
 
 import type {
   AttackType,
@@ -15,8 +15,8 @@ import type {
   explosive,
   kinetic,
   none,
-} from './attack_type.ts'
-import type { melee, shield, WeaponType } from './weapon_type.ts'
+} from './attack_type'
+import type { melee, shield, WeaponType } from './weapon_type'
 
 const defineAttackUnit =
   <Cl extends Classification>() =>

@@ -5,9 +5,16 @@
   "devDependencies": {
     "@ac6_assemble_tool/tsconfig": "1.0.0"
   },
+  "exports": {
+    "./*": {
+      "types": "./src/**/*.ts",
+      "default": "./dist/**/*.js"
+    }
+  },
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "check-types": "tsc --noEmit"
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",
   "license": "MIT",

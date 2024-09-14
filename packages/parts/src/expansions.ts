@@ -1,6 +1,6 @@
-import { expansion as expansionCategory } from '~data/types/base/category.ts'
-import { expansion as expansionClass } from '~data/types/base/classification.ts'
-import { noneManufacture } from '~data/types/base/manufacture.ts'
+import { expansion as expansionCategory } from '~data/types/base/category'
+import { expansion as expansionClass } from '~data/types/base/classification'
+import { noneManufacture } from '~data/types/base/manufacture'
 
 import {
   type AsAssaultArmor,

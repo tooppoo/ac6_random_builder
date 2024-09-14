@@ -1,24 +1,24 @@
-import * as ArmUnits from '~data/arm-units.ts'
-import type { Arms } from '~data/arms.ts'
-import * as BackUnits from '~data/back-units.ts'
-import type { Booster } from '~data/booster.ts'
-import type { Core } from '~data/cores.ts'
-import * as Expansion from '~data/expansions.ts'
-import type { FCS } from '~data/fces.ts'
-import type { Generator } from '~data/generators.ts'
-import type { Head } from '~data/heads.ts'
-import type { Legs } from '~data/legs.ts'
+import * as ArmUnits from '~data/arm-units'
+import type { Arms } from '~data/arms'
+import * as BackUnits from '~data/back-units'
+import type { Booster } from '~data/booster'
+import type { Core } from '~data/cores'
+import * as Expansion from '~data/expansions'
+import type { FCS } from '~data/fces'
+import type { Generator } from '~data/generators'
+import type { Head } from '~data/heads'
+import type { Legs } from '~data/legs'
 import type {
   ArmNotEquipped,
   BackNotEquipped,
   BoosterNotEquipped,
   ExpansionNotEquipped,
-} from '~data/not-equipped.ts'
-import { tank } from '~data/types/base/category.ts'
+} from '~data/not-equipped'
+import { tank } from '~data/types/base/category'
 import {
   type Classification,
   notEquipped,
-} from '~data/types/base/classification.ts'
+} from '~data/types/base/classification'
 
 export type CandidatesKey = keyof Candidates
 export type Candidates = Readonly<{

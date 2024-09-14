@@ -4,12 +4,15 @@
     "build": {
       "outputs": ["dist/**"]
     },
-    "check": {
-      "dependsOn": ["^check"]
+    "check-types": {
+      "dependsOn": ["transit"]
     },
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "transit": {
+      "dependsOn": ["^transit"]
     }
   }
 }

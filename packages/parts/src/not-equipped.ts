@@ -1,10 +1,10 @@
-import type { NotEquipped } from '~data/types/base/category.ts'
-import { notEquipped } from '~data/types/base/category.ts'
-import type { NotEquipped as NotEquippedClass } from '~data/types/base/classification.ts'
-import { notEquipped as notEquippedClass } from '~data/types/base/classification.ts'
-import type { NoneManufacture } from '~data/types/base/manufacture.ts'
-import { noneManufacture } from '~data/types/base/manufacture.ts'
-import type { ACParts, WithEnLoad } from '~data/types/base/types.ts'
+import type { NotEquipped } from '~data/types/base/category'
+import { notEquipped } from '~data/types/base/category'
+import type { NotEquipped as NotEquippedClass } from '~data/types/base/classification'
+import { notEquipped as notEquippedClass } from '~data/types/base/classification'
+import type { NoneManufacture } from '~data/types/base/manufacture'
+import { noneManufacture } from '~data/types/base/manufacture'
+import type { ACParts, WithEnLoad } from '~data/types/base/types'
 
 const defineNotEquipped = (): ACParts<
   NotEquippedClass,

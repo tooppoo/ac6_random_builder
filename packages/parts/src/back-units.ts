@@ -28,8 +28,8 @@ import {
   spread_bazooka,
   stun_needle_launcher,
   vertical_missile,
-} from './types/base/category.ts'
-import { backUnit, leftBackUnit } from './types/base/classification.ts'
+} from './types/base/category'
+import { backUnit, leftBackUnit } from './types/base/classification'
 import {
   allmind,
   arquebus,
@@ -44,14 +44,14 @@ import {
   schneider,
   takigawa,
   vcpl,
-} from './types/base/manufacture.ts'
+} from './types/base/manufacture'
 import {
   coral,
   energy,
   explosive,
   kinetic,
   none,
-} from './types/unit/attack_type.ts'
+} from './types/unit/attack_type'
 import type {
   AsActiveHomingMissile,
   AsBlastShooting,
@@ -79,8 +79,8 @@ import type {
   WithPAInterference,
   WithRapidFire,
   WithReload,
-} from './types/unit/types.ts'
-import { defineBackUnit, defineShieldUnit } from './types/unit/types.ts'
+} from './types/unit/types'
+import { defineBackUnit, defineShieldUnit } from './types/unit/types'
 import {
   burst,
   charge,
@@ -88,7 +88,7 @@ import {
   homing,
   semi_auto,
   shield,
-} from './types/unit/weapon_type.ts'
+} from './types/unit/weapon_type'
 
 export const leftBackUnits = [
   defineShieldUnit<AsShield>()({

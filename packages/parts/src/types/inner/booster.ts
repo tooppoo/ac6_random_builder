@@ -1,7 +1,7 @@
-import type * as Category from '~data/types/base/category.ts'
-import type * as Classification from '~data/types/base/classification.ts'
-import type { Manufacture } from '~data/types/base/manufacture.ts'
-import type { ACParts } from '~data/types/base/types.ts'
+import type * as Category from '~data/types/base/category'
+import type * as Classification from '~data/types/base/classification'
+import type { Manufacture } from '~data/types/base/manufacture'
+import type { ACParts } from '~data/types/base/types'
 
 export const defineBooster = <M extends Manufacture>(d: Booster<M>) => d
 type Booster<M extends Manufacture> = WithBooster &

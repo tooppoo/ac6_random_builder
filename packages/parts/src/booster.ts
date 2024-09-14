@@ -1,5 +1,5 @@
-import type { BoosterNotEquipped } from '~data/not-equipped.ts'
-import { boosterNotEquipped } from '~data/not-equipped.ts'
+import type { BoosterNotEquipped } from '~data/not-equipped'
+import { boosterNotEquipped } from '~data/not-equipped'
 
 import { booster as boosterCategory } from './types/base/category'
 import { booster as boosterClass } from './types/base/classification'

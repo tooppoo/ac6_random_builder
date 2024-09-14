@@ -1,5 +1,5 @@
-import { head as headCategory } from '~data/types/base/category.ts'
-import { head as headClass } from '~data/types/base/classification.ts'
+import { head as headCategory } from '~data/types/base/category'
+import { head as headClass } from '~data/types/base/classification'
 import {
   allmind,
   arquebus,
@@ -11,7 +11,7 @@ import {
   rad,
   rubicon_research_institute,
   schneider,
-} from '~data/types/base/manufacture.ts'
+} from '~data/types/base/manufacture'
 
 import { defineHead } from './types/frame/types'
 

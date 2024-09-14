@@ -4,12 +4,24 @@
   "version": "1.14.3",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "npm run check-types && vite build",
+    "build-only": "vite build",
+    "analyze": "ANALIZE_MODE=static vite build",
+    "analyze:open": "ANALYZE_MODE=server vite build",
+    "preview": "vite preview",
+    "test": "VITE_LOG_LEVEL=silent vitest run",
+    "test:watch": "VITE_LOG_LEVEL=silent vitest",
+    "coverage": "VITE_LOG_LEVEL=silent vitest run --coverage",
+    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "check-types": "tsc && svelte-check --tsconfig ./tsconfig.json"
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",
   "license": "MIT",
   "description": "",
   "devDependencies": {
+    "@ac6_assemble_tool/tsconfig": "1.0.0",
     "@popperjs/core": "2.11.8",
     "@sveltejs/vite-plugin-svelte": "3.1.2",
     "@testing-library/jest-dom": "6.5.0",
@@ -31,5 +43,9 @@
     "vite-plugin-dynamic-import": "1.5.0",
     "vite-plugin-purgecss-updated-v5": "1.2.1",
     "vite-plugin-sitemap": "0.7.1"
+  },
+  "dependencies": {
+    "@ac6_assemble_tool/core": "1.0.0",
+    "@ac6_assemble_tool/parts": "1.6.1"
   }
 }

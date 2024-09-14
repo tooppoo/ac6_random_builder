@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config'
 
-import viteConfig from './vite.config.ts'
+import viteConfig from './vite.config'
 
 export default defineConfig({
   ...viteConfig,
@@ -9,11 +9,11 @@ export default defineConfig({
       reporter: ['text', 'json', 'lcov'],
       all: true,
       exclude: [
-        'src/view/pages/index/index.ts',
+        'src/pages/index/index.ts',
         '*.config.*',
         '**/**/*.d.ts',
-        'spec/spec-helper/*',
       ],
+      provider: 'v8'
     },
     environment: 'jsdom',
     setupFiles: ['./vitest-setup.ts'],

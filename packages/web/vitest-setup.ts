@@ -1,5 +1,4 @@
 import '@testing-library/svelte/vitest'
 import '@testing-library/jest-dom/vitest'
-import 'fake-indexeddb/auto'
 
-import '~spec/spec-helper/vitest-extend'
+import '@ac6_assemble_tool/core/spec-helper/vitest-extend'

@@ -5,9 +5,10 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "~core/*": ["./src/*"]
+      "~core/*": ["./src/*"],
+      "~spec/*": ["./spec/*"],
+      "~spec-helper/*": ["./spec-helper/*"]
     }
   },
-  "include": ["src"],
   "exclude": ["node_modules"]
 }

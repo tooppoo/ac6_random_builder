@@ -1,6 +1,7 @@
 {
   "name": "@ac6_assemble_tool/parts",
   "version": "1.6.1",
+  "type": "module",
   "exports": {
     "./*": {
       "import": {

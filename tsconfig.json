@@ -21,13 +21,12 @@
 
     "baseUrl": ".",
     "paths": {
-      "~core/*": ["./src/core/*"],
       "~view/*": ["./src/view/*"],
       "~spec/*": ["./spec/*"],
       "~root/*": ["./*"]
     }
   },
-  "include": ["./src/**/*", "./data**/*", "./spec/**/*"],
+  "include": ["./src/**/*", "./spec/**/*"],
   "exclude": ["node_modules", "scripts/**/*", "packages/**/*"],
   "extends": "@tsconfig/svelte/tsconfig.json"
 }

@@ -1,7 +1,21 @@
 {
   "name": "@ac6_assemble_tool/core",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "exports": {
+    "./*": {
+      "import": {
+        "types": "./src/*.ts",
+        "default": "./dist/src/*.js"
+      }
+    },
+    "./spec-helper/*": {
+      "import": {
+        "types": "./spec-helper/*.ts",
+        "default": "./dist/spec-helper/*.js"
+      }
+    }
+  },
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",

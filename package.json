@@ -81,6 +81,7 @@
   },
   "workspaces": [
     "packages/parts",
-    "packages/tsconfig"
+    "packages/tsconfig",
+    "packages/core"
   ]
 }

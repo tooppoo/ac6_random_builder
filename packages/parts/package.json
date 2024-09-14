@@ -1,10 +1,6 @@
 {
   "name": "@ac6_assemble_tool/parts",
   "version": "1.6.1",
-  "main": "index.js",
-  "devDependencies": {
-    "@ac6_assemble_tool/tsconfig": "1.0.0"
-  },
   "exports": {
     "./*": {
       "import": {
@@ -20,5 +16,8 @@
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@ac6_assemble_tool/tsconfig": "1.0.0"
+  }
 }

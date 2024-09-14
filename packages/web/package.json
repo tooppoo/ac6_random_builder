@@ -1,0 +1,35 @@
+{
+  "name": "@ac6_assemble_tool/web",
+  "private": true,
+  "version": "1.14.3",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "@popperjs/core": "2.11.8",
+    "@sveltejs/vite-plugin-svelte": "3.1.2",
+    "@testing-library/jest-dom": "6.5.0",
+    "@testing-library/svelte": "5.2.1",
+    "@tsconfig/svelte": "5.0.4",
+    "@types/bootstrap": "5.2.10",
+    "bootstrap": "5.3.3",
+    "bootstrap-icons": "1.11.3",
+    "eslint-plugin-svelte": "2.44.0",
+    "globals": "15.9.0",
+    "i18next": "23.15.1",
+    "jsdom": "25.0.0",
+    "sass": "1.78.0",
+    "svelte": "4.2.19",
+    "svelte-check": "4.0.2",
+    "svelte-eslint-parser": "0.41.1",
+    "svelte-i18next": "2.2.2",
+    "vite-bundle-analyzer": "0.10.6",
+    "vite-plugin-dynamic-import": "1.5.0",
+    "vite-plugin-purgecss-updated-v5": "1.2.1",
+    "vite-plugin-sitemap": "0.7.1"
+  }
+}

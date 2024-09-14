@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "@ac6_assemble_tool/tsconfig/base.json"
+  ],
+  "include": ["src"]
+}

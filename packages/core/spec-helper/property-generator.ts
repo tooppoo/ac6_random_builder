@@ -18,14 +18,19 @@ import fc, { Arbitrary, type ArrayConstraints } from 'fast-check'
 
 export const genAssembly = (candidates: Candidates | null = null) =>
   (candidates ? fc.constant(candidates) : genCandidates()).map(randomBuild)
-export const genAssemblyKeys = (cons: ArrayConstraints = {}): fc.Arbitrary<AssemblyKey[]> =>
+export const genAssemblyKeys = (
+  cons: ArrayConstraints = {},
+): fc.Arbitrary<AssemblyKey[]> =>
   fc.uniqueArray(fc.constantFrom(...assemblyKeys()), cons)
 
 type AssemblyKeyConstraint =
   | { only: AssemblyKey[]; without?: undefined }
   | { only?: undefined; without: AssemblyKey[] }
   | { only?: undefined; without?: undefined }
-export const genAssemblyKey = ({ only, without }: AssemblyKeyConstraint = {}): fc.Arbitrary<AssemblyKey> =>
+export const genAssemblyKey = ({
+  only,
+  without,
+}: AssemblyKeyConstraint = {}): fc.Arbitrary<AssemblyKey> =>
   genAssemblyKeys({ minLength: 1 })
     .map(random)
     .filter((k) => {

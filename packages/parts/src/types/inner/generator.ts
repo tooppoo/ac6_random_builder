@@ -1,8 +1,8 @@
-import type { ACParts } from '../base/types'
-
 import type * as Category from '~parts/types/base/category'
 import type * as Classification from '~parts/types/base/classification'
 import type { Manufacture } from '~parts/types/base/manufacture'
+
+import type { ACParts } from '../base/types'
 
 export const defineGenerator = (d: Generator) => d
 export type Generator = Readonly<{

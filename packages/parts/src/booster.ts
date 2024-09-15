@@ -1,3 +1,6 @@
+import { boosterNotEquipped } from '~parts/not-equipped'
+import type { BoosterNotEquipped } from '~parts/not-equipped'
+
 import { booster as boosterCategory } from './types/base/category'
 import { booster as boosterClass } from './types/base/classification'
 import {
@@ -8,9 +11,6 @@ import {
   schneider,
 } from './types/base/manufacture'
 import { defineBooster } from './types/inner/booster'
-
-import { boosterNotEquipped } from '~parts/not-equipped'
-import type { BoosterNotEquipped } from '~parts/not-equipped'
 
 export const boosters = [
   defineBooster({

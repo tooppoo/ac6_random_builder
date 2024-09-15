@@ -1,5 +1,3 @@
-import { defineHead } from './types/frame/types'
-
 import { head as headCategory } from '~parts/types/base/category'
 import { head as headClass } from '~parts/types/base/classification'
 import {
@@ -14,6 +12,8 @@ import {
   rubicon_research_institute,
   schneider,
 } from '~parts/types/base/manufacture'
+
+import { defineHead } from './types/frame/types'
 
 export const heads = [
   defineHead({

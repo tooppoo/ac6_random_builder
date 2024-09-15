@@ -10,8 +10,8 @@ import {
   toggleFilter,
 } from '~view/pages/index/interaction/filter'
 
-import type {AssemblyKey} from "@ac6_assemble_tool/core/assembly/assembly";
-import type {PartsFilterSet} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
+import type { AssemblyKey } from '@ac6_assemble_tool/core/assembly/assembly'
+import type { PartsFilterSet } from '@ac6_assemble_tool/core/assembly/filter/filter-set'
 import {
   excludeNotEquipped,
   onlyPropertyIncludedInList,
@@ -135,9 +135,7 @@ describe('filter interaction', () => {
     const state = toggleFilter(key, initialState)
     const pfs: PartsFilterSet = state.map[key]
 
-    state.map[key] = state.map[key].enable(
-      random(pfs.list).filter.name,
-    )
+    state.map[key] = state.map[key].enable(random(pfs.list).filter.name)
 
     expect(anyFilterEnabled(key, state)).toBe(true)
   })

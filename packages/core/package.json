@@ -17,7 +17,7 @@
     }
   },
   "scripts": {
-    "dev": "tsc && (concurrently \\\"tsc -w\\\" \\\"tsc-alias -w\\\")",
+    "dev": "npm run build && (concurrently \"tsc -w\" \"tsc-alias -w\")",
     "build": "tsc && tsc-alias",
     "test": "vitest run",
     "test:watch": "vitest",

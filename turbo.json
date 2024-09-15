@@ -25,6 +25,10 @@
       "persistent": true,
       "cache": false
     },
+    "preview": {
+      "persistent": true,
+      "cache": false
+    },
     "transit": {
       "dependsOn": ["^transit"]
     }

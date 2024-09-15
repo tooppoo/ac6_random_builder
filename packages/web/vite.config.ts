@@ -40,7 +40,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '~view/': join(__dirname, 'src/view/'),
+      '~view/': join(__dirname, 'src/'),
       '~spec/': join(__dirname, 'spec/'),
       '~root/': join(__dirname, '/'),
     },

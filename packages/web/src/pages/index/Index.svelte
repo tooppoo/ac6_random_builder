@@ -5,21 +5,6 @@
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import Margin from "~view/components/spacing/Margin.svelte";
   import i18n from "~view/i18n/define";
-  import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
-  import FilterForWholeOffCanvas from "~view/pages/index/filter/FilterForWholeOffCanvas.svelte";
-  import type {ChangePartsEvent, ToggleLockEvent} from "~view/pages/index/form/PartsSelectForm.svelte";
-  import {assemblyErrorMessage, filterApplyErrorMessage} from "~view/pages/index/interaction/error-message";
-  import {
-    applyFilter, assemblyWithHeadParts,
-    changePartsFilter,
-    type FilterState,
-    initialFilterState,
-    toggleFilter,
-  } from "~view/pages/index/interaction/filter";
-  import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
-  import ReportList from '~view/pages/index/report/ReportList.svelte'
-  import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
-  import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
   import {logger} from "~view/utils/logger";
 
   import {
@@ -38,9 +23,24 @@
 
   import appPackage from '~root/package.json'
 
+  import FilterByPartsOffCanvas from "./filter/FilterByPartsOffCanvas.svelte";
+  import FilterForWholeOffCanvas from "./filter/FilterForWholeOffCanvas.svelte";
+  import type {ChangePartsEvent, ToggleLockEvent} from "./form/PartsSelectForm.svelte";
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
+  import {assemblyErrorMessage, filterApplyErrorMessage} from "./interaction/error-message";
+  import {
+    applyFilter, assemblyWithHeadParts,
+    changePartsFilter,
+    type FilterState,
+    initialFilterState,
+    toggleFilter,
+  } from "./interaction/filter";
+  import NavButton from "./layout/navbar/NavButton.svelte";
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
+  import ReportList from './report/ReportList.svelte'
+  import ShareAssembly from './share/ShareAssembly.svelte'
+  import StoreAssembly from "./store/StoreAssembly.svelte";
 
   const appVersion = appPackage.version
   const regulation = 'v1.06.1'

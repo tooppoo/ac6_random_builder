@@ -9,8 +9,8 @@
   },
   "packageManager": "npm@10.8.2",
   "scripts": {
-    "dev": "vite",
-    "build": "npm run check-types && vite build",
+    "dev": "turbo dev",
+    "build": "turbo build",
     "build-only": "vite build",
     "analyze": "ANALIZE_MODE=static vite build",
     "analyze:open": "ANALYZE_MODE=server vite build",
@@ -18,8 +18,8 @@
     "test": "VITE_LOG_LEVEL=silent vitest run",
     "test:watch": "VITE_LOG_LEVEL=silent vitest",
     "coverage": "VITE_LOG_LEVEL=silent vitest run --coverage",
-    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
-    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "lint": "turbo lint",
+    "format": "turbo format",
     "check-types": "tsc && svelte-check --tsconfig ./tsconfig.json",
     "extract-ja-chars": "tsx scripts/extract-ja-characters/extract-from-i18n.ts"
   },

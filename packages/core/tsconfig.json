@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "@ac6_assemble_tool/tsconfig/base.json"
-  ],
+  "extends": ["@ac6_assemble_tool/tsconfig/base.json"],
   "compilerOptions": {
     "outDir": "dist",
     "paths": {

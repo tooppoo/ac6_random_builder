@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
-  import {logger} from "@ac6_assemble_tool/core/utils/logger";
 
   import TextButton from "~view/components/button/TextButton.svelte";
   import i18n from "~view/i18n/define.ts";
   import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
   import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
 
+  import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
+  import {logger} from "@ac6_assemble_tool/core/utils/logger";
   import {createEventDispatcher} from "svelte";
   import type {ChangeEventHandler} from "svelte/elements";
 

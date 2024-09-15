@@ -5,13 +5,19 @@ import {
   enableOrNot,
   type FilterByProp,
 } from '~core/assembly/filter/filter-type'
-import {BaseCustomError} from "~core/utils/error";
+import { BaseCustomError } from '~core/utils/error'
 
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
-import { armUnit, notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
+import {
+  armUnit,
+  notEquipped,
+} from '@ac6_assemble_tool/parts/types/base/classification'
 import type { ACParts } from '@ac6_assemble_tool/parts/types/base/types'
-import { type Candidates, type CandidatesKey } from '@ac6_assemble_tool/parts/types/candidates'
+import {
+  type Candidates,
+  type CandidatesKey,
+} from '@ac6_assemble_tool/parts/types/candidates'
 
 export const excludeNotEquipped = (() => {
   const name = 'excludeNotEquipped'

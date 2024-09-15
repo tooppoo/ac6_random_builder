@@ -1,5 +1,4 @@
 import { onlyPropertyIncludedInList } from '@ac6_assemble_tool/core/assembly/filter/filters'
-
 import type { Unit } from '@ac6_assemble_tool/parts/units'
 
 export const enFilter = {

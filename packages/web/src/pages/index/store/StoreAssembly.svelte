@@ -2,6 +2,13 @@
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
 </script>
 <script lang="ts">
+
+  import IconButton from "~view/components/button/IconButton.svelte";
+  import TextButton from "~view/components/button/TextButton.svelte";
+  import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
+  import i18n from "~view/i18n/define.ts";
+  import ShareAssembly from "~view/pages/index/share/ShareAssembly.svelte";
+
   import type {Assembly} from "@ac6_assemble_tool/core/assembly/assembly";
   import {filterByKeywords} from "@ac6_assemble_tool/core/assembly/store/filter";
   import {IndexedDbRepository} from "@ac6_assemble_tool/core/assembly/store/repository/indexed-db/indexed-db-repository";
@@ -10,15 +17,7 @@
     type StoredAssemblyAggregation,
     type StoredAssemblyRepository
   } from "@ac6_assemble_tool/core/assembly/store/stored-assembly";
-
-  import IconButton from "~view/components/button/IconButton.svelte";
-  import TextButton from "~view/components/button/TextButton.svelte";
-  import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
-  import i18n from "~view/i18n/define.ts";
-  import ShareAssembly from "~view/pages/index/share/ShareAssembly.svelte";
-
   import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
-
   import { createEventDispatcher } from 'svelte'
 
   export let open: boolean

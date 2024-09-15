@@ -1,16 +1,15 @@
 import { randomBuild } from '~core/assembly/random/random-builder'
 
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
-import { booster, notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
+import {
+  booster,
+  notEquipped,
+} from '@ac6_assemble_tool/parts/types/base/classification'
 import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
-
 import { fc, it } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'
 
-import {
-  genCandidates,
-  genLockedParts,
-} from '~spec-helper/property-generator'
+import { genCandidates, genLockedParts } from '~spec-helper/property-generator'
 
 describe(randomBuild.name, () => {
   it.prop([genCandidates()])(

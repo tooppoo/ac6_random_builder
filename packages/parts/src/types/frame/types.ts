@@ -1,9 +1,9 @@
-import type * as Category from '~data/types/base/category'
-import type { WithBooster } from '~data/types/inner/booster'
-
 import type * as Classification from '../base/classification'
 import type { Manufacture } from '../base/manufacture'
 import type { ACParts } from '../base/types'
+
+import type * as Category from '~data/types/base/category'
+import type { WithBooster } from '~data/types/inner/booster'
 
 const defineFrame =
   <

@@ -1,4 +1,8 @@
 import {
+  assemblyToSearch,
+  searchToAssembly,
+} from '~core/assembly/serialize/as-query'
+import {
   type StoredAssemblyDto,
   storedAssemblyDtoScheme,
 } from '~core/assembly/store/repository/data-transfer-object'
@@ -13,11 +17,6 @@ import type {
   StoredAssemblyRepository,
   UpdatedAssemblyAggregation,
 } from '~core/assembly/store/stored-assembly'
-
-import {
-  assemblyToSearch,
-  searchToAssembly,
-} from '~view/pages/index/interaction/share.ts'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 

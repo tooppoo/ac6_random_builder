@@ -5,7 +5,10 @@ import type { Legs } from '@ac6_assemble_tool/parts/legs'
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import type { BoosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
-import { booster, notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
+import {
+  booster,
+  notEquipped,
+} from '@ac6_assemble_tool/parts/types/base/classification'
 import {
   type Candidates,
   excludeNotEquipped,

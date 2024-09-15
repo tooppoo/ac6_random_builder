@@ -1,13 +1,3 @@
-import type { Category } from '~data/types/base/category'
-import type {
-  ArmUnit,
-  BackUnit,
-  Classification,
-  leftBackUnit,
-} from '~data/types/base/classification'
-import type { Manufacture } from '~data/types/base/manufacture'
-import type { ACParts } from '~data/types/base/types'
-
 import type {
   AttackType,
   coral,
@@ -17,6 +7,16 @@ import type {
   none,
 } from './attack_type'
 import type { melee, shield, WeaponType } from './weapon_type'
+
+import type { Category } from '~data/types/base/category'
+import type {
+  ArmUnit,
+  BackUnit,
+  Classification,
+  leftBackUnit,
+} from '~data/types/base/classification'
+import type { Manufacture } from '~data/types/base/manufacture'
+import type { ACParts } from '~data/types/base/types'
 
 const defineAttackUnit =
   <Cl extends Classification>() =>

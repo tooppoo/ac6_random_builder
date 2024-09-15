@@ -5,12 +5,14 @@ import {
   totalLoadNotOverMax,
 } from '~core/assembly/random/validator/validators'
 
-import type {LeftArmUnit, ArmUnit} from '@ac6_assemble_tool/parts/arm-units';
-import {type ArmNotEquipped, armNotEquipped} from '@ac6_assemble_tool/parts/not-equipped'
+import type { LeftArmUnit, ArmUnit } from '@ac6_assemble_tool/parts/arm-units'
+import {
+  type ArmNotEquipped,
+  armNotEquipped,
+} from '@ac6_assemble_tool/parts/not-equipped'
 import { notEquipped as notEquippedClass } from '@ac6_assemble_tool/parts/types/base/classification'
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
-
 import { fc, it as fcit } from '@fast-check/vitest'
 import sinon from 'sinon'
 import { afterEach, beforeEach, describe, expect } from 'vitest'
@@ -158,9 +160,13 @@ describe('validator', () => {
         ): readonly T[] => xs.filter((x) => !ex.find((e) => e.name == x.name))
 
         // 腕武器と肩武器の候補が重ならないように調整
-        const rightArmUnit = halfSlice<ArmUnit | ArmNotEquipped>(candidates.rightArmUnit)
+        const rightArmUnit = halfSlice<ArmUnit | ArmNotEquipped>(
+          candidates.rightArmUnit,
+        )
         const rightBackUnit = exclude(candidates.rightBackUnit, rightArmUnit)
-        const leftArmUnit = halfSlice<LeftArmUnit | ArmUnit | ArmNotEquipped>(candidates.leftArmUnit)
+        const leftArmUnit = halfSlice<LeftArmUnit | ArmUnit | ArmNotEquipped>(
+          candidates.leftArmUnit,
+        )
         const leftBackUnit = exclude(candidates.leftBackUnit, leftArmUnit)
 
         return {

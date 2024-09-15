@@ -1,10 +1,4 @@
 import {
-  excludeNotEquipped,
-  onlyPropertyIncludedInList,
-} from '@ac6_assemble_tool/core/assembly/filter/filters'
-import { random } from '@ac6_assemble_tool/core/utils/array'
-
-import {
   anyFilterContain,
   anyFilterEnabled,
   assemblyWithHeadParts,
@@ -14,23 +8,26 @@ import {
   initialFilterState,
   setupFilter,
   toggleFilter,
+} from '~view/pages/index/interaction/filter'
+
+import {
+  excludeNotEquipped,
+  onlyPropertyIncludedInList,
   UsableItemNotFoundError,
-} from '~view/pages/index/interaction/filter.ts'
-
-import { booster, tank } from '@ac6_assemble_tool/parts/types/base/category'
-import { notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
-import type { Unit } from '@ac6_assemble_tool/parts/units'
-import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
-
-import { fc, it } from '@fast-check/vitest'
-import { beforeEach, describe, expect } from 'vitest'
-
+} from '@ac6_assemble_tool/core/assembly/filter/filters'
 import {
   genAssemblyKey,
   genAssemblyKeys,
   genCandidates,
   genFilterApplyContext,
-} from '~spec/spec-helper/property-generator.ts'
+} from '@ac6_assemble_tool/core/spec-helper/property-generator'
+import { random } from '@ac6_assemble_tool/core/utils/array'
+import { booster, tank } from '@ac6_assemble_tool/parts/types/base/category'
+import { notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
+import type { Unit } from '@ac6_assemble_tool/parts/units'
+import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
+import { fc, it } from '@fast-check/vitest'
+import { beforeEach, describe, expect } from 'vitest'
 
 describe('filter interaction', () => {
   describe('toggle', () => {

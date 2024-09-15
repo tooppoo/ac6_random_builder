@@ -20,7 +20,10 @@ import {
 } from '@ac6_assemble_tool/core/assembly/filter/filters'
 import { logger } from '@ac6_assemble_tool/core/utils/logger'
 import { boosterMustBeEquipped } from '@ac6_assemble_tool/parts/booster'
-import { armNotEquipped, boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
+import {
+  armNotEquipped,
+  boosterNotEquipped,
+} from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
 import { manufactures } from '@ac6_assemble_tool/parts/types/base/manufacture'
 import { type Candidates } from '@ac6_assemble_tool/parts/types/candidates'

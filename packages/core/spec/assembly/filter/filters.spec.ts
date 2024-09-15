@@ -14,7 +14,6 @@ import {
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
 import { armUnit } from '@ac6_assemble_tool/parts/types/base/classification'
 import { manufactures } from '@ac6_assemble_tool/parts/types/base/manufacture'
-
 import { fc, it } from '@fast-check/vitest'
 import { uniq } from 'lodash-es'
 import sinon from 'sinon'

@@ -4,18 +4,16 @@
   export type ToggleLock = { id: AssemblyKey, value: boolean }
 </script>
 <script lang="ts">
-  import type {Assembly } from "@ac6_assemble_tool/core/assembly/assembly";
-  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
-  import {sum} from "@ac6_assemble_tool/core/utils/array";
-  import {roundUpByRealPart} from "@ac6_assemble_tool/core/utils/number";
-
   import i18n from '~view/i18n/define.ts'
   import RangeSlider from '~view/pages/index/filter/range/base/RangeSlider.svelte'
   import LockBadge from "~view/pages/index/form/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
 
+  import type {Assembly } from "@ac6_assemble_tool/core/assembly/assembly";
+  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
+  import {sum} from "@ac6_assemble_tool/core/utils/array";
+  import {roundUpByRealPart} from "@ac6_assemble_tool/core/utils/number";
   import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
-
   import Dropdown from "bootstrap/js/dist/dropdown";
   import {createEventDispatcher} from "svelte";
   import type {Action} from "svelte/action";

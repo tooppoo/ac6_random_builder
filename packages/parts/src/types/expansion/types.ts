@@ -1,9 +1,9 @@
+import type { AsAttackUnit, WithBlast } from '../unit/types'
+
 import type { Expansion as ExpansionCategory } from '~data/types/base/category'
 import type { Expansion as ExpansionClass } from '~data/types/base/classification'
 import type { NoneManufacture } from '~data/types/base/manufacture'
 import type { ACParts } from '~data/types/base/types'
-
-import type { AsAttackUnit, WithBlast } from '../unit/types'
 
 export const defineExpansion = <Ex extends object>(
   d: ACParts<ExpansionClass, NoneManufacture, ExpansionCategory> & Ex,

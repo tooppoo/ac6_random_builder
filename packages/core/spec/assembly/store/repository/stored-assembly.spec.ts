@@ -6,7 +6,6 @@ import type {
 } from '~core/assembly/store/stored-assembly'
 
 import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
-
 import { it } from '@fast-check/vitest'
 import { ulid } from 'ulid'
 import { describe, expect } from 'vitest'

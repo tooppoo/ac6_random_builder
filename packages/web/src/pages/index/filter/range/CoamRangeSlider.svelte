@@ -1,12 +1,10 @@
 <script lang="ts">
-  import {sum} from "@ac6_assemble_tool/core/utils/array";
-  import {roundUpByRealPart} from "@ac6_assemble_tool/core/utils/number";
-
   import i18n from "~view/i18n/define.ts";
   import RangeSlider from '~view/pages/index/filter/range/base/RangeSlider.svelte'
 
+  import {sum} from "@ac6_assemble_tool/core/utils/array";
+  import {roundUpByRealPart} from "@ac6_assemble_tool/core/utils/number";
   import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
-
   import {createEventDispatcher} from "svelte";
 
   export let candidates: Candidates

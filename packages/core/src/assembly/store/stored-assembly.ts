@@ -1,7 +1,6 @@
 import type { Assembly } from '~core/assembly/assembly'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
-
 import { ulid } from 'ulid'
 
 export function createAggregation(

@@ -18,7 +18,6 @@ import { generators } from '@ac6_assemble_tool/parts/generators'
 import { heads } from '@ac6_assemble_tool/parts/heads'
 import { legs } from '@ac6_assemble_tool/parts/legs'
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
-
 import { it as fcit } from '@fast-check/vitest'
 import { beforeEach, describe, expect, it, test } from 'vitest'
 

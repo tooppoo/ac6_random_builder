@@ -14,7 +14,6 @@ import { random } from '~core/utils/array'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
-
 import fc, { Arbitrary, type ArrayConstraints } from 'fast-check'
 
 export const genAssembly = (candidates: Candidates | null = null) =>

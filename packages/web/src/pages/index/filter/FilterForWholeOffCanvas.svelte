@@ -1,11 +1,10 @@
 <script lang="ts" context="module">
-  import type {Assembly} from "@ac6_assemble_tool/core/assembly/assembly";
-  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
-  import type {RandomAssembly} from "@ac6_assemble_tool/core/assembly/random/random-assembly";
-  
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
   import type {FilterState} from "~view/pages/index/interaction/filter.ts";
 
+  import type {Assembly} from "@ac6_assemble_tool/core/assembly/assembly";
+  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
+  import type {RandomAssembly} from "@ac6_assemble_tool/core/assembly/random/random-assembly";
   import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
 
   export type ToggleFilter = ToggleOffCanvas
@@ -17,9 +16,6 @@
   }>>
 </script>
 <script lang="ts">
-  import {excludeNotEquipped, notUseHanger} from "@ac6_assemble_tool/core/assembly/filter/filters";
-  import {totalCoamNotOverMax, totalLoadNotOverMax} from "@ac6_assemble_tool/core/assembly/random/validator/validators";
-  import {logger} from "@ac6_assemble_tool/core/utils/logger";
 
   import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
@@ -32,6 +28,9 @@
     enableFilterOnAllParts, initialFilterState,
   } from "~view/pages/index/interaction/filter.ts";
 
+  import {excludeNotEquipped, notUseHanger} from "@ac6_assemble_tool/core/assembly/filter/filters";
+  import {totalCoamNotOverMax, totalLoadNotOverMax} from "@ac6_assemble_tool/core/assembly/random/validator/validators";
+  import {logger} from "@ac6_assemble_tool/core/utils/logger";
   import {createEventDispatcher} from "svelte";
 
   export let open: boolean

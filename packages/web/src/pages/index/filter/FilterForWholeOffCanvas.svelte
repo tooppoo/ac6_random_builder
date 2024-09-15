@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
-  import type {FilterState} from "~view/pages/index/interaction/filter.ts";
+  import type {FilterState} from "~view/pages/index/interaction/filter";
 
   import type {Assembly} from "@ac6_assemble_tool/core/assembly/assembly";
   import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
   import type {RandomAssembly} from "@ac6_assemble_tool/core/assembly/random/random-assembly";
-  import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates.ts";
+  import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates";
 
   export type ToggleFilter = ToggleOffCanvas
   export type ApplyWhole = Partial<Readonly<{
@@ -19,14 +19,14 @@
 
   import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
-  import i18n from "~view/i18n/define.ts";
+  import i18n from "~view/i18n/define";
   import CoamRangeSlider from "~view/pages/index/filter/range/CoamRangeSlider.svelte";
   import type {ToggleLock} from "~view/pages/index/filter/range/LoadRangeSlider.svelte";
   import LoadRangeSlider from "~view/pages/index/filter/range/LoadRangeSlider.svelte";
   import {
     assemblyWithHeadParts,
     enableFilterOnAllParts, initialFilterState,
-  } from "~view/pages/index/interaction/filter.ts";
+  } from "~view/pages/index/interaction/filter";
   import {logger} from "~view/utils/logger";
 
   import {excludeNotEquipped, notUseHanger} from "@ac6_assemble_tool/core/assembly/filter/filters";

@@ -1,4 +1,4 @@
-import type { I18Next } from '~view/i18n/define.ts'
+import type { I18Next } from '~view/i18n/define'
 
 import { UsableItemNotFoundError } from '@ac6_assemble_tool/core/assembly/filter/filters'
 import { OverTryLimitError } from '@ac6_assemble_tool/core/assembly/random/random-assembly'

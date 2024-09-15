@@ -1,4 +1,4 @@
-import type { I18Next } from '~view/i18n/define.ts'
+import type { I18Next } from '~view/i18n/define'
 import {
   assemblyErrorMessage,
   filterApplyErrorMessage,

@@ -1,4 +1,4 @@
-import { resources } from '~view/i18n/resources.ts'
+import { resources } from '~view/i18n/resources'
 
 import _i18next from 'i18next'
 import { createI18nStore } from 'svelte-i18next'

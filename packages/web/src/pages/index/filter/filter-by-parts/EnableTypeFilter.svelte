@@ -1,6 +1,6 @@
 <script lang="ts">
-  import i18n from "~view/i18n/define.ts";
-  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
+  import i18n from "~view/i18n/define";
+  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event";
   import {logger} from "~view/utils/logger";
 
   import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";

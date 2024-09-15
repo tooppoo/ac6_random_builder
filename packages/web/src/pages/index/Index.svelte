@@ -4,18 +4,18 @@
   import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import Margin from "~view/components/spacing/Margin.svelte";
-  import i18n from "~view/i18n/define.ts";
+  import i18n from "~view/i18n/define";
   import FilterByPartsOffCanvas from "~view/pages/index/filter/FilterByPartsOffCanvas.svelte";
   import FilterForWholeOffCanvas from "~view/pages/index/filter/FilterForWholeOffCanvas.svelte";
   import type {ChangePartsEvent, ToggleLockEvent} from "~view/pages/index/form/PartsSelectForm.svelte";
-  import {assemblyErrorMessage, filterApplyErrorMessage} from "~view/pages/index/interaction/error-message.ts";
+  import {assemblyErrorMessage, filterApplyErrorMessage} from "~view/pages/index/interaction/error-message";
   import {
     applyFilter, assemblyWithHeadParts,
     changePartsFilter,
     type FilterState,
     initialFilterState,
     toggleFilter,
-  } from "~view/pages/index/interaction/filter.ts";
+  } from "~view/pages/index/interaction/filter";
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
   import ReportList from '~view/pages/index/report/ReportList.svelte'
   import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'

@@ -1,12 +1,12 @@
 import 'i18next'
-import { jaAttackType } from '~view/i18n/locales/ja/attackType.ts'
-import type { jaError } from '~view/i18n/locales/ja/error.ts'
-import type { jaManufactures } from '~view/i18n/locales/ja/manufactures.ts'
+import { jaAttackType } from '~view/i18n/locales/ja/attackType'
+import type { jaError } from '~view/i18n/locales/ja/error'
+import type { jaManufactures } from '~view/i18n/locales/ja/manufactures'
 
-import type { jaAssembly } from './locales/ja/assembly.ts'
-import type { jaFilter } from './locales/ja/filter.ts'
-import type { jaLock } from './locales/ja/lock.ts'
-import type { jaPageIndex } from './locales/ja/pages/index.ts'
+import type { jaAssembly } from './locales/ja/assembly'
+import type { jaFilter } from './locales/ja/filter'
+import type { jaLock } from './locales/ja/lock'
+import type { jaPageIndex } from './locales/ja/pages/index'
 
 declare module 'i18next' {
   interface CustomTypeOptions {

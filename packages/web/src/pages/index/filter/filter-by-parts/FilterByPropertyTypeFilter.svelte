@@ -1,9 +1,9 @@
 <script lang="ts">
 
   import TextButton from "~view/components/button/TextButton.svelte";
-  import i18n from "~view/i18n/define.ts";
-  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
-  import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
+  import i18n from "~view/i18n/define";
+  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event";
+  import type {CurrentFilter} from "~view/pages/index/interaction/filter";
   import {logger} from "~view/utils/logger";
 
   import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";

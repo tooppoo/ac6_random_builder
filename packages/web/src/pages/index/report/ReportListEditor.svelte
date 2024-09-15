@@ -8,7 +8,7 @@
   import type { EmptyObject } from '~core/utils/type'
 
   import IconButton from '~view/components/button/IconButton.svelte'
-  import i18n, {type I18Next} from "~view/i18n/define.ts";
+  import i18n, {type I18Next} from "~view/i18n/define";
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'
 
   import { createEventDispatcher } from 'svelte'

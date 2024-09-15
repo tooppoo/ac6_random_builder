@@ -1,6 +1,6 @@
 
 <script lang="ts">
-  import i18n from "~view/i18n/define.ts";
+  import i18n from "~view/i18n/define";
 
   const defaultLanguage: string = 'ja'
   const languageQuery: string = 'lng'

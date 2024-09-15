@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
-  import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
+  import type {CurrentFilter} from "~view/pages/index/interaction/filter";
 
   export type ToggleFilter = ToggleOffCanvas
 </script>
@@ -8,7 +8,7 @@
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import Margin from "~view/components/spacing/Margin.svelte";
   import EnableTypeFilter from "~view/pages/index/filter/filter-by-parts/EnableTypeFilter.svelte";
-  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
+  import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event";
   import FilterByPropertyTypeFilter from "~view/pages/index/filter/filter-by-parts/FilterByPropertyTypeFilter.svelte";
 
   import {createEventDispatcher} from "svelte";

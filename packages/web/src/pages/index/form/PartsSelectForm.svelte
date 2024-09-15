@@ -1,18 +1,18 @@
 <script lang="ts" context="module">
   import type {AssemblyKey} from "@ac6_assemble_tool/core/assembly/assembly";
   import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
-  import type {ACParts} from "@ac6_assemble_tool/parts/types/base/types.ts";
+  import type {ACParts} from "@ac6_assemble_tool/parts/types/base/types";
 
   export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: ACParts }>
   export type ToggleLockEvent = Readonly<{ id: AssemblyKey, value: boolean }>
   export type ToggleFilterEvent = Readonly<{ id: AssemblyKey }>
 </script>
 <script lang="ts">
-  import i18n from "~view/i18n/define.ts";
+  import i18n from "~view/i18n/define";
   import FilterBadge from "~view/pages/index/form/status/badge/FilterBadge.svelte";
   import LockBadge from "~view/pages/index/form/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
-  import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/pages/index/interaction/filter.ts";
+  import {anyFilterContain, anyFilterEnabled, type FilterState} from "~view/pages/index/interaction/filter";
 
   import {createEventDispatcher} from "svelte";
 

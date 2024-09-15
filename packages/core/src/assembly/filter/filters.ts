@@ -29,7 +29,10 @@ type ExcludeNotEquippedConfig = WithEmptyHandle<
     key: CandidatesKey
   }>
 >
-export const excludeNotEquipped = ((): FilterBuilder<ExcludeNotEquippedConfig, EnableOrNot> => {
+export const excludeNotEquipped = ((): FilterBuilder<
+  ExcludeNotEquippedConfig,
+  EnableOrNot
+> => {
   const name = 'excludeNotEquipped'
 
   return {
@@ -79,7 +82,10 @@ export const notUseHanger = ((): FilterBuilder<CandidatesKey, EnableOrNot> => {
   } as const
 })()
 
-export const assumeConstraintLegsAndBooster = ((): FilterBuilder<Candidates, EnableOrNot> => {
+export const assumeConstraintLegsAndBooster = ((): FilterBuilder<
+  Candidates,
+  EnableOrNot
+> => {
   const name = 'assumeConstraintLegsAndBooster' as const
 
   return {
@@ -129,17 +135,14 @@ type OnlyPropertyIncludedInListConfig<
 export function onlyPropertyIncludedInList<
   P extends string & keyof B,
   B extends ACParts,
->(prop: P): FilterBuilder<OnlyPropertyIncludedInListConfig<P, B>,  FilterByProp<P, B>> {
+>(
+  prop: P,
+): FilterBuilder<OnlyPropertyIncludedInListConfig<P, B>, FilterByProp<P, B>> {
   const name = `only-${prop}-included-in-list` as const
 
   return {
     name,
-    build: ({
-      key,
-      selected,
-      whole,
-      onEmpty,
-    }) => ({
+    build: ({ key, selected, whole, onEmpty }) => ({
       name,
       type: {
         id: 'filterByProperty',

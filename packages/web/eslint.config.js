@@ -85,6 +85,14 @@ export default tsConfig(
           distinctGroup: true,
         },
       ],
+      'import/no-unresolved': [
+        'error',
+        {
+          ignore: [
+            '^\\@ac6_assemble_tool',
+          ],
+        },
+      ],
     },
   },
   {

@@ -5,7 +5,7 @@
   "exports": {
     "./*": {
       "import": {
-        "types": "./dist-types/*.ts",
+        "types": "./dist/*.d.ts",
         "default": "./dist/*.js"
       }
     }

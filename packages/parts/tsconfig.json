@@ -2,7 +2,7 @@
   "extends": ["@ac6_assemble_tool/tsconfig/base.json"],
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "dist-types",
+    "declarationDir": "dist",
     "outDir": "dist",
     "paths": {
       "~parts/*": ["./src/*"]

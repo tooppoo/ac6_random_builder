@@ -21,7 +21,8 @@
     "lint": "turbo lint",
     "format": "turbo format",
     "check-types": "tsc && svelte-check --tsconfig ./tsconfig.json",
-    "extract-ja-chars": "tsx scripts/extract-ja-characters/extract-from-i18n.ts"
+    "extract-ja-chars": "tsx scripts/extract-ja-characters/extract-from-i18n.ts",
+    "clean": "npx rimraf .turbo/cache"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",

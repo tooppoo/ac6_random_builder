@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
-  import type { EmptyObject } from '@ac6_assemble_tool/core/utils/type'
 
   import IconButton from '~view/components/button/IconButton.svelte'
   import i18n from "~view/i18n/define";
   import type { ReadonlyReportAggregation } from '~view/pages/index/report/model/report'
   import ReportItem from '~view/pages/index/report/ReportItem.svelte'
 
+  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
+  import type { EmptyObject } from '@ac6_assemble_tool/core/utils/type'
   import { createEventDispatcher } from 'svelte'
 
   export let assembly: Assembly

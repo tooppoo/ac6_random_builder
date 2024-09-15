@@ -88,9 +88,7 @@ export default tsConfig(
       'import/no-unresolved': [
         'error',
         {
-          ignore: [
-            '^\\@ac6_assemble_tool',
-          ],
+          ignore: ['^\\@ac6_assemble_tool'],
         },
       ],
     },

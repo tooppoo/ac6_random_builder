@@ -4,11 +4,7 @@
     "@tsconfig/svelte/tsconfig.json"
   ],
   "compilerOptions": {
-    "types": [
-      "vite/client",
-      "svelte",
-      "@ac6_assemble_tool/spec/lib/vitest"
-    ],
+    "types": ["vite/client", "svelte", "@ac6_assemble_tool/spec/lib/vitest"],
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
 
     "noEmit": true,

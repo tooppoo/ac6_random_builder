@@ -1,9 +1,10 @@
 <script lang="ts">
-  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
 
   import { defaultReportAggregation } from '~view/pages/index/report/model/report'
   import ReportListEditor, { type SaveAggregation } from '~view/pages/index/report/ReportListEditor.svelte'
   import ReportListViewer from '~view/pages/index/report/ReportListViewer.svelte'
+
+  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
 
   // state
   export let assembly: Assembly

@@ -4,6 +4,7 @@
     "outDir": "dist",
     "declaration": true,
     "sourceMap": true,
+    "types": ["@ac6_assemble_tool/spec/lib/vitest"],
     "paths": {
       "~core/*": ["./src/*"],
       "~spec/*": ["./spec/*"],

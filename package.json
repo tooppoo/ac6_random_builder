@@ -61,6 +61,7 @@
     "packages/parts",
     "packages/tsconfig",
     "packages/core",
-    "packages/web"
+    "packages/web",
+    "packages/spec"
   ]
 }

@@ -1,7 +1,7 @@
 import type {
   Between,
   ToHaveBeenCalledTimesWith,
-} from '~spec-helper/vitest-extend'
+} from './vitest-extend'
 
 interface CustomMatchers<R = unknown> {
   between: Between<R>

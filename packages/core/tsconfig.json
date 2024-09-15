@@ -2,12 +2,14 @@
   "extends": ["@ac6_assemble_tool/tsconfig/base.json"],
   "compilerOptions": {
     "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
     "paths": {
       "~core/*": ["./src/*"],
       "~spec/*": ["./spec/*"],
       "~spec-helper/*": ["./spec-helper/*"]
     }
   },
-  "include": ["src", "spec", "spec-helper"],
-  "exclude": ["node_modules"]
+  "include": ["./src", "./spec", "./spec-helper"],
+  "exclude": ["node_modules", "dist"]
 }

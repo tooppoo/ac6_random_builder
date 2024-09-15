@@ -10,20 +10,20 @@ const compat = new FlatCompat()
 
 export default tsConfig(
   {
-    ignores: ['dist/**/*', 'coverage/**/*', 'scripts/*/dist/**/*'],
+    ignores: ['dist/', 'coverage/', 'node_modules'],
   },
   {
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        ecmaVersion: 2021,
+        ecmaVersion: 2023,
         sourceType: 'module',
         extraFileExtensions: ['.svelte'],
       },
       globals: {
         ...globals.node,
         ...globals.browser,
-        ...globals.es2021,
+        ...globals.es2023,
       },
     },
   },
@@ -39,19 +39,18 @@ export default tsConfig(
   eslint.configs.recommended,
   ...tsConfigs.recommended,
   ...compat.extends('plugin:svelte/recommended'),
+  importPlugin.flatConfigs.recommended,
   {
-    // https://github.com/import-js/eslint-plugin-import/issues/2556#issuecomment-1419518561
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
     },
-    plugins: { import: importPlugin },
     settings: {
       'import/parsers': {
         /*
-         & trick for eslint-plugin-import
+         * trick for eslint-plugin-import
          * https://github.com/import-js/eslint-plugin-import/issues/2556#issuecomment-1419518561
          */
         espree: ['.js', '.cjs', '.mjs', '.jsx'],
@@ -63,8 +62,6 @@ export default tsConfig(
       },
     },
     rules: {
-      ...importPlugin.configs.recommended.rules,
-      ...importPlugin.configs.typescript.rules,
       'import/order': [
         'error',
         {
@@ -75,18 +72,8 @@ export default tsConfig(
           'newlines-between': 'always',
           pathGroups: [
             {
-              pattern: '~core/**',
-              group: 'builtin',
-              position: 'before',
-            },
-            {
               pattern: '~view/**',
               group: 'builtin',
-              position: 'after',
-            },
-            {
-              pattern: '~data/**',
-              group: 'external',
               position: 'before',
             },
             {

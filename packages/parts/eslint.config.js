@@ -6,7 +6,7 @@ import { config as tsConfig, configs as tsConfigs } from 'typescript-eslint'
 
 export default tsConfig(
   {
-    ignores: ['dist/**/*.js', 'dist/**/*.d.ts'],
+    ignores: ['dist/'],
   },
   {
     languageOptions: {

@@ -59,7 +59,7 @@ export default tsConfig(
           'newlines-between': 'always',
           pathGroups: [
             {
-              pattern: '~core/**',
+              pattern: '~parts/**',
               group: 'builtin',
               position: 'before',
             },

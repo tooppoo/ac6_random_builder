@@ -9,8 +9,8 @@ import {
 } from './types/base/manufacture'
 import { defineBooster } from './types/inner/booster'
 
-import { boosterNotEquipped } from '~data/not-equipped'
-import type { BoosterNotEquipped } from '~data/not-equipped'
+import { boosterNotEquipped } from '~parts/not-equipped'
+import type { BoosterNotEquipped } from '~parts/not-equipped'
 
 export const boosters = [
   defineBooster({

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "paths": {
-      "~data/*": ["./src/*"]
+      "~parts/*": ["./src/*"]
     }
   },
   "include": ["src"],

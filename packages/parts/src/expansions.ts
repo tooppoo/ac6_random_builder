@@ -4,9 +4,9 @@ import {
   defineExpansion,
 } from './types/expansion/types'
 
-import { expansion as expansionCategory } from '~data/types/base/category'
-import { expansion as expansionClass } from '~data/types/base/classification'
-import { noneManufacture } from '~data/types/base/manufacture'
+import { expansion as expansionCategory } from '~parts/types/base/category'
+import { expansion as expansionClass } from '~parts/types/base/classification'
+import { noneManufacture } from '~parts/types/base/manufacture'
 
 export const expansions = [
   defineExpansion<AsAssaultArmor>({

@@ -1,4 +1,4 @@
-import type { Candidates } from '~data/types/candidates'
+import type { Candidates } from '~parts/types/candidates'
 
 type Part = keyof Candidates
 type PatchForPart = <P extends Part>(key: P) => DefinePatch<P>

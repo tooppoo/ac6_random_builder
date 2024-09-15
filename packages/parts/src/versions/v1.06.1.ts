@@ -1,37 +1,37 @@
-import { armUnits, leftArmUnits } from '~data/arm-units'
-import { arms } from '~data/arms'
-import { backUnits, leftBackUnits } from '~data/back-units'
-import { boosters } from '~data/booster'
-import { cores } from '~data/cores'
-import { expansions } from '~data/expansions'
-import { fcses } from '~data/fces'
-import { generators } from '~data/generators'
-import { heads } from '~data/heads'
-import { legs } from '~data/legs'
+import { armUnits, leftArmUnits } from '~parts/arm-units'
+import { arms } from '~parts/arms'
+import { backUnits, leftBackUnits } from '~parts/back-units'
+import { boosters } from '~parts/booster'
+import { cores } from '~parts/cores'
+import { expansions } from '~parts/expansions'
+import { fcses } from '~parts/fces'
+import { generators } from '~parts/generators'
+import { heads } from '~parts/heads'
+import { legs } from '~parts/legs'
 import {
   armNotEquipped,
   backNotEquipped,
   expansionNotEquipped,
-} from '~data/not-equipped'
-import type { ACParts } from '~data/types/base/types'
-import type { Candidates, Order } from '~data/types/candidates'
+} from '~parts/not-equipped'
+import type { ACParts } from '~parts/types/base/types'
+import type { Candidates, Order } from '~parts/types/candidates'
 
 export const version = 'v1.06.1' as const
 export type VERSION = typeof version
 // UNIT
-export { armUnits, leftArmUnits } from '~data/arm-units'
-export { backUnits, leftBackUnits } from '~data/back-units'
+export { armUnits, leftArmUnits } from '~parts/arm-units'
+export { backUnits, leftBackUnits } from '~parts/back-units'
 // FRAME
-export { heads } from '~data/heads'
-export { cores } from '~data/cores'
-export { arms } from '~data/arms'
-export { legs } from '~data/legs'
+export { heads } from '~parts/heads'
+export { cores } from '~parts/cores'
+export { arms } from '~parts/arms'
+export { legs } from '~parts/legs'
 // INNER
-export { boosters } from '~data/booster'
-export { fcses } from '~data/fces'
-export { generators } from '~data/generators'
+export { boosters } from '~parts/booster'
+export { fcses } from '~parts/fces'
+export { generators } from '~parts/generators'
 // EXPANSION
-export { expansions } from '~data/expansions'
+export { expansions } from '~parts/expansions'
 
 export const candidates: Candidates = {
   rightArmUnit: [...armUnits, armNotEquipped],

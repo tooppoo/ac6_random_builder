@@ -8,15 +8,15 @@ import type {
 } from './attack_type'
 import type { melee, shield, WeaponType } from './weapon_type'
 
-import type { Category } from '~data/types/base/category'
+import type { Category } from '~parts/types/base/category'
 import type {
   ArmUnit,
   BackUnit,
   Classification,
   leftBackUnit,
-} from '~data/types/base/classification'
-import type { Manufacture } from '~data/types/base/manufacture'
-import type { ACParts } from '~data/types/base/types'
+} from '~parts/types/base/classification'
+import type { Manufacture } from '~parts/types/base/manufacture'
+import type { ACParts } from '~parts/types/base/types'
 
 const defineAttackUnit =
   <Cl extends Classification>() =>

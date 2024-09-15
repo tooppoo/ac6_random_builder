@@ -1,4 +1,4 @@
-import type { Assembly, AssemblyProperty } from '~core/assembly/assembly'
+import type { Assembly, AssemblyProperty } from '@ac6_assemble_tool/core/assembly/assembly'
 
 export function defaultReportAggregation(): ReportAggregation {
   return new ReportAggregation([

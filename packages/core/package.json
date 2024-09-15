@@ -5,13 +5,13 @@
   "exports": {
     "./*": {
       "import": {
-        "types": "./src/*.ts",
+        "types": "./dist/src/*.ts",
         "default": "./dist/src/*.js"
       }
     },
     "./spec-helper/*": {
       "import": {
-        "types": "./spec-helper/*.ts",
+        "types": "./dist/spec-helper/*.ts",
         "default": "./dist/spec-helper/*.js"
       }
     }

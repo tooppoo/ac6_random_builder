@@ -1,6 +1,5 @@
 import type { Assembly } from '~core/assembly/assembly'
 import { BaseCustomError } from '~core/utils/error'
-import { logger } from '~core/utils/logger'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
@@ -66,7 +65,6 @@ export class RandomAssembly {
       return this.validate(randomBuild(candidates, opt)).fold(
         (errors) => {
           this.errors = [...this.errors, ...errors]
-          logger.warn({ errors })
 
           if (this.tryCount >= this.config.limit) {
             throw new OverTryLimitError(

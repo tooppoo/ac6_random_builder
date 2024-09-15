@@ -18,7 +18,6 @@ import {
   notUseHanger,
   onlyPropertyIncludedInList,
 } from '@ac6_assemble_tool/core/assembly/filter/filters'
-import { logger } from '@ac6_assemble_tool/core/utils/logger'
 import { boosterMustBeEquipped } from '@ac6_assemble_tool/parts/booster'
 import {
   armNotEquipped,
@@ -29,6 +28,7 @@ import { manufactures } from '@ac6_assemble_tool/parts/types/base/manufacture'
 import { type Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 import { attackType } from '@ac6_assemble_tool/parts/types/unit/attack_type'
 import type { Unit } from '@ac6_assemble_tool/parts/units'
+import {logger} from "~view/utils/logger";
 
 export interface FilterState {
   open: boolean

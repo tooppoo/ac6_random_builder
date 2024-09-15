@@ -30,8 +30,8 @@
 
   import {excludeNotEquipped, notUseHanger} from "@ac6_assemble_tool/core/assembly/filter/filters";
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "@ac6_assemble_tool/core/assembly/random/validator/validators";
-  import {logger} from "@ac6_assemble_tool/core/utils/logger";
   import {createEventDispatcher} from "svelte";
+  import {logger} from "~view/utils/logger";
 
   export let open: boolean
   export let filter: FilterState

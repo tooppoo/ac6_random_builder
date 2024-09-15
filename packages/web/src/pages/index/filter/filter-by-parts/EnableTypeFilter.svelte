@@ -3,9 +3,9 @@
   import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
 
   import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
-  import {logger} from "@ac6_assemble_tool/core/utils/logger";
   import {createEventDispatcher} from "svelte";
   import type {ChangeEventHandler} from "svelte/elements";
+  import {logger} from "~view/utils/logger";
 
   export let state: ReadonlyPartsFilterState
 

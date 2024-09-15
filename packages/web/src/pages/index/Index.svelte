@@ -32,11 +32,11 @@
   import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
   import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
   import {assemblyToSearch, searchToAssembly} from "@ac6_assemble_tool/core/assembly/serialize/as-query";
-  import { logger } from '@ac6_assemble_tool/core/utils/logger'
   import {notEquipped} from "@ac6_assemble_tool/parts/types/base/category";
   import {type Candidates, defineOrder, type OrderParts} from "@ac6_assemble_tool/parts/types/candidates";
 
   import appPackage from '~root/package.json'
+  import {logger} from "~view/utils/logger";
 
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";

@@ -14,7 +14,7 @@
     "~parts/*": "./dist/*"
   },
   "scripts": {
-    "dev": "tsc --watch",
+    "dev": "tsc && (concurrently \\\"tsc -w\\\" \\\"tsc-alias -w\\\")",
     "build": "tsc && tsc-alias",
     "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
     "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",

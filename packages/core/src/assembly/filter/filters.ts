@@ -19,18 +19,22 @@ import {
   type CandidatesKey,
 } from '@ac6_assemble_tool/parts/types/candidates'
 
-export const excludeNotEquipped = (() => {
-  const name = 'excludeNotEquipped'
+type FilterBuilder<A, T> = Readonly<{
+  name: string
+  build(args: A): PartsFilter<T>
+}>
 
-  type Config = WithEmptyHandle<
-    Readonly<{
-      key: CandidatesKey
-    }>
-  >
+type ExcludeNotEquippedConfig = WithEmptyHandle<
+  Readonly<{
+    key: CandidatesKey
+  }>
+>
+export const excludeNotEquipped = ((): FilterBuilder<ExcludeNotEquippedConfig, EnableOrNot> => {
+  const name = 'excludeNotEquipped'
 
   return {
     name,
-    build: ({ key, onEmpty }: Config): PartsFilter<EnableOrNot> => ({
+    build: ({ key, onEmpty }) => ({
       name,
       type: enableOrNot,
       apply: (candidates: Candidates): Candidates => {
@@ -49,12 +53,12 @@ export const excludeNotEquipped = (() => {
   } as const
 })()
 
-export const notUseHanger = (() => {
+export const notUseHanger = ((): FilterBuilder<CandidatesKey, EnableOrNot> => {
   const name = 'notUseHanger'
 
   return {
     name,
-    build: (key: CandidatesKey): PartsFilter<EnableOrNot> => ({
+    build: (key) => ({
       name,
       type: enableOrNot,
       apply: (candidates) => {
@@ -75,12 +79,12 @@ export const notUseHanger = (() => {
   } as const
 })()
 
-export const assumeConstraintLegsAndBooster = (() => {
+export const assumeConstraintLegsAndBooster = ((): FilterBuilder<Candidates, EnableOrNot> => {
   const name = 'assumeConstraintLegsAndBooster' as const
 
   return {
     name,
-    build: (initialCandidates: Candidates): PartsFilter<EnableOrNot> => ({
+    build: (initialCandidates) => ({
       name,
       type: enableOrNot,
       apply: (candidates, { assembly, wholeFilter }): Candidates => {
@@ -108,23 +112,26 @@ export const assumeConstraintLegsAndBooster = (() => {
   }
 })()
 
+type OnlyPropertyIncludedInListConfig<
+  P extends string & keyof B,
+  B extends ACParts,
+> = {
+  key: AssemblyKey
+  selected: B[P][]
+  whole: B[P][]
+  onEmpty: (
+    context: Omit<OnlyPropertyIncludedInListConfig<P, B>, 'onEmpty'> & {
+      candidates: Candidates
+      property: P
+    },
+  ) => Candidates
+}
 export function onlyPropertyIncludedInList<
   P extends string & keyof B,
   B extends ACParts,
->(prop: P) {
+>(prop: P): FilterBuilder<OnlyPropertyIncludedInListConfig<P, B>,  FilterByProp<P, B>> {
   const name = `only-${prop}-included-in-list` as const
 
-  type Params = {
-    key: AssemblyKey
-    selected: B[P][]
-    whole: B[P][]
-    onEmpty: (
-      context: Omit<Params, 'onEmpty'> & {
-        candidates: Candidates
-        property: P
-      },
-    ) => Candidates
-  }
   return {
     name,
     build: ({
@@ -132,7 +139,7 @@ export function onlyPropertyIncludedInList<
       selected,
       whole,
       onEmpty,
-    }: Params): PartsFilter<FilterByProp<P, B>> => ({
+    }) => ({
       name,
       type: {
         id: 'filterByProperty',

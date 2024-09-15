@@ -10,6 +10,8 @@ import {
   toggleFilter,
 } from '~view/pages/index/interaction/filter'
 
+import type {AssemblyKey} from "@ac6_assemble_tool/core/assembly/assembly";
+import type {PartsFilterSet} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
 import {
   excludeNotEquipped,
   onlyPropertyIncludedInList,
@@ -37,7 +39,8 @@ describe('filter interaction', () => {
       genAssemblyKeys(),
       genInitialFilterState(),
     ])('filter for each key is assumed', (k1, k2, k3, state) => {
-      const keys = [...k1, ...k2, ...k3]
+      // const keys = [...k1, ...k2, ...k3]
+      const keys = k1.concat(k2).concat(k3)
       keys.forEach((key, i) => {
         state = toggleFilter(key, state)
 
@@ -130,8 +133,10 @@ describe('filter interaction', () => {
     genInitialFilterState(),
   ])('any filter enabled', (key, initialState) => {
     const state = toggleFilter(key, initialState)
+    const pfs: PartsFilterSet = state.map[key]
+
     state.map[key] = state.map[key].enable(
-      random(state.map[key].list).filter.name,
+      random(pfs.list).filter.name,
     )
 
     expect(anyFilterEnabled(key, state)).toBe(true)
@@ -217,7 +222,7 @@ describe('filter interaction', () => {
             genFilterApplyContext(),
           ])(
             'not-equipped only left as candidates',
-            (key, candidates, context) => {
+            (key: AssemblyKey, candidates, context) => {
               const candidatesForTest = { ...candidates, [key]: [] }
               const filter = setupFilter(key, candidatesForTest).enable(
                 filterName,
@@ -288,7 +293,7 @@ describe('filter interaction', () => {
           genFilterApplyContext(),
         ])(
           'not-equipped only left as candidates',
-          (key, candidates, context) => {
+          (key: AssemblyKey, candidates, context) => {
             const candidatesForTest = { ...candidates, [key]: [] }
             const filter = setupFilter(key, candidatesForTest).enable(
               filterName,

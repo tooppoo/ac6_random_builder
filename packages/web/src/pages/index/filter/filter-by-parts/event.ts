@@ -1,4 +1,4 @@
-import type { ReadonlyPartsFilterState } from '~core/assembly/filter/filter-set.ts'
+import type { ReadonlyPartsFilterState } from '@ac6_assemble_tool/core/assembly/filter/filter-set'
 
 export type ChangeFilter = {
   target: ReadonlyPartsFilterState

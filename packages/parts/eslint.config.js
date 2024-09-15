@@ -1,5 +1,5 @@
 import eslint from '@eslint/js'
-import tsParser from '@typescript-eslint/parser'
+import * as tsParser from '@typescript-eslint/parser'
 import importPlugin from 'eslint-plugin-import'
 import globals from 'globals'
 import { config as tsConfig, configs as tsConfigs } from 'typescript-eslint'

@@ -5,11 +5,11 @@
     type AssemblyKey,
     assemblyKeys,
     spaceByWord
-  } from "~core/assembly/assembly.ts"
-  import { getCandidates } from "~core/assembly/candidates.ts"
-  import {LockedParts} from "~core/assembly/random/lock.ts";
-  import { RandomAssembly } from "~core/assembly/random/random-assembly.ts"
-  import { logger } from '~core/utils/logger.ts'
+  } from "@ac6_assemble_tool/core/assembly/assembly"
+  import { getCandidates } from "@ac6_assemble_tool/core/assembly/candidates"
+  import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
+  import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
+  import { logger } from '@ac6_assemble_tool/core/utils/logger'
 
   import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";

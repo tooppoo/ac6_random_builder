@@ -3,7 +3,7 @@ import {
   notOverEnergyOutputName,
   totalCoamNotOverMaxName,
   totalLoadNotOverMaxName,
-} from '~core/assembly/random/validator/validators.ts'
+} from '@ac6_assemble_tool/core/assembly/random/validator/validators'
 
 export const jaError = {
   assembly: {

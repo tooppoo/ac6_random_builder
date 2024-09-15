@@ -1,8 +1,8 @@
 import {
   excludeNotEquipped,
   onlyPropertyIncludedInList,
-} from '~core/assembly/filter/filters.ts'
-import { random } from '~core/utils/array.ts'
+} from '@ac6_assemble_tool/core/assembly/filter/filters'
+import { random } from '@ac6_assemble_tool/core/utils/array'
 
 import {
   anyFilterContain,

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/filter-set.ts";
-  import {logger} from "~core/utils/logger.ts";
+  import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
+  import {logger} from "@ac6_assemble_tool/core/utils/logger";
 
   import i18n from "~view/i18n/define.ts";
   import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";

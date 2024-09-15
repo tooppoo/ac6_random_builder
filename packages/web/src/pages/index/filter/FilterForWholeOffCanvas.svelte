@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
-  import type {Assembly} from "~core/assembly/assembly.ts";
-  import type {LockedParts} from "~core/assembly/random/lock.ts";
-  import type {RandomAssembly} from "~core/assembly/random/random-assembly.ts";
+  import type {Assembly} from "@ac6_assemble_tool/core/assembly/assembly";
+  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
+  import type {RandomAssembly} from "@ac6_assemble_tool/core/assembly/random/random-assembly";
   
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
   import type {FilterState} from "~view/pages/index/interaction/filter.ts";
@@ -17,9 +17,9 @@
   }>>
 </script>
 <script lang="ts">
-  import {excludeNotEquipped, notUseHanger} from "~core/assembly/filter/filters.ts";
-  import {totalCoamNotOverMax, totalLoadNotOverMax} from "~core/assembly/random/validator/validators.ts";
-  import {logger} from "~core/utils/logger.ts";
+  import {excludeNotEquipped, notUseHanger} from "@ac6_assemble_tool/core/assembly/filter/filters";
+  import {totalCoamNotOverMax, totalLoadNotOverMax} from "@ac6_assemble_tool/core/assembly/random/validator/validators";
+  import {logger} from "@ac6_assemble_tool/core/utils/logger";
 
   import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'

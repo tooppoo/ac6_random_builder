@@ -2,14 +2,14 @@
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
 </script>
 <script lang="ts">
-  import type {Assembly} from "~core/assembly/assembly.ts";
-  import {filterByKeywords} from "~core/assembly/store/filter.ts";
-  import {IndexedDbRepository} from "~core/assembly/store/repository/indexed-db/indexed-db-repository.ts";
+  import type {Assembly} from "@ac6_assemble_tool/core/assembly/assembly";
+  import {filterByKeywords} from "@ac6_assemble_tool/core/assembly/store/filter";
+  import {IndexedDbRepository} from "@ac6_assemble_tool/core/assembly/store/repository/indexed-db/indexed-db-repository";
   import {
     createAggregation,
     type StoredAssemblyAggregation,
     type StoredAssemblyRepository
-  } from "~core/assembly/store/stored-assembly.ts";
+  } from "@ac6_assemble_tool/core/assembly/store/stored-assembly";
 
   import IconButton from "~view/components/button/IconButton.svelte";
   import TextButton from "~view/components/button/TextButton.svelte";

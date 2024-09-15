@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
-  import type {AssemblyKey} from "~core/assembly/assembly.ts";
-  import type {LockedParts} from "~core/assembly/random/lock.ts";
+  import type {AssemblyKey} from "@ac6_assemble_tool/core/assembly/assembly";
+  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
 
   import type {ACParts} from "@ac6_assemble_tool/parts/types/base/types.ts";
 

@@ -1,13 +1,13 @@
 <script lang="ts" context="module">
-  import type {AssemblyKey} from "~core/assembly/assembly.ts";
+  import type {AssemblyKey} from "@ac6_assemble_tool/core/assembly/assembly";
 
   export type ToggleLock = { id: AssemblyKey, value: boolean }
 </script>
 <script lang="ts">
-  import type {Assembly } from "~core/assembly/assembly.ts";
-  import type {LockedParts} from "~core/assembly/random/lock.ts";
-  import {sum} from "~core/utils/array.ts";
-  import {roundUpByRealPart} from "~core/utils/number.ts";
+  import type {Assembly } from "@ac6_assemble_tool/core/assembly/assembly";
+  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
+  import {sum} from "@ac6_assemble_tool/core/utils/array";
+  import {roundUpByRealPart} from "@ac6_assemble_tool/core/utils/number";
 
   import i18n from '~view/i18n/define.ts'
   import RangeSlider from '~view/pages/index/filter/range/base/RangeSlider.svelte'

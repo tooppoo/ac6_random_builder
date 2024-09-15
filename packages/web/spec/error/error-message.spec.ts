@@ -1,4 +1,4 @@
-import { OverTryLimitError } from '~core/assembly/random/random-assembly.ts'
+import { OverTryLimitError } from '@ac6_assemble_tool/core/assembly/random/random-assembly'
 import {
   notCarrySameUnitInSameSideName,
   notOverEnergyOutputName,
@@ -6,7 +6,7 @@ import {
   totalLoadNotOverMaxName,
   ValidationError,
   type ValidationName,
-} from '~core/assembly/random/validator/validators.ts'
+} from '@ac6_assemble_tool/core/assembly/random/validator/validators'
 
 import type { I18Next } from '~view/i18n/define.ts'
 import {

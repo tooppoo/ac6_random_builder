@@ -2,25 +2,23 @@ import {
   type Assembly,
   type AssemblyKey,
   createAssembly,
-} from '~core/assembly/assembly.ts'
+} from '@ac6_assemble_tool/core/assembly/assembly'
 import {
   type FilterApplyContext,
   type WholeFilter,
-} from '~core/assembly/filter/base.ts'
+} from '@ac6_assemble_tool/core/assembly/filter/base'
 import {
   PartsFilterSet,
   type ReadonlyPartsFilterState,
-} from '~core/assembly/filter/filter-set.ts'
+} from '@ac6_assemble_tool/core/assembly/filter/filter-set'
 import {
   assumeConstraintLegsAndBooster,
   errorWhenEmpty,
   excludeNotEquipped,
   notUseHanger,
   onlyPropertyIncludedInList,
-} from '~core/assembly/filter/filters.ts'
-import { BaseCustomError } from '~core/utils/error.ts'
-import { logger } from '~core/utils/logger.ts'
-
+} from '@ac6_assemble_tool/core/assembly/filter/filters'
+import { logger } from '@ac6_assemble_tool/core/utils/logger'
 import { boosterMustBeEquipped } from '@ac6_assemble_tool/parts/booster'
 import { armNotEquipped, boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
@@ -283,8 +281,3 @@ export function setupFilter(
 function getFilter(key: AssemblyKey, state: FilterState): PartsFilterSet {
   return state.map[key]
 }
-
-export class UsableItemNotFoundError extends BaseCustomError<{
-  key: AssemblyKey
-  [key: string]: unknown
-}> {}

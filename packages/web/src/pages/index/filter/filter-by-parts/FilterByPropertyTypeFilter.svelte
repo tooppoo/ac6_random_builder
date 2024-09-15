@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type {ReadonlyPartsFilterState} from "~core/assembly/filter/filter-set.ts";
-  import {logger} from "~core/utils/logger.ts";
+  import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
+  import {logger} from "@ac6_assemble_tool/core/utils/logger";
 
   import TextButton from "~view/components/button/TextButton.svelte";
   import i18n from "~view/i18n/define.ts";

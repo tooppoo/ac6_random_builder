@@ -1,6 +1,6 @@
 import { FlatCompat } from '@eslint/eslintrc'
 import eslint from '@eslint/js'
-import tsParser from '@typescript-eslint/parser'
+import * as tsParser from '@typescript-eslint/parser'
 import importPlugin from 'eslint-plugin-import'
 import globals from 'globals'
 import svelteParser from 'svelte-eslint-parser'

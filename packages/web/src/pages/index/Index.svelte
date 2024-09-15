@@ -13,7 +13,6 @@
     assemblyKeys,
     spaceByWord
   } from "@ac6_assemble_tool/core/assembly/assembly"
-  import { getCandidates } from "@ac6_assemble_tool/core/assembly/candidates"
   import {UsableItemNotFoundError} from "@ac6_assemble_tool/core/assembly/filter/filters";
   import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
   import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
@@ -146,7 +145,7 @@
 
   // setup
   const initialize = async () => {
-    const version = await getCandidates(regulation)
+    const version = await import(`~view/candidates/${regulation}.ts`)
 
     initialCandidates = candidates = version.candidates
     orderParts = defineOrder(version.orders)

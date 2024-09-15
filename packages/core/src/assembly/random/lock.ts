@@ -38,10 +38,7 @@ export class LockedParts {
     return this.candidatesFilter(candidates)
   }
 
-  lock<K extends AssemblyKey>(
-    target: K,
-    item: RawAssembly[K]
-  ): LockedParts {
+  lock<K extends AssemblyKey>(target: K, item: RawAssembly[K]): LockedParts {
     if (item.category === 'booster') {
       switch (item.classification) {
         case notEquipped:

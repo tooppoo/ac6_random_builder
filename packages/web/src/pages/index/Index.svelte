@@ -20,6 +20,7 @@
   import ReportList from '~view/pages/index/report/ReportList.svelte'
   import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
   import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
+  import {logger} from "~view/utils/logger";
 
   import {
     type Assembly,
@@ -36,7 +37,6 @@
   import {type Candidates, defineOrder, type OrderParts} from "@ac6_assemble_tool/parts/types/candidates";
 
   import appPackage from '~root/package.json'
-  import {logger} from "~view/utils/logger";
 
   import PartsSelectForm from "./form/PartsSelectForm.svelte"
   import Navbar from "./layout/Navbar.svelte";

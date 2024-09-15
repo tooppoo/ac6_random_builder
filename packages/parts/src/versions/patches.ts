@@ -44,9 +44,7 @@ const defineUpdate: DefineUpdatePatch =
   }
 
 type DefineAddPatch = <P extends Part>(key: P) => AddPatch<P>
-type AddPatch<P extends Part> = (
-  newItem: Candidates[P][number]
-) => Patch
+type AddPatch<P extends Part> = (newItem: Candidates[P][number]) => Patch
 const defineAdd: DefineAddPatch =
   <P extends Part>(key: P) =>
   (newItem: Candidates[P][number]) =>
@@ -81,7 +79,7 @@ type Patches = Readonly<{
   booster: PatchSet<'booster'>
   generator: PatchSet<'generator'>
 
-  expansion: PatchSet<'expansion'>,
+  expansion: PatchSet<'expansion'>
 }>
 export const patches: Patches = {
   rightArmUnit: setupPatch('rightArmUnit'),

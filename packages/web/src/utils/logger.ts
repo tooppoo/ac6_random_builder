@@ -1,4 +1,4 @@
-import log, {type Logger} from "loglevel";
+import log, { type Logger } from 'loglevel'
 
 const defaultLogger = log.getLogger('default')
 defaultLogger.setDefaultLevel('error')

@@ -27,11 +27,11 @@
     assemblyWithHeadParts,
     enableFilterOnAllParts, initialFilterState,
   } from "~view/pages/index/interaction/filter.ts";
+  import {logger} from "~view/utils/logger";
 
   import {excludeNotEquipped, notUseHanger} from "@ac6_assemble_tool/core/assembly/filter/filters";
   import {totalCoamNotOverMax, totalLoadNotOverMax} from "@ac6_assemble_tool/core/assembly/random/validator/validators";
   import {createEventDispatcher} from "svelte";
-  import {logger} from "~view/utils/logger";
 
   export let open: boolean
   export let filter: FilterState

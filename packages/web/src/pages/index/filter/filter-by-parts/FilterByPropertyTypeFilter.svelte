@@ -4,11 +4,11 @@
   import i18n from "~view/i18n/define.ts";
   import type {ChangeFilter} from "~view/pages/index/filter/filter-by-parts/event.ts";
   import type {CurrentFilter} from "~view/pages/index/interaction/filter.ts";
+  import {logger} from "~view/utils/logger";
 
   import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
   import {createEventDispatcher} from "svelte";
   import type {ChangeEventHandler} from "svelte/elements";
-  import {logger} from "~view/utils/logger";
 
   export let current: CurrentFilter
   export let state: ReadonlyPartsFilterState

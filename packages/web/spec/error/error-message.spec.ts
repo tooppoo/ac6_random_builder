@@ -14,13 +14,13 @@ import {
   filterApplyErrorMessage,
   type Translator,
 } from '~view/pages/index/interaction/error-message'
-import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
+import { UsableItemNotFoundError } from '@ac6_assemble_tool/core/assembly/filter/filters'
+import { genAssemblyKey } from '@ac6_assemble_tool/core/spec-helper/property-generator'
 
 import { fc, it } from '@fast-check/vitest'
 import type { ArrayConstraints } from 'fast-check'
 import { afterEach, beforeEach, describe, expect, type Mock, vi } from 'vitest'
 
-import { genAssemblyKey } from '~spec/spec-helper/property-generator.ts'
 
 describe(assemblyErrorMessage.name, () => {
   let i18n: Pick<I18Next, 't'>

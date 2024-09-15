@@ -3,7 +3,6 @@ import type {
   PartsFilter,
 } from '~core/assembly/filter/base'
 import type { FilterType } from '~core/assembly/filter/filter-type'
-import { logger } from '~core/utils/logger'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
@@ -90,12 +89,6 @@ export class PartsFilterSet {
     if (!this.contains(key)) return this
 
     const target = { ...this.map[key] }
-
-    logger.debug(`${this.constructor.name}#toggle`, {
-      target,
-      key,
-      map: this.map,
-    })
 
     if (target.private) return this
 

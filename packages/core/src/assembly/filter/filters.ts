@@ -5,9 +5,7 @@ import {
   enableOrNot,
   type FilterByProp,
 } from '~core/assembly/filter/filter-type'
-import { logger } from '~core/utils/logger'
-
-import { UsableItemNotFoundError } from '~view/pages/index/interaction/filter.ts'
+import {BaseCustomError} from "~core/utils/error";
 
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
@@ -166,11 +164,10 @@ type WithEmptyHandle<Params extends object> = Params & {
 export const errorWhenEmpty =
   (key: AssemblyKey, message: string): OnEmpty<object> =>
   (context) => {
-    logger.error({
-      message,
-      key,
-      context,
-    })
-
     throw new UsableItemNotFoundError({ key, ...context }, message)
   }
+
+export class UsableItemNotFoundError extends BaseCustomError<{
+  key: AssemblyKey
+  [key: string]: unknown
+}> {}

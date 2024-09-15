@@ -1,15 +1,5 @@
 
 <script lang="ts">
-  import {
-    type Assembly,
-    type AssemblyKey,
-    assemblyKeys,
-    spaceByWord
-  } from "@ac6_assemble_tool/core/assembly/assembly"
-  import { getCandidates } from "@ac6_assemble_tool/core/assembly/candidates"
-  import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
-  import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
-  import { logger } from '@ac6_assemble_tool/core/utils/logger'
 
   import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
@@ -24,7 +14,7 @@
     changePartsFilter,
     type FilterState,
     initialFilterState,
-    toggleFilter, UsableItemNotFoundError
+    toggleFilter,
   } from "~view/pages/index/interaction/filter.ts";
   import { assemblyToSearch, searchToAssembly } from '~view/pages/index/interaction/share'
   import NavButton from "~view/pages/index/layout/navbar/NavButton.svelte";
@@ -32,8 +22,19 @@
   import ShareAssembly from '~view/pages/index/share/ShareAssembly.svelte'
   import StoreAssembly from "~view/pages/index/store/StoreAssembly.svelte";
 
-  import {notEquipped} from "@ac6_assemble_tool/parts/types/base/category.ts";
-  import {type Candidates, defineOrder, type OrderParts} from "@ac6_assemble_tool/parts/types/candidates.ts";
+  import {
+    type Assembly,
+    type AssemblyKey,
+    assemblyKeys,
+    spaceByWord
+  } from "@ac6_assemble_tool/core/assembly/assembly"
+  import { getCandidates } from "@ac6_assemble_tool/core/assembly/candidates"
+  import {UsableItemNotFoundError} from "@ac6_assemble_tool/core/assembly/filter/filters";
+  import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
+  import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
+  import { logger } from '@ac6_assemble_tool/core/utils/logger'
+  import {notEquipped} from "@ac6_assemble_tool/parts/types/base/category";
+  import {type Candidates, defineOrder, type OrderParts} from "@ac6_assemble_tool/parts/types/candidates";
 
   import appPackage from '~root/package.json'
 

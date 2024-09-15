@@ -3,8 +3,8 @@ import { BaseCustomError } from '~core/utils/error'
 
 import { notEquipped } from '@ac6_assemble_tool/parts/types/base/classification'
 
-import type { Validator } from './base.ts'
-import { failure, success, type ValidationResult } from './result.ts'
+import type { Validator } from './base'
+import { failure, success, type ValidationResult } from './result'
 
 export const notOverEnergyOutputName = 'notOverEnergyOutput'
 export const notOverEnergyOutput: Validator = {

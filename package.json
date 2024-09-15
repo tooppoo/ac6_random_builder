@@ -62,6 +62,7 @@
     "packages/tsconfig",
     "packages/core",
     "packages/web",
-    "packages/spec"
+    "packages/spec",
+    "packages/eslint"
   ]
 }

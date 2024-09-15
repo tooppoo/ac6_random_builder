@@ -1,12 +1,16 @@
 {
   "name": "@ac6_assemble_tool/tsconfig",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\""
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@ac6_assemble_tool/eslint": "1.0.0"
+  }
 }

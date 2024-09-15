@@ -1,17 +1,21 @@
+import {
+  baseRules,
+  globalIgnores,
+  importRules,
+} from '@ac6_assemble_tool/eslint/configs'
 import { FlatCompat } from '@eslint/eslintrc'
-import eslint from '@eslint/js'
 import * as tsParser from '@typescript-eslint/parser'
-import importPlugin from 'eslint-plugin-import'
 import globals from 'globals'
 import svelteParser from 'svelte-eslint-parser'
-import { config as tsConfig, configs as tsConfigs } from 'typescript-eslint'
+import { config as tsConfig } from 'typescript-eslint'
 
 const compat = new FlatCompat()
 
 export default tsConfig(
   {
-    ignores: ['dist/', 'coverage/', 'node_modules'],
+    ignores: ['coverage'],
   },
+  globalIgnores,
   {
     languageOptions: {
       parser: tsParser,
@@ -36,78 +40,20 @@ export default tsConfig(
       },
     },
   },
-  eslint.configs.recommended,
-  ...tsConfigs.recommended,
+  ...baseRules,
   ...compat.extends('plugin:svelte/recommended'),
-  importPlugin.flatConfigs.recommended,
-  {
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
+  ...importRules({
+    pathGroups: [
+      {
+        pattern: '~view/**',
+        group: 'builtin',
+        position: 'before',
       },
-    },
-    settings: {
-      'import/parsers': {
-        /*
-         * trick for eslint-plugin-import
-         * https://github.com/import-js/eslint-plugin-import/issues/2556#issuecomment-1419518561
-         */
-        espree: ['.js', '.cjs', '.mjs', '.jsx'],
-        '@typescript-eslint/parser': ['.ts', '.js'],
+      {
+        pattern: '~root/**',
+        group: 'parent',
+        position: 'before',
       },
-      'import/resolver': {
-        typescript: true,
-        node: true,
-      },
-    },
-    rules: {
-      'import/order': [
-        'error',
-        {
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-          'newlines-between': 'always',
-          pathGroups: [
-            {
-              pattern: '~view/**',
-              group: 'builtin',
-              position: 'before',
-            },
-            {
-              pattern: '~root/**',
-              group: 'parent',
-              position: 'before',
-            },
-          ],
-          distinctGroup: true,
-        },
-      ],
-      'import/no-unresolved': [
-        'error',
-        {
-          ignore: ['^\\@ac6_assemble_tool'],
-        },
-      ],
-    },
-  },
-  {
-    rules: {
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
-      'no-multiple-empty-lines': [
-        'error',
-        {
-          max: 1,
-          maxBOF: 1,
-          maxEOF: 1,
-        },
-      ],
-    },
-  },
+    ],
+  }),
 )

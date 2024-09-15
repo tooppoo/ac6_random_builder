@@ -8,5 +8,5 @@ export function getCandidates(
   version: v1_07,
 ): Promise<typeof import('@ac6_assemble_tool/parts/versions/v1.07')>
 export function getCandidates(version: string) {
-  return import(`@ac6_assemble_tool/parts/versions/${version}.ts`)
+  return import(`@ac6_assemble_tool/parts/versions/${version}`)
 }

@@ -1,9 +1,6 @@
 import type { AssemblyKey, RawAssembly } from '~core/assembly/assembly'
 
-import { type Booster } from '@ac6_assemble_tool/parts/booster'
-import type { Legs } from '@ac6_assemble_tool/parts/legs'
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
-import type { BoosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
 import {
   booster,
@@ -43,9 +40,9 @@ export class LockedParts {
 
   lock<K extends AssemblyKey>(
     target: K,
-    item: NonNullable<LockedPartsMap[K]>,
+    item: RawAssembly[K]
   ): LockedParts {
-    if (isBooster(target, item))
+    if (item.category === 'booster') {
       switch (item.classification) {
         case notEquipped:
           // ブースター未装備はタンク限定なので、
@@ -66,7 +63,8 @@ export class LockedParts {
             }))
             .writeMap(target, item)
       }
-    if (isLegs(target, item))
+    }
+    if (item.classification === 'legs') {
       switch (item.category) {
         case tank:
           // タンクはブースター装備不可なので、
@@ -87,6 +85,7 @@ export class LockedParts {
             }))
             .writeMap(target, item)
       }
+    }
 
     return this.writeMap(target, item)
   }
@@ -126,14 +125,4 @@ export class LockedParts {
   private clearFilter() {
     return this.withFilter((_) => _)
   }
-}
-
-function isBooster<K extends AssemblyKey>(
-  key: K,
-  _item: unknown,
-): _item is Booster | BoosterNotEquipped {
-  return key === 'booster'
-}
-function isLegs<K extends AssemblyKey>(key: K, _item: unknown): _item is Legs {
-  return key === 'legs'
 }

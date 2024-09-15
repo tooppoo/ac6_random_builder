@@ -8,13 +8,13 @@ import {
   defaultRandomBuildOption,
   randomBuild,
   type RandomBuildOption,
-} from './random-builder.ts'
-import type { Validator } from './validator/base.ts'
-import { success, type ValidationResult } from './validator/result.ts'
+} from './random-builder'
+import type { Validator } from './validator/base'
+import { success, type ValidationResult } from './validator/result'
 import {
   notCarrySameUnitInSameSide,
   notOverEnergyOutput,
-} from './validator/validators.ts'
+} from './validator/validators'
 
 export class RandomAssembly {
   static init(

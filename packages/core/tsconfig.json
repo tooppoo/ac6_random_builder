@@ -8,5 +8,6 @@
       "~spec-helper/*": ["./spec-helper/*"]
     }
   },
+  "include": ["src", "spec", "spec-helper"],
   "exclude": ["node_modules"]
 }

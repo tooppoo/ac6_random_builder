@@ -10,7 +10,7 @@ import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 
-import { LockedParts } from './lock.ts'
+import { LockedParts } from './lock'
 
 export type RandomBuildOption = Readonly<{
   randomizer?: () => number

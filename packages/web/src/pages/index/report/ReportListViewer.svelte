@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Assembly } from '~core/assembly/assembly'
-  import type { EmptyObject } from '~core/utils/type'
+  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
+  import type { EmptyObject } from '@ac6_assemble_tool/core/utils/type'
 
   import IconButton from '~view/components/button/IconButton.svelte'
   import i18n from "~view/i18n/define";

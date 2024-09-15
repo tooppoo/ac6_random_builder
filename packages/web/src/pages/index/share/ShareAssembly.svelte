@@ -2,7 +2,7 @@
   import type {ToggleOffCanvas} from '~view/components/off-canvas/OffCanvas.svelte'
 </script>
 <script lang="ts">
-  import type { Assembly } from '~core/assembly/assembly'
+  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
 
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n, {type I18Next} from "~view/i18n/define";

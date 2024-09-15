@@ -1,12 +1,6 @@
 import type { Candidates } from '~parts/types/candidates'
 
 type Part = keyof Candidates
-type PatchForPart = <P extends Part>(key: P) => DefinePatch<P>
-
-type DefinePatch<P extends Part> = (
-  name: string,
-  apply: PatchFunction<P>,
-) => Patch
 type PatchFunction<P extends Part> = (
   p: Candidates[P][number],
 ) => Candidates[P][number]
@@ -16,7 +10,12 @@ export function apply(base: Candidates, patches: readonly Patch[]): Candidates {
   return patches.reduce((acc, p) => p(acc), base)
 }
 
-const defineUpdate: PatchForPart =
+type DefineUpdatePatch = <P extends Part>(key: P) => UpdatePatch<P>
+type UpdatePatch<P extends Part> = (
+  name: string,
+  apply: PatchFunction<P>,
+) => Patch
+const defineUpdate: DefineUpdatePatch =
   <P extends Part>(key: P) =>
   (name, apply) =>
   (base) => {
@@ -44,7 +43,11 @@ const defineUpdate: PatchForPart =
     return { ...base, [key]: result }
   }
 
-const defineAdd =
+type DefineAddPatch = <P extends Part>(key: P) => AddPatch<P>
+type AddPatch<P extends Part> = (
+  newItem: Candidates[P][number]
+) => Patch
+const defineAdd: DefineAddPatch =
   <P extends Part>(key: P) =>
   (newItem: Candidates[P][number]) =>
   (base: Candidates): Candidates => {
@@ -54,25 +57,46 @@ const defineAdd =
     }
   }
 
-const definePatch = <P extends Part>(key: P) => ({
+type PatchSet<P extends Part> = Readonly<{
+  update: UpdatePatch<P>
+  add: AddPatch<P>
+}>
+const setupPatch = <P extends Part>(key: P): PatchSet<P> => ({
   update: defineUpdate(key),
   add: defineAdd(key),
 })
 
-export const patches = {
-  rightArmUnit: definePatch('rightArmUnit'),
-  leftArmUnit: definePatch('leftArmUnit'),
-  rightBackUnit: definePatch('rightBackUnit'),
-  leftBackUnit: definePatch('leftBackUnit'),
+type Patches = Readonly<{
+  rightArmUnit: PatchSet<'rightArmUnit'>
+  leftArmUnit: PatchSet<'leftArmUnit'>
+  rightBackUnit: PatchSet<'rightBackUnit'>
+  leftBackUnit: PatchSet<'leftBackUnit'>
 
-  head: definePatch('head'),
-  arms: definePatch('arms'),
-  core: definePatch('core'),
-  legs: definePatch('legs'),
+  head: PatchSet<'head'>
+  arms: PatchSet<'arms'>
+  core: PatchSet<'core'>
+  legs: PatchSet<'legs'>
 
-  fcs: definePatch('fcs'),
-  booster: definePatch('booster'),
-  generator: definePatch('generator'),
+  fcs: PatchSet<'fcs'>
+  booster: PatchSet<'booster'>
+  generator: PatchSet<'generator'>
 
-  expansion: definePatch('expansion'),
+  expansion: PatchSet<'expansion'>,
+}>
+export const patches: Patches = {
+  rightArmUnit: setupPatch('rightArmUnit'),
+  leftArmUnit: setupPatch('leftArmUnit'),
+  rightBackUnit: setupPatch('rightBackUnit'),
+  leftBackUnit: setupPatch('leftBackUnit'),
+
+  head: setupPatch('head'),
+  arms: setupPatch('arms'),
+  core: setupPatch('core'),
+  legs: setupPatch('legs'),
+
+  fcs: setupPatch('fcs'),
+  booster: setupPatch('booster'),
+  generator: setupPatch('generator'),
+
+  expansion: setupPatch('expansion'),
 }

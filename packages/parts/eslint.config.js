@@ -6,49 +6,38 @@ import { config as tsConfig, configs as tsConfigs } from 'typescript-eslint'
 
 export default tsConfig(
   {
-    ignores: ['dist/**/*', 'coverage/**/*'],
+    ignores: ['dist/**/*.js', 'dist/**/*.d.ts'],
   },
   {
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        ecmaVersion: 2021,
+        ecmaVersion: 2023,
         sourceType: 'module',
       },
       globals: {
         ...globals.node,
-        ...globals.es2021,
+        ...globals.es2023,
       },
     },
   },
   eslint.configs.recommended,
   ...tsConfigs.recommended,
+  importPlugin.flatConfigs.recommended,
   {
-    // https://github.com/import-js/eslint-plugin-import/issues/2556#issuecomment-1419518561
     languageOptions: {
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
     },
-    plugins: { import: importPlugin },
     settings: {
-      'import/parsers': {
-        /*
-         & trick for eslint-plugin-import
-         * https://github.com/import-js/eslint-plugin-import/issues/2556#issuecomment-1419518561
-         */
-        espree: ['.js', '.cjs', '.mjs', '.jsx'],
-        '@typescript-eslint/parser': ['.ts', '.js'],
-      },
       'import/resolver': {
         typescript: true,
         node: true,
       },
     },
     rules: {
-      ...importPlugin.configs.recommended.rules,
-      ...importPlugin.configs.typescript.rules,
       'import/order': [
         'error',
         {

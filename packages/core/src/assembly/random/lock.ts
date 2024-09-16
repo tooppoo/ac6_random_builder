@@ -39,7 +39,7 @@ export class LockedParts {
   }
 
   lock<K extends AssemblyKey>(target: K, item: RawAssembly[K]): LockedParts {
-    if (item.category === 'booster') {
+    if (target === 'booster') {
       switch (item.classification) {
         case notEquipped:
           // ブースター未装備はタンク限定なので、
@@ -61,7 +61,7 @@ export class LockedParts {
             .writeMap(target, item)
       }
     }
-    if (item.classification === 'legs') {
+    if (target === 'legs') {
       switch (item.category) {
         case tank:
           // タンクはブースター装備不可なので、

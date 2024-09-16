@@ -6,8 +6,15 @@
       "dependsOn": ["^build"]
     },
     "test": {
+      "dependsOn": ["^test"]
+    },
+    "test:watch": {
+      "persistent": true,
+      "cache": false
+    },
+    "coverage": {
       "outputs": ["coverage/**"],
-      "dependsOn": ["transit"]
+      "dependsOn": ["^coverage"]
     },
     "check-types": {
       "dependsOn": ["transit"]

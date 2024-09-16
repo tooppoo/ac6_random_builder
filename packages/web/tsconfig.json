@@ -16,6 +16,6 @@
       "~root/*": ["./*"]
     }
   },
-  "include": ["./src/**/*", "./spec/**/*"],
+  "include": ["./src/**/*", "./spec/**/*", "./scripts/**/*"],
   "exclude": ["node_modules"]
 }

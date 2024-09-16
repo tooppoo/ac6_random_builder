@@ -18,7 +18,6 @@
     "lint": "turbo run lint",
     "format": "turbo run format",
     "check-types": "turbo run check-types",
-    "extract-ja-chars": "tsx scripts/extract-ja-characters/extract-from-i18n.ts",
     "clean": "turbo run clean",
     "clean-cache": "rimraf .turbo/cache"
   },

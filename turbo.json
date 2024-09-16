@@ -1,9 +1,18 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "preview": {
+      "persistent": true,
+      "cache": false
+    },
     "build": {
       "outputs": ["dist/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "env": ["ANALYZE_MODE", "NODE_ENV"]
     },
     "test": {
       "dependsOn": ["^test"]
@@ -27,14 +36,6 @@
     },
     "clean": {
       "dependsOn": ["^clean"]
-    },
-    "dev": {
-      "persistent": true,
-      "cache": false
-    },
-    "preview": {
-      "persistent": true,
-      "cache": false
     },
     "transit": {
       "dependsOn": ["^transit"]

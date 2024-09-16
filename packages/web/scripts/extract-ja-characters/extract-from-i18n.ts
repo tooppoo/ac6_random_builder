@@ -2,8 +2,8 @@ import { resources } from '~view/i18n/resources'
 
 import { echo } from 'zx'
 
-type Resource = Record<string, ResourceValue>
-type ResourceValue = string | Resource
+type Resource = Record<string, string | object>
+type ResourceValue = string | Record<string, string | object>
 
 function main(): void {
   const result = unique(

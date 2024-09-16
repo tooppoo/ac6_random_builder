@@ -45,7 +45,7 @@ jobs:
           env_target=packages/web/.env.local
           echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
           echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> "$env_target"
+          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
 
           npm run build
         env:
@@ -58,23 +58,25 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.5.0
         with:
-          files: ./coverage/coverage-final.json
+          files: ./packages/web/coverage/coverage-final.json,./packages/core/coverage/coverage-final.json
           fail_ci_if_error: true
           slug: tooppoo/ac6_assemble_tool
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: publish codeclimate
         uses: paambaati/codeclimate-action@v9.0.0
+        with:
+          coverageLocations: ./packages/*/coverage:lcov
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
       - name: archive build
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.package_name }}
-          path: dist
+          path: packages/web/dist
         if: ${{ inputs.package_name != '' }}
       - name: archive analyze
         uses: actions/upload-artifact@v4
         with:
           name: analyze
-          path: analyze.html
+          path: ./packages/web/analyze.html

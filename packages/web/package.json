@@ -16,6 +16,7 @@
     "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
     "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
     "check-types": "tsc && svelte-check --tsconfig ./tsconfig.json",
+    "extract-ja-chars": "tsx ./scripts/extract-ja-characters/extract-from-i18n.ts",
     "clean": "rimraf ./dist"
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",

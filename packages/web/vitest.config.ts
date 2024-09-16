@@ -15,6 +15,7 @@ export default defineConfig({
         './*.config.*',
         './**/*.d.ts',
         './dist/**/*',
+        'vitest-setup.ts',
       ],
       provider: 'v8',
     },

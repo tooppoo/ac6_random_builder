@@ -13,7 +13,13 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'lcov'],
       all: true,
-      exclude: ['*.config.*', '**/**/*.d', 'spec-helper/*', 'dist/**/*'],
+      exclude: [
+        '*.config.*',
+        '**/**/*.d',
+        'spec-helper/*',
+        'dist/**/*',
+        'vitest-setup.ts',
+      ],
       provider: 'v8',
     },
     setupFiles: ['./vitest-setup'],

@@ -31,7 +31,7 @@ jobs:
           env_target=packages/web/.env.local
           echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
           echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> "$env_target"
+          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
 
           npm run build
         env:

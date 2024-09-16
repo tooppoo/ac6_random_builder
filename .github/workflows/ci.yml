@@ -73,7 +73,6 @@ jobs:
         with:
           name: web-${{ github.sha }}
           path: packages/web/dist
-        if: ${{ inputs.package_name != '' }}
       - name: archive analyze
         uses: actions/upload-artifact@v4
         with:

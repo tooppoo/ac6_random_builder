@@ -2,7 +2,7 @@ name: Web Create Release
 on:
   push:
     tags:
-      - 'web@v*.*.*'
+      - 'web/v*.*.*'
 
 jobs:
   create-release:

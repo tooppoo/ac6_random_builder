@@ -69,7 +69,7 @@ jobs:
       - name: publish codeclimate
         uses: paambaati/codeclimate-action@v9.0.0
         with:
-          coverageLocations: ./packages/*/coverage/lcov.info:lcov
+          coverageLocations: ./packages/*/coverage/coverage-final.json:lcov-json
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
 

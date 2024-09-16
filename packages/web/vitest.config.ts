@@ -6,7 +6,7 @@ export default defineConfig({
   ...viteConfig,
   test: {
     coverage: {
-      reporter: ['text', 'json', 'lcov'],
+      reporter: ['text', 'json'],
       all: true,
       exclude: [
         // https://github.com/vitest-dev/vitest/issues/5101#issuecomment-1925209487

@@ -11,6 +11,7 @@ jobs:
   lighthouseci:
     runs-on: ubuntu-latest
     steps:
+      # setup
       - uses: actions/checkout@master
       - uses: actions/setup-node@v4
         with:
@@ -26,7 +27,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      - name: build
+      # CI
+      ## ja_chars構築時にweb/i18nを参照しているが、web/i18nの一部がpartsをimportしているので
+      ## lib系のbuildとwebのbuildを分割している
+      - name: build packages
+        run: npm run build:libs
+      - name: build web
         run: |
           env_target=packages/web/.env.local
           echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
@@ -36,6 +42,8 @@ jobs:
           npm run build
         env:
           NODE_ENV: production
+
+      # run Lighthouse
       - run: lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

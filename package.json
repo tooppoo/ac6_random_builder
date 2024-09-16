@@ -11,6 +11,8 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "build:libs": "turbo run build:libs",
+    "build:web": "turbo run build:web",
     "preview": "turbo run preview",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",

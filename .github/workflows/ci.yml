@@ -30,19 +30,6 @@ jobs:
       - name: setup
         run: npm ci
 
-      # CI
-      - name: build
-        run: |
-          env_target=packages/web/.env.local
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
-
-          npm run build
-        env:
-          ANALYZE_MODE: static
-          NODE_ENV: production
-
       - name: Cache turbo build setup
         uses: actions/cache@v4
         with:
@@ -50,6 +37,23 @@ jobs:
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
+
+      # CI
+      ## ja_chars構築時にweb/i18nを参照しているが、web/i18nの一部がpartsをimportしているので
+      ## lib系のbuildとwebのbuildを分割している
+      - name: build packages
+        run: npm run build:libs
+      - name: build web
+        run: |
+          env_target=packages/web/.env.local
+          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
+          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
+          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
+
+          npm run build:web
+        env:
+          ANALYZE_MODE: static
+          NODE_ENV: production
 
       - name: test with coverage
         run: npm run coverage

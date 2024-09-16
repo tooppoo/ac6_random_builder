@@ -7,13 +7,16 @@ import dynamicImport from 'vite-plugin-dynamic-import'
 import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import Sitemap from 'vite-plugin-sitemap'
 
+const base = '/ac6_assemble_tool'
+
 export default defineConfig({
+  base,
   plugins: [
     svelte(),
     dynamicImport(),
     Sitemap({
       hostname: `https://tooppoo.github.io/`,
-      basePath: '/ac6_assemble_tool',
+      basePath: base,
     }),
     pluginPurgeCss({
       variables: true,

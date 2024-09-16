@@ -11,9 +11,6 @@ on:
       package_name:
         required: true
         type: string
-      base_url:
-        required: true
-        type: string
     secrets:
       CODECOV_TOKEN:
         required: true
@@ -32,21 +29,32 @@ jobs:
       - name: setup
         run: npm ci
 
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
       - name: test with coverage
         run: npm run coverage
-      - name: lint
-        run: npm run lint
 
       - name: build
         run: |
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> .env.local
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> .env.local
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> .env.local
+          env_target=packages/web/.env.local
+          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
+          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
+          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> "$env_target"
 
-          npm run build -- --base=${{ inputs.base_url || '/' }}
+          npm run build
         env:
           ANALYZE_MODE: static
           NODE_ENV: production
+
+      - name: lint
+        run: npm run lint
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.5.0
         with:

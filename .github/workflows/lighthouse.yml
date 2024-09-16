@@ -17,13 +17,23 @@ jobs:
           node-version-file: '.node-version'
           cache: 'npm'
       - run: npm ci && npm install -g @lhci/cli@0.13.x
+
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
       - name: build
         run: |
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> .env.local
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> .env.local
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> .env.local
+          env_target=packages/web/.env.local
+          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
+          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
+          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> "$env_target"
 
-          npm run build-only -- --base=${{ inputs.base_url || '/' }}
+          npm run build
         env:
           NODE_ENV: production
       - run: lhci autorun

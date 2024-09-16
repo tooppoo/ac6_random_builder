@@ -7,11 +7,14 @@ on:
     branches:
       - '*'
   workflow_call:
+    inputs:
+      build_only:
+        type: boolean
+        default: false
+        required: false
     secrets:
       CODECOV_TOKEN:
-        required: true
-      CODECLIMATE_TOKEN:
-        required: true
+        required: false
 
 jobs:
   ci:
@@ -52,13 +55,16 @@ jobs:
           NODE_ENV: production
 
       - name: test with coverage
+        if: ${{ !inputs.build_only }}
         run: npm run coverage
 
       - name: lint
+        if: ${{ !inputs.build_only }}
         run: npm run lint
 
       # coverage tools
       - name: Upload coverage reports to Codecov
+        if: ${{ !inputs.build_only }}
         uses: codecov/codecov-action@v4.5.0
         with:
           files: ./packages/web/coverage/coverage-final.json,./packages/core/coverage/coverage-final.json
@@ -74,6 +80,7 @@ jobs:
           name: web-${{ github.sha }}
           path: packages/web/dist
       - name: archive analyze
+        if: ${{ !inputs.build_only }}
         uses: actions/upload-artifact@v4
         with:
           name: analyze-${{ github.sha }}

@@ -11,9 +11,8 @@ concurrency:
 jobs:
   ci:
     uses: ./.github/workflows/ci.yml
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      CODECLIMATE_TOKEN: ${{ secrets.CODECLIMATE_TOKEN }}
+    with:
+      build_only: true
   deploy:
     runs-on: ubuntu-latest
     needs: test

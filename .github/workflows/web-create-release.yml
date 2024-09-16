@@ -1,8 +1,8 @@
-name: create-release.yml
+name: Web Create Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'web@v*.*.*'
 
 jobs:
   create-release:

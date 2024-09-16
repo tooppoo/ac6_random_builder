@@ -1,13 +1,8 @@
-name: Deploy
+name: Web Deploy
 on:
   release:
     types:
       - released
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Enter the version (tag) to deploy'
-        required: true
 
 concurrency:
   group: 'pages'

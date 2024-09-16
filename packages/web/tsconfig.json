@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "@ac6_assemble_tool/tsconfig/base.json",
+    "@tsconfig/svelte/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "types": ["vite/client", "svelte", "@ac6_assemble_tool/spec/lib/vitest"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+
+    "noEmit": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "~view/*": ["./src/*"],
+      "~spec/*": ["./spec/*"],
+      "~root/*": ["./*"]
+    }
+  },
+  "include": ["./src/**/*", "./spec/**/*", "./scripts/**/*"],
+  "exclude": ["node_modules"]
+}

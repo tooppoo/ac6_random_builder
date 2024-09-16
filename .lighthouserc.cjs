@@ -3,7 +3,7 @@
 module.exports = {
   ci: {
     collect: {
-      url: ['http://localhost:4173/'],
+      url: ['http://localhost:4173/ac6_assemble_tool'],
       startServerCommand: 'npm run preview',
     },
     upload: {

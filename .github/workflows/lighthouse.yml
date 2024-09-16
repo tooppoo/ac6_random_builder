@@ -1,31 +1,30 @@
 name: Lighthouse
 on:
-  pull_request:
-    branches:
-      - '*'
-  push:
-    branches:
-      - '*'
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
 
 jobs:
-  lighthouseci:
+  lighthouse-ci:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      # setup
       - uses: actions/checkout@master
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
-      - run: npm ci && npm install -g @lhci/cli@0.13.x
-      - name: build
-        run: |
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> .env.local
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> .env.local
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars)" >> .env.local
 
-          npm run build-only -- --base=${{ inputs.base_url || '/' }}
-        env:
-          NODE_ENV: production
+      - name: fetch app
+        uses: actions/download-artifact@v4
+        with:
+          name: web-${{ github.sha }}
+          path: dist
+
+      # run Lighthouse
+      - run: npm ci && npm install -g @lhci/cli@0.13.x
       - run: lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

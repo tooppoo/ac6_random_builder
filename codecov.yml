@@ -2,4 +2,4 @@
 ignore:
   - node_modules
   - data
-  - scripts
+  - "**/scripts/"

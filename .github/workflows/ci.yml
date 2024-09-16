@@ -1,0 +1,81 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - '*'
+  workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: true
+      CODECLIMATE_TOKEN:
+        required: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      # setup
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+      - name: setup
+        run: npm ci
+
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          # キャッシュを強制パージしたい場合は、githubからTURBO_CACHE_KEYの値を書き換える
+          key: ${{ runner.os }}-turbo-${{ vars.TURBO_CACHE_KEY }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-${{ vars.TURBO_CACHE_KEY }}-
+
+      # CI
+      ## ja_chars構築時にweb/i18nを参照しているが、web/i18nの一部がpartsをimportしているので
+      ## lib系のbuildとwebのbuildを分割している
+      - name: build packages
+        run: npm run build:libs
+      - name: build web
+        run: |
+          env_target=packages/web/.env.local
+          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
+          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
+          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
+
+          npm run build:web
+        env:
+          ANALYZE_MODE: static
+          NODE_ENV: production
+
+      - name: test with coverage
+        run: npm run coverage
+
+      - name: lint
+        run: npm run lint
+
+      # coverage tools
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.5.0
+        with:
+          files: ./packages/web/coverage/coverage-final.json,./packages/core/coverage/coverage-final.json
+          fail_ci_if_error: true
+          slug: tooppoo/ac6_assemble_tool
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      # artifact
+      - name: archive build
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-${{ github.sha }}
+          path: packages/web/dist
+      - name: archive analyze
+        uses: actions/upload-artifact@v4
+        with:
+          name: analyze-${{ github.sha }}
+          path: ./packages/web/analyze.html

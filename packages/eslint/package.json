@@ -1,0 +1,15 @@
+{
+  "name": "@ac6_assemble_tool/eslint",
+  "version": "1.0.0",
+  "exports": {
+    "./configs": "./configs.js"
+  },
+  "type": "module",
+  "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",
+  "license": "MIT",
+  "description": "",
+  "scripts": {
+    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\""
+  }
+}

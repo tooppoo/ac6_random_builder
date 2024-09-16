@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+dist-types
 dist-ssr
 *.local
 
@@ -25,7 +26,10 @@ dist-ssr
 *.sw?
 
 # test
-/coverage/
+coverage/
 
 # analyze
 analyze.html
+
+# turbo
+.turbo

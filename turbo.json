@@ -1,0 +1,56 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "preview": {
+      "persistent": true,
+      "cache": false
+    },
+    "build": {
+      "outputs": ["dist/**", "analyze.html"],
+      "dependsOn": ["^build"],
+      "env": ["ANALYZE_MODE", "NODE_ENV"]
+    },
+    "build:libs": {
+      "outputs": ["dist/**"],
+      "dependsOn": [
+        "@ac6_assemble_tool/core#build",
+        "@ac6_assemble_tool/parts#build"
+      ]
+    },
+    "build:web": {
+      "outputs": ["dist/**", "analyze.html"],
+      "dependsOn": ["@ac6_assemble_tool/web#build"],
+      "env": ["ANALYZE_MODE", "NODE_ENV"]
+    },
+    "test": {
+      "dependsOn": ["^test"]
+    },
+    "test:watch": {
+      "persistent": true,
+      "cache": false
+    },
+    "coverage": {
+      "outputs": ["coverage/**"],
+      "dependsOn": ["^coverage"]
+    },
+    "check-types": {
+      "dependsOn": ["transit"]
+    },
+    "lint": {
+      "dependsOn": ["transit"]
+    },
+    "format": {
+      "dependsOn": ["transit"]
+    },
+    "clean": {
+      "dependsOn": ["^clean"]
+    },
+    "transit": {
+      "dependsOn": ["^transit"]
+    }
+  }
+}

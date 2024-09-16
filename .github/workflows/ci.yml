@@ -30,10 +30,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .turbo
-          # キャッシュを強制パージしたい場合は、githubからTURBO_CACHE_KEYの値を書き換える
-          key: ${{ runner.os }}-turbo-${{ vars.TURBO_CACHE_KEY }}-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-turbo-${{ vars.TURBO_CACHE_KEY }}-
+            ${{ runner.os }}-turbo-
 
       # CI
       ## ja_chars構築時にweb/i18nを参照しているが、web/i18nの一部がpartsをimportしているので

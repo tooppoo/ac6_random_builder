@@ -10,7 +10,7 @@
       "cache": false
     },
     "build": {
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", "analyze.html"],
       "dependsOn": ["^build"],
       "env": ["ANALYZE_MODE", "NODE_ENV"]
     },
@@ -22,7 +22,7 @@
       ]
     },
     "build:web": {
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", "analyze.html"],
       "dependsOn": ["@ac6_assemble_tool/web#build"],
       "env": ["ANALYZE_MODE", "NODE_ENV"]
     },

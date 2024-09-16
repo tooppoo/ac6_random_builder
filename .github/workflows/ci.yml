@@ -70,12 +70,6 @@ jobs:
           slug: tooppoo/ac6_assemble_tool
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      - name: publish codeclimate
-        uses: paambaati/codeclimate-action@v9.0.0
-        with:
-          coverageLocations: ./packages/*/coverage/coverage-final.json:lcov-json
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
 
       # artifact
       - name: archive build

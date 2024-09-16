@@ -1,49 +1,30 @@
 name: Lighthouse
 on:
-  pull_request:
-    branches:
-      - '*'
-  push:
-    branches:
-      - '*'
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
 
 jobs:
-  lighthouseci:
+  lighthouse-ci:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       # setup
       - uses: actions/checkout@master
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
-      - run: npm ci && npm install -g @lhci/cli@0.13.x
 
-      - name: Cache turbo build setup
-        uses: actions/cache@v4
+      - name: fetch app
+        uses: actions/download-artifact@v4
         with:
-          path: .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-turbo-
-
-      # CI
-      ## ja_chars構築時にweb/i18nを参照しているが、web/i18nの一部がpartsをimportしているので
-      ## lib系のbuildとwebのbuildを分割している
-      - name: build packages
-        run: npm run build:libs
-      - name: build web
-        run: |
-          env_target=packages/web/.env.local
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
-
-          npm run build
-        env:
-          NODE_ENV: production
+          name: web-${{ github.sha }}
+          path: dist
 
       # run Lighthouse
+      - run: npm ci && npm install -g @lhci/cli@0.13.x
       - run: lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

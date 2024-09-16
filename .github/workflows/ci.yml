@@ -7,10 +7,6 @@ on:
     branches:
       - '*'
   workflow_call:
-    inputs:
-      package_name:
-        required: true
-        type: string
     secrets:
       CODECOV_TOKEN:
         required: true
@@ -75,11 +71,11 @@ jobs:
       - name: archive build
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.package_name }}
+          name: web-${{ github.sha }}
           path: packages/web/dist
         if: ${{ inputs.package_name != '' }}
       - name: archive analyze
         uses: actions/upload-artifact@v4
         with:
-          name: analyze
+          name: analyze-${{ github.sha }}
           path: ./packages/web/analyze.html

@@ -64,14 +64,14 @@ export const candidates = apply(v1_06_1, [
     impact: 315,
     accumulative_impact: 160,
     magazine_rounds: 8,
-    total_rounds: 208.
+    total_rounds: 208,
   })),
   patches.leftArmUnit.update('HG-004 DUCKETT', () => ({
     attack_power: 272,
     impact: 315,
     accumulative_impact: 160,
     magazine_rounds: 8,
-    total_rounds: 208.
+    total_rounds: 208,
   })),
   patches.rightArmUnit.update('LITTLE GEM', () => ({
     weight: 2940,

@@ -2,8 +2,8 @@ import type { Candidates } from '~parts/types/candidates'
 
 type Part = keyof Candidates
 type PatchFunction<P extends Part> = (
-  p: Candidates[P][number],
-) => Candidates[P][number]
+  p: Partial<Candidates[P][number]>,
+) => Partial<Candidates[P][number]>
 type Patch = (base: Candidates) => Candidates
 
 export function apply(base: Candidates, patches: readonly Patch[]): Candidates {
@@ -15,6 +15,7 @@ type UpdatePatch<P extends Part> = (
   name: string,
   apply: PatchFunction<P>,
 ) => Patch
+
 const defineUpdate: DefineUpdatePatch =
   <P extends Part>(key: P) =>
   (name, apply) =>
@@ -33,7 +34,9 @@ const defineUpdate: DefineUpdatePatch =
 
       for (let i = 0; i < xs.length; i++) {
         if (i === targetIndex) {
-          r[i] = apply(xs[i])
+          const before = xs[i]
+          const after = apply(before)
+          r[i] = { ...before, ...after }
 
           return r
         }

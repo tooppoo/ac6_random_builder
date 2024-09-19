@@ -23,7 +23,7 @@ export const candidates = apply(v1_06_1, [
     impact: 690,
     accumulative_impact: 440,
   })),
-  patches.leftArmUnit.update('IB-C03W2; WLT 101', () => ({
+  patches.leftArmUnit.update('IB-C03W2: WLT 101', () => ({
     attack_power: 1460,
     cooling: 231,
     en_load: 578,
@@ -145,10 +145,10 @@ export const candidates = apply(v1_06_1, [
   patches.leftArmUnit.update('Vvc-760PR', () => ({
     // mask data only
   })),
-  patches.rightArmUnit.update('IB-C03W1: WLT011', () => ({
+  patches.rightArmUnit.update('IB-C03W1: WLT 011', () => ({
     heat_buildup: 180,
   })),
-  patches.leftArmUnit.update('IB-C03W1: WLT011', () => ({
+  patches.leftArmUnit.update('IB-C03W1: WLT 011', () => ({
     heat_buildup: 180,
   })),
   patches.rightArmUnit.update('44-142 KRSV', () => ({
@@ -314,7 +314,7 @@ export const candidates = apply(v1_06_1, [
   patches.core.update('AC-J-120 BASHO', () => ({
     ap: 3840,
     attitude_stability: 502,
-    weight: 16100,
+    generator_output_adjective: 85,
   })),
   patches.core.update('BD-011 MELANDER', () => ({
     ap: 3680,

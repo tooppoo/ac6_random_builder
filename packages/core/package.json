@@ -37,7 +37,7 @@
     "fake-indexeddb": "6.0.0"
   },
   "dependencies": {
-    "@ac6_assemble_tool/parts": "1.6.1",
+    "@ac6_assemble_tool/parts": "1.7.0",
     "dexie": "4.0.8",
     "ulid": "2.3.0",
     "zod": "3.23.8"

@@ -42,7 +42,7 @@
   import StoreAssembly from "./store/StoreAssembly.svelte";
 
   const appVersion = appPackage.version
-  const regulation = 'v1.06.1'
+  const regulation = 'v1.07'
   const tryLimit = 3000
 
   // state

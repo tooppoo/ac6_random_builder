@@ -79,7 +79,7 @@ export const arms = [
     en_load: 265,
   }),
   defineArms({
-    name: 'AR-011 MELANDER C3',
+    name: 'AR-012 MELANDER C3',
     classification: armsClass,
     category: armsCategory,
     manufacture: balam,
@@ -121,7 +121,7 @@ export const arms = [
     en_load: 295,
   }),
   defineArms({
-    name: 'DF-AR-00 TIAN-LAO',
+    name: 'DF-AR-09 TIAN-LAO',
     classification: armsClass,
     category: armsCategory,
     manufacture: dafeng,

@@ -860,7 +860,7 @@ export const armUnits = [
     en_load: 122,
   }),
   defineArmUnit<AsHandgun>()({
-    name: 'HG-004 DUCKET',
+    name: 'HG-004 DUCKETT',
     classification: armUnit,
     category: handgun,
     attack_type: kinetic,

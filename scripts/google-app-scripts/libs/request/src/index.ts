@@ -17,6 +17,8 @@ async function onFormSubmit(e: FormsOnFormSubmit): Promise<void> {
     return res.map((id) => `${prefix}${id}`)
   })()
   const text = `
+*このIssueはフォーム投稿により作成されました*
+
 # 要望の種類
 ${kind.getResponse()}
 

@@ -274,6 +274,17 @@
       {$i18n.t('report.bug', { ns: 'page/index' })}
       <i class="bi bi-send" />
     </a>
+
+    <hr class="w-100">
+
+    <a
+      class="d-block ms-1"
+      href="https://github.com/tooppoo/ac6_assemble_tool/releases"
+      target="_blank"
+    >
+      Release Notes
+      <i class="bi bi-journal-text" />
+    </a>
   </ToolSection>
 </article>
 

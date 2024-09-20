@@ -11,6 +11,7 @@ import { legs } from '~parts/legs'
 import {
   armNotEquipped,
   backNotEquipped,
+  boosterNotEquipped,
   expansionNotEquipped,
 } from '~parts/not-equipped'
 import type { ACParts } from '~parts/types/base/types'
@@ -70,7 +71,7 @@ export const orders: Order = {
   arms: toName(candidates.arms),
   legs: toName(candidates.legs),
 
-  booster: toName(candidates.booster),
+  booster: toName(candidates.booster.concat(boosterNotEquipped)),
   fcs: toName(candidates.fcs),
   generator: toName(candidates.generator),
 

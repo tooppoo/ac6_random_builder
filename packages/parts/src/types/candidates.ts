@@ -86,7 +86,7 @@ export function defineOrder(order: Order): OrderParts {
     return order[key].reduce(
       (acc: Candidates[K], name): Candidates[K] => {
         const item = namePartsMap[name]
-        
+
         return (item ? [...acc, item] : acc) as Candidates[K]
       },
       [] as Candidates[K],

@@ -219,15 +219,17 @@ describe('validator', () => {
         const sut = disallowLoadOver()
 
         expect(sut.validate(assembly).isSuccess).toBe(assembly.withinLoadLimit)
-      }
+      },
     )
-    fcit.prop([genAssembly().filter(a => !a.withinArmsLoadLimit && a.withinLoadLimit)])(
+    fcit.prop([
+      genAssembly().filter((a) => !a.withinArmsLoadLimit && a.withinLoadLimit),
+    ])(
       'even if arms load over, if load not over, validation success',
       (assembly) => {
         const sut = disallowLoadOver()
 
         expect(sut.validate(assembly).isSuccess).toBe(true)
-      }
+      },
     )
   })
   describe('disallow over arms load', () => {
@@ -236,16 +238,20 @@ describe('validator', () => {
       (assembly) => {
         const sut = disallowArmsLoadOver()
 
-        expect(sut.validate(assembly).isSuccess).toBe(assembly.withinArmsLoadLimit)
-      }
+        expect(sut.validate(assembly).isSuccess).toBe(
+          assembly.withinArmsLoadLimit,
+        )
+      },
     )
-    fcit.prop([genAssembly().filter(a => a.withinArmsLoadLimit && !a.withinLoadLimit)])(
+    fcit.prop([
+      genAssembly().filter((a) => a.withinArmsLoadLimit && !a.withinLoadLimit),
+    ])(
       'even if load over, if arms load not over, validation success',
       (assembly) => {
         const sut = disallowArmsLoadOver()
 
         expect(sut.validate(assembly).isSuccess).toBe(true)
-      }
+      },
     )
   })
 })

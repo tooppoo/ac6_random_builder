@@ -54,10 +54,7 @@ export class RandomAssembly {
     const validators = { ...this._validators }
     delete validators[key]
 
-    return new RandomAssembly(
-      validators,
-      this.config
-    )
+    return new RandomAssembly(validators, this.config)
   }
   getValidator(key: string): Validator | null {
     return this._validators[key] || null

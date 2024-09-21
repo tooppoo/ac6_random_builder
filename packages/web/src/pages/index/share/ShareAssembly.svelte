@@ -3,13 +3,13 @@
 </script>
 <script lang="ts">
 
+  import Switch from '~view/components/form/Switch.svelte'
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n, {type I18Next} from "~view/i18n/define";
   import { stringifyAssembly, stringifyStatus } from '~view/pages/index/interaction/share'
 
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
   import { createEventDispatcher } from 'svelte'
-  import Switch from '~view/components/form/Switch.svelte'
 
   export let assembly: () => Assembly
   export let prefix: () => string = () => ''

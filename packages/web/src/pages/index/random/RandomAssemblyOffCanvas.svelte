@@ -14,7 +14,9 @@
 <script lang="ts">
 
   import TextButton from '~view/components/button/TextButton.svelte'
+  import Switch from '~view/components/form/Switch.svelte'
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
+  import Margin from '~view/components/spacing/Margin.svelte'
   import i18n from "~view/i18n/define";
   import { logger } from '~view/utils/logger'
 
@@ -28,8 +30,6 @@
 
   import CoamRangeSlider from './range/CoamRangeSlider.svelte'
   import LoadRangeSlider, { type ToggleLock } from './range/LoadRangeSlider.svelte'
-  import Margin from '~view/components/spacing/Margin.svelte'
-  import Switch from '~view/components/form/Switch.svelte'
 
   export let open: boolean
   export let lockedParts: LockedParts

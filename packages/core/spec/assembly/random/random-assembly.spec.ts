@@ -90,6 +90,94 @@ describe(RandomAssembly.name, () => {
         },
       )
     })
+    describe('remove validator', () => {
+      describe('with used key', () => {
+        it.prop([generateValidator()])(
+          'count of validators is same before add',
+          (validator) => {
+            const before = RandomAssembly.init({ limit: 10000 })
+            const after = before
+              .addValidator('key', validator)
+              .removeValidator('key')
+
+            expect(after.validators.length).toBe(before.validators.length)
+          },
+        )
+        it.prop([generateValidator()])(
+          'could not get the removed validator',
+          (validator) => {
+            const before = RandomAssembly.init({ limit: 10000 })
+            const after = before
+              .addValidator('key', validator)
+              .removeValidator('key')
+
+            expect(after.getValidator('key')).toBeNull()
+          },
+        )
+      })
+
+      describe('with unused key', () => {
+        it.prop([generateValidator()])(
+          'should not throw error',
+          (validator) => {
+            const sut = RandomAssembly.init({ limit: 10000 }).addValidator(
+              'key',
+              validator,
+            )
+
+            expect(() => sut.removeValidator('unknown-key')).not.toThrowError()
+          },
+        )
+        it.prop([generateValidator()])(
+          'count of validators is same before remove',
+          (validator) => {
+            const before = RandomAssembly.init({ limit: 10000 }).addValidator(
+              'key',
+              validator,
+            )
+            const after = before.removeValidator('unknown-key')
+
+            expect(after.validators.length).toBe(before.validators.length)
+          },
+        )
+        it.prop([generateValidator()])(
+          'could not get validator the key',
+          (validator) => {
+            const before = RandomAssembly.init({ limit: 10000 }).addValidator(
+              'key',
+              validator,
+            )
+            const after = before.removeValidator('unknown-key')
+
+            expect(after.validators.length).toBe(before.validators.length)
+          },
+        )
+      })
+
+      describe('with inner key', () => {
+        const sut = RandomAssembly.init()
+        const key = '__inner__test'
+
+        it('should throw error', () => {
+          expect(() => sut.removeValidator(key)).toThrowError(
+            OverwriteInnerSecretValidatorError,
+          )
+        })
+        it('enable check what key occur error', () => {
+          try {
+            sut.removeValidator(key)
+
+            expect.fail('should throw error')
+          } catch (e) {
+            if (e instanceof OverwriteInnerSecretValidatorError) {
+              expect(e.key).toEqual(key)
+            } else {
+              expect.fail(`unexpected error ${e} thrown`)
+            }
+          }
+        })
+      })
+    })
   })
 
   describe('when over limit of try', () => {

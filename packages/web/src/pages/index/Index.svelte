@@ -5,6 +5,7 @@
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import Margin from "~view/components/spacing/Margin.svelte";
   import i18n from "~view/i18n/define";
+  import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from '~view/pages/index/random/RandomAssemblyOffCanvas.svelte'
   import {logger} from "~view/utils/logger";
 
   import {
@@ -17,7 +18,6 @@
   import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
   import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
   import {assemblyToSearch, searchToAssembly} from "@ac6_assemble_tool/core/assembly/serialize/as-query";
-  import {notEquipped} from "@ac6_assemble_tool/parts/types/base/category";
   import {type Candidates, defineOrder, type OrderParts} from "@ac6_assemble_tool/parts/types/candidates";
 
   import appPackage from '~root/package.json'
@@ -40,7 +40,6 @@
   import ReportList from './report/ReportList.svelte'
   import ShareAssembly from './share/ShareAssembly.svelte'
   import StoreAssembly from "./store/StoreAssembly.svelte";
-  import RandomAssemblyOffCanvas from '~view/pages/index/random/RandomAssemblyOffCanvas.svelte'
 
   const appVersion = appPackage.version
   const regulation = 'v1.07'
@@ -102,29 +101,14 @@
     assembly[detail.id] = detail.selected
     assembly = assembly
   }
-  const onRandom = () => {
-    try {
-      logger.debug('on random', lockedParts, candidates.booster)
-      const actualCandidates = (
-        !lockedParts.isLocking('legs')
-        && candidates.booster.length === 1
-        && candidates.booster[0].category === notEquipped
-      )
-        // 脚部がロックされていないのに候補が未装備のみなら、たまたまタンク脚が選択されているだけなので
-        // ランダムアセン時にブースターを制限する必要は無い
-        // この処置が必要になるのはランダムアセン時のみなので、filterの処理には含めない
-        ? { ...candidates, booster: initialCandidates.booster }
-        : candidates
-
-      assembly = randomAssembly.assemble(actualCandidates, { lockedParts })
-    } catch (e) {
-      logger.error(e)
-
-      errorMessage = assemblyErrorMessage(
-        e instanceof Error ? e : new Error(`${e}`),
-        $i18n
-      )
-    }
+  const onRandom = ({ detail }: CustomEvent<AssembleRandomly>) => {
+    assembly = detail.assembly
+  }
+  const errorOnRandom = ({ detail }: CustomEvent<ErrorOnAssembly>) => {
+    errorMessage = assemblyErrorMessage(
+      detail.error,
+      $i18n
+    )
   }
 
   const onLock = ({ detail }: CustomEvent<ToggleLockEvent>) => {
@@ -307,7 +291,13 @@
 <RandomAssemblyOffCanvas
   id="random-assembly-canvas"
   open={openRandomAssembly}
+  initialCandidates={initialCandidates}
+  candidates={candidates}
+  lockedParts={lockedParts}
+  randomAssembly={randomAssembly}
   on:toggle={(e) => openRandomAssembly = e.detail.open}
+  on:random={onRandom}
+  on:error={errorOnRandom}
 >
   <svelte:fragment slot="title">
     {$i18n.t('command.random.label', { ns: 'page/index' })}

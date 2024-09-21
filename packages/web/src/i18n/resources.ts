@@ -6,6 +6,7 @@ import { enFilter } from '~view/i18n/locales/en/filter'
 import { enLock } from '~view/i18n/locales/en/lock'
 import { enManufactures } from '~view/i18n/locales/en/manufactures'
 import { enPageIndex } from '~view/i18n/locales/en/pages'
+import { enRandom } from '~view/i18n/locales/en/random'
 import { enShare } from '~view/i18n/locales/en/share'
 import { jaAssembly } from '~view/i18n/locales/ja/assembly'
 import { jaAssemblyStore } from '~view/i18n/locales/ja/assemblyStore'
@@ -15,6 +16,7 @@ import { jaFilter } from '~view/i18n/locales/ja/filter'
 import { jaLock } from '~view/i18n/locales/ja/lock'
 import { jaManufactures } from '~view/i18n/locales/ja/manufactures'
 import { jaPageIndex } from '~view/i18n/locales/ja/pages'
+import { jaRandom } from '~view/i18n/locales/ja/random'
 import { jaShare } from '~view/i18n/locales/ja/share'
 
 export const resources = {
@@ -22,6 +24,7 @@ export const resources = {
     translation: {
       times: '回',
     },
+    random: jaRandom,
     assembly: jaAssembly,
     filter: jaFilter,
     lock: jaLock,
@@ -36,6 +39,7 @@ export const resources = {
     translation: {
       times: 'times',
     },
+    random: enRandom,
     assembly: enAssembly,
     filter: enFilter,
     lock: enLock,

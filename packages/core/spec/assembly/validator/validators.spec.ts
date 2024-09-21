@@ -1,4 +1,6 @@
 import {
+  disallowArmsLoadOver,
+  disallowLoadOver,
   notCarrySameUnitInSameSide,
   notOverEnergyOutput,
   totalCoamNotOverMax,
@@ -207,6 +209,43 @@ describe('validator', () => {
 
         expect(sut.validate(assembly).isSuccess).toBe(assembly.load <= max)
       },
+    )
+  })
+
+  describe('disallow over load', () => {
+    fcit.prop([genAssembly()])(
+      'when within load, validation is success',
+      (assembly) => {
+        const sut = disallowLoadOver()
+
+        expect(sut.validate(assembly).isSuccess).toBe(assembly.withinLoadLimit)
+      }
+    )
+    fcit.prop([genAssembly().filter(a => !a.withinArmsLoadLimit && a.withinLoadLimit)])(
+      'even if arms load over, if load not over, validation success',
+      (assembly) => {
+        const sut = disallowLoadOver()
+
+        expect(sut.validate(assembly).isSuccess).toBe(true)
+      }
+    )
+  })
+  describe('disallow over arms load', () => {
+    fcit.prop([genAssembly()])(
+      'when within arms load, validation is success',
+      (assembly) => {
+        const sut = disallowArmsLoadOver()
+
+        expect(sut.validate(assembly).isSuccess).toBe(assembly.withinArmsLoadLimit)
+      }
+    )
+    fcit.prop([genAssembly().filter(a => a.withinArmsLoadLimit && !a.withinLoadLimit)])(
+      'even if load over, if arms load not over, validation success',
+      (assembly) => {
+        const sut = disallowArmsLoadOver()
+
+        expect(sut.validate(assembly).isSuccess).toBe(true)
+      }
     )
   })
 })

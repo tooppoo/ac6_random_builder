@@ -40,6 +40,7 @@
   import ReportList from './report/ReportList.svelte'
   import ShareAssembly from './share/ShareAssembly.svelte'
   import StoreAssembly from "./store/StoreAssembly.svelte";
+  import RandomAssemblyOffCanvas from '~view/pages/index/random/RandomAssemblyOffCanvas.svelte'
 
   const appVersion = appPackage.version
   const regulation = 'v1.07'
@@ -53,6 +54,7 @@
   let lockedParts: LockedParts = LockedParts.empty
   let filter: FilterState
 
+  let openRandomAssembly: boolean = false
   let openWholeFilter: boolean = false
   let openShare: boolean = false
   let openAssemblyStore: boolean = false
@@ -171,7 +173,7 @@
     id="random-assemble"
     class="me-3"
     title={$i18n.t('command.random.description', { ns: 'page/index' })}
-    on:click={onRandom}
+    on:click={() => openRandomAssembly = true}
   >
     <i slot="icon" class="bi bi-tools"></i>
     {$i18n.t('command.random.label', { ns: 'page/index' })}
@@ -301,6 +303,16 @@
     App Version v{appVersion}
   </div>
 </footer>
+
+<RandomAssemblyOffCanvas
+  id="random-assembly-canvas"
+  open={openRandomAssembly}
+  on:toggle={(e) => openRandomAssembly = e.detail.open}
+>
+  <svelte:fragment slot="title">
+    {$i18n.t('command.random.label', { ns: 'page/index' })}
+  </svelte:fragment>
+</RandomAssemblyOffCanvas>
 
 <FilterByPartsOffCanvas
   id="filter-by-parts"

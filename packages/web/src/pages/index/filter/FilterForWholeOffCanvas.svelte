@@ -17,7 +17,6 @@
   import TextButton from "~view/components/button/TextButton.svelte";
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n from "~view/i18n/define";
-  import type {ToggleLock} from "~view/pages/index/filter/range/LoadRangeSlider.svelte";
   import {
     assemblyWithHeadParts,
     enableFilterOnAllParts, initialFilterState,
@@ -49,7 +48,6 @@
   const dispatch = createEventDispatcher<{
     toggle: ToggleFilter
     apply: ApplyWhole
-    'lock-legs': ToggleLock
   }>()
 </script>
 

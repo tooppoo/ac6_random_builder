@@ -21,12 +21,13 @@
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
   import type { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'
   import type { RandomAssembly } from '@ac6_assemble_tool/core/assembly/random/random-assembly'
+  import { totalCoamNotOverMax, totalLoadNotOverMax } from '@ac6_assemble_tool/core/assembly/random/validator/validators'
   import { notEquipped } from '@ac6_assemble_tool/parts/types/base/category'
   import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
   import { createEventDispatcher } from 'svelte'
-  import CoamRangeSlider from '~view/pages/index/filter/range/CoamRangeSlider.svelte'
-  import LoadRangeSlider, { type ToggleLock } from '~view/pages/index/filter/range/LoadRangeSlider.svelte'
-  import { totalCoamNotOverMax, totalLoadNotOverMax } from '@ac6_assemble_tool/core/assembly/random/validator/validators'
+
+  import CoamRangeSlider from './range/CoamRangeSlider.svelte'
+  import LoadRangeSlider, { type ToggleLock } from './range/LoadRangeSlider.svelte'
 
   export let open: boolean
   export let lockedParts: LockedParts
@@ -70,7 +71,6 @@
 
     logger.debug({ event, param })
   }
-
 
   // setup
   const dispatch = createEventDispatcher<{

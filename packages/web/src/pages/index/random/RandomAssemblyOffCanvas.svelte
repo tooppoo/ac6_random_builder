@@ -7,6 +7,9 @@
   export type ErrorOnAssembly = Readonly<{
     error: Error
   }>
+  export type ApplyRandomFilter = Readonly<{
+    randomAssembly: RandomAssembly
+  }>
 </script>
 <script lang="ts">
 
@@ -21,12 +24,16 @@
   import { notEquipped } from '@ac6_assemble_tool/parts/types/base/category'
   import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
   import { createEventDispatcher } from 'svelte'
+  import CoamRangeSlider from '~view/pages/index/filter/range/CoamRangeSlider.svelte'
+  import LoadRangeSlider, { type ToggleLock } from '~view/pages/index/filter/range/LoadRangeSlider.svelte'
+  import { totalCoamNotOverMax, totalLoadNotOverMax } from '@ac6_assemble_tool/core/assembly/random/validator/validators'
 
   export let open: boolean
   export let lockedParts: LockedParts
   export let initialCandidates: Candidates
   export let candidates: Candidates
   export let randomAssembly: RandomAssembly
+  export let assembly: Assembly
 
   // handler
   const onRandom = () => {
@@ -54,12 +61,24 @@
       })
     }
   }
+  const onApply = (param: ApplyRandomFilter) => {
+    const event = {
+      randomAssembly : param.randomAssembly || undefined,
+    }
+
+    dispatch('filter', event)
+
+    logger.debug({ event, param })
+  }
+
 
   // setup
   const dispatch = createEventDispatcher<{
     toggle: ToggleOffCanvas,
     random: AssembleRandomly,
     error: ErrorOnAssembly,
+    filter: ApplyRandomFilter
+    'lock-legs': ToggleLock
   }>()
 </script>
 
@@ -82,5 +101,22 @@
         {$i18n.t('random:command.random.label')}
       </TextButton>
     </div>
+    <CoamRangeSlider
+      class="my-3 w-100"
+      candidates={candidates}
+      on:change={(ev) => onApply({
+        randomAssembly: randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value)),
+      })}
+    />
+    <LoadRangeSlider
+      class="my-3 w-100"
+      candidates={candidates}
+      assembly={assembly}
+      lock={lockedParts}
+      on:change={(ev) => onApply({
+        randomAssembly: randomAssembly.addValidator('total-load-limit', totalLoadNotOverMax(ev.detail.value))
+      })}
+      on:toggle-lock={(ev) => dispatch('lock-legs', ev.detail)}
+    />
   </svelte:fragment>
 </OffCanvas>

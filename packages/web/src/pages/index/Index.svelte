@@ -295,9 +295,14 @@
   candidates={candidates}
   lockedParts={lockedParts}
   randomAssembly={randomAssembly}
+  assembly={assembly}
   on:toggle={(e) => openRandomAssembly = e.detail.open}
   on:random={onRandom}
   on:error={errorOnRandom}
+  on:filter={({ detail }) => {
+    randomAssembly = detail.randomAssembly
+  }}
+  on:lock-legs={onLock}
 >
   <svelte:fragment slot="title">
     {$i18n.t('command.random.label', { ns: 'page/index' })}
@@ -325,12 +330,10 @@
   filter={filter}
   randomAssembly={randomAssembly}
   on:toggle={(ev) => openWholeFilter = ev.detail.open}
-  on:lock-legs={onLock}
   on:apply={({ detail }) => {
     if (detail.candidates) candidates = detail.candidates
     if (detail.assembly) assembly = detail.assembly
     if (detail.filter) filter = detail.filter
-    if (detail.randomAssembly) randomAssembly = detail.randomAssembly
   }}
 />
 <ShareAssembly

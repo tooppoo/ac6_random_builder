@@ -21,13 +21,15 @@
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
   import type { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'
   import type { RandomAssembly } from '@ac6_assemble_tool/core/assembly/random/random-assembly'
-  import { totalCoamNotOverMax, totalLoadNotOverMax } from '@ac6_assemble_tool/core/assembly/random/validator/validators'
+  import { disallowArmsLoadOver, disallowLoadOver, totalCoamNotOverMax, totalLoadNotOverMax } from '@ac6_assemble_tool/core/assembly/random/validator/validators'
   import { notEquipped } from '@ac6_assemble_tool/parts/types/base/category'
   import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
   import { createEventDispatcher } from 'svelte'
 
   import CoamRangeSlider from './range/CoamRangeSlider.svelte'
   import LoadRangeSlider, { type ToggleLock } from './range/LoadRangeSlider.svelte'
+  import Margin from '~view/components/spacing/Margin.svelte'
+  import Switch from '~view/components/form/Switch.svelte'
 
   export let open: boolean
   export let lockedParts: LockedParts
@@ -63,13 +65,9 @@
     }
   }
   const onApply = (param: ApplyRandomFilter) => {
-    const event = {
-      randomAssembly : param.randomAssembly || undefined,
-    }
+    dispatch('filter', param)
 
-    dispatch('filter', event)
-
-    logger.debug({ event, param })
+    logger.debug({ param })
   }
 
   // setup
@@ -101,6 +99,37 @@
         {$i18n.t('random:command.random.label')}
       </TextButton>
     </div>
+
+    <hr class="w-100 my-4" />
+
+    <div id="disallow-over-load">
+      <Switch
+        id={`${$$props.id}-disallow-over-load`}
+        on:enabled={() => onApply({
+          randomAssembly: randomAssembly.addValidator('disallow-over-load', disallowLoadOver()),
+        })}
+        on:disabled={() => onApply({
+          randomAssembly: randomAssembly.removeValidator('disallow-over-load')
+        })}
+      >
+        {$i18n.t('random:command.disallow_over_load.label')}
+      </Switch>
+    </div>
+    <Margin space={3} />
+    <div id="disallow-arms-over-load">
+      <Switch
+        id={`${$$props.id}-disallow-arms-over-load`}
+        on:enabled={() => onApply({
+          randomAssembly: randomAssembly.addValidator('disallow-arms-over-load', disallowArmsLoadOver()),
+        })}
+        on:disabled={() => onApply({
+          randomAssembly: randomAssembly.removeValidator('disallow-arms-over-load')
+        })}
+      >
+        {$i18n.t('random:command.disallow_arms_over_load.label')}
+      </Switch>
+    </div>
+    <Margin space={3} />
     <CoamRangeSlider
       class="my-3 w-100"
       candidates={candidates}
@@ -108,6 +137,7 @@
         randomAssembly: randomAssembly.addValidator('total-coam-limit', totalCoamNotOverMax(ev.detail.value)),
       })}
     />
+    <Margin space={3} />
     <LoadRangeSlider
       class="my-3 w-100"
       candidates={candidates}

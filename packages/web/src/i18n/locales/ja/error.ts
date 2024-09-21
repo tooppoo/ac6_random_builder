@@ -1,4 +1,6 @@
 import {
+  disallowArmsLoadOverName,
+  disallowLoadOverName,
   notCarrySameUnitInSameSideName,
   notOverEnergyOutputName,
   totalCoamNotOverMaxName,
@@ -22,6 +24,12 @@ export const jaError = {
     },
     [totalCoamNotOverMaxName]: {
       label: '総積載量上限を超過',
+    },
+    [disallowLoadOverName]: {
+      label: '積載超過',
+    },
+    [disallowArmsLoadOverName]: {
+      label: '腕部積載超過',
     },
     unknown: {
       label: '$t(unknown.label)',

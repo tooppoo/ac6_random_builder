@@ -91,14 +91,54 @@ export const totalLoadNotOverMax = (max: number): Validator => ({
   },
 })
 
+export const disallowLoadOverName = 'disallowLoadOver'
+export const disallowLoadOver = (): Validator => ({
+  validate(assembly: Assembly): ValidationResult {
+    return assembly.withinLoadLimit
+      ? success(assembly)
+      : failure([
+          new ValidationError(
+            { validationName: disallowLoadOverName, adjustable: true },
+            `load limit of assembly is (${assembly.loadLimit}), but load is ${assembly.load})`,
+          ),
+        ])
+  },
+})
+
+export const disallowArmsLoadOverName = 'disallowArmsLoadOver'
+export const disallowArmsLoadOver = (): Validator => ({
+  validate(assembly: Assembly): ValidationResult {
+    return assembly.withinArmsLoadLimit
+      ? success(assembly)
+      : failure([
+          new ValidationError(
+            { validationName: disallowArmsLoadOverName, adjustable: true },
+            `arms load limit of assembly is (${assembly.armsLoadLimit}), but load is ${assembly.armsLoad})`,
+          ),
+        ])
+  },
+})
+
 export type ValidationName =
   | typeof notOverEnergyOutputName
   | typeof notCarrySameUnitInSameSideName
   | typeof totalCoamNotOverMaxName
   | typeof totalLoadNotOverMaxName
+  | typeof disallowLoadOverName
+  | typeof disallowArmsLoadOverName
 
 export class ValidationError extends BaseCustomError<{
+  /**
+   * バリデータの名前
+   */
   validationName: ValidationName
+  /**
+   * 違反した状態をユーザーの調整で解消することを許すならtrue
+   * 違反した状態をユーザーの調整で解消することを許さないならfalse
+   *
+   * ユーザーでの調整を許す場合、違反しても処理を止めずユーザーに通知するに留めること
+   * ユーザーでの調整を許さない場合、違反した時点でエラーあるいは処理失敗とすること
+   */
   adjustable: boolean
 }> {
   get validatorName(): ValidationName {

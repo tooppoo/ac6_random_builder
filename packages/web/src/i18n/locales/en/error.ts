@@ -1,4 +1,6 @@
 import {
+  disallowArmsLoadOverName,
+  disallowLoadOverName,
   notCarrySameUnitInSameSideName,
   notOverEnergyOutputName,
   totalCoamNotOverMaxName,
@@ -21,6 +23,12 @@ export const enError = {
     },
     [totalCoamNotOverMaxName]: {
       label: 'over max load limit',
+    },
+    [disallowLoadOverName]: {
+      label: 'over load limit',
+    },
+    [disallowArmsLoadOverName]: {
+      label: 'over arm load limit',
     },
     unknown: {
       label: '$t(unknown.label)',

@@ -5,9 +5,12 @@
 
   // handler
   const onChange = (e: Event) => {
-    const status = (e.target as HTMLInputElement).checked
-
-    status ? dispatch('enabled', { on: true }) : dispatch('disabled', { on: false })
+    if ((e.target as HTMLInputElement).checked) {
+      dispatch('enabled', { on: true })
+    }
+    else {
+      dispatch('disabled', { on: false })
+    }
   }
 
   // setup

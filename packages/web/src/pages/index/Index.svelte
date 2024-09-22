@@ -41,6 +41,7 @@
   import ShareAssembly from './share/ShareAssembly.svelte'
   import StoreAssembly from "./store/StoreAssembly.svelte";
   import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
+  import TextButton from '~view/components/button/TextButton.svelte'
 
   const appVersion = appPackage.version
   const regulation = 'v1.07'
@@ -164,8 +165,8 @@
     {$i18n.t('command.random.label', { ns: 'page/index' })}
   </NavButton>
   <NavButton
-    id="reset-lock"
-    class="me-3"
+    id="reset-lock-nav"
+    class="me-3 d-none d-md-block"
     title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
     on:click={() => lockedParts = LockedParts.empty}
   >
@@ -215,15 +216,23 @@
 
 <article class="container text-center px-3">
   <ToolSection id="candidates-form" class="my-4 w-100">
-    <div class="d-flex d-sm-none justify-content-end">
+    <div class="d-flex d-md-none justify-content-end">
       <RandomAssembleButton
         initialCandidates={initialCandidates}
         candidates={candidates}
         lockedParts={lockedParts}
         randomAssembly={randomAssembly}
         aria-label={$i18n.t('random:command.random.label')}
+        class="me-3"
         on:click={({ detail: randomAssembly }) => assembly = randomAssembly}
       />
+      <TextButton
+        id="reset-lock-form"
+        title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
+        on:click={() => lockedParts = LockedParts.empty}
+      >
+        <i class="bi bi-unlock"></i>
+      </TextButton>
     </div>
     <hr class="w-100 d-flex d-md-none">
     {#each assemblyKeys() as key}

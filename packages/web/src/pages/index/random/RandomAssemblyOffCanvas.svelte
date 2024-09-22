@@ -17,6 +17,7 @@
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import Margin from '~view/components/spacing/Margin.svelte'
   import i18n from "~view/i18n/define";
+  import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
   import { logger } from '~view/utils/logger'
 
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
@@ -28,7 +29,6 @@
 
   import CoamRangeSlider from './range/CoamRangeSlider.svelte'
   import LoadRangeSlider, { type ToggleLock } from './range/LoadRangeSlider.svelte'
-  import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
 
   export let open: boolean
   export let lockedParts: LockedParts

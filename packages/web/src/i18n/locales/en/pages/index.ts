@@ -14,7 +14,8 @@ export const enPageIndex = {
     },
     share: {
       label: 'Share',
-      description: "$t(share:command.target.caption, {'what': 'Current Assembly'})",
+      description:
+        "$t(share:command.target.caption, {'what': 'Current Assembly'})",
       text: {
         label: 'Copy',
         description: 'Copy current assembly',

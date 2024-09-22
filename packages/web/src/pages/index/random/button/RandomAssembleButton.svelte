@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
+  import TextButton from '~view/components/button/TextButton.svelte'
+  import { logger } from '~view/utils/logger'
 
+  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly.d'
   import type { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'
   import type { RandomAssembly } from '@ac6_assemble_tool/core/assembly/random/random-assembly'
   import { notEquipped } from '@ac6_assemble_tool/parts/types/base/category'
   import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
-  import { logger } from '~view/utils/logger'
-  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly.d'
-  import TextButton from '~view/components/button/TextButton.svelte'
+  import { createEventDispatcher } from 'svelte'
 
   export let lockedParts: LockedParts
   export let initialCandidates: Candidates

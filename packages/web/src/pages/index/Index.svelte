@@ -1,10 +1,12 @@
 
 <script lang="ts">
 
+  import TextButton from '~view/components/button/TextButton.svelte'
   import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import Margin from "~view/components/spacing/Margin.svelte";
   import i18n from "~view/i18n/define";
+  import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
   import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from '~view/pages/index/random/RandomAssemblyOffCanvas.svelte'
   import {logger} from "~view/utils/logger";
 
@@ -40,8 +42,6 @@
   import ReportList from './report/ReportList.svelte'
   import ShareAssembly from './share/ShareAssembly.svelte'
   import StoreAssembly from "./store/StoreAssembly.svelte";
-  import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
-  import TextButton from '~view/components/button/TextButton.svelte'
 
   const appVersion = appPackage.version
   const regulation = 'v1.07'

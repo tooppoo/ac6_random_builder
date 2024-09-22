@@ -13,7 +13,7 @@ export const jaPageIndex = {
       description: 'アセンブルの<br>条件を設定する',
     },
     share: {
-      label: "共有",
+      label: '共有',
       description: "$t(share:command.target.caption, {'what': '現在のアセン'})",
       text: {
         label: 'コピー',

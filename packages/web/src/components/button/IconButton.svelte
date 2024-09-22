@@ -41,6 +41,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
   data-bs-title={title}
   data-bs-html="true"
   data-clickable={clickable}
+  data-bs-trigger="hover"
   aria-label={title}
   use:bindTooltip
   on:click={onClick}

@@ -201,7 +201,7 @@
 
 <header class="text-center mt-5">
   <h1>
-    ARMORED CORE Ⅵ<br class="sp-only">
+    ARMORED CORE Ⅵ<br class="d-block d-md-none">
     ASSEMBLY TOOL
   </h1>
   <h2>

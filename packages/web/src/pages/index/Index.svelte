@@ -40,6 +40,7 @@
   import ReportList from './report/ReportList.svelte'
   import ShareAssembly from './share/ShareAssembly.svelte'
   import StoreAssembly from "./store/StoreAssembly.svelte";
+  import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
 
   const appVersion = appPackage.version
   const regulation = 'v1.07'
@@ -214,6 +215,17 @@
 
 <article class="container text-center px-3">
   <ToolSection id="candidates-form" class="my-4 w-100">
+    <div class="d-flex d-sm-none justify-content-end">
+      <RandomAssembleButton
+        initialCandidates={initialCandidates}
+        candidates={candidates}
+        lockedParts={lockedParts}
+        randomAssembly={randomAssembly}
+        aria-label={$i18n.t('random:command.random.label')}
+        on:click={({ detail: randomAssembly }) => assembly = randomAssembly}
+      />
+    </div>
+    <hr class="w-100 d-flex d-md-none">
     {#each assemblyKeys() as key}
       <PartsSelectForm
         id={key}

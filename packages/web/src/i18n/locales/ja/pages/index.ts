@@ -1,8 +1,8 @@
 export const jaPageIndex = {
   command: {
     random: {
-      label: 'ランダムアセン',
-      description: '条件を満たすアセンを<br>ランダムに生成する',
+      label: 'ランダム設定',
+      description: 'ランダムアセンの<br/>条件を設定する',
     },
     resetLock: {
       description: 'ロックを全て解除する',

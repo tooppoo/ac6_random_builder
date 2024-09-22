@@ -1,7 +1,7 @@
 export const jaRandom = {
   command: {
     random: {
-      label: 'アセンブル実行',
+      label: 'ランダムアセン実行',
     },
     disallow_over_load: {
       label: '積載超過を禁止',

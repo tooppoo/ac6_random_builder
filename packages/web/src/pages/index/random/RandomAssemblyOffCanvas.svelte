@@ -13,7 +13,6 @@
 </script>
 <script lang="ts">
 
-  import TextButton from '~view/components/button/TextButton.svelte'
   import Switch from '~view/components/form/Switch.svelte'
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import Margin from '~view/components/spacing/Margin.svelte'
@@ -24,12 +23,12 @@
   import type { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'
   import type { RandomAssembly } from '@ac6_assemble_tool/core/assembly/random/random-assembly'
   import { disallowArmsLoadOver, disallowLoadOver, totalCoamNotOverMax, totalLoadNotOverMax } from '@ac6_assemble_tool/core/assembly/random/validator/validators'
-  import { notEquipped } from '@ac6_assemble_tool/parts/types/base/category'
   import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
   import { createEventDispatcher } from 'svelte'
 
   import CoamRangeSlider from './range/CoamRangeSlider.svelte'
   import LoadRangeSlider, { type ToggleLock } from './range/LoadRangeSlider.svelte'
+  import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
 
   export let open: boolean
   export let lockedParts: LockedParts
@@ -39,30 +38,8 @@
   export let assembly: Assembly
 
   // handler
-  const onRandom = () => {
-    try {
-      logger.debug('on random', lockedParts, candidates.booster)
-      const actualCandidates = (
-        !lockedParts.isLocking('legs')
-        && candidates.booster.length === 1
-        && candidates.booster[0].category === notEquipped
-      )
-        // 脚部がロックされていないのに候補が未装備のみなら、たまたまタンク脚が選択されているだけなので
-        // ランダムアセン時にブースターを制限する必要は無い
-        // この処置が必要になるのはランダムアセン時のみなので、filterの処理には含めない
-        ? { ...candidates, booster: initialCandidates.booster }
-        : candidates
-
-      dispatch('random', {
-        assembly: randomAssembly.assemble(actualCandidates, { lockedParts })
-      })
-    } catch (e) {
-      logger.error(e)
-
-      dispatch('error', {
-        error: e instanceof Error ? e : new Error(`${e}`),
-      })
-    }
+  const onRandom = ({ detail: assembly }: CustomEvent<Assembly>) => {
+    dispatch('random', { assembly })
   }
   const onApply = (param: ApplyRandomFilter) => {
     dispatch('filter', param)
@@ -89,18 +66,20 @@
     <slot name="title" />
   </svelte:fragment>
   <svelte:fragment slot="body">
-    <div id="random-assembly" class="d-flex justify-content-bgein align-items-center mb-3">
-      <TextButton
-        type="button"
+    <div id="random-assembly" class="d-none d-md-flex justify-content-bgein align-items-center mb-3">
+      <RandomAssembleButton
+        initialCandidates={initialCandidates}
+        candidates={candidates}
+        lockedParts={lockedParts}
+        randomAssembly={randomAssembly}
         class="w-100"
         on:click={onRandom}
       >
-        <i class="bi bi-shuffle"></i>
         {$i18n.t('random:command.random.label')}
-      </TextButton>
+      </RandomAssembleButton>
     </div>
 
-    <hr class="w-100 my-4" />
+    <hr class="w-100 my-4 d-none d-md-block" />
 
     <div id="disallow-over-load">
       <Switch

@@ -59,7 +59,7 @@
     on:change={onChange}
     list={`${id}-range-mark`}
   />
-  <datalist id={`${id}-range-mark`} class="sp-only w-100">
+  <datalist id={`${id}-range-mark`} class="d-sm-block d-md-none w-100">
     {#each dataList as v}
       <option value={v} label={`${v}`}>{v}</option>
     {/each}

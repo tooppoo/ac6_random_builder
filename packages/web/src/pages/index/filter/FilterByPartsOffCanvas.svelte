@@ -39,7 +39,9 @@
   on:toggle={(e) => dispatch('toggle', e.detail)}
 >
   <svelte:fragment slot="title">
-    {`${current.name || ''} FILTER`}
+    <span class="text-uppercase">
+      {`${current.name || ''} FILTER`}
+    </span>
   </svelte:fragment>
   <svelte:fragment slot="body">
     {#each current.filter.list as f}

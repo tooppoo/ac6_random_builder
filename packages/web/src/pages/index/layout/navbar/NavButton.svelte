@@ -41,7 +41,5 @@
   action={setupTooltip}
 >
   <slot name="icon"></slot>
-  <span class="d-none d-sm-inline">
-    <slot></slot>
-  </span>
+  <slot></slot>
 </TextButton>

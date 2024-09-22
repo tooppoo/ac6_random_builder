@@ -4,9 +4,3 @@
 :root {
   --bs-font-monospace: 'DM Mono', 'Sawarabi Gothic', monospace;
 }
-
-@include media-breakpoint-up(md) {
-  .sp-only {
-    display: none;
-  }
-}

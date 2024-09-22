@@ -1,5 +1,5 @@
 export const enShare = {
-  caption: 'Share',
+  caption: 'Share Assembly',
   command: {
     target: {
       caption: 'Share {{what}}',

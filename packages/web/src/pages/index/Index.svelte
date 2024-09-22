@@ -1,10 +1,12 @@
 
 <script lang="ts">
 
+  import TextButton from '~view/components/button/TextButton.svelte'
   import LanguageForm from "~view/components/language/LanguageForm.svelte";
   import ErrorModal from "~view/components/modal/ErrorModal.svelte";
   import Margin from "~view/components/spacing/Margin.svelte";
   import i18n from "~view/i18n/define";
+  import RandomAssembleButton from '~view/pages/index/random/button/RandomAssembleButton.svelte'
   import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from '~view/pages/index/random/RandomAssemblyOffCanvas.svelte'
   import {logger} from "~view/utils/logger";
 
@@ -160,16 +162,20 @@
     on:click={() => openRandomAssembly = true}
   >
     <i slot="icon" class="bi bi-tools"></i>
-    {$i18n.t('command.random.label', { ns: 'page/index' })}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.random.label', { ns: 'page/index' })}
+    </span>
   </NavButton>
   <NavButton
-    id="reset-lock"
-    class="me-3"
+    id="reset-lock-nav"
+    class="me-3 d-none d-md-block"
     title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
     on:click={() => lockedParts = LockedParts.empty}
   >
     <i slot="icon" class="bi bi-unlock"></i>
-    {$i18n.t('resetAllLock', { ns: 'lock' })}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.resetLock.label', { ns: 'page/index' })}
+    </span>
   </NavButton>
   <NavButton
     id="open-whole-filter"
@@ -178,30 +184,36 @@
     on:click={() => openWholeFilter = true}
   >
     <i slot="icon" class="bi bi-filter-square"></i>
-    {$i18n.t('filter', { ns: 'filter' })}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.filterForWhole.label', { ns: 'page/index' })}
+    </span>
   </NavButton>
   <NavButton
     id="open-share"
     class="me-3"
-    title={$i18n.t('share:caption')}
+    title={$i18n.t('command.share.description', { ns: 'page/index'})}
     on:click={() => openShare = true}
   >
     <i slot="icon" class="bi bi-share"></i>
-    {$i18n.t('share:caption')}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.share.label', { ns: 'page/index'})}
+    </span>
   </NavButton>
   <NavButton
     id="open-assembly-store"
-    title={$i18n.t('command.store.caption', { ns: 'page/index'})}
+    title={$i18n.t('command.store.description', { ns: 'page/index'})}
     on:click={() => openAssemblyStore = true}
   >
     <i slot="icon" class="bi bi-database"></i>
-    {$i18n.t('command.store.caption', { ns: 'page/index'})}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.store.label', { ns: 'page/index'})}
+    </span>
   </NavButton>
 </Navbar>
 
 <header class="text-center mt-5">
   <h1>
-    ARMORED CORE Ⅵ<br class="sp-only">
+    ARMORED CORE Ⅵ<br class="d-block d-md-none">
     ASSEMBLY TOOL
   </h1>
   <h2>
@@ -214,6 +226,25 @@
 
 <article class="container text-center px-3">
   <ToolSection id="candidates-form" class="my-4 w-100">
+    <div class="d-flex d-md-none justify-content-end">
+      <RandomAssembleButton
+        initialCandidates={initialCandidates}
+        candidates={candidates}
+        lockedParts={lockedParts}
+        randomAssembly={randomAssembly}
+        aria-label={$i18n.t('random:command.random.label')}
+        class="me-3"
+        on:click={({ detail: randomAssembly }) => assembly = randomAssembly}
+      />
+      <TextButton
+        id="reset-lock-form"
+        title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
+        on:click={() => lockedParts = LockedParts.empty}
+      >
+        <i class="bi bi-unlock"></i>
+      </TextButton>
+    </div>
+    <hr class="w-100 d-flex d-md-none">
     {#each assemblyKeys() as key}
       <PartsSelectForm
         id={key}
@@ -343,7 +374,7 @@
   on:toggle={(e) => openShare = e.detail.open}
 >
   <svelte:fragment slot="title">
-    {$i18n.t('command.share.caption', { ns: 'page/index' })}
+    {$i18n.t('share:caption')}
   </svelte:fragment>
 </ShareAssembly>
 <StoreAssembly

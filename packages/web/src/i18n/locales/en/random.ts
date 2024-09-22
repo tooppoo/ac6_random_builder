@@ -1,7 +1,7 @@
 export const enRandom = {
   command: {
     random: {
-      label: 'Run Assemble',
+      label: 'Run Random Assemble',
     },
     disallow_over_load: {
       label: 'Disallow Over Load',

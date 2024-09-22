@@ -1,17 +1,21 @@
 export const enPageIndex = {
   command: {
     random: {
-      label: 'Random Assemble',
-      description: 'Generate an assembly randomly',
+      label: 'Random Config',
+      description: 'Configure Random Assemble',
     },
     resetLock: {
-      description: 'Reset all locks',
+      label: 'Reset Locks',
+      description: 'Reset All Locks',
     },
     filterForWhole: {
-      description: 'Set conditions to assemble',
+      label: 'Filter',
+      description: 'Set filter for whole of assembly',
     },
     share: {
-      caption: "$t(share:command.target.caption, {'what': 'Current Assembly'})",
+      label: 'Share',
+      description:
+        "$t(share:command.target.caption, {'what': 'Current Assembly'})",
       text: {
         label: 'Copy',
         description: 'Copy current assembly',
@@ -26,7 +30,8 @@ export const enPageIndex = {
       hide: 'Hide',
     },
     store: {
-      caption: 'Store Assembly',
+      label: 'Store',
+      description: 'Store Assembly and Apply',
     },
   },
   report: {

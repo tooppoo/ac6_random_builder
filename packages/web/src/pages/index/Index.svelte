@@ -162,7 +162,9 @@
     on:click={() => openRandomAssembly = true}
   >
     <i slot="icon" class="bi bi-tools"></i>
-    {$i18n.t('command.random.label', { ns: 'page/index' })}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.random.label', { ns: 'page/index' })}
+    </span>
   </NavButton>
   <NavButton
     id="reset-lock-nav"
@@ -171,7 +173,9 @@
     on:click={() => lockedParts = LockedParts.empty}
   >
     <i slot="icon" class="bi bi-unlock"></i>
-    {$i18n.t('command.resetLock.label', { ns: 'page/index' })}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.resetLock.label', { ns: 'page/index' })}
+    </span>
   </NavButton>
   <NavButton
     id="open-whole-filter"
@@ -180,7 +184,9 @@
     on:click={() => openWholeFilter = true}
   >
     <i slot="icon" class="bi bi-filter-square"></i>
-    {$i18n.t('command.filterForWhole.label', { ns: 'page/index' })}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.filterForWhole.label', { ns: 'page/index' })}
+    </span>
   </NavButton>
   <NavButton
     id="open-share"
@@ -189,7 +195,9 @@
     on:click={() => openShare = true}
   >
     <i slot="icon" class="bi bi-share"></i>
-    {$i18n.t('command.share.label', { ns: 'page/index'})}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.share.label', { ns: 'page/index'})}
+    </span>
   </NavButton>
   <NavButton
     id="open-assembly-store"
@@ -197,7 +205,9 @@
     on:click={() => openAssemblyStore = true}
   >
     <i slot="icon" class="bi bi-database"></i>
-    {$i18n.t('command.store.label', { ns: 'page/index'})}
+    <span class="d-none d-md-inline">
+      {$i18n.t('command.store.label', { ns: 'page/index'})}
+    </span>
   </NavButton>
 </Navbar>
 

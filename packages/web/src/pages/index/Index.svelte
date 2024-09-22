@@ -170,7 +170,7 @@
     on:click={() => lockedParts = LockedParts.empty}
   >
     <i slot="icon" class="bi bi-unlock"></i>
-    {$i18n.t('resetAllLock', { ns: 'lock' })}
+    {$i18n.t('command.resetLock.description', { ns: 'page/index' })}
   </NavButton>
   <NavButton
     id="open-whole-filter"
@@ -179,7 +179,7 @@
     on:click={() => openWholeFilter = true}
   >
     <i slot="icon" class="bi bi-filter-square"></i>
-    {$i18n.t('filter', { ns: 'filter' })}
+    {$i18n.t('command.filterForWhole.label', { ns: 'page/index' })}
   </NavButton>
   <NavButton
     id="open-share"

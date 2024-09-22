@@ -2,7 +2,7 @@ import { onlyPropertyIncludedInList } from '@ac6_assemble_tool/core/assembly/fil
 import type { Unit } from '@ac6_assemble_tool/parts/units'
 
 export const enFilter = {
-  filter: 'filter',
+  filter: 'Filter',
   excludeNotEquipped: 'exclude not-equipped',
   notUseHanger: 'not use hanger',
   excludeAllNotEquipped: 'exclude any not-equipped',

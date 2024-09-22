@@ -8,6 +8,7 @@ export const jaPageIndex = {
       description: 'ロックを全て解除する',
     },
     filterForWhole: {
+      label: '絞り込み',
       description: 'アセンブルの<br>条件を設定する',
     },
     share: {

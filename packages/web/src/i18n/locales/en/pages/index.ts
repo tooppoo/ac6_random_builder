@@ -1,14 +1,15 @@
 export const enPageIndex = {
   command: {
     random: {
-      label: 'Random Assemble',
-      description: 'Generate an assembly randomly',
+      label: 'Random Config',
+      description: 'Configure Random Assemble',
     },
     resetLock: {
-      description: 'Reset all locks',
+      description: 'Reset All Locks',
     },
     filterForWhole: {
-      description: 'Set conditions to assemble',
+      label: 'Set Filter',
+      description: 'Set filter for whole of assembly',
     },
     share: {
       caption: "$t(share:command.target.caption, {'what': 'Current Assembly'})",

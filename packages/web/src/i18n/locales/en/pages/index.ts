@@ -5,6 +5,7 @@ export const enPageIndex = {
       description: 'Configure Random Assemble',
     },
     resetLock: {
+      label: 'Reset All Locks',
       description: 'Reset All Locks',
     },
     filterForWhole: {
@@ -12,7 +13,8 @@ export const enPageIndex = {
       description: 'Set filter for whole of assembly',
     },
     share: {
-      caption: "$t(share:command.target.caption, {'what': 'Current Assembly'})",
+      label: 'Share',
+      description: "$t(share:command.target.caption, {'what': 'Current Assembly'})",
       text: {
         label: 'Copy',
         description: 'Copy current assembly',
@@ -27,7 +29,8 @@ export const enPageIndex = {
       hide: 'Hide',
     },
     store: {
-      caption: 'Store Assembly',
+      label: 'Store Assembly',
+      description: 'Store Assembly and Apply',
     },
   },
   report: {

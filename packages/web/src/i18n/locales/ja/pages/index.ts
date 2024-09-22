@@ -5,6 +5,7 @@ export const jaPageIndex = {
       description: 'ランダムアセンの<br/>条件を設定する',
     },
     resetLock: {
+      label: '全ロック解除',
       description: 'ロックを全て解除する',
     },
     filterForWhole: {
@@ -12,7 +13,8 @@ export const jaPageIndex = {
       description: 'アセンブルの<br>条件を設定する',
     },
     share: {
-      caption: "$t(share:command.target.caption, {'what': '現在のアセン'})",
+      label: "共有",
+      description: "$t(share:command.target.caption, {'what': '現在のアセン'})",
       text: {
         label: 'コピー',
         description: '現在のアセンブルをコピー',
@@ -27,7 +29,8 @@ export const jaPageIndex = {
       hide: '表示しない',
     },
     store: {
-      caption: 'アセンデータ管理',
+      label: 'アセン保存',
+      description: 'アセンデータを保存・適用する',
     },
   },
   report: {

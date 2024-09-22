@@ -170,7 +170,7 @@
     on:click={() => lockedParts = LockedParts.empty}
   >
     <i slot="icon" class="bi bi-unlock"></i>
-    {$i18n.t('command.resetLock.description', { ns: 'page/index' })}
+    {$i18n.t('command.resetLock.label', { ns: 'page/index' })}
   </NavButton>
   <NavButton
     id="open-whole-filter"
@@ -184,19 +184,19 @@
   <NavButton
     id="open-share"
     class="me-3"
-    title={$i18n.t('share:caption')}
+    title={$i18n.t('command.share.description', { ns: 'page/index'})}
     on:click={() => openShare = true}
   >
     <i slot="icon" class="bi bi-share"></i>
-    {$i18n.t('share:caption')}
+    {$i18n.t('command.share.label', { ns: 'page/index'})}
   </NavButton>
   <NavButton
     id="open-assembly-store"
-    title={$i18n.t('command.store.caption', { ns: 'page/index'})}
+    title={$i18n.t('command.store.description', { ns: 'page/index'})}
     on:click={() => openAssemblyStore = true}
   >
     <i slot="icon" class="bi bi-database"></i>
-    {$i18n.t('command.store.caption', { ns: 'page/index'})}
+    {$i18n.t('command.store.label', { ns: 'page/index'})}
   </NavButton>
 </Navbar>
 
@@ -355,7 +355,7 @@
   on:toggle={(e) => openShare = e.detail.open}
 >
   <svelte:fragment slot="title">
-    {$i18n.t('command.share.caption', { ns: 'page/index' })}
+    {$i18n.t('share:caption')}
   </svelte:fragment>
 </ShareAssembly>
 <StoreAssembly

@@ -30,7 +30,7 @@ export const jaPageIndex = {
     },
     store: {
       label: 'アセン保存',
-      description: 'アセンデータを保存・適用する',
+      description: 'アセンデータを<br/>保存・適用する',
     },
   },
   report: {

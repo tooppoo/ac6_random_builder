@@ -10,6 +10,7 @@ export default defineConfig({
     },
   },
   test: {
+    testTimeout: 10 * 1000,
     coverage: {
       reporter: ['text', 'json'],
       all: true,

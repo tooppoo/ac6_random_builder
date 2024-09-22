@@ -3,6 +3,7 @@
 </script>
 <script lang="ts">
 
+  import Switch from '~view/components/form/Switch.svelte'
   import OffCanvas from '~view/components/off-canvas/OffCanvas.svelte'
   import i18n, {type I18Next} from "~view/i18n/define";
   import { stringifyAssembly, stringifyStatus } from '~view/pages/index/interaction/share'
@@ -17,18 +18,12 @@
   let copy: () => void = defaultCopyWay
 
   // handler
-  const onChangeTextCopyWay = (i18n: I18Next) => (e: Event) => {
-    const withStatus = (e.target as HTMLInputElement).checked
-
-    copy = withStatus
-      ? () => {
-          const text = `${stringifyAssembly(assembly())}
-          
+  const onEnabledWithStatus = (i18n: I18Next) => () => {
+    const text = `${stringifyAssembly(assembly())}
+    
 ${stringifyStatus(assembly(), i18n)}`
 
-          navigator.clipboard.writeText(prefix() + text)
-        }
-      : defaultCopyWay
+    navigator.clipboard.writeText(prefix() + text)
   }
 
   // setup
@@ -53,15 +48,13 @@ ${stringifyStatus(assembly(), i18n)}`
     <div id="share-by-text" class="d-flex justify-content-begin align-items-center mb-3">
       <div class="share-label me-3">
         {$i18n.t('share:command.text.caption')}
-        <div class="form-check form-switch">
-          <input
-            class="form-check-input" type="checkbox" role="switch" id={`${$$props.id}-flexSwitchCheckDefault`}
-            on:change={onChangeTextCopyWay($i18n)}
-          >
-          <label class="form-check-label" for={`${$$props.id}-flexSwitchCheckDefault`}>
-            {$i18n.t('share:command.text.withStatus')}
-          </label>
-        </div>
+        <Switch
+          id={`${$$props.id}-flexSwitchCheckDefault`}
+          on:enabled={() => copy = onEnabledWithStatus($i18n)}
+          on:disabled={() => copy = defaultCopyWay}
+        >
+          {$i18n.t('share:command.text.withStatus')}
+        </Switch>
       </div>
       <div class="share-button">
         <button

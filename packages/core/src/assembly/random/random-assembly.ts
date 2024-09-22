@@ -46,6 +46,21 @@ export class RandomAssembly {
       this.config,
     )
   }
+  removeValidator(key: string): RandomAssembly {
+    if (isInnerSecretKey(key)) {
+      throw new OverwriteInnerSecretValidatorError(key)
+    }
+    if (this.getValidator(key) === null) {
+      return this
+    }
+
+    const validators = Object.entries(this._validators).reduce(
+      (acc, [k, v]) => (k === key ? acc : { ...acc, [k]: v }),
+      {},
+    )
+
+    return new RandomAssembly(validators, this.config)
+  }
   getValidator(key: string): Validator | null {
     return this._validators[key] || null
   }

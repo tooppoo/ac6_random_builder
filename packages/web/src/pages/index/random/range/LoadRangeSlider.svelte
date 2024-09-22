@@ -5,7 +5,6 @@
 </script>
 <script lang="ts">
   import i18n from '~view/i18n/define'
-  import RangeSlider from '~view/pages/index/filter/range/base/RangeSlider.svelte'
   import LockBadge from "~view/pages/index/form/status/badge/LockBadge.svelte";
   import StatusBadgeList from "~view/pages/index/form/status/StatusBadgeList.svelte";
 
@@ -17,6 +16,8 @@
   import Dropdown from "bootstrap/js/dist/dropdown";
   import {createEventDispatcher} from "svelte";
   import type {Action} from "svelte/action";
+
+  import RangeSlider from './base/RangeSlider.svelte'
 
   // state
   export let candidates: Candidates

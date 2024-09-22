@@ -36,6 +36,7 @@
   data-bs-title={title}
   data-bs-placement="left"
   data-bs-html="true"
+  data-bs-trigger="hover"
   aria-label={title}
   on:click={onClick}
   action={setupTooltip}

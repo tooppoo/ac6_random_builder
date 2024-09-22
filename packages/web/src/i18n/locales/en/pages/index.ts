@@ -5,11 +5,11 @@ export const enPageIndex = {
       description: 'Configure Random Assemble',
     },
     resetLock: {
-      label: 'Reset All Locks',
+      label: 'Reset Locks',
       description: 'Reset All Locks',
     },
     filterForWhole: {
-      label: 'Set Filter',
+      label: 'Filter',
       description: 'Set filter for whole of assembly',
     },
     share: {
@@ -29,7 +29,7 @@ export const enPageIndex = {
       hide: 'Hide',
     },
     store: {
-      label: 'Store Assembly',
+      label: 'Store',
       description: 'Store Assembly and Apply',
     },
   },

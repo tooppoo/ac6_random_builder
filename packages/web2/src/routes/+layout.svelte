@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Styles } from '@sveltestrap/sveltestrap';
   import { domain, basePath } from '$lib/app-url';
   import { resources } from '$lib/i18n/resources';
   import i18n from '$lib/i18n/define';
@@ -75,12 +76,11 @@
   <!-- End Font -->
 </svelte:head>
 
+<Styles />
+
 <slot></slot>
 
 <style lang="scss">
-  @import 'bootstrap/scss/bootstrap';
-  @import 'bootstrap-icons/font/bootstrap-icons.css';
-
   :root {
     --bs-font-monospace: 'DM Mono', 'Sawarabi Gothic', monospace;
   }

@@ -1,31 +1,20 @@
 <script lang="ts">
-import Tooltip from "bootstrap/js/dist/tooltip";
+import { Tooltip } from '@sveltestrap/sveltestrap'
 import {createEventDispatcher} from "svelte";
 
+export let id: string
 export let title: string
 export let clickable: boolean = false
 export let withTooltip: boolean = true
 
-let tooltip: Tooltip | null = null
-$: {
-  if (tooltip) {
-    tooltip.setContent({ '.tooltip-inner': title })
-  }
-}
+let isOpen: boolean = false
 
 // handler
 function onClick() {
   if (clickable) {
-    if (tooltip) tooltip.hide()
+    isOpen = false
 
     dispatch('click')
-  }
-}
-
-// setup
-function bindTooltip(el: HTMLElement) {
-  if (withTooltip) {
-    tooltip = new Tooltip(el)
   }
 }
 
@@ -34,19 +23,17 @@ const dispatch = createEventDispatcher<{ click: null }>()
 
 <span
   {...$$restProps}
-  id={$$props.id}
+  id={id}
   class={$$props.class + ` icon-button`}
-  data-bs-toggle="tooltip"
-  data-bs-placement="left"
-  data-bs-title={title}
-  data-bs-html="true"
   data-clickable={clickable}
-  data-bs-trigger="hover"
   aria-label={title}
-  use:bindTooltip
-  on:click={onClick}
   role={clickable ? 'button' : 'img'}
 />
+{#if withTooltip}
+  <Tooltip target={id} placement="right" bind:isOpen>
+    {@html title}
+  </Tooltip>
+{/if}
 
 <style>
   span[data-clickable="true"] {

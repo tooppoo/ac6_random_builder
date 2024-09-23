@@ -42,6 +42,7 @@
   import StoreAssembly from "./store/StoreAssembly.svelte";
   import RandomAssembleButton from './random/button/RandomAssembleButton.svelte'
   import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from './random/RandomAssemblyOffCanvas.svelte'
+  import { onMount } from 'svelte'
 
   const appVersion = appPackage.version
   const regulation = 'v1.07'
@@ -145,11 +146,14 @@
 
     return version.version
   }
-  window.addEventListener('popstate', () => {
+
+  const onPopstate = () => {
     browserBacking = true
     buildAssemblyFromQuery()
-  })
+  }
 </script>
+
+<svelte:window on:popstate={onPopstate} />
 
 {#await initialize()}
   <div>loading...</div>

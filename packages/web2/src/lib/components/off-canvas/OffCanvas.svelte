@@ -2,55 +2,37 @@
   export type ToggleOffCanvas = { open: boolean }
 </script>
 <script lang="ts">
-  import Offcanvas from "bootstrap/js/dist/offcanvas";
+  import { Offcanvas, OffcanvasBody, OffcanvasHeader } from "@sveltestrap/sveltestrap";
   import {createEventDispatcher} from "svelte";
 
+  export let id: string = ''
   export let open: boolean
 
-  let toggle: (op: boolean) => void = () => {}
-  $: {
-    toggle(open)
+  // handler
+  const toggle = () => {
+    dispatch('toggle', { open: !open })
+  }
+  const hide = () => {
+    dispatch('toggle', { open: false })
   }
 
   // setup
-  function setOffcanvas(el: HTMLElement) {
-    const offcanvas = new Offcanvas(el)
-
-    el.addEventListener('hide.bs.offcanvas', () => {
-      dispatch('toggle', { open: false })
-    })
-
-    toggle = (op: boolean) => {
-      if (op) {
-        offcanvas.show()
-      }
-      else {
-        offcanvas.hide()
-      }
-    }
-  }
-
   const dispatch = createEventDispatcher<{
     toggle: ToggleOffCanvas
   }>()
 </script>
 
-<div
-  id={$$props.id || ''}
-  class="offcanvas offcanvas-end test"
-  tabindex="-1"
-  data-bs-scroll="true"
-  data-bs-backdrop="false"
-  aria-labelledby="offcanvasRightLabel"
-  use:setOffcanvas
+<Offcanvas
+  id={id}
+  placement="end"
+  backdrop={false}
+  scroll={true}
+  isOpen={open}
+  {toggle}
+  aria-labelledby="{id}-offcanvasRightLabel"
 >
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">
-      <slot name="title"></slot>
-    </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <slot name="body"></slot>
-  </div>
-</div>
+  <OffcanvasHeader id="{id}-offcanvasRightLabel" slot="header">
+    <slot name="title"></slot>
+  </OffcanvasHeader>
+  <slot name="body"></slot>
+</Offcanvas>

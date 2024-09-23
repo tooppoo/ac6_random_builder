@@ -13,7 +13,7 @@
   import {sum} from "@ac6_assemble_tool/core/utils/array";
   import {roundUpByRealPart} from "@ac6_assemble_tool/core/utils/number";
   import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates";
-  import Dropdown from "bootstrap/js/dist/dropdown";
+  import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from '@sveltestrap/sveltestrap'
   import {createEventDispatcher} from "svelte";
   import type {Action} from "svelte/action";
 
@@ -72,10 +72,6 @@
     change: { value: number },
     'toggle-lock': ToggleLock,
   }>()
-
-  const dropdown: Action = (node) => {
-    new Dropdown(node)
-  }
 </script>
 
 <RangeSlider
@@ -99,39 +95,34 @@
       />
     {/if}
   </StatusBadgeList>
-  <div
+  <Dropdown
     slot="label" let:labelId let:text
-    id={labelId} class="dropdown input-group-text "
-    use:dropdown
+    id={labelId}
   >
-    <span class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <DropdownToggle>
       {text}
-    </span>
-    <ul class="dropdown-menu">
-      <li>
-        <button class="dropdown-item" on:click={onToggleLock}>
-          {#if lock.isLocking('legs')}
-            {
-              $i18n.t('lock:unlockAt', {
-                part: $i18n.t('legs', { ns: 'assembly' })
-              })
-            }
-          {:else}
-            {
-              $i18n.t('lock:lockAt', {
-                part: $i18n.t('legs', { ns: 'assembly' })
-              })
-            }
-          {/if}
-        </button>
-      </li>
-      <li>
-        <button class="dropdown-item" on:click={onSetLoadLimit}>
-          { $i18n.t('applyCurrentLegsLoadLimit', { ns: 'filter' }) }
-        </button>
-      </li>
-    </ul>
-  </div>
+    </DropdownToggle>
+    <DropdownMenu>
+      <DropdownItem on:click={onToggleLock}>
+        {#if lock.isLocking('legs')}
+          {
+            $i18n.t('lock:unlockAt', {
+              part: $i18n.t('legs', { ns: 'assembly' })
+            })
+          }
+        {:else}
+          {
+            $i18n.t('lock:lockAt', {
+              part: $i18n.t('legs', { ns: 'assembly' })
+            })
+          }
+        {/if}
+      </DropdownItem>
+      <DropdownItem on:click={onSetLoadLimit}>
+        { $i18n.t('applyCurrentLegsLoadLimit', { ns: 'filter' }) }
+      </DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
 </RangeSlider>
 
 <style>

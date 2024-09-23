@@ -1,46 +1,37 @@
 <script lang="ts">
   import TextButton from "$lib/components/button/TextButton.svelte";
 
-  import Tooltip from "bootstrap/js/dist/tooltip";
+  import { Tooltip } from '@sveltestrap/sveltestrap'
   import {createEventDispatcher} from "svelte";
 
-  let tooltip: (Tooltip | null) = null
-  let onClick: () => void = () => dispatch('click')
-
+  export let id: string = ''
   export let title: string
-  $: {
-    if (tooltip) {
-      tooltip.setContent({ '.tooltip-inner': title })
-    }
+
+  let isOpen: boolean = false
+
+  const onClick = () => {
+    isOpen = false
+
+    dispatch('click')
   }
 
-  // setup
-  function setupTooltip(ev: HTMLElement) {
-    tooltip = new Tooltip(ev)
-
-    onClick = () => {
-      if (tooltip) {
-        tooltip.hide()
-      }
-
-      dispatch('click')
-    }
-  }
   const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
 <TextButton
-  id={$$props.id || ''}
+  id={id}
   class={`${$$props.class || ''}`}
-  data-bs-toggle="tooltip"
-  data-bs-title={title}
-  data-bs-placement="left"
-  data-bs-html="true"
-  data-bs-trigger="hover"
   aria-label={title}
   on:click={onClick}
-  action={setupTooltip}
 >
   <slot name="icon"></slot>
   <slot></slot>
 </TextButton>
+<Tooltip
+  target={id}
+  placement="left"
+  aria-label={title}
+  bind:isOpen
+>
+  {@html title}
+</Tooltip>

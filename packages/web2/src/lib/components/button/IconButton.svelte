@@ -28,6 +28,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
   data-clickable={clickable}
   aria-label={title}
   role={clickable ? 'button' : 'img'}
+  on:click={onClick}
 />
 {#if withTooltip}
   <Tooltip target={id} placement="right" bind:isOpen>

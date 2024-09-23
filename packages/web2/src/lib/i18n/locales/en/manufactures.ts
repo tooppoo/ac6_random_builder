@@ -1,0 +1,33 @@
+import {
+  allmind,
+  arquebus,
+  arquebus_add,
+  balam,
+  baws,
+  dafeng,
+  elcano,
+  furlong,
+  melinite,
+  rad,
+  rubicon_research_institute,
+  schneider,
+  takigawa,
+  vcpl,
+} from '@ac6_assemble_tool/parts/types/base/manufacture'
+
+export const enManufactures = {
+  [baws]: 'BAWS',
+  [elcano]: 'Elcano',
+  [balam]: 'Balam',
+  [dafeng]: 'Dafeng',
+  [arquebus]: 'Arquebus',
+  [arquebus_add]: 'Arquebus Add',
+  [schneider]: 'Schneider',
+  [rad]: 'RaD',
+  [rubicon_research_institute]: 'Rubicon Research Institute',
+  [melinite]: 'Melinite',
+  [vcpl]: 'VCPL',
+  [takigawa]: 'Takigawa Harmonics',
+  [furlong]: 'Furlong Dynamics',
+  [allmind]: 'Allmind',
+}

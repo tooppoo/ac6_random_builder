@@ -1,0 +1,33 @@
+import {
+  allmind,
+  arquebus,
+  arquebus_add,
+  balam,
+  baws,
+  dafeng,
+  elcano,
+  furlong,
+  melinite,
+  rad,
+  rubicon_research_institute,
+  schneider,
+  takigawa,
+  vcpl,
+} from '@ac6_assemble_tool/parts/types/base/manufacture'
+
+export const jaManufactures = {
+  [baws]: 'BAWS',
+  [elcano]: 'エルカノ',
+  [balam]: 'ベイラム',
+  [dafeng]: '大豊',
+  [arquebus]: 'アーキバス',
+  [arquebus_add]: 'アーキバス先進開発局',
+  [schneider]: 'シュナイダー',
+  [rad]: 'RaD',
+  [rubicon_research_institute]: '技研',
+  [melinite]: 'メリニット',
+  [vcpl]: 'VCPL',
+  [takigawa]: 'タキガワ・ハーモニクス',
+  [furlong]: 'ファーロン・ダイナミクス',
+  [allmind]: 'オールマインド',
+}

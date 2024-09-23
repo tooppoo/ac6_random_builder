@@ -17,7 +17,10 @@ const config = {
 		}),
 		paths: {
 			base: '/ac6_assemble_tool',
-		}
+		},
+		alias: {
+			'$/*': './*',
+		},
 	}
 };
 

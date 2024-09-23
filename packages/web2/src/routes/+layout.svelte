@@ -76,3 +76,12 @@
 </svelte:head>
 
 <slot></slot>
+
+<style lang="scss">
+  @import 'bootstrap/scss/bootstrap';
+  @import 'bootstrap-icons/font/bootstrap-icons.css';
+
+  :root {
+    --bs-font-monospace: 'DM Mono', 'Sawarabi Gothic', monospace;
+  }
+</style>

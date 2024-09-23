@@ -1,5 +1,6 @@
 <script lang="ts">
   import { baseUrl } from '$lib/app-url';
+  import Index from '$lib/view/index/Index.svelte'
 </script>
 
 <svelte:head>
@@ -27,5 +28,4 @@
   />
 </svelte:head>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<Index />

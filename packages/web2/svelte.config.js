@@ -14,7 +14,10 @@ const config = {
 		adapter: adapter({
 			pages: 'dist',
 			assets: 'dist',
-		})
+		}),
+		paths: {
+			base: '/ac6_assemble_tool',
+		}
 	}
 };
 

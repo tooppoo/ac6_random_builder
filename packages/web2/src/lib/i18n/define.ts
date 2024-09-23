@@ -16,4 +16,5 @@ _i18next.init({
 const i18n = createI18nStore(_i18next)
 
 export default i18n
+export type I18NextStore = typeof i18n
 export type I18Next = typeof _i18next

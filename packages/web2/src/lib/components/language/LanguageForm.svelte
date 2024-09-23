@@ -1,6 +1,9 @@
 
 <script lang="ts">
-  import i18n from "$lib/i18n/define";
+  import type { I18NextStore } from '$lib/i18n/define'
+  import { getContext } from 'svelte'
+
+  const i18n = getContext<I18NextStore>('i18n')
 
   const defaultLanguage: string = 'ja'
   const languageQuery: string = 'lng'

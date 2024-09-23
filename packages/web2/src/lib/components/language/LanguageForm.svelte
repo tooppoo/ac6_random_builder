@@ -1,7 +1,7 @@
 
 <script lang="ts">
   import type { I18NextStore } from '$lib/i18n/define'
-  import { getContext } from 'svelte'
+  import { getContext, onMount } from 'svelte'
 
   const i18n = getContext<I18NextStore>('i18n')
 
@@ -9,7 +9,11 @@
   const languageQuery: string = 'lng'
 
   // state
-  let language: string
+  let language: string = defaultLanguage
+
+  onMount(() => {
+    initialize()
+  })
 
   const languages = (() => {
     const defLng = (opt: { value: string, label: string }) => ({
@@ -31,6 +35,7 @@
   }
   function onChange(e: Event) {
     const target = e.target as HTMLInputElement
+
     language = target.value
   }
 
@@ -49,8 +54,6 @@
 
     history.pushState({}, '', url)
   }
-
-  initialize()
 </script>
 
 {#if language !== undefined}

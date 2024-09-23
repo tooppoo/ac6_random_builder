@@ -18,9 +18,9 @@
   import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
   import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
   import {assemblyToSearch, searchToAssembly} from "@ac6_assemble_tool/core/assembly/serialize/as-query";
-  import {type Candidates, defineOrder, type OrderParts} from "@ac6_assemble_tool/parts/types/candidates";
+  import { type Candidates, type OrderParts, type Order, defineOrder } from "@ac6_assemble_tool/parts/types/candidates";
 
-  import appPackage from '$/package.json'
+  import { version as appVersion } from '$app/environment'
 
   import FilterByPartsOffCanvas from "./filter/FilterByPartsOffCanvas.svelte";
   import FilterForWholeOffCanvas from "./filter/FilterForWholeOffCanvas.svelte";
@@ -44,17 +44,19 @@
   import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from './random/RandomAssemblyOffCanvas.svelte'
   import { onMount } from 'svelte'
 
-  const appVersion = appPackage.version
-  const regulation = 'v1.07'
   const tryLimit = 3000
 
   // state
-  let initialCandidates: Candidates
-  let candidates: Candidates
-  let assembly: Assembly
-  let randomAssembly = RandomAssembly.init({ limit: tryLimit })
+  export let regulation: Regulation
+
+  const orders: Order = regulation.orders
+  const version: string = regulation.version
+
+  let candidates: Candidates = regulation.candidates
+  let initialCandidates: Candidates = regulation.candidates
   let lockedParts: LockedParts = LockedParts.empty
-  let filter: FilterState
+  let filter: FilterState = initialFilterState(initialCandidates)
+  let randomAssembly = RandomAssembly.init({ limit: tryLimit })
 
   let openRandomAssembly: boolean = false
   let openWholeFilter: boolean = false
@@ -63,7 +65,13 @@
   let errorMessage: string[] = []
   let browserBacking: boolean = false
 
-  let orderParts: OrderParts
+  let orderParts: OrderParts = defineOrder(orders)
+
+  let assembly: Assembly
+
+  onMount(() => {
+    initialize()
+  })
 
   $: {
     if (initialCandidates && filter && assembly && lockedParts) {
@@ -128,23 +136,15 @@
     candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly, wholeFilter: filter.map }))
   }
 
-  const buildAssemblyFromQuery = () => {
+  function buildAssemblyFromQuery() {
     assembly = searchToAssembly(new URL(location.href).searchParams, initialCandidates)
   }
 
   // setup
-  const initialize = async () => {
-    const version = await import(`$lib/candidates/${regulation}.ts`)
-
-    initialCandidates = candidates = version.candidates
-    orderParts = defineOrder(version.orders)
-    filter = initialFilterState(initialCandidates)
-
+  function initialize() {
     buildAssemblyFromQuery()
 
     logger.debug('initialized', assembly)
-
-    return version.version
   }
 
   const onPopstate = () => {
@@ -155,9 +155,7 @@
 
 <svelte:window on:popstate={onPopstate} />
 
-{#await initialize()}
-  <div>loading...</div>
-{:then version}
+{#if assembly}
 <Navbar>
   <NavButton
     id="random-assemble"
@@ -389,7 +387,6 @@
   on:toggle={(e) => openAssemblyStore = e.detail.open}
   on:apply={(e) => assembly = e.detail.assembly}
 />
-{/await }
 
 <ErrorModal
   id="index-error-modal"
@@ -407,6 +404,7 @@
     {row}<br>
   {/each}
 </ErrorModal>
+{/if}
 
 <style>
   article {

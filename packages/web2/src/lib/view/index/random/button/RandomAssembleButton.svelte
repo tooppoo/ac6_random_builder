@@ -9,10 +9,12 @@
   import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
   import { createEventDispatcher } from 'svelte'
 
+  export let id: string
   export let lockedParts: LockedParts
   export let initialCandidates: Candidates
   export let candidates: Candidates
   export let randomAssembly: RandomAssembly
+  export let tooltipText: string = ''
 
   // handler
   const onRandom = () => {
@@ -45,7 +47,9 @@
 </script>
 
 <TextButton
+  id={id}
   type="button"
+  tooltipText={tooltipText}
   {...$$restProps}
   on:click={onRandom}
 >

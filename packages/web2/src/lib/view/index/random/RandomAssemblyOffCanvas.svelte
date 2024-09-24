@@ -68,6 +68,7 @@
   <svelte:fragment slot="body">
     <div id="random-assembly" class="d-none d-md-flex justify-content-bgein align-items-center mb-3">
       <RandomAssembleButton
+        id="random-assembly-button-offcanvas"
         initialCandidates={initialCandidates}
         candidates={candidates}
         lockedParts={lockedParts}

@@ -30,5 +30,6 @@
   data-clickable={clickable}
   title={title}
   clickable={clickable}
+  withTooltip={true}
   on:click={onClick}
 />

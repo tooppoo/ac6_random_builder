@@ -231,10 +231,12 @@
   <ToolSection id="candidates-form" class="my-4 w-100">
     <div class="d-flex d-md-none justify-content-end">
       <RandomAssembleButton
+        id="random-assembly-button-form"
         initialCandidates={initialCandidates}
         candidates={candidates}
         lockedParts={lockedParts}
         randomAssembly={randomAssembly}
+        tooltipText={$i18n.t('random:command.random.label')}
         aria-label={$i18n.t('random:command.random.label')}
         class="me-3"
         on:click={({ detail: randomAssembly }) => assembly = randomAssembly}
@@ -242,6 +244,7 @@
       <TextButton
         id="reset-lock-form"
         title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
+        tooltipText={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
         on:click={() => lockedParts = LockedParts.empty}
       >
         <i class="bi bi-unlock"></i>

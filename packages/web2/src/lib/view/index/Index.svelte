@@ -43,6 +43,7 @@
   import RandomAssembleButton from './random/button/RandomAssembleButton.svelte'
   import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from './random/RandomAssemblyOffCanvas.svelte'
   import { onMount } from 'svelte'
+  import type { Regulation } from '@ac6_assemble_tool/parts/versions/regulation.types'
 
   const tryLimit = 3000
 

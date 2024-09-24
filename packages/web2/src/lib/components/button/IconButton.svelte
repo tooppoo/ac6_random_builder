@@ -12,7 +12,7 @@ let isOpen: boolean = false
 // handler
 function onClick() {
   if (clickable) {
-    isOpen = false
+    isOpen = !isOpen
 
     dispatch('click')
   }
@@ -31,7 +31,11 @@ const dispatch = createEventDispatcher<{ click: null }>()
   on:click={onClick}
 />
 {#if withTooltip}
-  <Tooltip target={id} placement="right" bind:isOpen>
+  <Tooltip
+    target={id}
+    placement="right"
+    bind:isOpen
+  >
     {@html title}
   </Tooltip>
 {/if}

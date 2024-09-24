@@ -127,6 +127,7 @@ ${target.description}
     <IconButton
       id="notice-for-store-assembly"
       title={$i18n.t('assembly_store:notice')}
+      clickable={true}
       class="bi bi-info-circle"
       style="font-size: 18px;"
     />
@@ -200,6 +201,7 @@ ${target.description}
               </td>
               <td>
                 <IconButton
+                  id="restore-{d.id}"
                   title={$i18n.t('assembly_store:storedList.restore.caption')}
                   class="bi bi-recycle"
                   clickable={true}
@@ -213,18 +215,21 @@ ${target.description}
               <td>{d.description}</td>
               <td>
                 <IconButton
+                  id="load-{d.id}"
                   title={$i18n.t('assembly_store:storedList.apply.caption')}
                   class="bi bi-download"
                   clickable={true}
                   on:click={() => onApply(d)}
                 />
                 <IconButton
+                  id="trash-{d.id}"
                   title={$i18n.t('assembly_store:storedList.delete.caption')}
                   class="bi bi-trash"
                   clickable={true}
                   on:click={() => onDelete(d)}
                 />
                 <IconButton
+                  id="share-{d.id}"
                   title={$i18n.t('assembly_store:storedList.share.caption')}
                   class="bi bi-share"
                   clickable={true}

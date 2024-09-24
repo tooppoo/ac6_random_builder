@@ -1,7 +1,6 @@
 <script lang="ts">
   import TextButton from "$lib/components/button/TextButton.svelte";
 
-  import { Tooltip } from '@sveltestrap/sveltestrap'
   import {createEventDispatcher} from "svelte";
 
   export let id: string = ''
@@ -27,11 +26,3 @@
   <slot name="icon"></slot>
   <slot></slot>
 </TextButton>
-<Tooltip
-  target={id}
-  placement="left"
-  aria-label={title}
-  bind:isOpen
->
-  {@html title}
-</Tooltip>

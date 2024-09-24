@@ -5,15 +5,11 @@ import {createEventDispatcher} from "svelte";
 export let id: string
 export let title: string
 export let clickable: boolean = false
-export let withTooltip: boolean = true
-
-let isOpen: boolean = false
+export let withTooltip: boolean = false
 
 // handler
 function onClick() {
   if (clickable) {
-    isOpen = !isOpen
-
     dispatch('click')
   }
 }
@@ -33,8 +29,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
 {#if withTooltip}
   <Tooltip
     target={id}
-    placement="right"
-    bind:isOpen
+    placement="bottom"
   >
     {@html title}
   </Tooltip>

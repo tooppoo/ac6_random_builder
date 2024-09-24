@@ -5,7 +5,7 @@ import {createEventDispatcher} from "svelte";
 
 export let title: string
 export let clickable: boolean = false
-export let withTooltip: boolean = true
+export let withTooltip: boolean = false
 
 // handler
 function onClick() {

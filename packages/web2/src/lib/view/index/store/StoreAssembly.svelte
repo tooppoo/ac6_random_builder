@@ -128,6 +128,7 @@ ${target.description}
       id="notice-for-store-assembly"
       title={$i18n.t('assembly_store:notice')}
       clickable={true}
+      withTooltip={true}
       class="bi bi-info-circle"
       style="font-size: 18px;"
     />

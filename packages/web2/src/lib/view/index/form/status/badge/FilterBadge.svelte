@@ -28,6 +28,5 @@ const dispatch = createEventDispatcher<{ click: null }>()
   data-clickable={true}
   title={title}
   clickable={true}
-  withTooltip={true}
   on:click={onClick}
 />

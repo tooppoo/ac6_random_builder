@@ -15,13 +15,13 @@
   export let prefix: () => string = () => ''
   export let open: boolean
 
-  let copy: () => void = defaultCopyWay
+  let copyAsText: () => void = defaultCopyAsText
 
   // handler
-  const onEnabledWithStatus = (i18n: I18Next) => () => {
+  const copyAsTextWithStatus = () => {
     const text = `${stringifyAssembly(assembly())}
     
-${stringifyStatus(assembly(), i18n)}`
+${stringifyStatus(assembly(), $i18n)}`
 
     navigator.clipboard.writeText(prefix() + text)
   }
@@ -31,7 +31,7 @@ ${stringifyStatus(assembly(), i18n)}`
     toggle: ToggleOffCanvas
   }>()
 
-  function defaultCopyWay() {
+  function defaultCopyAsText() {
     navigator.clipboard.writeText(prefix() + stringifyAssembly(assembly()))
   }
 </script>
@@ -50,8 +50,8 @@ ${stringifyStatus(assembly(), i18n)}`
         {$i18n.t('share:command.text.caption')}
         <Switch
           id={`${$$props.id}-flexSwitchCheckDefault`}
-          on:enabled={() => copy = onEnabledWithStatus($i18n)}
-          on:disabled={() => copy = defaultCopyWay}
+          on:enabled={() => copyAsText = copyAsTextWithStatus}
+          on:disabled={() => copyAsText = defaultCopyAsText}
         >
           {$i18n.t('share:command.text.withStatus')}
         </Switch>
@@ -60,7 +60,7 @@ ${stringifyStatus(assembly(), i18n)}`
         <button
           id="share-assembly-as-text"
           class="btn btn-dark border-secondary"
-          on:click={copy}
+          on:click={copyAsText}
         >
           <i class="bi bi-clipboard"></i>
         </button>

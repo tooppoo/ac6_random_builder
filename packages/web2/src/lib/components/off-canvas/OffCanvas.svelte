@@ -2,7 +2,7 @@
   export type ToggleOffCanvas = { open: boolean }
 </script>
 <script lang="ts">
-  import { Offcanvas, OffcanvasBody, OffcanvasHeader } from "@sveltestrap/sveltestrap";
+  import { Offcanvas } from "@sveltestrap/sveltestrap";
   import {createEventDispatcher} from "svelte";
 
   export let id: string = ''
@@ -11,9 +11,6 @@
   // handler
   const toggle = () => {
     dispatch('toggle', { open: !open })
-  }
-  const hide = () => {
-    dispatch('toggle', { open: false })
   }
 
   // setup
@@ -29,10 +26,7 @@
   scroll={true}
   isOpen={open}
   {toggle}
-  aria-labelledby="{id}-offcanvasRightLabel"
 >
-  <OffcanvasHeader id="{id}-offcanvasRightLabel" slot="header">
-    <slot name="title"></slot>
-  </OffcanvasHeader>
+  <slot slot="header" name="title"></slot>
   <slot name="body"></slot>
 </Offcanvas>

@@ -37,7 +37,7 @@
     "globals": "15.9.0",
     "jsdom": "25.0.1",
     "sass": "1.79.3",
-    "svelte-check": "4.0.3",
+    "svelte-check": "4.0.4",
     "svelte-eslint-parser": "0.41.1",
     "vite-bundle-analyzer": "0.12.1",
     "vite-plugin-dynamic-import": "1.6.0",

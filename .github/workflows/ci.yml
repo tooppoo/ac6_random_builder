@@ -42,9 +42,6 @@ jobs:
             ${{ runner.os }}-turbo-
 
       # CI
-      - name: type check
-        run: npm run check-types
-
       - name: build
         run: |
           env_target=packages/web/.env.local
@@ -56,6 +53,10 @@ jobs:
         env:
           ANALYZE_MODE: static
           NODE_ENV: production
+
+      - name: type check
+        # buildして型定義ファイルなどを出力させた後でないと失敗する
+        run: npm run check-types
 
       - name: test with coverage
         if: ${{ !inputs.build_only }}

@@ -69,7 +69,7 @@ jobs:
       # coverage tools
       - name: Upload coverage reports to Codecov
         if: ${{ !inputs.build_only }}
-        uses: codecov/codecov-action@v4.5.0
+        uses: codecov/codecov-action@v4.6.0
         with:
           files: ./packages/web/coverage/coverage-final.json,./packages/core/coverage/coverage-final.json
           fail_ci_if_error: true

@@ -44,6 +44,10 @@
   import StoreAssembly from "./store/StoreAssembly.svelte";
 
   import { version as appVersion } from '$app/environment'
+  import {
+    PUBLIC_REPORT_BUG_URL,
+    PUBLIC_REPORT_REQUEST_URL,
+  } from '$env/static/public'
 
   const tryLimit = 3000
 
@@ -280,7 +284,7 @@
   >
     <a
       class="d-block ms-1"
-      href={import.meta.env.VITE_REPORT_REQUEST_URL}
+      href={PUBLIC_REPORT_REQUEST_URL}
       target="_blank"
     >
       {$i18n.t('report.request', { ns: 'page/index' })}
@@ -291,7 +295,7 @@
 
     <a
       class="d-block ms-1"
-      href={import.meta.env.VITE_REPORT_BUG_URL}
+      href={PUBLIC_REPORT_BUG_URL}
       target="_blank"
     >
       {$i18n.t('report.bug', { ns: 'page/index' })}

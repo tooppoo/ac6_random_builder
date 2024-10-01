@@ -1,4 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite'
+import { svelteTesting } from '@testing-library/svelte/vite'
 import { analyzer } from 'vite-bundle-analyzer'
 import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import { defineConfig } from 'vitest/config'
@@ -6,6 +7,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [
     sveltekit(),
+    svelteTesting(),
     pluginPurgeCss({
       variables: true,
     }),
@@ -31,5 +33,19 @@ export default defineConfig({
   ],
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}'],
+    environment: 'jsdom',
+    testTimeout: 10 * 1000,
+    coverage: {
+      reporter: ['text', 'json'],
+      all: true,
+      exclude: [
+        '*.config.*',
+        '**/**/*.d',
+        'dist/**/*',
+        'vitest-setup.ts',
+      ],
+      provider: 'v8',
+    },
+    setupFiles: ['./vitest-setup'],
   },
 })

@@ -42,18 +42,14 @@ jobs:
             ${{ runner.os }}-turbo-
 
       # CI
-      ## ja_chars構築時にweb/i18nを参照しているが、web/i18nの一部がpartsをimportしているので
-      ## lib系のbuildとwebのbuildを分割している
-      - name: build packages
-        run: npm run build:libs
-      - name: build web
+      - name: build
         run: |
           env_target=packages/web/.env.local
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
+          echo "PUBLIC_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
+          echo "PUBLIC_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
+          echo "PUBLIC_LOG_LEVEL=${{ vars.LOG_LEVEL }}" >> "$env_target"
 
-          npm run build:web
+          npm run build
         env:
           ANALYZE_MODE: static
           NODE_ENV: production
@@ -71,7 +67,7 @@ jobs:
         if: ${{ !inputs.build_only }}
         uses: codecov/codecov-action@v4.5.0
         with:
-          files: ./packages/web/coverage/coverage-final.json,./packages/core/coverage/coverage-final.json
+          files: ./packages/core/coverage/coverage-final.json
           fail_ci_if_error: true
           slug: tooppoo/ac6_assemble_tool
         env:

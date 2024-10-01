@@ -10,7 +10,7 @@ export default defineConfig({
       variables: true,
     }),
     (() => {
-      console.log('ANALYZE_MODE=', process.env.ANALYZE_MODE)
+      console.log(`ANALYZE_MODE=${process.env.ANALYZE_MODE}`)
       switch (process.env.ANALYZE_MODE) {
         case 'server':
           return analyzer({
@@ -22,7 +22,7 @@ export default defineConfig({
         case 'json':
           return analyzer({
             analyzerMode: process.env.ANALYZE_MODE,
-            fileName: '../analyze',
+            fileName: '../../../analyze',
           })
         default:
           return null

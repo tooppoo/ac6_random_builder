@@ -7,6 +7,7 @@
     "build": "vite build",
     "postbuild": "svelte-sitemap --domain https://tooppoo.github.io/ac6_assemble_tool -o dist -r -c weekly",
     "preview": "vite preview",
+    "lighthouse": "lhci autorun",
     "test": "vitest",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@ac6_assemble_tool/eslint": "1.0.0",
     "@ac6_assemble_tool/tsconfig": "1.0.0",
+    "@lhci/cli": "^0.14.0",
     "@playwright/test": "1.28.1",
     "@sveltejs/adapter-static": "3.0.5",
     "@sveltejs/kit": "2.5.28",

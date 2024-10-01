@@ -27,6 +27,9 @@
       "dependsOn": ["@ac6_assemble_tool/web#build"],
       "env": ["ANALYZE_MODE", "NODE_ENV"]
     },
+    "lighthouse": {
+      "dependsOn": ["build:web"]
+    },
     "test": {
       "dependsOn": ["^test"]
     },

@@ -15,7 +15,6 @@
   import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates";
   import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from '@sveltestrap/sveltestrap'
   import {createEventDispatcher} from "svelte";
-  import type {Action} from "svelte/action";
 
   import RangeSlider from './base/RangeSlider.svelte'
 

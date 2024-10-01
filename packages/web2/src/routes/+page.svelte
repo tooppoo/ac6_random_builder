@@ -1,6 +1,7 @@
 <script lang="ts">
   import { baseUrl } from '$lib/app-url';
   import Index from '$lib/view/index/Index.svelte'
+
   import { type PageData } from './+page'
 
   export let data: PageData

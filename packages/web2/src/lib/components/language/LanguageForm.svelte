@@ -1,6 +1,7 @@
 
 <script lang="ts">
   import type { I18NextStore } from '$lib/i18n/define'
+
   import { getContext, onMount } from 'svelte'
 
   const i18n = getContext<I18NextStore>('i18n')

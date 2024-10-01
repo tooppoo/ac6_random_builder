@@ -1,11 +1,10 @@
 import 'i18next'
+import type { jaAssembly } from './locales/ja/assembly'
 import { jaAttackType } from './locales/ja/attackType'
 import type { jaError } from './locales/ja/error'
-import type { jaManufactures } from './locales/ja/manufactures'
-
-import type { jaAssembly } from './locales/ja/assembly'
 import type { jaFilter } from './locales/ja/filter'
 import type { jaLock } from './locales/ja/lock'
+import type { jaManufactures } from './locales/ja/manufactures'
 import type { jaPageIndex } from './locales/ja/pages/index'
 
 declare module 'i18next' {

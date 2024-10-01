@@ -17,8 +17,8 @@
   import OffCanvas from '$lib/components/off-canvas/OffCanvas.svelte'
   import Margin from '$lib/components/spacing/Margin.svelte'
   import i18n from "$lib/i18n/define";
-  import RandomAssembleButton from '$lib/view/index/random/button/RandomAssembleButton.svelte'
   import { logger } from '$lib/utils/logger'
+  import RandomAssembleButton from '$lib/view/index/random/button/RandomAssembleButton.svelte'
 
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
   import type { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'

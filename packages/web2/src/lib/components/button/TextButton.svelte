@@ -21,6 +21,7 @@
 </button>
 {#if tooltipText}
   <Tooltip target={id}>
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html tooltipText}
   </Tooltip>
 {/if}

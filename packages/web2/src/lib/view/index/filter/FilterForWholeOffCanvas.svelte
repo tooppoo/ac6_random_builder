@@ -17,11 +17,11 @@
   import TextButton from "$lib/components/button/TextButton.svelte";
   import OffCanvas from '$lib/components/off-canvas/OffCanvas.svelte'
   import i18n from "$lib/i18n/define";
+  import {logger} from "$lib/utils/logger";
   import {
     assemblyWithHeadParts,
     enableFilterOnAllParts, initialFilterState,
   } from "$lib/view/index/interaction/filter";
-  import {logger} from "$lib/utils/logger";
 
   import {excludeNotEquipped, notUseHanger} from "@ac6_assemble_tool/core/assembly/filter/filters";
   import {createEventDispatcher} from "svelte";

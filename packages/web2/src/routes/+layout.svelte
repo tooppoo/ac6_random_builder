@@ -1,9 +1,10 @@
 <script lang="ts">
   import './app.scss'
   import { domain, basePath } from '$lib/app-url';
-  import { resources } from '$lib/i18n/resources';
   import i18n from '$lib/i18n/define';
   import { extractChars } from '$lib/i18n/extract-chars'
+  import { resources } from '$lib/i18n/resources';
+
   import { setContext } from 'svelte';
 
   setContext('i18n', i18n)

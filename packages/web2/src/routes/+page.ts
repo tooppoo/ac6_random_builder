@@ -6,6 +6,6 @@ export type PageData = {
 }
 export function load(): PageData {
   return {
-    regulation
+    regulation,
   }
 }

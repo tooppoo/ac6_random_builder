@@ -1,11 +1,8 @@
-
 type Resource = Record<string, string | object>
 type ResourceValue = string | Record<string, string | object>
 
 export function extractChars(src: Resource): string {
-  return unique(
-    removeOneByteSymbols(nestedToValues(src).join('')),
-  )
+  return unique(removeOneByteSymbols(nestedToValues(src).join('')))
 }
 
 function nestedToValues(obj: Resource): string[] {

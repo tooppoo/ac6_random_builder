@@ -19,8 +19,8 @@
   import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
   import {assemblyToSearch, searchToAssembly} from "@ac6_assemble_tool/core/assembly/serialize/as-query";
   import { type Candidates, type OrderParts, type Order, defineOrder } from "@ac6_assemble_tool/parts/types/candidates";
-
-  import { version as appVersion } from '$app/environment'
+  import type { Regulation } from '@ac6_assemble_tool/parts/versions/regulation.types'
+  import { onMount } from 'svelte'
 
   import FilterByPartsOffCanvas from "./filter/FilterByPartsOffCanvas.svelte";
   import FilterForWholeOffCanvas from "./filter/FilterForWholeOffCanvas.svelte";
@@ -37,13 +37,13 @@
   import NavButton from "./layout/navbar/NavButton.svelte";
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
+  import RandomAssembleButton from './random/button/RandomAssembleButton.svelte'
+  import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from './random/RandomAssemblyOffCanvas.svelte'
   import ReportList from './report/ReportList.svelte'
   import ShareAssembly from './share/ShareAssembly.svelte'
   import StoreAssembly from "./store/StoreAssembly.svelte";
-  import RandomAssembleButton from './random/button/RandomAssembleButton.svelte'
-  import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from './random/RandomAssemblyOffCanvas.svelte'
-  import { onMount } from 'svelte'
-  import type { Regulation } from '@ac6_assemble_tool/parts/versions/regulation.types'
+
+  import { version as appVersion } from '$app/environment'
 
   const tryLimit = 3000
 

@@ -30,7 +30,7 @@ export const baseRules = [
   },
 ]
 
-export const importRules = ({ pathGroups }) => [
+export const importRules = ({ pathGroups, ignoreUnresolved }) => [
   importPlugin.flatConfigs.recommended,
   {
     languageOptions: {
@@ -76,7 +76,7 @@ export const importRules = ({ pathGroups }) => [
            * external-module-folders の説明には「monorepoにも良い」と書かれているものの、恐らくrootからサブディレクトリのpackagesに対してlintをかける想定で
            * 今回のように完全にそれぞれのpackageでlintを実行するケースには適合していなさそう
            */
-          ignore: ['^@ac6_assemble_tool'],
+          ignore: ['^@ac6_assemble_tool', ...(ignoreUnresolved || [])],
         },
       ],
     },

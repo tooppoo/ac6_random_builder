@@ -2,7 +2,7 @@
   // Clickで表示/非表示が切り替わるTooltip
 
   import { Tooltip } from '@sveltestrap/sveltestrap'
-  import { onDestroy, onMount } from 'svelte'
+  import { onDestroy } from 'svelte'
 
   export let target: HTMLElement | string
   /** tooltipの表示/非表示状態 */

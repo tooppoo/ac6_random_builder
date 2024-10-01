@@ -31,6 +31,7 @@ const dispatch = createEventDispatcher<{ click: null }>()
     target={id}
     placement="bottom"
   >
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html title}
   </Tooltip>
 {/if}

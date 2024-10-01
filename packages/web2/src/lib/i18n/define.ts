@@ -1,7 +1,7 @@
-import { resources } from './resources'
-
 import _i18next from 'i18next'
 import { createI18nStore } from 'svelte-i18next'
+
+import { resources } from './resources'
 
 _i18next.init({
   lng: 'ja',

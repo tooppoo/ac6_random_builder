@@ -1,30 +1,44 @@
-import js from '@eslint/js';
-import ts from 'typescript-eslint';
-import svelte from 'eslint-plugin-svelte';
-import globals from 'globals';
+import { baseRules, importRules } from '@ac6_assemble_tool/eslint/configs'
+import svelte from 'eslint-plugin-svelte'
+import globals from 'globals'
+import { parser as tsParser } from 'typescript-eslint'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-	js.configs.recommended,
-	...ts.configs.recommended,
-	...svelte.configs['flat/recommended'],
-	{
-		languageOptions: {
-			globals: {
-				...globals.browser,
-				...globals.node
-			}
-		}
-	},
-	{
-		files: ['**/*.svelte'],
-		languageOptions: {
-			parserOptions: {
-				parser: ts.parser
-			}
-		}
-	},
-	{
-		ignores: ['build/', '.svelte-kit/', 'dist/']
-	}
-];
+  {
+    ignores: ['.svelte-kit/', 'dist/**/*'],
+  },
+  ...baseRules,
+  ...svelte.configs['flat/recommended'],
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['**/*.svelte'],
+    languageOptions: {
+      parserOptions: {
+        parser: tsParser,
+      },
+    },
+  },
+  ...importRules({
+    pathGroups: [
+      {
+        pattern: '$lib/**',
+        group: 'builtin',
+        position: 'before',
+      },
+      {
+        pattern: '$/**',
+        group: 'parent',
+        position: 'before',
+      },
+    ],
+    ignoreUnresolved: ['^\\$app'],
+  }),
+]

@@ -3,12 +3,13 @@
 </script>
 <script lang="ts">
 
-  import ShareByText from './text/ShareByText.svelte'
-  import ShareByUrl from './url/ShareByUrl.svelte'
   import OffCanvas from '$lib/components/off-canvas/OffCanvas.svelte'
 
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
   import { createEventDispatcher } from 'svelte'
+
+  import ShareByText from './text/ShareByText.svelte'
+  import ShareByUrl from './url/ShareByUrl.svelte'
 
   export let id: string
   export let assembly: () => Assembly

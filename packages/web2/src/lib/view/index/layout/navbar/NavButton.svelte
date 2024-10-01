@@ -6,11 +6,7 @@
   export let id: string = ''
   export let title: string
 
-  let isOpen: boolean = false
-
   const onClick = () => {
-    isOpen = false
-
     dispatch('click')
   }
 

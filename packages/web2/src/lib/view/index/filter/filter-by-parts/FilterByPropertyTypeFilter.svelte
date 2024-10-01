@@ -2,9 +2,9 @@
 
   import TextButton from "$lib/components/button/TextButton.svelte";
   import i18n from "$lib/i18n/define";
+  import {logger} from "$lib/utils/logger";
   import type {ChangeFilter} from "$lib/view/index/filter/filter-by-parts/event";
   import type {CurrentFilter} from "$lib/view/index/interaction/filter";
-  import {logger} from "$lib/utils/logger";
 
   import type {ReadonlyPartsFilterState} from "@ac6_assemble_tool/core/assembly/filter/filter-set";
   import {createEventDispatcher} from "svelte";

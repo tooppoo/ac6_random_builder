@@ -1,23 +1,11 @@
-import { join } from 'path'
-
-import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { defineConfig } from 'vite'
+import { sveltekit } from '@sveltejs/kit/vite'
 import { analyzer } from 'vite-bundle-analyzer'
-import dynamicImport from 'vite-plugin-dynamic-import'
 import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
-import Sitemap from 'vite-plugin-sitemap'
-
-const base = '/ac6_assemble_tool'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  base,
   plugins: [
-    svelte(),
-    dynamicImport(),
-    Sitemap({
-      hostname: `https://tooppoo.github.io/`,
-      basePath: base,
-    }),
+    sveltekit(),
     pluginPurgeCss({
       variables: true,
     }),
@@ -41,11 +29,7 @@ export default defineConfig({
       }
     })(),
   ],
-  resolve: {
-    alias: {
-      '~view/': join(__dirname, 'src/'),
-      '~spec/': join(__dirname, 'spec/'),
-      '~root/': join(__dirname, '/'),
-    },
+  test: {
+    include: ['src/**/*.{test,spec}.{js,ts}'],
   },
 })

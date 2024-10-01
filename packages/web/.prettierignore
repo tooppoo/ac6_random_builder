@@ -1,4 +1,3 @@
-coverage/
 dist/
-public/
+.svelte-kit/
 analyze.html

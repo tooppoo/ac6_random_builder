@@ -62,7 +62,6 @@
     "packages/core",
     "packages/web",
     "packages/spec",
-    "packages/eslint",
-    "packages/web2"
+    "packages/eslint"
   ]
 }

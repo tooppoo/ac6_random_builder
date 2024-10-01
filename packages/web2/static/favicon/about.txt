@@ -1,6 +1,0 @@
-This favicon was generated using the following font:
-
-- Font Title: Shippori Mincho
-- Font Author: Copyright 2021 The Shippori Mincho Project Authors (https://github.com/fontdasu/ShipporiMincho)
-- Font Source: http://fonts.gstatic.com/s/shipporimincho/v14/VdGGAZweH5EbgHY6YExcZfDoj0BA2_-C7LoS7g.ttf
-- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

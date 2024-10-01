@@ -1,59 +1,44 @@
-import {
-  baseRules,
-  globalIgnores,
-  importRules,
-} from '@ac6_assemble_tool/eslint/configs'
-import { FlatCompat } from '@eslint/eslintrc'
-import * as tsParser from '@typescript-eslint/parser'
+import { baseRules, importRules } from '@ac6_assemble_tool/eslint/configs'
+import svelte from 'eslint-plugin-svelte'
 import globals from 'globals'
-import svelteParser from 'svelte-eslint-parser'
-import { config as tsConfig } from 'typescript-eslint'
+import { parser as tsParser } from 'typescript-eslint'
 
-const compat = new FlatCompat()
-
-export default tsConfig(
+/** @type {import('eslint').Linter.Config[]} */
+export default [
   {
-    ignores: ['coverage'],
+    ignores: ['.svelte-kit/', 'dist/**/*'],
   },
-  globalIgnores,
+  ...baseRules,
+  ...svelte.configs['flat/recommended'],
   {
     languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 2023,
-        sourceType: 'module',
-        extraFileExtensions: ['.svelte'],
-      },
       globals: {
-        ...globals.node,
         ...globals.browser,
-        ...globals.es2023,
+        ...globals.node,
       },
     },
   },
   {
     files: ['**/*.svelte'],
     languageOptions: {
-      parser: svelteParser,
       parserOptions: {
         parser: tsParser,
       },
     },
   },
-  ...baseRules,
-  ...compat.extends('plugin:svelte/recommended'),
   ...importRules({
     pathGroups: [
       {
-        pattern: '~view/**',
+        pattern: '$lib/**',
         group: 'builtin',
         position: 'before',
       },
       {
-        pattern: '~root/**',
+        pattern: '$/**',
         group: 'parent',
         position: 'before',
       },
     ],
+    ignoreUnresolved: ['^\\$app'],
   }),
-)
+]

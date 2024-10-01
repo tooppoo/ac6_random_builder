@@ -85,25 +85,10 @@ jobs:
         with:
           name: analyze-${{ github.sha }}
           path: ./packages/web/analyze.html
-  lighthouse-ci:
-    runs-on: ubuntu-latest
-    needs: ci
-    if: ${{ !inputs.build_only || inputs.with_lighthouse }}
-    steps:
-      # setup
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: '.node-version'
-          cache: 'npm'
-
-      - name: fetch app
-        uses: actions/download-artifact@v4
-        with:
-          name: web-${{ github.sha }}
-          path: packages/web/dist
 
       # run Lighthouse
-      - run: npm run lighthouse
+      - run: npm install -g @lhci/cli@0.13.x
+      - run: lhci autorun
+        working-directory: packages/web
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

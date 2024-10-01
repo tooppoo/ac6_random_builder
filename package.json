@@ -19,7 +19,6 @@
     "coverage": "turbo run coverage",
     "lint": "turbo run lint",
     "format": "turbo run format",
-    "lighthouse": "turbo run lighthouse",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {

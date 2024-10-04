@@ -1,16 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import { svelteTesting } from '@testing-library/svelte/vite'
 import { analyzer } from 'vite-bundle-analyzer'
-import pluginPurgeCss from 'vite-plugin-purgecss-updated-v5'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
     sveltekit(),
     svelteTesting(),
-    pluginPurgeCss({
-      variables: true,
-    }),
     (() => {
       console.log(`ANALYZE_MODE=${process.env.ANALYZE_MODE}`)
       switch (process.env.ANALYZE_MODE) {

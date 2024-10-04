@@ -7,7 +7,6 @@
     },
     "preview": {
       "persistent": true,
-      "dependsOn": ["build:web"],
       "cache": false
     },
     "build": {

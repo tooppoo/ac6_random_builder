@@ -7,11 +7,11 @@ import type { ACParts } from '../base/types'
 
 const defineFrame =
   <
-    Cl extends Classification.Classification,
+    Cl extends Classification.Frame,
     Ca extends Category.Frame,
     Ex extends object,
   >() =>
-  <M extends Manufacture>(d: Frame<Cl, M, Ca> & Ex) =>
+  (d: Frame<Cl, Ca> & Ex) =>
     d
 
 export const defineHead = defineFrame<
@@ -88,9 +88,8 @@ type AsLegs = Readonly<{
 
 type Frame<
   Cl extends Classification.Classification,
-  M extends Manufacture,
   Ca extends Category.Frame,
-> = ACParts<Cl, M, Ca> &
+> = ACParts<Cl, Manufacture, Ca> &
   Readonly<{
     ap: number
 

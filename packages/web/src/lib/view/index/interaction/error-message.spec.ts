@@ -1,4 +1,4 @@
-import type { I18Next } from '$lib/18n/define'
+import type { I18Next } from '$lib/i18n/define'
 import {
   assemblyErrorMessage,
   filterApplyErrorMessage,

@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@ac6_assemble_tool/eslint": "1.0.0",
+    "@ac6_assemble_tool/spec": "1.0.0",
     "@ac6_assemble_tool/tsconfig": "1.0.0",
     "@fullhuman/postcss-purgecss": "6.0.0",
     "@playwright/test": "1.28.1",

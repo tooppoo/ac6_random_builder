@@ -26,7 +26,7 @@ jobs:
     steps:
       # setup
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Cache turbo build setup
-        uses: actions/cache@v4
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
@@ -69,7 +69,7 @@ jobs:
       # coverage tools
       - name: Upload coverage reports to Codecov
         if: ${{ !inputs.build_only }}
-        uses: codecov/codecov-action@v4.6.0
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
         with:
           files: ./packages/core/coverage/coverage-final.json
           fail_ci_if_error: true
@@ -79,13 +79,13 @@ jobs:
 
       # artifact
       - name: archive build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4
         with:
           name: web-${{ github.sha }}
           path: packages/web/dist
       - name: archive analyze
         if: ${{ !inputs.build_only }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4
         with:
           name: analyze-${{ github.sha }}
           path: ./packages/web/analyze.html

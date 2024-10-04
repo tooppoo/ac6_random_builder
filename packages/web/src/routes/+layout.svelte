@@ -29,22 +29,22 @@
   <!-- End OGP -->
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/{basePath}/favicon/favicon.ico" />
-  <link rel="icon" type="image/svg+xml" href="/{basePath}/favicon/favicon-16x16.png" />
-  <link rel="icon" type="image/svg+xml" href="/{basePath}/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" href="/{basePath}/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" href="/{basePath}/favicon/favicon-16x16.png" />
+  <link rel="icon" type="image/png" href="/{basePath}/favicon/favicon-32x32.png" />
   <link
     rel="icon"
-    type="image/svg+xml"
+    type="image/png"
     href="/{basePath}/favicon/apple-touch-icon.png"
   />
   <link
     rel="icon"
-    type="image/svg+xml"
+    type="image/png"
     href="/{basePath}/favicon/android-chrome-192x192.png"
   />
   <link
     rel="icon"
-    type="image/svg+xml"
+    type="image/png"
     href="/{basePath}/favicon/android-chrome-512x512.png"
   />
   <!-- End Favicon -->

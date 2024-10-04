@@ -42,21 +42,21 @@ jobs:
             ${{ runner.os }}-turbo-
 
       # CI
-      ## ja_chars構築時にweb/i18nを参照しているが、web/i18nの一部がpartsをimportしているので
-      ## lib系のbuildとwebのbuildを分割している
-      - name: build packages
-        run: npm run build:libs
-      - name: build web
+      - name: build
         run: |
           env_target=packages/web/.env.local
-          echo "VITE_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
-          echo "VITE_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
-          echo "VITE_JA_CHARS=$(npm run --silent extract-ja-chars -w @ac6_assemble_tool/web)" >> "$env_target"
+          echo "PUBLIC_REPORT_BUG_URL=${{ vars.REPORT_BUG_URL }}" >> "$env_target"
+          echo "PUBLIC_REPORT_REQUEST_URL=${{ vars.REPORT_REQUEST_URL }}" >> "$env_target"
+          echo "PUBLIC_LOG_LEVEL=${{ vars.LOG_LEVEL }}" >> "$env_target"
 
-          npm run build:web
+          npm run build
         env:
           ANALYZE_MODE: static
           NODE_ENV: production
+
+      - name: type check
+        # buildして型定義ファイルなどを出力させた後でないと失敗する
+        run: npm run check-types
 
       - name: test with coverage
         if: ${{ !inputs.build_only }}
@@ -71,7 +71,7 @@ jobs:
         if: ${{ !inputs.build_only }}
         uses: codecov/codecov-action@v4.6.0
         with:
-          files: ./packages/web/coverage/coverage-final.json,./packages/core/coverage/coverage-final.json
+          files: ./packages/core/coverage/coverage-final.json
           fail_ci_if_error: true
           slug: tooppoo/ac6_assemble_tool
         env:
@@ -89,26 +89,10 @@ jobs:
         with:
           name: analyze-${{ github.sha }}
           path: ./packages/web/analyze.html
-  lighthouse-ci:
-    runs-on: ubuntu-latest
-    needs: ci
-    if: ${{ !inputs.build_only || inputs.with_lighthouse }}
-    steps:
-      # setup
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: '.node-version'
-          cache: 'npm'
-
-      - name: fetch app
-        uses: actions/download-artifact@v4
-        with:
-          name: web-${{ github.sha }}
-          path: packages/web/dist
 
       # run Lighthouse
-      - run: npm ci && npm install -g @lhci/cli@0.13.x
+      - run: npm install -g @lhci/cli@0.13.x
       - run: lhci autorun
+        working-directory: packages/web
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

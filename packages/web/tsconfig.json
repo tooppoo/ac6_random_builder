@@ -1,21 +1,21 @@
 {
-  "extends": [
-    "@ac6_assemble_tool/tsconfig/base.json",
-    "@tsconfig/svelte/tsconfig.json"
-  ],
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    "types": ["vite/client", "svelte", "@ac6_assemble_tool/spec/lib/vitest"],
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-
-    "noEmit": true,
-
-    "baseUrl": ".",
-    "paths": {
-      "~view/*": ["./src/*"],
-      "~spec/*": ["./spec/*"],
-      "~root/*": ["./*"]
-    }
-  },
-  "include": ["./src/**/*", "./spec/**/*", "./scripts/**/*"],
-  "exclude": ["node_modules"]
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "types": ["@ac6_assemble_tool/spec/lib/vitest"]
+  }
+  // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
+  // except $lib which is handled by https://kit.svelte.dev/docs/configuration#files
+  //
+  // If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
+  // from the referenced tsconfig.json - TypeScript does not merge them in
 }

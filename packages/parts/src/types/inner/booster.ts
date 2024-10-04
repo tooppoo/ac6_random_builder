@@ -3,9 +3,9 @@ import type * as Classification from '~parts/types/base/classification'
 import type { Manufacture } from '~parts/types/base/manufacture'
 import type { ACParts } from '~parts/types/base/types'
 
-export const defineBooster = <M extends Manufacture>(d: Booster<M>) => d
-type Booster<M extends Manufacture> = WithBooster &
-  ACParts<Classification.Booster, M, Category.Booster>
+export const defineBooster = (d: Booster) => d
+type Booster = WithBooster &
+  ACParts<Classification.Booster, Manufacture, Category.Booster>
 
 export type WithBooster = Readonly<{
   /** 推力 */

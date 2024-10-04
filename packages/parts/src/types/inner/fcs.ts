@@ -3,8 +3,8 @@ import type * as Classification from '~parts/types/base/classification'
 import type { Manufacture } from '~parts/types/base/manufacture'
 import type { ACParts } from '~parts/types/base/types'
 
-export const defineFCS = <M extends Manufacture>(d: FCS<M>) => d
-export type FCS<M extends Manufacture> = Readonly<{
+export const defineFCS = (d: FCS) => d
+export type FCS = Readonly<{
   /** */
   close_range_assist: number
   medium_range_assist: number
@@ -13,4 +13,4 @@ export type FCS<M extends Manufacture> = Readonly<{
   missile_lock_correction: number
   multi_lock_correction: number
 }> &
-  ACParts<Classification.FCS, M, Category.FCS>
+  ACParts<Classification.FCS, Manufacture, Category.FCS>

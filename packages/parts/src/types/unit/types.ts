@@ -2,8 +2,8 @@ import type { Category } from '~parts/types/base/category'
 import type {
   ArmUnit,
   BackUnit,
-  Classification,
   leftBackUnit,
+  Unit as UnitClass,
 } from '~parts/types/base/classification'
 import type { Manufacture } from '~parts/types/base/manufacture'
 import type { ACParts } from '~parts/types/base/types'
@@ -19,11 +19,10 @@ import type {
 import type { melee, shield, WeaponType } from './weapon_type'
 
 const defineAttackUnit =
-  <Cl extends Classification>() =>
+  <Cl extends UnitClass>() =>
   <Ex extends object>() =>
   <
-    D extends AttackUnit<Cl, M, W, A, Ca>,
-    M extends Manufacture,
+    D extends AttackUnit<Cl, W, A, Ca>,
     W extends WeaponType,
     A extends AttackType,
     Ca extends Category,
@@ -36,16 +35,7 @@ export const defineArmUnit = defineAttackUnit<ArmUnit>()
 export const defineBackUnit = defineAttackUnit<BackUnit>()
 export const defineShieldUnit =
   <Ex>() =>
-  <
-    D extends Unit<
-      typeof leftBackUnit,
-      M,
-      typeof shield,
-      typeof none,
-      Category
-    >,
-    M extends Manufacture,
-  >(
+  <D extends Unit<typeof leftBackUnit, typeof shield, typeof none, Category>>(
     d: D & Ex,
   ) =>
     d
@@ -303,12 +293,11 @@ type AsGuardUnit = Readonly<{
 }>
 
 type Unit<
-  Cl extends Classification,
-  M extends Manufacture,
+  Cl extends UnitClass,
   W extends WeaponType,
   A extends AttackType,
   Ca extends Category,
-> = ACParts<Cl, M, Ca> &
+> = ACParts<Cl, Manufacture, Ca> &
   Readonly<{
     /** 武器タイプ */
     weapon_type: W
@@ -316,12 +305,11 @@ type Unit<
     attack_type: A
   }>
 type AttackUnit<
-  Cl extends Classification,
-  M extends Manufacture,
+  Cl extends UnitClass,
   W extends WeaponType,
   A extends AttackType,
   Ca extends Category,
-> = Unit<Cl, M, W, A, Ca> & AsAttackUnit
+> = Unit<Cl, W, A, Ca> & AsAttackUnit
 
 export type AsAttackUnit = Readonly<{
   /** 攻撃力 */

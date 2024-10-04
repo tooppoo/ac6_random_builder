@@ -13,6 +13,7 @@ export type Classification =
   | NotEquipped
 
 // UNIT
+export type Unit = ArmUnit | BackUnit
 export const armUnit = 'arm-unit' as const
 export const leftArmUnit = 'left-arm-unit' as const
 export type ArmUnit = typeof armUnit | typeof leftArmUnit
@@ -22,6 +23,7 @@ export const leftBackUnit = 'left-back-unit' as const
 export type BackUnit = typeof backUnit | typeof leftBackUnit
 
 // FRAME
+export type Frame = Head | Arms | Core | Legs
 export const head = 'head' as const
 export type Head = typeof head
 export const arms = 'arms' as const

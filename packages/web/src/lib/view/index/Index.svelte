@@ -6,6 +6,7 @@
   import ErrorModal from "$lib/components/modal/ErrorModal.svelte";
   import Margin from "$lib/components/spacing/Margin.svelte";
   import i18n from "$lib/i18n/define";
+  import { useWithEnableState } from '$lib/ssg/safety-reference'
   import {logger} from "$lib/utils/logger";
 
   import {
@@ -49,7 +50,6 @@
     PUBLIC_REPORT_BUG_URL,
     PUBLIC_REPORT_REQUEST_URL,
   } from '$env/static/public'
-  import { useWithEnableState } from '$lib/ssg/safety-reference'
 
   const tryLimit = 3000
 

@@ -35,14 +35,7 @@ export const defineArmUnit = defineAttackUnit<ArmUnit>()
 export const defineBackUnit = defineAttackUnit<BackUnit>()
 export const defineShieldUnit =
   <Ex>() =>
-  <
-    D extends Unit<
-      typeof leftBackUnit,
-      typeof shield,
-      typeof none,
-      Category
-    >,
-  >(
+  <D extends Unit<typeof leftBackUnit, typeof shield, typeof none, Category>>(
     d: D & Ex,
   ) =>
     d

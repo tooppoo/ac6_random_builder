@@ -7,7 +7,7 @@
 
 type F = () => void
 type UseAsWitchEnableResult = Readonly<{
-  run: F,
+  run: F
   enable: F
 }>
 export function useWithEnableState(f: () => void): UseAsWitchEnableResult {
@@ -21,6 +21,6 @@ export function useWithEnableState(f: () => void): UseAsWitchEnableResult {
     },
     enable: () => {
       enable = true
-    }
+    },
   }
 }

@@ -1,7 +1,7 @@
 
 <script lang="ts">
-  import { useWithEnableState } from '$lib/ssg/safety-reference'
   import type { I18NextStore } from '$lib/i18n/define'
+  import { useWithEnableState } from '$lib/ssg/safety-reference'
 
   import { getContext, onMount } from 'svelte'
 

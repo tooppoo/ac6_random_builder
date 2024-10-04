@@ -1,4 +1,4 @@
-import i18n from '$lib/i18n/define';
+import i18n from '$lib/i18n/define'
 
 import { candidates, orders } from '@ac6_assemble_tool/parts/versions/v1.07'
 import { cleanup, render, screen } from '@testing-library/svelte'
@@ -15,10 +15,10 @@ describe(`top page`, () => {
             version: 'vx.y.z',
             candidates,
             orders,
-          }
+          },
         },
       },
-      context: new Map([['i18n', i18n]])
+      context: new Map([['i18n', i18n]]),
     })
   })
   afterEach(() => {

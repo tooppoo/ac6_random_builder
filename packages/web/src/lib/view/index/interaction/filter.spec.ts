@@ -1,4 +1,3 @@
-
 import type { AssemblyKey } from '@ac6_assemble_tool/core/assembly/assembly'
 import type { PartsFilterSet } from '@ac6_assemble_tool/core/assembly/filter/filter-set'
 import {

@@ -18,7 +18,7 @@
     type StoredAssemblyRepository
   } from "@ac6_assemble_tool/core/assembly/store/stored-assembly";
   import type {Candidates} from "@ac6_assemble_tool/parts/types/candidates";
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher, onMount } from 'svelte'
 
   export let open: boolean
   export let candidates: Candidates
@@ -32,6 +32,10 @@
   let keywords: string[] = []
   let showDataList: StoredAssemblyMaybeDeleted[]
   $: showDataList = filterByKeywords(keywords, dataList)
+
+  onMount(() => {
+    initialize()
+  })
 
   type ShareMode =
     | {
@@ -113,8 +117,6 @@ ${target.description}
   type StoredAssemblyMaybeDeleted = StoredAssemblyAggregation & {
     deleted: boolean
   }
-
-  initialize()
 </script>
 
 <OffCanvas

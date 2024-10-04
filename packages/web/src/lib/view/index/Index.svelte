@@ -34,6 +34,7 @@
     initialFilterState,
     toggleFilter,
   } from "./interaction/filter";
+  import { initializeAssembly } from './interaction/initialize'
   import NavButton from "./layout/navbar/NavButton.svelte";
   import Navbar from "./layout/Navbar.svelte";
   import ToolSection from "./layout/ToolSection.svelte"
@@ -48,6 +49,7 @@
     PUBLIC_REPORT_BUG_URL,
     PUBLIC_REPORT_REQUEST_URL,
   } from '$env/static/public'
+  import { useWithEnableState } from '$lib/ssg/safety-reference'
 
   const tryLimit = 3000
 
@@ -72,10 +74,13 @@
 
   let orderParts: OrderParts = defineOrder(orders)
 
-  let assembly: Assembly
+  let assembly: Assembly = initializeAssembly(candidates)
+  let serializeAssembly = useWithEnableState(serializeAssemblyAsQuery)
 
   onMount(() => {
     initialize()
+
+    serializeAssembly.enable()
   })
 
   $: {
@@ -96,16 +101,8 @@
   $: {
     if (assembly && initialCandidates && !browserBacking) {
       logger.debug('replace state', assemblyToSearch(assembly, initialCandidates))
-      const url = new URL(location.href)
-      const query = url.searchParams
-      const assemblyQuery = assemblyToSearch(assembly, initialCandidates)
 
-      assemblyQuery.forEach((v, k) => {
-        query.set(k, v)
-      })
-      url.search = query.toString()
-
-      history.pushState({}, '', url)
+      serializeAssembly.run()
     }
 
     browserBacking = false
@@ -144,6 +141,18 @@
   function buildAssemblyFromQuery() {
     assembly = searchToAssembly(new URL(location.href).searchParams, initialCandidates)
   }
+  function serializeAssemblyAsQuery() {
+    const url = new URL(location.href)
+    const query = url.searchParams
+    const assemblyQuery = assemblyToSearch(assembly, initialCandidates)
+
+    assemblyQuery.forEach((v, k) => {
+      query.set(k, v)
+    })
+    url.search = query.toString()
+
+    history.pushState({}, '', url)   
+  }
 
   // setup
   function initialize() {
@@ -160,7 +169,6 @@
 
 <svelte:window on:popstate={onPopstate} />
 
-{#if assembly}
 <Navbar>
   <NavButton
     id="random-assemble"
@@ -412,7 +420,6 @@
     {row}<br>
   {/each}
 </ErrorModal>
-{/if}
 
 <style>
   article {

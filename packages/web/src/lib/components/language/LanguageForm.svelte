@@ -1,5 +1,6 @@
 
 <script lang="ts">
+  import { useWithEnableState } from '$lib/ssg/safety-reference'
   import type { I18NextStore } from '$lib/i18n/define'
 
   import { getContext, onMount } from 'svelte'
@@ -11,9 +12,12 @@
 
   // state
   let language: string = defaultLanguage
+  let serializeLanguage = useWithEnableState(setLanguageQuery)
 
   onMount(() => {
     initialize()
+
+    serializeLanguage.enable()
   })
 
   const languages = (() => {
@@ -32,7 +36,7 @@
   $: {
     $i18n.changeLanguage(language)
 
-    setLanguageQuery()
+    serializeLanguage.run()
   }
   function onChange(e: Event) {
     const target = e.target as HTMLInputElement

@@ -77,6 +77,6 @@
   <!-- End Font -->
 </svelte:head>
 
-<div class="font-monospace">
+<div class="font-monospace" data-testid="layout-root">
   <slot></slot>
 </div>

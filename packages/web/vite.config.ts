@@ -34,7 +34,14 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json'],
       all: true,
-      exclude: ['*.config.*', '**/**/*.d', 'dist/**/*', 'vitest-setup.ts'],
+      exclude: [
+        '*rc.cjs',
+        '.svelte-kit/',
+        '*.config.*',
+        '**/**/*.d.ts',
+        'dist/**/*',
+        'vitest-setup.ts',
+      ],
       provider: 'v8',
     },
     setupFiles: ['./vitest-setup'],

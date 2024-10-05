@@ -1,4 +1,4 @@
-import type { Assembly } from '~core/assembly/assembly'
+import type { Assembly } from '#core/assembly/assembly'
 
 import type { ValidationResult } from './result'
 

@@ -3,7 +3,7 @@ import {
   AssemblyKey,
   createAssembly,
   RawAssembly,
-} from '~core/assembly/assembly'
+} from '#core/assembly/assembly'
 
 import {
   armNotEquipped,

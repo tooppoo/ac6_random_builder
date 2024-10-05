@@ -9,7 +9,7 @@ export default tsConfig(
     ...importRules({
       pathGroups: [
         {
-          pattern: '~core/**',
+          pattern: '#core/**',
           group: 'builtin',
           position: 'before',
         },

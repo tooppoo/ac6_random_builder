@@ -1,11 +1,11 @@
-import type { AssemblyKey } from '~core/assembly/assembly'
-import type { PartsFilter } from '~core/assembly/filter/base'
+import type { AssemblyKey } from '#core/assembly/assembly'
+import type { PartsFilter } from '#core/assembly/filter/base'
 import {
   type EnableOrNot,
   enableOrNot,
   type FilterByProp,
-} from '~core/assembly/filter/filter-type'
-import { BaseCustomError } from '~core/utils/error'
+} from '#core/assembly/filter/filter-type'
+import { BaseCustomError } from '#core/utils/error'
 
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'

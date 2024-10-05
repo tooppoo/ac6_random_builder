@@ -16,6 +16,11 @@
       }
     }
   },
+  "imports": {
+    "#core/*": "./src/*.ts",
+    "#spec/*": "./spec/*.ts",
+    "#spec-helper/*": "./spec-helper/*.ts"
+  },
   "scripts": {
     "dev": "npm run build && (concurrently \"tsc -w\" \"tsc-alias -w\")",
     "build": "tsc && tsc-alias",

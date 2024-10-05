@@ -1,7 +1,7 @@
 import {
   assemblyToSearch,
   searchToAssembly,
-} from '~core/assembly/serialize/as-query'
+} from '#core/assembly/serialize/as-query'
 
 import {
   genAssembly,

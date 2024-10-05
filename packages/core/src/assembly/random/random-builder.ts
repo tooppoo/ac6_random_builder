@@ -2,8 +2,8 @@ import {
   type Assembly,
   createAssembly,
   type RawAssembly,
-} from '~core/assembly/assembly'
-import { random } from '~core/utils/array'
+} from '#core/assembly/assembly'
+import { random } from '#core/utils/array'
 
 import { boosterMustBeEquipped } from '@ac6_assemble_tool/parts/booster'
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'

@@ -5,8 +5,8 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   resolve: {
     alias: {
-      '~core/': join(__dirname, 'src/'),
-      '~spec-helper/': join(__dirname, 'spec-helper/'),
+      '#core/': join(__dirname, 'src/'),
+      '#spec-helper/': join(__dirname, 'spec-helper/'),
     },
   },
   test: {

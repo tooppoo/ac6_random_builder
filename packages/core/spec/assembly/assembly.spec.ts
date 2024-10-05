@@ -5,7 +5,7 @@ import {
   createAssembly,
   type RawAssembly,
   spaceByWord,
-} from '~core/assembly/assembly'
+} from '#core/assembly/assembly'
 
 import { armUnits, leftArmUnits } from '@ac6_assemble_tool/parts/arm-units'
 import { arms } from '@ac6_assemble_tool/parts/arms'
@@ -21,7 +21,7 @@ import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { it as fcit } from '@fast-check/vitest'
 import { beforeEach, describe, expect, it, test } from 'vitest'
 
-import { genAssembly } from '~spec-helper/property-generator'
+import { genAssembly } from '#spec-helper/property-generator'
 
 describe('assembly', () => {
   let sut: Assembly

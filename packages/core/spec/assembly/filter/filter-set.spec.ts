@@ -1,6 +1,6 @@
-import { type PartsFilter } from '~core/assembly/filter/base'
-import { PartsFilterSet } from '~core/assembly/filter/filter-set'
-import { enableOrNot, type FilterType } from '~core/assembly/filter/filter-type'
+import { type PartsFilter } from '#core/assembly/filter/base'
+import { PartsFilterSet } from '#core/assembly/filter/filter-set'
+import { enableOrNot, type FilterType } from '#core/assembly/filter/filter-type'
 
 import { fc, it } from '@fast-check/vitest'
 import sinon from 'sinon'
@@ -9,7 +9,7 @@ import { afterEach, describe, expect } from 'vitest'
 import {
   genCandidates,
   genFilterApplyContext,
-} from '~spec-helper/property-generator'
+} from '#spec-helper/property-generator'
 
 describe(PartsFilterSet.name, () => {
   const sandbox = sinon.createSandbox()

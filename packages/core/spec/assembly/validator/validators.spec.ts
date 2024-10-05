@@ -5,7 +5,7 @@ import {
   notOverEnergyOutput,
   totalCoamNotOverMax,
   totalLoadNotOverMax,
-} from '~core/assembly/random/validator/validators'
+} from '#core/assembly/random/validator/validators'
 
 import type { LeftArmUnit, ArmUnit } from '@ac6_assemble_tool/parts/arm-units'
 import {
@@ -19,7 +19,7 @@ import { fc, it as fcit } from '@fast-check/vitest'
 import sinon from 'sinon'
 import { afterEach, beforeEach, describe, expect } from 'vitest'
 
-import { genAssembly } from '~spec-helper/property-generator'
+import { genAssembly } from '#spec-helper/property-generator'
 
 describe('validator', () => {
   describe('not over energy output', () => {

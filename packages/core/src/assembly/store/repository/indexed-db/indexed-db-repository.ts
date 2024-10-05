@@ -1,22 +1,22 @@
 import {
   assemblyToSearch,
   searchToAssembly,
-} from '~core/assembly/serialize/as-query'
+} from '#core/assembly/serialize/as-query'
 import {
   type StoredAssemblyDto,
   storedAssemblyDtoScheme,
-} from '~core/assembly/store/repository/data-transfer-object'
+} from '#core/assembly/store/repository/data-transfer-object'
 import {
   type DataBase,
   setupDataBase,
-} from '~core/assembly/store/repository/indexed-db/indexed-db'
+} from '#core/assembly/store/repository/indexed-db/indexed-db'
 import type {
   ClearableStoredAssemblyRepository,
   NewAssemblyAggregation,
   StoredAssemblyAggregation,
   StoredAssemblyRepository,
   UpdatedAssemblyAggregation,
-} from '~core/assembly/store/stored-assembly'
+} from '#core/assembly/store/stored-assembly'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 

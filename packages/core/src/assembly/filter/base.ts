@@ -1,5 +1,5 @@
-import type { Assembly, AssemblyKey } from '~core/assembly/assembly'
-import type { PartsFilterSet } from '~core/assembly/filter/filter-set'
+import type { Assembly, AssemblyKey } from '#core/assembly/assembly'
+import type { PartsFilterSet } from '#core/assembly/filter/filter-set'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 

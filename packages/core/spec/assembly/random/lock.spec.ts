@@ -1,5 +1,5 @@
-import { LockedParts } from '~core/assembly/random/lock'
-import { random } from '~core/utils/array'
+import { LockedParts } from '#core/assembly/random/lock'
+import { random } from '#core/utils/array'
 
 import { boosterNotEquipped } from '@ac6_assemble_tool/parts/not-equipped'
 import { tank } from '@ac6_assemble_tool/parts/types/base/category'
@@ -13,7 +13,7 @@ import {
   genAssemblyKeys,
   genCandidates,
   genLockedParts,
-} from '~spec-helper/property-generator'
+} from '#spec-helper/property-generator'
 
 describe(LockedParts.name, () => {
   it.prop([genLockedParts()])(

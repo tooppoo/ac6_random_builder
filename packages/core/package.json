@@ -5,13 +5,13 @@
   "exports": {
     "./*": {
       "import": {
-        "types": "./dist/src/*.ts",
+        "types": "./src/*.ts",
         "default": "./dist/src/*.js"
       }
     },
     "./spec-helper/*": {
       "import": {
-        "types": "./dist/spec-helper/*.ts",
+        "types": "./spec-helper/*.ts",
         "default": "./dist/spec-helper/*.js"
       }
     }
@@ -22,8 +22,8 @@
     "#spec-helper/*": "./spec-helper/*.ts"
   },
   "scripts": {
-    "dev": "npm run build && (concurrently \"tsc -w\" \"tsc-alias -w\")",
-    "build": "tsc && tsc-alias",
+    "dev": "tsc -w",
+    "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",

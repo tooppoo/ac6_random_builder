@@ -71,7 +71,7 @@ jobs:
         if: ${{ !inputs.build_only }}
         uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
         with:
-          files: ./packages/core/coverage/coverage-final.json
+          files: ./packages/core/coverage/coverage-final.json,./packages/web/coverage/coverage-final.json
           fail_ci_if_error: true
           slug: tooppoo/ac6_assemble_tool
         env:

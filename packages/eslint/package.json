@@ -2,7 +2,8 @@
   "name": "@ac6_assemble_tool/eslint",
   "version": "1.0.0",
   "exports": {
-    "./configs": "./configs.js"
+    "./configs": "./configs.js",
+    "./lint-staged": "./lint-staged.config.js"
   },
   "type": "module",
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",

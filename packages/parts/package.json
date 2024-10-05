@@ -11,7 +11,7 @@
     }
   },
   "imports": {
-    "~parts/*": "./dist/*"
+    "#parts/*": "./src/*.ts"
   },
   "scripts": {
     "dev": "npm run build && (concurrently \"tsc -w\" \"tsc-alias -w\")",

@@ -1,4 +1,4 @@
-import { Candidates, Order } from '~parts/types/candidates'
+import { Candidates, Order } from '#parts/types/candidates'
 
 export type Regulation = Readonly<{
   version: string

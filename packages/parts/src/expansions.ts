@@ -1,6 +1,6 @@
-import { expansion as expansionCategory } from '~parts/types/base/category'
-import { expansion as expansionClass } from '~parts/types/base/classification'
-import { noneManufacture } from '~parts/types/base/manufacture'
+import { expansion as expansionCategory } from '#parts/types/base/category'
+import { expansion as expansionClass } from '#parts/types/base/classification'
+import { noneManufacture } from '#parts/types/base/manufacture'
 
 import {
   type AsAssaultArmor,

@@ -1,24 +1,24 @@
-import * as ArmUnits from '~parts/arm-units'
-import type { Arms } from '~parts/arms'
-import * as BackUnits from '~parts/back-units'
-import type { Booster } from '~parts/booster'
-import type { Core } from '~parts/cores'
-import * as Expansion from '~parts/expansions'
-import type { FCS } from '~parts/fces'
-import type { Generator } from '~parts/generators'
-import type { Head } from '~parts/heads'
-import type { Legs } from '~parts/legs'
+import * as ArmUnits from '#parts/arm-units'
+import type { Arms } from '#parts/arms'
+import * as BackUnits from '#parts/back-units'
+import type { Booster } from '#parts/booster'
+import type { Core } from '#parts/cores'
+import * as Expansion from '#parts/expansions'
+import type { FCS } from '#parts/fces'
+import type { Generator } from '#parts/generators'
+import type { Head } from '#parts/heads'
+import type { Legs } from '#parts/legs'
 import type {
   ArmNotEquipped,
   BackNotEquipped,
   BoosterNotEquipped,
   ExpansionNotEquipped,
-} from '~parts/not-equipped'
-import { tank } from '~parts/types/base/category'
+} from '#parts/not-equipped'
+import { tank } from '#parts/types/base/category'
 import {
   type Classification,
   notEquipped,
-} from '~parts/types/base/classification'
+} from '#parts/types/base/classification'
 
 export type CandidatesKey = keyof Candidates
 export type Candidates = Readonly<{

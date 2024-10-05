@@ -1,7 +1,7 @@
-import type * as Category from '~parts/types/base/category'
-import type * as Classification from '~parts/types/base/classification'
-import type { Manufacture } from '~parts/types/base/manufacture'
-import type { ACParts } from '~parts/types/base/types'
+import type * as Category from '#parts/types/base/category'
+import type * as Classification from '#parts/types/base/classification'
+import type { Manufacture } from '#parts/types/base/manufacture'
+import type { ACParts } from '#parts/types/base/types'
 
 export const defineFCS = (d: FCS) => d
 export type FCS = Readonly<{

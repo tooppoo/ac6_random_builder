@@ -1,4 +1,4 @@
-import type { Candidates } from '~parts/types/candidates'
+import type { Candidates } from '#parts/types/candidates'
 
 type Part = keyof Candidates
 type PatchFunction<P extends Part> = (

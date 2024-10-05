@@ -1,5 +1,5 @@
-import { head as headCategory } from '~parts/types/base/category'
-import { head as headClass } from '~parts/types/base/classification'
+import { head as headCategory } from '#parts/types/base/category'
+import { head as headClass } from '#parts/types/base/classification'
 import {
   allmind,
   arquebus,
@@ -11,7 +11,7 @@ import {
   rad,
   rubicon_research_institute,
   schneider,
-} from '~parts/types/base/manufacture'
+} from '#parts/types/base/manufacture'
 
 import { defineHead } from './types/frame/types'
 

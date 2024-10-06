@@ -11,8 +11,8 @@
   "scripts": {
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
-    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
-    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "lint": "eslint . && prettier . --check",
+    "format": "eslint . --fix && prettier . --write",
     "check-types": "tsc --noEmit"
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",

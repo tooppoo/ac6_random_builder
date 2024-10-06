@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { baseUrl } from '$lib/app-url';
+  import { baseUrl } from '$lib/app-url'
   import Index from '$lib/view/index/Index.svelte'
 
   import { type PageData } from './+page'
@@ -13,9 +13,7 @@
   <meta property="og:url" content={baseUrl} />
 
   <!-- title -->
-  <title>
-    AC6 ASSEMBLE TOOL(UNOFFICIAL) | ARMORED CORE Ⅵ FIRES OF RUBICON
-  </title>
+  <title>AC6 ASSEMBLE TOOL(UNOFFICIAL) | ARMORED CORE Ⅵ FIRES OF RUBICON</title>
   <meta
     property="og:title"
     content="AC6 ASSEMBLE TOOL(UNOFFICIAL) | ARMORED CORE Ⅵ FIRES OF RUBICON"
@@ -32,6 +30,4 @@
   />
 </svelte:head>
 
-<Index
-  regulation={data.regulation}
-/>
+<Index regulation={data.regulation} />

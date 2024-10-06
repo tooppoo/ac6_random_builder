@@ -1,11 +1,14 @@
 <script lang="ts" context="module">
-  import { ReportAggregation, Report } from '$lib/view/index/report/model/report'
+  import {
+    ReportAggregation,
+    Report,
+  } from '$lib/view/index/report/model/report'
   export type SaveAggregation = Readonly<{ target: ReportAggregation }>
 </script>
-<script lang="ts">
 
+<script lang="ts">
   import IconButton from '$lib/components/button/IconButton.svelte'
-  import i18n, {type I18Next} from "$lib/i18n/define";
+  import i18n, { type I18Next } from '$lib/i18n/define'
   import ReportItem from '$lib/view/index/report/ReportItem.svelte'
 
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
@@ -19,15 +22,27 @@
   let editingReportAggregation: ReportAggregation
   $: editingReportAggregation = reportAggregation
 
-  function visibleStatus(report: Report, i: I18Next): { class: string, title: string } {
+  function visibleStatus(
+    report: Report,
+    i: I18Next,
+  ): { class: string; title: string } {
     return report.show
-      ? { title: i.t('command.report.hide', { ns: 'page/index' }), class: 'bi-eye' }
-      : { title: i.t('command.report.show', { ns: 'page/index' }), class: 'bi-eye-slash' }
+      ? {
+          title: i.t('command.report.hide', { ns: 'page/index' }),
+          class: 'bi-eye',
+        }
+      : {
+          title: i.t('command.report.show', { ns: 'page/index' }),
+          class: 'bi-eye-slash',
+        }
   }
 
   // handler
   function editReport(blockId: string, report: Report): void {
-    editingReportAggregation = editingReportAggregation.updateReport(blockId, report)
+    editingReportAggregation = editingReportAggregation.updateReport(
+      blockId,
+      report,
+    )
   }
   function showAll() {
     editingReportAggregation = editingReportAggregation.showAll()
@@ -41,9 +56,9 @@
   }
 
   const dispatch = createEventDispatcher<{
-    save: SaveAggregation,
-    reset: EmptyObject,
-    showAll: SaveAggregation,
+    save: SaveAggregation
+    reset: EmptyObject
+    showAll: SaveAggregation
   }>()
 </script>
 
@@ -70,10 +85,10 @@
     on:click={onSave}
   />
 </div>
-<hr>
+<hr />
 {#each editingReportAggregation.allBlocks as block, i}
-  {#if (i !== 0)}
-    <hr>
+  {#if i !== 0}
+    <hr />
   {/if}
   <div>
     <div class="row mb-3">

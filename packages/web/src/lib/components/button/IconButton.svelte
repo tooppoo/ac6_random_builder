@@ -1,25 +1,25 @@
 <script lang="ts">
-import { Tooltip } from '@sveltestrap/sveltestrap'
-import {createEventDispatcher} from "svelte";
+  import { Tooltip } from '@sveltestrap/sveltestrap'
+  import { createEventDispatcher } from 'svelte'
 
-export let id: string
-export let title: string
-export let clickable: boolean = false
-export let withTooltip: boolean = false
+  export let id: string
+  export let title: string
+  export let clickable: boolean = false
+  export let withTooltip: boolean = false
 
-// handler
-function onClick() {
-  if (clickable) {
-    dispatch('click')
+  // handler
+  function onClick() {
+    if (clickable) {
+      dispatch('click')
+    }
   }
-}
 
-const dispatch = createEventDispatcher<{ click: null }>()
+  const dispatch = createEventDispatcher<{ click: null }>()
 </script>
 
 <span
   {...$$restProps}
-  id={id}
+  {id}
   class={$$props.class + ` icon-button`}
   data-clickable={clickable}
   aria-label={title}
@@ -27,23 +27,20 @@ const dispatch = createEventDispatcher<{ click: null }>()
   on:click={onClick}
 />
 {#if withTooltip}
-  <Tooltip
-    target={id}
-    placement="bottom"
-  >
+  <Tooltip target={id} placement="bottom">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html title}
   </Tooltip>
 {/if}
 
 <style>
-  span[data-clickable="true"] {
-      cursor: pointer;
+  span[data-clickable='true'] {
+    cursor: pointer;
   }
   .icon-button {
-      font-size: 30px;
-      height: 48px;
-      text-align: center;
-      width: 48px;
+    font-size: 30px;
+    height: 48px;
+    text-align: center;
+    width: 48px;
   }
 </style>

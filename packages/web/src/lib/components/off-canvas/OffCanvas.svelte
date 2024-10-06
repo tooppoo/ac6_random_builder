@@ -1,9 +1,10 @@
 <script lang="ts" context="module">
   export type ToggleOffCanvas = { open: boolean }
 </script>
+
 <script lang="ts">
-  import { Offcanvas } from "@sveltestrap/sveltestrap";
-  import {createEventDispatcher} from "svelte";
+  import { Offcanvas } from '@sveltestrap/sveltestrap'
+  import { createEventDispatcher } from 'svelte'
 
   export let id: string = ''
   export let open: boolean
@@ -20,7 +21,7 @@
 </script>
 
 <Offcanvas
-  id={id}
+  {id}
   placement="end"
   backdrop={false}
   scroll={true}

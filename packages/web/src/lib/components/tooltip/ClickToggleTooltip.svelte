@@ -14,7 +14,8 @@
   let tooltipTimer: ReturnType<typeof setTimeout> | undefined
 
   let targetEl: HTMLElement | undefined
-  $: targetEl = typeof target === 'string' ? document.getElementById(target)! : target
+  $: targetEl =
+    typeof target === 'string' ? document.getElementById(target)! : target
 
   // handler
   $: {
@@ -24,7 +25,7 @@
       showTooltip = false
 
       clearTimeout(tooltipTimer)
-      tooltipTimer = (void 0)
+      tooltipTimer = void 0
     }
   }
   $: {
@@ -44,13 +45,10 @@
     showTooltip = true
     tooltipState = true
 
-    tooltipTimer = setTimeout(
-      () => {
-        showTooltip = false
-        tooltipState = false
-      },
-      timeout
-    )
+    tooltipTimer = setTimeout(() => {
+      showTooltip = false
+      tooltipState = false
+    }, timeout)
   }
 </script>
 

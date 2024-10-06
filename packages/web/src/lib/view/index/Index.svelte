@@ -1,49 +1,65 @@
-
 <script lang="ts">
-
   import TextButton from '$lib/components/button/TextButton.svelte'
-  import LanguageForm from "$lib/components/language/LanguageForm.svelte";
-  import ErrorModal from "$lib/components/modal/ErrorModal.svelte";
-  import Margin from "$lib/components/spacing/Margin.svelte";
-  import i18n from "$lib/i18n/define";
+  import LanguageForm from '$lib/components/language/LanguageForm.svelte'
+  import ErrorModal from '$lib/components/modal/ErrorModal.svelte'
+  import Margin from '$lib/components/spacing/Margin.svelte'
+  import i18n from '$lib/i18n/define'
   import { useWithEnableState } from '$lib/ssg/safety-reference'
-  import {logger} from "$lib/utils/logger";
+  import { logger } from '$lib/utils/logger'
 
   import {
     type Assembly,
     type AssemblyKey,
     assemblyKeys,
-    spaceByWord
-  } from "@ac6_assemble_tool/core/assembly/assembly"
-  import {UsableItemNotFoundError} from "@ac6_assemble_tool/core/assembly/filter/filters";
-  import {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
-  import { RandomAssembly } from "@ac6_assemble_tool/core/assembly/random/random-assembly"
-  import {assemblyToSearch, searchToAssembly} from "@ac6_assemble_tool/core/assembly/serialize/as-query";
-  import { type Candidates, type OrderParts, type Order, defineOrder } from "@ac6_assemble_tool/parts/types/candidates";
+    spaceByWord,
+  } from '@ac6_assemble_tool/core/assembly/assembly'
+  import { UsableItemNotFoundError } from '@ac6_assemble_tool/core/assembly/filter/filters'
+  import { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'
+  import { RandomAssembly } from '@ac6_assemble_tool/core/assembly/random/random-assembly'
+  import {
+    assemblyToSearch,
+    searchToAssembly,
+  } from '@ac6_assemble_tool/core/assembly/serialize/as-query'
+  import {
+    type Candidates,
+    type OrderParts,
+    type Order,
+    defineOrder,
+  } from '@ac6_assemble_tool/parts/types/candidates'
   import type { Regulation } from '@ac6_assemble_tool/parts/versions/regulation.types'
   import { onMount } from 'svelte'
 
-  import FilterByPartsOffCanvas from "./filter/FilterByPartsOffCanvas.svelte";
-  import FilterForWholeOffCanvas from "./filter/FilterForWholeOffCanvas.svelte";
-  import type {ChangePartsEvent, ToggleLockEvent} from "./form/PartsSelectForm.svelte";
-  import PartsSelectForm from "./form/PartsSelectForm.svelte"
-  import {assemblyErrorMessage, filterApplyErrorMessage} from "./interaction/error-message";
+  import FilterByPartsOffCanvas from './filter/FilterByPartsOffCanvas.svelte'
+  import FilterForWholeOffCanvas from './filter/FilterForWholeOffCanvas.svelte'
+  import type {
+    ChangePartsEvent,
+    ToggleLockEvent,
+  } from './form/PartsSelectForm.svelte'
+  import PartsSelectForm from './form/PartsSelectForm.svelte'
   import {
-    applyFilter, assemblyWithHeadParts,
+    assemblyErrorMessage,
+    filterApplyErrorMessage,
+  } from './interaction/error-message'
+  import {
+    applyFilter,
+    assemblyWithHeadParts,
     changePartsFilter,
     type FilterState,
     initialFilterState,
     toggleFilter,
-  } from "./interaction/filter";
+  } from './interaction/filter'
   import { initializeAssembly } from './interaction/initialize'
-  import NavButton from "./layout/navbar/NavButton.svelte";
-  import Navbar from "./layout/Navbar.svelte";
-  import ToolSection from "./layout/ToolSection.svelte"
+  import NavButton from './layout/navbar/NavButton.svelte'
+  import Navbar from './layout/Navbar.svelte'
+  import ToolSection from './layout/ToolSection.svelte'
   import RandomAssembleButton from './random/button/RandomAssembleButton.svelte'
-  import RandomAssemblyOffCanvas, { type AssembleRandomly, type ErrorOnAssembly } from './random/RandomAssemblyOffCanvas.svelte'
+  import RandomAssemblyOffCanvas, {
+    type AssembleRandomly,
+    type ErrorOnAssembly,
+  } from './random/RandomAssemblyOffCanvas.svelte'
   import ReportList from './report/ReportList.svelte'
   import ShareAssembly from './share/ShareAssembly.svelte'
-  import StoreAssembly from "./store/StoreAssembly.svelte";
+  import StoreAssembly from './store/StoreAssembly.svelte'
 
   import { version as appVersion } from '$app/environment'
   import {
@@ -93,14 +109,18 @@
         logger.error(e)
 
         errorMessage = filterApplyErrorMessage(
-          e instanceof UsableItemNotFoundError ? e : new Error(`${e}`), $i18n
+          e instanceof UsableItemNotFoundError ? e : new Error(`${e}`),
+          $i18n,
         )
       }
     }
   }
   $: {
     if (assembly && initialCandidates && !browserBacking) {
-      logger.debug('replace state', assemblyToSearch(assembly, initialCandidates))
+      logger.debug(
+        'replace state',
+        assemblyToSearch(assembly, initialCandidates),
+      )
 
       serializeAssembly.run()
     }
@@ -118,10 +138,7 @@
     assembly = detail.assembly
   }
   const errorOnRandom = ({ detail }: CustomEvent<ErrorOnAssembly>) => {
-    errorMessage = assemblyErrorMessage(
-      detail.error,
-      $i18n
-    )
+    errorMessage = assemblyErrorMessage(detail.error, $i18n)
   }
 
   const onLock = ({ detail }: CustomEvent<ToggleLockEvent>) => {
@@ -135,11 +152,19 @@
   }
 
   const updateCandidates = () => {
-    candidates = lockedParts.filter(applyFilter(initialCandidates, filter, { assembly, wholeFilter: filter.map }))
+    candidates = lockedParts.filter(
+      applyFilter(initialCandidates, filter, {
+        assembly,
+        wholeFilter: filter.map,
+      }),
+    )
   }
 
   function buildAssemblyFromQuery() {
-    assembly = searchToAssembly(new URL(location.href).searchParams, initialCandidates)
+    assembly = searchToAssembly(
+      new URL(location.href).searchParams,
+      initialCandidates,
+    )
   }
   function serializeAssemblyAsQuery() {
     const url = new URL(location.href)
@@ -151,7 +176,7 @@
     })
     url.search = query.toString()
 
-    history.pushState({}, '', url)   
+    history.pushState({}, '', url)
   }
 
   // setup
@@ -174,7 +199,7 @@
     id="random-assemble"
     class="me-3"
     title={$i18n.t('command.random.description', { ns: 'page/index' })}
-    on:click={() => openRandomAssembly = true}
+    on:click={() => (openRandomAssembly = true)}
   >
     <i slot="icon" class="bi bi-tools"></i>
     <span class="d-none d-md-inline">
@@ -185,7 +210,7 @@
     id="reset-lock-nav"
     class="me-3 d-none d-md-block"
     title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
-    on:click={() => lockedParts = LockedParts.empty}
+    on:click={() => (lockedParts = LockedParts.empty)}
   >
     <i slot="icon" class="bi bi-unlock"></i>
     <span class="d-none d-md-inline">
@@ -196,7 +221,7 @@
     id="open-whole-filter"
     class="me-3"
     title={$i18n.t('command.filterForWhole.description', { ns: 'page/index' })}
-    on:click={() => openWholeFilter = true}
+    on:click={() => (openWholeFilter = true)}
   >
     <i slot="icon" class="bi bi-filter-square"></i>
     <span class="d-none d-md-inline">
@@ -206,29 +231,29 @@
   <NavButton
     id="open-share"
     class="me-3"
-    title={$i18n.t('command.share.description', { ns: 'page/index'})}
-    on:click={() => openShare = true}
+    title={$i18n.t('command.share.description', { ns: 'page/index' })}
+    on:click={() => (openShare = true)}
   >
     <i slot="icon" class="bi bi-share"></i>
     <span class="d-none d-md-inline">
-      {$i18n.t('command.share.label', { ns: 'page/index'})}
+      {$i18n.t('command.share.label', { ns: 'page/index' })}
     </span>
   </NavButton>
   <NavButton
     id="open-assembly-store"
-    title={$i18n.t('command.store.description', { ns: 'page/index'})}
-    on:click={() => openAssemblyStore = true}
+    title={$i18n.t('command.store.description', { ns: 'page/index' })}
+    on:click={() => (openAssemblyStore = true)}
   >
     <i slot="icon" class="bi bi-database"></i>
     <span class="d-none d-md-inline">
-      {$i18n.t('command.store.label', { ns: 'page/index'})}
+      {$i18n.t('command.store.label', { ns: 'page/index' })}
     </span>
   </NavButton>
 </Navbar>
 
 <header class="text-center mt-5">
   <h1>
-    ARMORED CORE Ⅵ<br class="d-block d-md-none">
+    ARMORED CORE Ⅵ<br class="d-block d-md-none" />
     ASSEMBLY TOOL
   </h1>
   <h2>
@@ -244,25 +269,27 @@
     <div class="d-flex d-md-none justify-content-end">
       <RandomAssembleButton
         id="random-assembly-button-form"
-        initialCandidates={initialCandidates}
-        candidates={candidates}
-        lockedParts={lockedParts}
-        randomAssembly={randomAssembly}
+        {initialCandidates}
+        {candidates}
+        {lockedParts}
+        {randomAssembly}
         tooltipText={$i18n.t('random:command.random.label')}
         aria-label={$i18n.t('random:command.random.label')}
         class="me-3"
-        on:click={({ detail: randomAssembly }) => assembly = randomAssembly}
+        on:click={({ detail: randomAssembly }) => (assembly = randomAssembly)}
       />
       <TextButton
         id="reset-lock-form"
         title={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
-        tooltipText={$i18n.t('command.resetLock.description', { ns: 'page/index' })}
-        on:click={() => lockedParts = LockedParts.empty}
+        tooltipText={$i18n.t('command.resetLock.description', {
+          ns: 'page/index',
+        })}
+        on:click={() => (lockedParts = LockedParts.empty)}
       >
         <i class="bi bi-unlock"></i>
       </TextButton>
     </div>
-    <hr class="w-100 d-flex d-md-none">
+    <hr class="w-100 d-flex d-md-none" />
     {#each assemblyKeys() as key}
       <PartsSelectForm
         id={key}
@@ -272,7 +299,7 @@
         parts={orderParts(key, candidates[key])}
         selected={assembly[key]}
         lock={lockedParts}
-        filter={filter}
+        {filter}
         on:toggle-lock={onLock}
         on:toggle-filter={openFilter}
         on:change={onChangeParts}
@@ -281,36 +308,26 @@
   </ToolSection>
 
   <ToolSection id="assembly-report" class="container mw-100 mx-0 my-4 w-100">
-    <ReportList
-      assembly={assembly}
-    />
+    <ReportList {assembly} />
   </ToolSection>
 
   <ToolSection
     id="development-report"
     class="container mw-100 mx-0 my-4 w-100 text-center d-flex flex-column align-items-center"
   >
-    <a
-      class="d-block ms-1"
-      href={PUBLIC_REPORT_REQUEST_URL}
-      target="_blank"
-    >
+    <a class="d-block ms-1" href={PUBLIC_REPORT_REQUEST_URL} target="_blank">
       {$i18n.t('report.request', { ns: 'page/index' })}
       <i class="bi bi-send" />
     </a>
 
     <Margin space={2} />
 
-    <a
-      class="d-block ms-1"
-      href={PUBLIC_REPORT_BUG_URL}
-      target="_blank"
-    >
+    <a class="d-block ms-1" href={PUBLIC_REPORT_BUG_URL} target="_blank">
       {$i18n.t('report.bug', { ns: 'page/index' })}
       <i class="bi bi-send" />
     </a>
 
-    <hr class="w-100">
+    <hr class="w-100" />
 
     <a
       class="d-block ms-1"
@@ -327,10 +344,15 @@
 
 <footer class="text-center mb-3">
   <div>
-    Created by <a id="link-to-linktr" href="https://linktr.ee/Philomagi">Philomagi</a>
+    Created by <a id="link-to-linktr" href="https://linktr.ee/Philomagi"
+      >Philomagi</a
+    >
   </div>
   <div>
-    Source code is managed by <a id="link-to-src" href="https://github.com/tooppoo/ac6_assemble_tool/">Github</a>
+    Source code is managed by <a
+      id="link-to-src"
+      href="https://github.com/tooppoo/ac6_assemble_tool/">Github</a
+    >
   </div>
   <div>
     App Version v{appVersion}
@@ -340,12 +362,12 @@
 <RandomAssemblyOffCanvas
   id="random-assembly-canvas"
   open={openRandomAssembly}
-  initialCandidates={initialCandidates}
-  candidates={candidates}
-  lockedParts={lockedParts}
-  randomAssembly={randomAssembly}
-  assembly={assembly}
-  on:toggle={(e) => openRandomAssembly = e.detail.open}
+  {initialCandidates}
+  {candidates}
+  {lockedParts}
+  {randomAssembly}
+  {assembly}
+  on:toggle={(e) => (openRandomAssembly = e.detail.open)}
   on:random={onRandom}
   on:error={errorOnRandom}
   on:filter={({ detail }) => {
@@ -362,7 +384,7 @@
   id="filter-by-parts"
   open={filter.open}
   current={filter.current}
-  on:toggle={(ev) => filter.open = ev.detail.open}
+  on:toggle={(ev) => (filter.open = ev.detail.open)}
   on:change-filter={({ detail }) => {
     filter = changePartsFilter({ target: detail.target, state: filter })
     updateCandidates()
@@ -372,13 +394,13 @@
 <FilterForWholeOffCanvas
   id="filter-for-whole"
   open={openWholeFilter}
-  initialCandidates={initialCandidates}
-  candidates={candidates}
-  assembly={assembly}
-  lockedParts={lockedParts}
-  filter={filter}
-  randomAssembly={randomAssembly}
-  on:toggle={(ev) => openWholeFilter = ev.detail.open}
+  {initialCandidates}
+  {candidates}
+  {assembly}
+  {lockedParts}
+  {filter}
+  {randomAssembly}
+  on:toggle={(ev) => (openWholeFilter = ev.detail.open)}
   on:apply={({ detail }) => {
     if (detail.candidates) candidates = detail.candidates
     if (detail.assembly) assembly = detail.assembly
@@ -389,7 +411,7 @@
   id="share-assembly"
   open={openShare}
   assembly={() => assembly}
-  on:toggle={(e) => openShare = e.detail.open}
+  on:toggle={(e) => (openShare = e.detail.open)}
 >
   <svelte:fragment slot="title">
     {$i18n.t('share:caption')}
@@ -399,25 +421,21 @@
   id="store-assembly"
   open={openAssemblyStore}
   candidates={initialCandidates}
-  assembly={assembly}
-  on:toggle={(e) => openAssemblyStore = e.detail.open}
-  on:apply={(e) => assembly = e.detail.assembly}
+  {assembly}
+  on:toggle={(e) => (openAssemblyStore = e.detail.open)}
+  on:apply={(e) => (assembly = e.detail.assembly)}
 />
 
 <ErrorModal
   id="index-error-modal"
   open={errorMessage.length !== 0}
-  on:close={() => errorMessage = []}
+  on:close={() => (errorMessage = [])}
 >
-  <svelte:fragment slot="title">
-    ERROR
-  </svelte:fragment>
-  <svelte:fragment slot="button">
-    OK
-  </svelte:fragment>
+  <svelte:fragment slot="title">ERROR</svelte:fragment>
+  <svelte:fragment slot="button">OK</svelte:fragment>
 
   {#each errorMessage as row}
-    {row}<br>
+    {row}<br />
   {/each}
 </ErrorModal>
 

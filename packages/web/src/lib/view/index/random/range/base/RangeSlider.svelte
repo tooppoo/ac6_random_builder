@@ -1,6 +1,6 @@
 <script lang="ts">
-  import {createEventDispatcher} from "svelte";
-  import type {ChangeEventHandler} from "svelte/elements";
+  import { createEventDispatcher } from 'svelte'
+  import type { ChangeEventHandler } from 'svelte/elements'
 
   export let id: string
   export let label: string
@@ -29,11 +29,16 @@
   const dispatch = createEventDispatcher<{ change: { value: number } }>()
 </script>
 
-<div id={id} class={$$props.class}>
+<div {id} class={$$props.class}>
   <div class="d-flex align-items-center">
-    <label for={`${id}-range`} class="current-max-value mr-auto input-group input-group-sm">
+    <label
+      for={`${id}-range`}
+      class="current-max-value mr-auto input-group input-group-sm"
+    >
       <slot name="label" labelId={`${id}-current-max-value`} text={label}>
-        <span id={`${id}-current-max-value`} class="input-group-text">{label}</span>
+        <span id={`${id}-current-max-value`} class="input-group-text"
+          >{label}</span
+        >
       </slot>
       <input
         id={`${id}-current-max-value-form`}
@@ -41,11 +46,12 @@
         class="form-control form-control-sm"
         aria-label={label}
         aria-describedby={`${id}-current-max-value`}
-        min={min} max={max}
-        value={value}
-        step={step}
+        {min}
+        {max}
+        {value}
+        {step}
         on:change={onChange}
-      >
+      />
     </label>
     <slot name="status"></slot>
   </div>
@@ -53,9 +59,10 @@
     id={`${id}-range`}
     type="range"
     class="form-range w-100"
-    min={min} max={max}
-    value={value}
-    step={step}
+    {min}
+    {max}
+    {value}
+    {step}
     on:change={onChange}
     list={`${id}-range-mark`}
   />
@@ -67,14 +74,14 @@
 </div>
 
 <style>
-    .current-max-value {
-        width: 220px;
-    }
+  .current-max-value {
+    width: 220px;
+  }
 
-    datalist {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        writing-mode: vertical-lr;
-    }
+  datalist {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    writing-mode: vertical-lr;
+  }
 </style>

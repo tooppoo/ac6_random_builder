@@ -1,4 +1,3 @@
-
 <script lang="ts">
   import type { I18NextStore } from '$lib/i18n/define'
   import { useWithEnableState } from '$lib/ssg/safety-reference'
@@ -21,7 +20,7 @@
   })
 
   const languages = (() => {
-    const defLng = (opt: { value: string, label: string }) => ({
+    const defLng = (opt: { value: string; label: string }) => ({
       ...opt,
       isSelected: () => language === opt.value,
     })
@@ -62,24 +61,17 @@
 </script>
 
 {#if language !== undefined}
-<div>
-  <label for="change-language">
-    {$i18n.t('language.label', { ns: 'page/index' })}
-  </label>
-  :
-  <select
-    id="change-language"
-    on:change={onChange}
-    bind:value={language}
-  >
-    {#each languages as lng}
-      <option
-        value={lng.value}
-        selected={lng.isSelected()}
-      >
-        {lng.label}
-      </option>
-    {/each}
-  </select>
-</div>
+  <div>
+    <label for="change-language">
+      {$i18n.t('language.label', { ns: 'page/index' })}
+    </label>
+    :
+    <select id="change-language" on:change={onChange} bind:value={language}>
+      {#each languages as lng}
+        <option value={lng.value} selected={lng.isSelected()}>
+          {lng.label}
+        </option>
+      {/each}
+    </select>
+  </div>
 {/if}

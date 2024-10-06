@@ -1,11 +1,11 @@
 <script lang="ts">
   import './app.scss'
-  import { domain, basePath } from '$lib/app-url';
-  import i18n from '$lib/i18n/define';
+  import { domain, basePath } from '$lib/app-url'
+  import i18n from '$lib/i18n/define'
   import { extractChars } from '$lib/i18n/extract-chars'
-  import { resources } from '$lib/i18n/resources';
+  import { resources } from '$lib/i18n/resources'
 
-  import { setContext } from 'svelte';
+  import { setContext } from 'svelte'
 
   setContext('i18n', i18n)
 
@@ -19,10 +19,7 @@
   <!-- OGP -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AC6 ASSEMBLE TOOL" />
-  <meta
-    property="og:image"
-    content={`${domain}/ogp/ac6_assembly_tool.png`}
-  />
+  <meta property="og:image" content={`${domain}/ogp/ac6_assembly_tool.png`} />
   <meta property="og:locale" content="ja_JP" />
 
   <meta name="twitter:card" content="summary" />
@@ -30,8 +27,16 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/{basePath}/favicon/favicon.ico" />
-  <link rel="icon" type="image/png" href="/{basePath}/favicon/favicon-16x16.png" />
-  <link rel="icon" type="image/png" href="/{basePath}/favicon/favicon-32x32.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    href="/{basePath}/favicon/favicon-16x16.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    href="/{basePath}/favicon/favicon-32x32.png"
+  />
   <link
     rel="icon"
     type="image/png"
@@ -51,7 +56,11 @@
 
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin="anonymous"
+  />
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap"
     rel="preload"

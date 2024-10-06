@@ -1,8 +1,8 @@
 import {
-  Assembly,
-  AssemblyKey,
+  type Assembly,
+  type AssemblyKey,
   createAssembly,
-  RawAssembly,
+  type RawAssembly,
 } from '#core/assembly/assembly'
 
 import {

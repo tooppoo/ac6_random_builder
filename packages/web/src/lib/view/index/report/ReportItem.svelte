@@ -6,10 +6,13 @@
   export let value: number
 
   const textClass = (base: string, stat: ReportStatus) => {
-    switch(stat) {
-      case 'danger': return `${base} text-danger`
-      case 'warning': return `${base} text-warning`
-      case 'normal': return base
+    switch (stat) {
+      case 'danger':
+        return `${base} text-danger`
+      case 'warning':
+        return `${base} text-warning`
+      case 'normal':
+        return base
     }
   }
 

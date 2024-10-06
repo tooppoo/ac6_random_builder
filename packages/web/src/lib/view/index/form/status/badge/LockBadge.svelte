@@ -1,7 +1,7 @@
 <script lang="ts">
-  import BaseStatusBadge from "$lib/view/index/form/status/base/BaseStatusBadge.svelte";
+  import BaseStatusBadge from '$lib/view/index/form/status/base/BaseStatusBadge.svelte'
 
-  import {createEventDispatcher} from "svelte";
+  import { createEventDispatcher } from 'svelte'
 
   export let titleWhenLocked: string = ''
   export let titleWhenUnlocked: string = ''
@@ -28,8 +28,8 @@
   id={$$props.id}
   class={`${$$props.class || ''} ${classes}`}
   data-clickable={clickable}
-  title={title}
-  clickable={clickable}
+  {title}
+  {clickable}
   withTooltip={true}
   on:click={onClick}
 />

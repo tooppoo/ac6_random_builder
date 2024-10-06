@@ -1,7 +1,7 @@
 <script lang="ts">
-  import TextButton from "$lib/components/button/TextButton.svelte";
+  import TextButton from '$lib/components/button/TextButton.svelte'
 
-  import {createEventDispatcher} from "svelte";
+  import { createEventDispatcher } from 'svelte'
 
   export let id: string = ''
   export let title: string
@@ -14,7 +14,7 @@
 </script>
 
 <TextButton
-  id={id}
+  {id}
   class={`${$$props.class || ''}`}
   aria-label={title}
   on:click={onClick}

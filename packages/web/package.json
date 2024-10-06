@@ -15,7 +15,7 @@
     "lint": "eslint . && prettier . --check",
     "format": "eslint . --fix && prettier . --write",
     "purgecss": "purgecss --config purgecss.config.cjs",
-    "sitemap": "svelte-sitemap --domain https://tooppoo.github.io/ac6_assemble_tool -o dist -r -c weekly",
+    "sitemap": "tsx scripts/sitemap-generate.ts",
     "test:integration": "playwright test",
     "test:all": "npm run test:integration && npm run test:unit"
   },

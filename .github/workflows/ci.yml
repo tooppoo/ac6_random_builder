@@ -55,7 +55,6 @@ jobs:
           NODE_ENV: production
 
       - name: type check
-        # buildして型定義ファイルなどを出力させた後でないと失敗する
         run: npm run check-types
 
       - name: test with coverage
@@ -65,6 +64,15 @@ jobs:
       - name: lint
         if: ${{ !inputs.build_only }}
         run: npm run lint
+
+      - name: Run Lighthouse
+        if: ${{ !inputs.build_only }}
+        run: |
+          npm install -g @lhci/cli@0.13.x
+          lhci autorun
+        working-directory: packages/web
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       # coverage tools
       - name: Upload coverage reports to Codecov
@@ -90,9 +98,3 @@ jobs:
           name: analyze-${{ github.sha }}
           path: ./packages/web/analyze.html
 
-      # run Lighthouse
-      - run: npm install -g @lhci/cli@0.13.x
-      - run: lhci autorun
-        working-directory: packages/web
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

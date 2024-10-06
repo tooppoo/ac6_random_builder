@@ -1,5 +1,5 @@
-import type { Assembly } from '~core/assembly/assembly'
-import { failure, success } from '~core/assembly/random/validator/result'
+import type { Assembly } from '#core/assembly/assembly'
+import { failure, success } from '#core/assembly/random/validator/result'
 
 import { describe, expect, it } from 'vitest'
 

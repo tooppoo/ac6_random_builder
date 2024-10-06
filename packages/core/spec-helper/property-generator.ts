@@ -2,19 +2,20 @@ import {
   type AssemblyKey,
   assemblyKeys,
   type RawAssembly,
-} from '~core/assembly/assembly'
+} from '#core/assembly/assembly'
 import type {
   FilterApplyContext,
   WholeFilter,
-} from '~core/assembly/filter/base'
-import { PartsFilterSet } from '~core/assembly/filter/filter-set'
-import { LockedParts } from '~core/assembly/random/lock'
-import { randomBuild } from '~core/assembly/random/random-builder'
-import { random } from '~core/utils/array'
+} from '#core/assembly/filter/base'
+import { PartsFilterSet } from '#core/assembly/filter/filter-set'
+import { LockedParts } from '#core/assembly/random/lock'
+import { randomBuild } from '#core/assembly/random/random-builder'
+import { random } from '#core/utils/array'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 import { candidates } from '@ac6_assemble_tool/parts/versions/v1.06.1'
-import fc, { Arbitrary, type ArrayConstraints } from 'fast-check'
+import fc from 'fast-check'
+import { type Arbitrary, type ArrayConstraints } from 'fast-check'
 
 export const genAssembly = (candidates: Candidates | null = null) =>
   (candidates ? fc.constant(candidates) : genCandidates()).map(randomBuild)

@@ -2,7 +2,7 @@
   import TextButton from '$lib/components/button/TextButton.svelte'
   import { logger } from '$lib/utils/logger'
 
-  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly.d'
+  import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
   import type { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'
   import type { RandomAssembly } from '@ac6_assemble_tool/core/assembly/random/random-assembly'
   import { notEquipped } from '@ac6_assemble_tool/parts/types/base/category'
@@ -20,18 +20,20 @@
   const onRandom = () => {
     try {
       logger.debug('on random', lockedParts, candidates.booster)
-      const actualCandidates = (
-        !lockedParts.isLocking('legs')
-        && candidates.booster.length === 1
-        && candidates.booster[0].category === notEquipped
-      )
-        // 脚部がロックされていないのに候補が未装備のみなら、たまたまタンク脚が選択されているだけなので
-        // ランダムアセン時にブースターを制限する必要は無い
-        // この処置が必要になるのはランダムアセン時のみなので、filterの処理には含めない
-        ? { ...candidates, booster: initialCandidates.booster }
-        : candidates
+      const actualCandidates =
+        !lockedParts.isLocking('legs') &&
+        candidates.booster.length === 1 &&
+        candidates.booster[0].category === notEquipped
+          ? // 脚部がロックされていないのに候補が未装備のみなら、たまたまタンク脚が選択されているだけなので
+            // ランダムアセン時にブースターを制限する必要は無い
+            // この処置が必要になるのはランダムアセン時のみなので、filterの処理には含めない
+            { ...candidates, booster: initialCandidates.booster }
+          : candidates
 
-      dispatch('click', randomAssembly.assemble(actualCandidates, { lockedParts }))
+      dispatch(
+        'click',
+        randomAssembly.assemble(actualCandidates, { lockedParts }),
+      )
     } catch (e) {
       logger.error(e)
 
@@ -47,9 +49,9 @@
 </script>
 
 <TextButton
-  id={id}
+  {id}
   type="button"
-  tooltipText={tooltipText}
+  {tooltipText}
   {...$$restProps}
   on:click={onRandom}
 >

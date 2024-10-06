@@ -3,21 +3,16 @@
   "version": "1.7.0",
   "type": "module",
   "exports": {
-    "./*": {
-      "import": {
-        "types": "./dist/*.ts",
-        "default": "./dist/*.js"
-      }
-    }
+    "./*": "./src/*.ts"
   },
   "imports": {
-    "~parts/*": "./dist/*"
+    "#parts/*": "./src/*.ts"
   },
   "scripts": {
-    "dev": "npm run build && (concurrently \"tsc -w\" \"tsc-alias -w\")",
-    "build": "tsc && tsc-alias",
-    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
-    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "tsc": "tsc",
+    "tsc:watch": "tsc -w",
+    "lint": "eslint . && prettier . --check",
+    "format": "eslint . --fix && prettier . --write",
     "check-types": "tsc --noEmit"
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",

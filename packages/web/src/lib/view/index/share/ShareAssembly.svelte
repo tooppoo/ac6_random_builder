@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
-  import type {ToggleOffCanvas} from '$lib/components/off-canvas/OffCanvas.svelte'
+  import type { ToggleOffCanvas } from '$lib/components/off-canvas/OffCanvas.svelte'
 </script>
-<script lang="ts">
 
+<script lang="ts">
   import OffCanvas from '$lib/components/off-canvas/OffCanvas.svelte'
 
   import type { Assembly } from '@ac6_assemble_tool/core/assembly/assembly'
@@ -22,21 +22,12 @@
   }>()
 </script>
 
-<OffCanvas
-  id={id}
-  open={open}
-  on:toggle={(e) => dispatch('toggle', e.detail)}
->
+<OffCanvas {id} {open} on:toggle={(e) => dispatch('toggle', e.detail)}>
   <svelte:fragment slot="title">
     <slot name="title" />
   </svelte:fragment>
   <svelte:fragment slot="body">
-    <ShareByText
-      id="{id}-share-by-text"
-      class="mb-3"
-      prefix={prefix}
-      assembly={assembly}
-    />
+    <ShareByText id="{id}-share-by-text" class="mb-3" {prefix} {assembly} />
     <ShareByUrl id="{id}-share-by-url" />
   </svelte:fragment>
 </OffCanvas>

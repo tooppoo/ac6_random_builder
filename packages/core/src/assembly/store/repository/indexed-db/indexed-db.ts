@@ -1,4 +1,4 @@
-import type { StoredAssemblyDto } from '~core/assembly/store/repository/data-transfer-object'
+import type { StoredAssemblyDto } from '#core/assembly/store/repository/data-transfer-object'
 
 import { Dexie, type EntityTable } from 'dexie'
 

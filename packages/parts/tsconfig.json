@@ -1,12 +1,10 @@
 {
   "extends": ["@ac6_assemble_tool/tsconfig/base.json"],
   "compilerOptions": {
+    "rootDir": ".",
     "declaration": true,
     "sourceMap": true,
-    "outDir": "dist",
-    "paths": {
-      "~parts/*": ["./src/*"]
-    }
+    "outDir": "dist"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

@@ -14,18 +14,6 @@
       "dependsOn": ["^build"],
       "env": ["ANALYZE_MODE", "NODE_ENV"]
     },
-    "build:libs": {
-      "outputs": ["dist/**"],
-      "dependsOn": [
-        "@ac6_assemble_tool/core#build",
-        "@ac6_assemble_tool/parts#build"
-      ]
-    },
-    "build:web": {
-      "outputs": ["dist/**", "analyze.html"],
-      "dependsOn": ["@ac6_assemble_tool/web#build"],
-      "env": ["ANALYZE_MODE", "NODE_ENV"]
-    },
     "test": {
       "dependsOn": ["^test"]
     },

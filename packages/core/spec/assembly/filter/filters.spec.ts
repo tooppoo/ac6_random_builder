@@ -3,7 +3,7 @@ import {
   excludeNotEquipped,
   notUseHanger,
   onlyPropertyIncludedInList,
-} from '~core/assembly/filter/filters'
+} from '#core/assembly/filter/filters'
 
 import {
   armNotEquipped,
@@ -23,7 +23,7 @@ import {
   genAssemblyKey,
   genCandidates,
   genFilterApplyContext,
-} from '~spec-helper/property-generator'
+} from '#spec-helper/property-generator'
 
 describe(excludeNotEquipped.name, () => {
   it.prop([genCandidates(), genAssemblyKey(), genFilterApplyContext()])(

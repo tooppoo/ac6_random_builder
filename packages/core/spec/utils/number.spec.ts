@@ -1,4 +1,4 @@
-import { roundUpByRealPart } from '~core/utils/number'
+import { roundUpByRealPart } from '#core/utils/number'
 
 import { it, fc } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'

@@ -2,8 +2,8 @@ import {
   createAssembly,
   type Assembly,
 } from '@ac6_assemble_tool/core/assembly/assembly'
-import type { Booster } from '@ac6_assemble_tool/parts/booster.d'
-import type { LegsNotTank, LegsTank } from '@ac6_assemble_tool/parts/legs.d'
+import type { Booster } from '@ac6_assemble_tool/parts/booster'
+import type { LegsNotTank, LegsTank } from '@ac6_assemble_tool/parts/legs'
 import {
   armNotEquipped,
   backNotEquipped,

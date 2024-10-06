@@ -1,6 +1,6 @@
 <script lang="ts">
   import ClickToggleTooltip from '$lib/components/tooltip/ClickToggleTooltip.svelte'
-  import i18n from "$lib/i18n/define";
+  import i18n from '$lib/i18n/define'
 
   export let id: string
 
@@ -11,7 +11,10 @@
   }
 </script>
 
-<div id={id} class="d-flex justify-content-begin align-items-center {$$props.class}">
+<div
+  {id}
+  class="d-flex justify-content-begin align-items-center {$$props.class}"
+>
   <div class="share-label me-3">
     {$i18n.t('share:command.url.caption')}
   </div>
@@ -24,8 +27,6 @@
     >
       <i class="bi bi-link"></i>
     </button>
-    <ClickToggleTooltip target={targetButton}>
-      copied!
-    </ClickToggleTooltip>
+    <ClickToggleTooltip target={targetButton}>copied!</ClickToggleTooltip>
   </div>
 </div>

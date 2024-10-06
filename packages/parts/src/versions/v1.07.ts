@@ -1,5 +1,5 @@
-import type { Order } from '~parts/types/candidates'
-import { apply, patches } from '~parts/versions/patches'
+import type { Order } from '#parts/types/candidates'
+import { apply, patches } from '#parts/versions/patches'
 
 import { candidates as v1_06_1, orders as order_v1_06_1 } from './v1.06.1'
 

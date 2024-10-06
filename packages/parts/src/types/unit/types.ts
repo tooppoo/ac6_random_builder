@@ -1,12 +1,12 @@
-import type { Category } from '~parts/types/base/category'
+import type { Category } from '#parts/types/base/category'
 import type {
   ArmUnit,
   BackUnit,
   leftBackUnit,
   Unit as UnitClass,
-} from '~parts/types/base/classification'
-import type { Manufacture } from '~parts/types/base/manufacture'
-import type { ACParts } from '~parts/types/base/types'
+} from '#parts/types/base/classification'
+import type { Manufacture } from '#parts/types/base/manufacture'
+import type { ACParts } from '#parts/types/base/types'
 
 import type {
   AttackType,

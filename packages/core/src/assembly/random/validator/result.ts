@@ -1,4 +1,4 @@
-import type { Assembly } from '~core/assembly/assembly'
+import type { Assembly } from '#core/assembly/assembly'
 
 export type ValidationResult = ValidationSuccess | ValidationFailure
 export const success = (assembly: Assembly): ValidationResult =>

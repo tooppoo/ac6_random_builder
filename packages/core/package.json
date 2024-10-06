@@ -3,27 +3,22 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    "./*": {
-      "import": {
-        "types": "./dist/src/*.ts",
-        "default": "./dist/src/*.js"
-      }
-    },
-    "./spec-helper/*": {
-      "import": {
-        "types": "./dist/spec-helper/*.ts",
-        "default": "./dist/spec-helper/*.js"
-      }
-    }
+    "./*": "./src/*.ts",
+    "./spec-helper/*": "./spec-helper/*.ts"
+  },
+  "imports": {
+    "#core/*": "./src/*.ts",
+    "#spec/*": "./spec/*.ts",
+    "#spec-helper/*": "./spec-helper/*.ts"
   },
   "scripts": {
-    "dev": "npm run build && (concurrently \"tsc -w\" \"tsc-alias -w\")",
-    "build": "tsc && tsc-alias",
+    "tsc": "tsc",
+    "tsc:watch": "tsc -w",
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "lint": "eslint . && prettier . --check \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
-    "format": "eslint . --fix && prettier . --write \"**/*.+(js|json|ts|yml|yaml|html|svelte)\"",
+    "lint": "eslint . && prettier . --check",
+    "format": "eslint . --fix && prettier . --write",
     "check-types": "tsc --noEmit"
   },
   "author": "philomagi <tooppoo56@gmail.com> (https://github.com/tooppoo)",

@@ -1,5 +1,5 @@
-import { boosterNotEquipped } from '~parts/not-equipped'
-import type { BoosterNotEquipped } from '~parts/not-equipped'
+import { boosterNotEquipped } from '#parts/not-equipped'
+import type { BoosterNotEquipped } from '#parts/not-equipped'
 
 import { booster as boosterCategory } from './types/base/category'
 import { booster as boosterClass } from './types/base/classification'

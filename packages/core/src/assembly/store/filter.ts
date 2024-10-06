@@ -1,4 +1,4 @@
-import type { StoredAssemblyAggregation } from '~core/assembly/store/stored-assembly'
+import type { StoredAssemblyAggregation } from '#core/assembly/store/stored-assembly'
 
 export function filterByKeywords<T extends StoredAssemblyAggregation>(
   keywords: string[],

@@ -5,12 +5,7 @@
     "outDir": "dist",
     "declaration": true,
     "sourceMap": true,
-    "types": ["@ac6_assemble_tool/spec/lib/vitest"],
-    "paths": {
-      "~core/*": ["./src/*"],
-      "~spec/*": ["./spec/*"],
-      "~spec-helper/*": ["./spec-helper/*"]
-    }
+    "types": ["@ac6_assemble_tool/spec/lib/vitest"]
   },
   "include": ["./src", "./spec", "./spec-helper"],
   "exclude": ["node_modules", "dist"]

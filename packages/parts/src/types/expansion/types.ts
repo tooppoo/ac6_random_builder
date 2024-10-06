@@ -1,7 +1,7 @@
-import type { Expansion as ExpansionCategory } from '~parts/types/base/category'
-import type { Expansion as ExpansionClass } from '~parts/types/base/classification'
-import type { NoneManufacture } from '~parts/types/base/manufacture'
-import type { ACParts } from '~parts/types/base/types'
+import type { Expansion as ExpansionCategory } from '#parts/types/base/category'
+import type { Expansion as ExpansionClass } from '#parts/types/base/classification'
+import type { NoneManufacture } from '#parts/types/base/manufacture'
+import type { ACParts } from '#parts/types/base/types'
 
 import type { AsAttackUnit, WithBlast } from '../unit/types'
 

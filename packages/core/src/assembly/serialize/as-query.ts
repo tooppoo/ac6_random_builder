@@ -1,9 +1,9 @@
 import {
-  Assembly,
-  AssemblyKey,
+  type Assembly,
+  type AssemblyKey,
   createAssembly,
-  RawAssembly,
-} from '~core/assembly/assembly'
+  type RawAssembly,
+} from '#core/assembly/assembly'
 
 import {
   armNotEquipped,

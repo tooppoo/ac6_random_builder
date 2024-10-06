@@ -1,6 +1,11 @@
 <script lang="ts">
-  import { Modal, ModalBody, ModalFooter, ModalHeader } from "@sveltestrap/sveltestrap";
-  import {createEventDispatcher} from "svelte";
+  import {
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+  } from '@sveltestrap/sveltestrap'
+  import { createEventDispatcher } from 'svelte'
 
   export let id: string
   export let open: boolean
@@ -17,7 +22,7 @@
 </script>
 
 <Modal
-  id={id}
+  {id}
   backdrop="static"
   keyboard={false}
   aria-labelledby={labelId}
@@ -28,7 +33,12 @@
     <h1 class="modal-title fs-5" id={labelId}>
       <slot name="title"></slot>
     </h1>
-    <button type="button" class="btn-close" on:click={onClose} aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close"
+      on:click={onClose}
+      aria-label="Close"
+    ></button>
   </ModalHeader>
   <ModalBody>
     <slot></slot>

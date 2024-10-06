@@ -1,20 +1,28 @@
 <script lang="ts" context="module">
-  import type {AssemblyKey} from "@ac6_assemble_tool/core/assembly/assembly";
-  import type {LockedParts} from "@ac6_assemble_tool/core/assembly/random/lock";
-  import type {ACParts} from "@ac6_assemble_tool/parts/types/base/types";
+  import type { AssemblyKey } from '@ac6_assemble_tool/core/assembly/assembly'
+  import type { LockedParts } from '@ac6_assemble_tool/core/assembly/random/lock'
+  import type { ACParts } from '@ac6_assemble_tool/parts/types/base/types'
 
-  export type ChangePartsEvent = Readonly<{ id: AssemblyKey, selected: ACParts }>
-  export type ToggleLockEvent = Readonly<{ id: AssemblyKey, value: boolean }>
+  export type ChangePartsEvent = Readonly<{
+    id: AssemblyKey
+    selected: ACParts
+  }>
+  export type ToggleLockEvent = Readonly<{ id: AssemblyKey; value: boolean }>
   export type ToggleFilterEvent = Readonly<{ id: AssemblyKey }>
 </script>
-<script lang="ts">
-  import i18n from "$lib/i18n/define";
-  import FilterBadge from "$lib/view/index/form/status/badge/FilterBadge.svelte";
-  import LockBadge from "$lib/view/index/form/status/badge/LockBadge.svelte";
-  import StatusBadgeList from "$lib/view/index/form/status/StatusBadgeList.svelte";
-  import {anyFilterContain, anyFilterEnabled, type FilterState} from "$lib/view/index/interaction/filter";
 
-  import {createEventDispatcher} from "svelte";
+<script lang="ts">
+  import i18n from '$lib/i18n/define'
+  import FilterBadge from '$lib/view/index/form/status/badge/FilterBadge.svelte'
+  import LockBadge from '$lib/view/index/form/status/badge/LockBadge.svelte'
+  import StatusBadgeList from '$lib/view/index/form/status/StatusBadgeList.svelte'
+  import {
+    anyFilterContain,
+    anyFilterEnabled,
+    type FilterState,
+  } from '$lib/view/index/interaction/filter'
+
+  import { createEventDispatcher } from 'svelte'
 
   export let id: AssemblyKey
   export let caption: string
@@ -25,7 +33,7 @@
   export let filter: FilterState
 
   $: {
-    if (!parts.find(p => p.name === selected.name)) {
+    if (!parts.find((p) => p.name === selected.name)) {
       dispatch('change', { id, selected: parts[0] })
     }
   }
@@ -45,11 +53,10 @@
 
   // setup
   const dispatch = createEventDispatcher<{
-    change: ChangePartsEvent,
-    'toggle-lock': ToggleLockEvent,
-    'toggle-filter': ToggleFilterEvent,
+    change: ChangePartsEvent
+    'toggle-lock': ToggleLockEvent
+    'toggle-filter': ToggleFilterEvent
   }>()
-
 </script>
 
 <svelte:element this={tag} class={($$props.class || '') + ' container'}>

@@ -6,7 +6,7 @@ export default tsConfig(
     ...importRules({
       pathGroups: [
         {
-          pattern: '~parts/**',
+          pattern: '#parts/**',
           group: 'builtin',
           position: 'before',
         },

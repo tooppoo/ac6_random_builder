@@ -1,11 +1,11 @@
-import { filterByKeywords } from '~core/assembly/store/filter'
-import type { StoredAssemblyAggregation } from '~core/assembly/store/stored-assembly'
+import { filterByKeywords } from '#core/assembly/store/filter'
+import type { StoredAssemblyAggregation } from '#core/assembly/store/stored-assembly'
 
 import { it } from '@fast-check/vitest'
 import fc from 'fast-check'
 import { describe, expect } from 'vitest'
 
-import { genAssembly } from '~spec-helper/property-generator'
+import { genAssembly } from '#spec-helper/property-generator'
 
 describe('filter for stored assembly', () => {
   describe(filterByKeywords.name, () => {

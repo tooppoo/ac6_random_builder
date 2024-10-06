@@ -1,7 +1,6 @@
 <script lang="ts">
-
   import IconButton from '$lib/components/button/IconButton.svelte'
-  import i18n from "$lib/i18n/define";
+  import i18n from '$lib/i18n/define'
   import type { ReadonlyReportAggregation } from '$lib/view/index/report/model/report'
   import ReportItem from '$lib/view/index/report/ReportItem.svelte'
 
@@ -20,19 +19,19 @@
   }>()
 </script>
 
-  <div class="d-flex justify-content-end">
-    <IconButton
-      id="edit-report"
-      class="bi bi-pencil-square fs-2 me-3"
-      title={$i18n.t('command.report.edit', { ns: 'page/index' })}
-      clickable={true}
-      on:click={onEdit}
-    />
-  </div>
-  <hr>
+<div class="d-flex justify-content-end">
+  <IconButton
+    id="edit-report"
+    class="bi bi-pencil-square fs-2 me-3"
+    title={$i18n.t('command.report.edit', { ns: 'page/index' })}
+    clickable={true}
+    on:click={onEdit}
+  />
+</div>
+<hr />
 {#each reportAggregation.blocks as block, i}
-  {#if (i !== 0)}
-    <hr>
+  {#if i !== 0}
+    <hr />
   {/if}
   <div>
     <div class="row mb-3">

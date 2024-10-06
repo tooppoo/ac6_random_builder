@@ -1,8 +1,8 @@
 import type {
   FilterApplyContext,
   PartsFilter,
-} from '~core/assembly/filter/base'
-import type { FilterType } from '~core/assembly/filter/filter-type'
+} from '#core/assembly/filter/base'
+import type { FilterType } from '#core/assembly/filter/filter-type'
 
 import type { Candidates } from '@ac6_assemble_tool/parts/types/candidates'
 

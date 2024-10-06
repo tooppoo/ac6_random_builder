@@ -1,6 +1,6 @@
 import 'i18next'
 import type { jaAssembly } from './locales/ja/assembly'
-import { jaAttackType } from './locales/ja/attackType'
+import type { jaAttackType } from './locales/ja/attackType'
 import type { jaError } from './locales/ja/error'
 import type { jaFilter } from './locales/ja/filter'
 import type { jaLock } from './locales/ja/lock'

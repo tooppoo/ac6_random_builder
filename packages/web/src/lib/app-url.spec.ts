@@ -17,7 +17,7 @@ describe('app-url', () => {
       'start with application base path',
       (paths) => {
         expect(appUrl(...paths)).toMatch(
-          /^https:\/\/tooppoo.github.io\/ac6_assemble_tool\//,
+          /^https:\/\/tooppoo\.github\.io\/ac6_assemble_tool\//,
         )
       },
     )

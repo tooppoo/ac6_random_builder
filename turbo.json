@@ -10,7 +10,7 @@
       "cache": false
     },
     "build": {
-      "outputs": ["dist/**", "analyze.html"],
+      "outputs": ["dist/**", "analyze.html", ".svelte-kit/"],
       "dependsOn": ["^build"],
       "env": ["ANALYZE_MODE", "NODE_ENV"]
     },

@@ -1,3 +1,10 @@
-export const domain = 'https://tooppoo.github.io'
-export const basePath = 'ac6_assemble_tool'
-export const baseUrl = `${domain}/${basePath}`
+const protocol = 'https://'
+const domain = 'tooppoo.github.io'
+const basePath = 'ac6_assemble_tool'
+
+export function appPath(...paths: string[]): string {
+  return (
+    protocol +
+    [domain, basePath, '/', ...paths].join('/').replaceAll(/\/+/g, '/')
+  )
+}

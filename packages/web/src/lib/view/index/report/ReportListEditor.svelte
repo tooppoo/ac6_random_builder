@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import {
+  import type {
     ReportAggregation,
     Report,
   } from '$lib/view/index/report/model/report'

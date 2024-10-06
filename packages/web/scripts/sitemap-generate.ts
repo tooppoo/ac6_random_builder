@@ -1,8 +1,8 @@
 import { createSitemap } from 'svelte-sitemap/src'
 
-import { appPath } from '../src/lib/app-url'
+import { appUrl } from '../src/lib/app-url'
 
-createSitemap(appPath(), {
+createSitemap(appUrl(), {
   outDir: 'dist',
   changeFreq: 'weekly',
   resetTime: true,

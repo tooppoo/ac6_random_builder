@@ -1,14 +1,14 @@
-import { appPath } from '$lib/app-url'
+import { appUrl, publicPath } from '$lib/app-url'
 
 import { it as fcit, fc } from '@fast-check/vitest'
 import { describe, expect } from 'vitest'
 
 describe('app-url', () => {
-  describe(appPath.name, () => {
+  describe(appUrl.name, () => {
     fcit.prop([fc.array(fc.webPath())])(
       'not contain repeated slash except for protocol',
       (paths) => {
-        const urlWithoutProtocol = appPath(...paths).replace(/^https:\/\//, '')
+        const urlWithoutProtocol = appUrl(...paths).replace(/^https:\/\//, '')
 
         expect(urlWithoutProtocol).not.toMatch(/\/\/+/)
       },
@@ -16,10 +16,22 @@ describe('app-url', () => {
     fcit.prop([fc.array(fc.webPath())])(
       'start with application base path',
       (paths) => {
-        expect(appPath(...paths)).toMatch(
+        expect(appUrl(...paths)).toMatch(
           /^https:\/\/tooppoo.github.io\/ac6_assemble_tool\//,
         )
       },
     )
+  })
+
+  describe(publicPath.name, () => {
+    fcit.prop([fc.array(fc.webPath())])(
+      'not contain repeated slash except for protocol',
+      (paths) => {
+        expect(publicPath(...paths)).not.toMatch(/\/\/+/)
+      },
+    )
+    fcit.prop([fc.array(fc.webPath())])('start from base path', (paths) => {
+      expect(publicPath(...paths)).toMatch(/^\/ac6_assemble_tool\//)
+    })
   })
 })

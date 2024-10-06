@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { baseUrl } from '$lib/app-url'
+  import { appPath } from '$lib/app-url'
   import Index from '$lib/view/index/Index.svelte'
 
   import { type PageData } from './+page'
@@ -9,8 +9,8 @@
 
 <svelte:head>
   <!-- url -->
-  <link rel="canonical" href={baseUrl} />
-  <meta property="og:url" content={baseUrl} />
+  <link rel="canonical" href={appPath()} />
+  <meta property="og:url" content={appPath()} />
 
   <!-- title -->
   <title>AC6 ASSEMBLE TOOL(UNOFFICIAL) | ARMORED CORE Ⅵ FIRES OF RUBICON</title>

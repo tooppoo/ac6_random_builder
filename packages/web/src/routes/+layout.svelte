@@ -1,6 +1,6 @@
 <script lang="ts">
   import './app.scss'
-  import { domain, basePath } from '$lib/app-url'
+  import { appPath } from '$lib/app-url'
   import i18n from '$lib/i18n/define'
   import { extractChars } from '$lib/i18n/extract-chars'
   import { resources } from '$lib/i18n/resources'
@@ -19,38 +19,38 @@
   <!-- OGP -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="AC6 ASSEMBLE TOOL" />
-  <meta property="og:image" content={`${domain}/ogp/ac6_assembly_tool.png`} />
+  <meta property="og:image" content={appPath('/ogp/ac6_assembly_tool.png')} />
   <meta property="og:locale" content="ja_JP" />
 
   <meta name="twitter:card" content="summary" />
   <!-- End OGP -->
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/{basePath}/favicon/favicon.ico" />
+  <link rel="icon" type="image/png" href={appPath('/favicon/favicon.ico')} />
   <link
     rel="icon"
     type="image/png"
-    href="/{basePath}/favicon/favicon-16x16.png"
+    href={appPath('/favicon/favicon-16x16.png')}
   />
   <link
     rel="icon"
     type="image/png"
-    href="/{basePath}/favicon/favicon-32x32.png"
+    href={appPath('/favicon/favicon-32x32.png')}
   />
   <link
     rel="icon"
     type="image/png"
-    href="/{basePath}/favicon/apple-touch-icon.png"
+    href={appPath('/favicon/apple-touch-icon.png')}
   />
   <link
     rel="icon"
     type="image/png"
-    href="/{basePath}/favicon/android-chrome-192x192.png"
+    href={appPath('/favicon/android-chrome-192x192.png')}
   />
   <link
     rel="icon"
     type="image/png"
-    href="/{basePath}/favicon/android-chrome-512x512.png"
+    href={appPath('/favicon/android-chrome-512x512.png')}
   />
   <!-- End Favicon -->
 

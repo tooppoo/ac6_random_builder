@@ -3,18 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    "./*": {
-      "import": {
-        "types": "./src/*.ts",
-        "default": "./dist/src/*.js"
-      }
-    },
-    "./spec-helper/*": {
-      "import": {
-        "types": "./spec-helper/*.ts",
-        "default": "./dist/spec-helper/*.js"
-      }
-    }
+    "./*": "./src/*.ts",
+    "./spec-helper/*": "./spec-helper/*.ts"
   },
   "imports": {
     "#core/*": "./src/*.ts",
@@ -22,8 +12,8 @@
     "#spec-helper/*": "./spec-helper/*.ts"
   },
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
+    "tsc": "tsc",
+    "tsc:watch": "tsc -w",
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",

@@ -6,7 +6,6 @@
     "dev": "vite dev",
     "build": "vite build",
     "postbuild": "npm run sitemap && npm run purgecss",
-    "prepreview": "npm run build",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",

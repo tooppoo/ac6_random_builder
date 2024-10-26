@@ -1,5 +1,10 @@
 <script lang="ts">
   import { appUrl } from '$lib/app-url'
+  import Parts from '$lib/view/parts/Parts.svelte'
+
+  import { type PageData } from './+page'
+
+  export let data: PageData
 
   const title = 'AC6 PARTS LIST(UNOFFICIAL) | ARMORED CORE Ⅵ FIRES OF RUBICON'
   const description = `
@@ -22,6 +27,4 @@ ARMORED CORE Ⅵ FIRES OF RUBICON 用 非公式パーツ一覧ツール。
   <meta property="og:description" content={description} />
 </svelte:head>
 
-<div>
-  <h1>TEST</h1>
-</div>
+<Parts regulation={data.regulation} />

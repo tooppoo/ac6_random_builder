@@ -1,12 +1,15 @@
-import type { Candidates } from '#parts/types/candidates'
+import type { CandidatesDefinition } from '#parts/types/candidates'
 
-type Part = keyof Candidates
+type Part = keyof CandidatesDefinition
 type PatchFunction<P extends Part> = (
-  p: Partial<Candidates[P][number]>,
-) => Partial<Candidates[P][number]>
-type Patch = (base: Candidates) => Candidates
+  p: Partial<CandidatesDefinition[P][number]>,
+) => Partial<CandidatesDefinition[P][number]>
+type Patch = (base: CandidatesDefinition) => CandidatesDefinition
 
-export function apply(base: Candidates, patches: readonly Patch[]): Candidates {
+export function apply(
+  base: CandidatesDefinition,
+  patches: readonly Patch[],
+): CandidatesDefinition {
   return patches.reduce((acc, p) => p(acc), base)
 }
 
@@ -47,11 +50,13 @@ const defineUpdate: DefineUpdatePatch =
   }
 
 type DefineAddPatch = <P extends Part>(key: P) => AddPatch<P>
-type AddPatch<P extends Part> = (newItem: Candidates[P][number]) => Patch
+type AddPatch<P extends Part> = (
+  newItem: CandidatesDefinition[P][number],
+) => Patch
 const defineAdd: DefineAddPatch =
   <P extends Part>(key: P) =>
-  (newItem: Candidates[P][number]) =>
-  (base: Candidates): Candidates => {
+  (newItem: CandidatesDefinition[P][number]) =>
+  (base: CandidatesDefinition): CandidatesDefinition => {
     return {
       ...base,
       [key]: base[key].concat([newItem]),
@@ -68,10 +73,10 @@ const setupPatch = <P extends Part>(key: P): PatchSet<P> => ({
 })
 
 type Patches = Readonly<{
-  rightArmUnit: PatchSet<'rightArmUnit'>
-  leftArmUnit: PatchSet<'leftArmUnit'>
-  rightBackUnit: PatchSet<'rightBackUnit'>
-  leftBackUnit: PatchSet<'leftBackUnit'>
+  armUnits: PatchSet<'armUnits'>
+  onlyLeftArmUnits: PatchSet<'onlyLeftArmUnits'>
+  backUnits: PatchSet<'backUnits'>
+  onlyLeftBackUnits: PatchSet<'onlyLeftBackUnits'>
 
   head: PatchSet<'head'>
   arms: PatchSet<'arms'>
@@ -85,10 +90,10 @@ type Patches = Readonly<{
   expansion: PatchSet<'expansion'>
 }>
 export const patches: Patches = {
-  rightArmUnit: setupPatch('rightArmUnit'),
-  leftArmUnit: setupPatch('leftArmUnit'),
-  rightBackUnit: setupPatch('rightBackUnit'),
-  leftBackUnit: setupPatch('leftBackUnit'),
+  armUnits: setupPatch('armUnits'),
+  onlyLeftArmUnits: setupPatch('onlyLeftArmUnits'),
+  backUnits: setupPatch('backUnits'),
+  onlyLeftBackUnits: setupPatch('onlyLeftBackUnits'),
 
   head: setupPatch('head'),
   arms: setupPatch('arms'),

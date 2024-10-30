@@ -8,11 +8,14 @@ import type { FCS } from '#parts/fces'
 import type { Generator } from '#parts/generators'
 import type { Head } from '#parts/heads'
 import type { Legs } from '#parts/legs'
-import type {
-  ArmNotEquipped,
-  BackNotEquipped,
-  BoosterNotEquipped,
-  ExpansionNotEquipped,
+import {
+  armNotEquipped,
+  backNotEquipped,
+  expansionNotEquipped,
+  type ArmNotEquipped,
+  type BackNotEquipped,
+  type BoosterNotEquipped,
+  type ExpansionNotEquipped,
 } from '#parts/not-equipped'
 import { tank } from '#parts/types/base/category'
 import {
@@ -59,6 +62,42 @@ export function excludeNotEquipped<
   T extends { classification: Classification },
 >(xs: readonly T[]): T[] {
   return xs.filter((x) => x.classification !== notEquipped)
+}
+
+export type CandidatesDefinition = Readonly<{
+  armUnits: ReadonlyArray<ArmUnits.ArmUnit>
+  onlyLeftArmUnits: ReadonlyArray<ArmUnits.LeftArmUnit>
+  backUnits: ReadonlyArray<BackUnits.BackUnit | ArmUnits.ArmUnit>
+  onlyLeftBackUnits: ReadonlyArray<BackUnits.LeftBackUnit>
+
+  head: readonly Head[]
+  core: readonly Core[]
+  arms: readonly Arms[]
+  legs: readonly Legs[]
+
+  booster: readonly (Booster | BoosterNotEquipped)[]
+  fcs: readonly FCS[]
+  generator: readonly Generator[]
+
+  expansion: ReadonlyArray<Expansion.Expansion | ExpansionNotEquipped>
+}>
+export function defineCandidates(def: CandidatesDefinition): Candidates {
+  return {
+    ...def,
+
+    rightArmUnit: [...def.armUnits, armNotEquipped],
+    leftArmUnit: [...def.onlyLeftArmUnits, ...def.armUnits, armNotEquipped],
+    rightBackUnit: [...def.backUnits, ...def.armUnits, backNotEquipped],
+    leftBackUnit: [
+      ...def.onlyLeftBackUnits,
+      ...def.backUnits,
+      ...def.onlyLeftArmUnits,
+      ...def.armUnits,
+      backNotEquipped,
+    ],
+
+    expansion: [...def.expansion, expansionNotEquipped],
+  }
 }
 
 /**

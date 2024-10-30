@@ -8,14 +8,14 @@ import { fcses } from '#parts/fces'
 import { generators } from '#parts/generators'
 import { heads } from '#parts/heads'
 import { legs } from '#parts/legs'
-import {
-  armNotEquipped,
-  backNotEquipped,
-  boosterNotEquipped,
-  expansionNotEquipped,
-} from '#parts/not-equipped'
+import { boosterNotEquipped } from '#parts/not-equipped'
 import type { ACParts } from '#parts/types/base/types'
-import type { Candidates, Order } from '#parts/types/candidates'
+import {
+  type CandidatesDefinition,
+  defineCandidates,
+  type Candidates,
+  type Order,
+} from '#parts/types/candidates'
 
 export const version = 'v1.06.1' as const
 export type VERSION = typeof version
@@ -34,17 +34,11 @@ export { generators } from '#parts/generators'
 // EXPANSION
 export { expansions } from '#parts/expansions'
 
-export const candidates: Candidates = {
-  rightArmUnit: [...armUnits, armNotEquipped],
-  leftArmUnit: [...leftArmUnits, ...armUnits, armNotEquipped],
-  rightBackUnit: [...backUnits, ...armUnits, backNotEquipped],
-  leftBackUnit: [
-    ...leftBackUnits,
-    ...backUnits,
-    ...leftArmUnits,
-    ...armUnits,
-    backNotEquipped,
-  ],
+export const definition: CandidatesDefinition = {
+  armUnits: armUnits,
+  onlyLeftArmUnits: leftArmUnits,
+  backUnits: backUnits,
+  onlyLeftBackUnits: leftBackUnits,
 
   head: heads,
   core: cores,
@@ -55,8 +49,9 @@ export const candidates: Candidates = {
   fcs: fcses,
   generator: generators,
 
-  expansion: [...expansions, expansionNotEquipped],
-} as const
+  expansion: expansions,
+}
+export const candidates: Candidates = defineCandidates(definition)
 
 const toName = <T extends ACParts>(xs: readonly T[]): readonly T['name'][] =>
   xs.map((x) => x.name)

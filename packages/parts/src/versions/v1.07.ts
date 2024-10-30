@@ -1,231 +1,141 @@
-import type { Order } from '#parts/types/candidates'
+import {
+  defineCandidates,
+  type Candidates,
+  type Order,
+} from '#parts/types/candidates'
 import { apply, patches } from '#parts/versions/patches'
 
-import { candidates as v1_06_1, orders as order_v1_06_1 } from './v1.06.1'
+import { definition as v1_06_1, orders as order_v1_06_1 } from './v1.06.1'
 
 export const version = 'v1.07' as const
 export type VERSION = typeof version
 
-export const candidates = apply(v1_06_1, [
+export const definition = apply(v1_06_1, [
   // Melee
-  patches.leftArmUnit.update('Vvc-770LB', () => ({
+  patches.onlyLeftArmUnits.update('Vvc-770LB', () => ({
     charge_attack_power: 1450 * 2,
     charge_accumulative_impact: 360 * 2,
     cooling: 402,
   })),
-  patches.leftArmUnit.update('VE-67LLA', () => ({
+  patches.onlyLeftArmUnits.update('VE-67LLA', () => ({
     charge_impact: 1870,
     charge_accumulative_impact: 960,
     pa_interference: 138,
   })),
-  patches.leftArmUnit.update('44-143 HMMR', () => ({
+  patches.onlyLeftArmUnits.update('44-143 HMMR', () => ({
     attack_power: 1208,
     impact: 690,
     accumulative_impact: 440,
   })),
-  patches.leftArmUnit.update('IB-C03W2: WLT 101', () => ({
+  patches.onlyLeftArmUnits.update('IB-C03W2: WLT 101', () => ({
     attack_power: 1460,
     cooling: 231,
     en_load: 578,
   })),
 
-  // FIXME: 部位ではなくパーツ単位でパッチを当てる
   // Arm Units
-  patches.rightArmUnit.update('LR-036 CURTIS', () => ({
+  patches.armUnits.update('LR-036 CURTIS', () => ({
     recoil: 19,
   })),
-  patches.leftArmUnit.update('LR-036 CURTIS', () => ({
-    recoil: 19,
-  })),
-  patches.rightArmUnit.update('MG-014 LUDLOW', () => ({
+  patches.armUnits.update('MG-014 LUDLOW', () => ({
     // mask data only
   })),
-  patches.leftArmUnit.update('MG-014 LUDLOW', () => ({
-    // mask data only
-  })),
-  patches.rightArmUnit.update('DF-MG-02 CHANG-CHEN', () => ({
+  patches.armUnits.update('DF-MG-02 CHANG-CHEN', () => ({
     recoil: 5,
   })),
-  patches.leftArmUnit.update('DF-MG-02 CHANG-CHEN', () => ({
-    recoil: 5,
-  })),
-  patches.rightArmUnit.update('MA-E-210 ETSUJIN', () => ({
+  patches.armUnits.update('MA-E-210 ETSUJIN', () => ({
     attack_power: 48 * 4,
     impact: 44 * 4,
     accumulative_impact: 20 * 4,
   })),
-  patches.leftArmUnit.update('MA-E-210 ETSUJIN', () => ({
-    attack_power: 48 * 4,
-    impact: 44 * 4,
-    accumulative_impact: 20 * 4,
-  })),
-  patches.rightArmUnit.update('HG-004 DUCKETT', () => ({
+  patches.armUnits.update('HG-004 DUCKETT', () => ({
     attack_power: 272,
     impact: 315,
     accumulative_impact: 160,
     magazine_rounds: 8,
     total_rounds: 208,
   })),
-  patches.leftArmUnit.update('HG-004 DUCKETT', () => ({
-    attack_power: 272,
-    impact: 315,
-    accumulative_impact: 160,
-    magazine_rounds: 8,
-    total_rounds: 208,
-  })),
-  patches.rightArmUnit.update('LITTLE GEM', () => ({
+  patches.armUnits.update('LITTLE GEM', () => ({
     weight: 2940,
     en_load: 169,
   })),
-  patches.leftArmUnit.update('LITTLE GEM', () => ({
-    weight: 2940,
-    en_load: 169,
-  })),
-  patches.rightArmUnit.update('44-141 JVLN ALPHA', () => ({
+  patches.armUnits.update('44-141 JVLN ALPHA', () => ({
     weight: 5920,
   })),
-  patches.leftArmUnit.update('44-141 JVLN ALPHA', () => ({
-    weight: 5920,
-  })),
-  patches.rightArmUnit.update('DIZZY', () => ({
+  patches.armUnits.update('DIZZY', () => ({
     reload_time: 6.3,
     weight: 5590,
   })),
-  patches.leftArmUnit.update('DIZZY', () => ({
-    reload_time: 6.3,
-    weight: 5590,
-  })),
-  patches.rightArmUnit.update('IRIDIUM', () => ({
+  patches.armUnits.update('IRIDIUM', () => ({
     reload_time: 3.8,
   })),
-  patches.leftArmUnit.update('IRIDIUM', () => ({
-    reload_time: 3.8,
-  })),
-  patches.rightArmUnit.update('WS-1200 THERAPIST', () => ({
+  patches.armUnits.update('WS-1200 THERAPIST', () => ({
     reload_time: 2.5,
   })),
-  patches.leftArmUnit.update('WS-1200 THERAPIST', () => ({
-    reload_time: 2.5,
-  })),
-  patches.rightArmUnit.update('WB-0000 BAD COOK', () => ({
+  patches.armUnits.update('WB-0000 BAD COOK', () => ({
     weight: 5370,
   })),
-  patches.leftArmUnit.update('WB-0000 BAD COOK', () => ({
-    weight: 5370,
-  })),
-  patches.rightArmUnit.update('VP-66LR', () => ({
+  patches.armUnits.update('VP-66LR', () => ({
     attack_power: 261,
     impact: 135,
     accumulative_impact: 59,
   })),
-  patches.leftArmUnit.update('VP-66LR', () => ({
-    attack_power: 261,
-    impact: 135,
-    accumulative_impact: 59,
-  })),
-  patches.rightArmUnit.update('VP-66LS', () => ({
+  patches.armUnits.update('VP-66LS', () => ({
     charge_accumulative_impact: 488,
     charge_time: 0.7,
     cooling: 263,
   })),
-  patches.leftArmUnit.update('VP-66LS', () => ({
-    charge_accumulative_impact: 488,
-    charge_time: 0.7,
-    cooling: 263,
-  })),
-  patches.rightArmUnit.update('VP-66LH', () => ({
+  patches.armUnits.update('VP-66LH', () => ({
     // mask data only
   })),
-  patches.leftArmUnit.update('VP-66LH', () => ({
+  patches.armUnits.update('Vvc-760PR', () => ({
     // mask data only
   })),
-  patches.rightArmUnit.update('Vvc-760PR', () => ({
-    // mask data only
-  })),
-  patches.leftArmUnit.update('Vvc-760PR', () => ({
-    // mask data only
-  })),
-  patches.rightArmUnit.update('IB-C03W1: WLT 011', () => ({
+  patches.armUnits.update('IB-C03W1: WLT 011', () => ({
     heat_buildup: 180,
   })),
-  patches.leftArmUnit.update('IB-C03W1: WLT 011', () => ({
-    heat_buildup: 180,
-  })),
-  patches.rightArmUnit.update('44-142 KRSV', () => ({
-    impact: 144,
-    accumulative_impact: 100,
-    heat_buildup: 105,
-    cooling: 177,
-  })),
-  patches.leftArmUnit.update('44-142 KRSV', () => ({
+  patches.armUnits.update('44-142 KRSV', () => ({
     impact: 144,
     accumulative_impact: 100,
     heat_buildup: 105,
     cooling: 177,
   })),
   // shield
-  patches.leftBackUnit.update('VP-61PS', () => ({
+  patches.onlyLeftBackUnits.update('VP-61PS', () => ({
     deploy_heat_buildup: 205,
   })),
-  patches.leftBackUnit.update('VP-61PB', () => ({
+  patches.onlyLeftBackUnits.update('VP-61PB', () => ({
     ig_duration: 0.4,
     deploy_heat_buildup: 205,
   })),
-  patches.leftBackUnit.update('SI-29: SU-TT/C', () => ({
+  patches.onlyLeftBackUnits.update('SI-29: SU-TT/C', () => ({
     deploy_heat_buildup: 480,
   })),
   // back units
-  patches.rightBackUnit.update('DF-GA-09 SHAO-WEI', () => ({
+  patches.backUnits.update('DF-GA-09 SHAO-WEI', () => ({
     heat_buildup: 37,
     recoil: 3,
   })),
-  patches.leftBackUnit.update('DF-GA-09 SHAO-WEI', () => ({
-    heat_buildup: 37,
-    recoil: 3,
-  })),
-  patches.rightBackUnit.update('SB-033M MORLEY', () => ({
+  patches.backUnits.update('SB-033M MORLEY', () => ({
     attack_power: 1410,
   })),
-  patches.leftBackUnit.update('SB-033M MORLEY', () => ({
-    attack_power: 1410,
-  })),
-  patches.rightBackUnit.update('BML-G2/P19SPL-12', () => ({
+  patches.backUnits.update('BML-G2/P19SPL-12', () => ({
     homing_lock_time: 1.0,
   })),
-  patches.leftBackUnit.update('BML-G2/P19SPL-12', () => ({
-    homing_lock_time: 1.0,
-  })),
-  patches.rightBackUnit.update('BML-G2/P16SPL-08', () => ({
+  patches.backUnits.update('BML-G2/P16SPL-08', () => ({
     homing_lock_time: 0.8,
   })),
-  patches.leftBackUnit.update('BML-G2/P16SPL-08', () => ({
-    homing_lock_time: 0.8,
-  })),
-  patches.rightBackUnit.update('BML-G2/P17SPL-16', () => ({
+  patches.backUnits.update('BML-G2/P17SPL-16', () => ({
     homing_lock_time: 1.4,
   })),
-  patches.leftBackUnit.update('BML-G2/P17SPL-16', () => ({
-    homing_lock_time: 1.4,
-  })),
-  patches.rightBackUnit.update('BML-G1/P31DUO-02', () => ({
+  patches.backUnits.update('BML-G1/P31DUO-02', () => ({
     homing_lock_time: 0.3,
     reload_time: 2.8,
   })),
-  patches.leftBackUnit.update('BML-G1/P31DUO-02', () => ({
-    homing_lock_time: 0.3,
-    reload_time: 2.8,
-  })),
-  patches.rightBackUnit.update('BML-G1/P32DUO-03', () => ({
+  patches.backUnits.update('BML-G1/P32DUO-03', () => ({
     reload_time: 3.5,
   })),
-  patches.leftBackUnit.update('BML-G1/P32DUO-03', () => ({
-    reload_time: 3.5,
-  })),
-  patches.rightBackUnit.update('BML-G3/P04ACT-01', () => ({
-    homing_lock_time: 1.7,
-    weight: 2270,
-  })),
-  patches.leftBackUnit.update('BML-G3/P04ACT-01', () => ({
+  patches.backUnits.update('BML-G3/P04ACT-01', () => ({
     homing_lock_time: 1.7,
     weight: 2270,
   })),
@@ -509,4 +419,5 @@ export const candidates = apply(v1_06_1, [
   })),
 ])
 
+export const candidates: Candidates = defineCandidates(definition)
 export const orders: Order = order_v1_06_1

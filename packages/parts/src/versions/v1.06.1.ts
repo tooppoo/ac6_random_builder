@@ -8,7 +8,12 @@ import { fcses } from '#parts/fces'
 import { generators } from '#parts/generators'
 import { heads } from '#parts/heads'
 import { legs } from '#parts/legs'
-import { boosterNotEquipped } from '#parts/not-equipped'
+import {
+  backNotEquipped,
+  boosterNotEquipped,
+  expansionNotEquipped,
+  armNotEquipped,
+} from '#parts/not-equipped'
 import type { ACParts } from '#parts/types/base/types'
 import {
   type CandidatesDefinition,
@@ -56,10 +61,24 @@ export const candidates: Candidates = defineCandidates(definition)
 const toName = <T extends ACParts>(xs: readonly T[]): readonly T['name'][] =>
   xs.map((x) => x.name)
 export const orders: Order = {
-  rightArmUnit: toName(candidates.rightArmUnit),
-  leftArmUnit: toName(candidates.leftArmUnit),
-  rightBackUnit: toName(candidates.rightBackUnit),
-  leftBackUnit: toName(candidates.leftBackUnit),
+  rightArmUnit: toName([armNotEquipped, ...definition.armUnits]),
+  leftArmUnit: toName([
+    armNotEquipped,
+    ...definition.onlyLeftArmUnits,
+    ...definition.armUnits,
+  ]),
+  rightBackUnit: toName([
+    backNotEquipped,
+    ...definition.backUnits,
+    ...definition.armUnits,
+  ]),
+  leftBackUnit: toName([
+    backNotEquipped,
+    ...definition.onlyLeftBackUnits,
+    ...definition.backUnits,
+    ...definition.onlyLeftArmUnits,
+    ...definition.armUnits,
+  ]),
 
   head: toName(candidates.head),
   core: toName(candidates.core),
@@ -70,5 +89,5 @@ export const orders: Order = {
   fcs: toName(candidates.fcs),
   generator: toName(candidates.generator),
 
-  expansion: toName(candidates.expansion),
+  expansion: toName([expansionNotEquipped, ...definition.expansion]),
 }

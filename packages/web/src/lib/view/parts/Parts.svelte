@@ -3,6 +3,8 @@
 
   import type { Regulation } from '@ac6_assemble_tool/parts/versions/regulation.types'
 
+  import PartsTable from './table/PartsTable.svelte'
+
   export let regulation: Regulation
 </script>
 
@@ -18,3 +20,13 @@
     <LanguageForm />
   </div>
 </header>
+
+<article class="container text-center px-3">
+  <div>
+    <PartsTable
+      title="ARM UNITS"
+      key="leftArmUnit"
+      candidates={regulation.candidates}
+    />
+  </div>
+</article>

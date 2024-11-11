@@ -10,7 +10,7 @@ services:
     volumes:
       - ../..:/app
   ngrok:
-    image: ngrok/ngrok:latest@sha256:41a781bbe135eb66092de07e23bea8ba64ca1c777ecf7854bcde2ae7247e66a1
+    image: ngrok/ngrok:latest@sha256:ac6d024274aa377e5f745018ba5572a82be48cb25fcb8404cdb2961e9f1cbd12
     command: 'start --all --config /etc/ngrok.yml'
     ports:
       - '4040:4040'

@@ -1,4 +1,4 @@
-FROM node:22.11.0-slim@sha256:93b907ca4e433a47bc8ae635accd35f376a031db18d9494c10aaf90db19ebfb8
+FROM node:22.11.0-slim@sha256:6a81ed4d692aeec5d74bfc764df45fca6ce0477a6a6b63905db039dff325bcee
 
 WORKDIR /app
 

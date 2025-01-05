@@ -38,7 +38,7 @@
     "prettier-plugin-svelte": "3.3.2",
     "sass-embedded": "1.83.1",
     "svelte-check": "4.1.1",
-    "svelte-sitemap": "2.6.0",
+    "svelte-sitemap": "2.7.0",
     "vite-bundle-analyzer": "0.13.0"
   },
   "dependencies": {
